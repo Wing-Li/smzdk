@@ -1,9 +1,28 @@
 apply plugin: 'com.android.application'
 
+//加载资源
+Properties properties = new Properties()
+InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
+properties.load(inputStream)
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
 
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
+
+    // 签名文件
+    signingConfigs {
+        config {
+//            keyAlias 'foryou'
+//            keyPassword properties.getProperty('keyPassword')
+//            storeFile file('../lyl.jks')
+//            storePassword properties.getProperty('keyPassword')
+        }
+    }
 
     defaultConfig {
         applicationId "com.lyl.smzdk"
@@ -13,18 +32,48 @@ android {
         versionName "1.0"
     }
 
+    // 多渠道打包
+   productFlavors {
+//        dev {}
+//        prod {}
+       Smzdk{}
+    }
+
     buildTypes {
+        debug{
+            buildConfigField "String", "Environment", '"dev"'
+//            buildConfigField "String", "BuglyAppId", properties.getProperty('BuglyAppId')
+//            manifestPlaceholders = [GAODE_KEY: properties.getProperty('gaodeKey')]
+
+        }
         release {
+            buildConfigField "String", "Environment", '"prod"'
+//            buildConfigField "String", "BuglyAppId", properties.getProperty('BuglyAppId')
+//            manifestPlaceholders = [GAODE_KEY: properties.getProperty('gaodeKey')]
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 批量打包
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        //输出apk名称为AppName_Time_versionName.apk
+                        def fileName = "${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile 'com.jakewharton:butterknife:8.7.0'
     //数据抓取
     compile 'org.jsoup:jsoup:1.10.2'
