@@ -5,7 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lyl.smzdk.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.lyl.smzdk.ui.MainActivity">
+
+    <com.lyl.smzdk.view.ActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="wrap_content"

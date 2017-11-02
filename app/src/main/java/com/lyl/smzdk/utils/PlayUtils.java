@@ -61,7 +61,7 @@ public class PlayUtils {
             }
 
             // 判断是不是支付宝，保存相应二维码到本地
-            int resPlay = isAlipay ? R.mipmap.play_alipay : R.mipmap.play_weixin;
+            int resPlay = isAlipay ? R.drawable.play_alipay : R.drawable.play_weixin;
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resPlay);
             fos = new FileOutputStream(filePath);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fos);
