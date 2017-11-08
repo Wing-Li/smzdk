@@ -4,16 +4,16 @@
         id="@+id/tab_news"
         title="资讯"
         icon="@drawable/ic_description_black_24dp"
-        barColorWhenSelected="#1ec0ff"
+        barColorWhenSelected="#1AB0FF"
         />
     <tab
         id="@+id/tab_video"
         title="视频"
         icon="@drawable/ic_video_library_black_24dp"
-        barColorWhenSelected="#0077FF"
+        barColorWhenSelected="#fcbe32"
         />
     <tab
-        id="@+id/tab_link"
+        id="@+id/tab_search"
         title="搜索"
         icon="@drawable/ic_link_black_24dp"
         barColorWhenSelected="#008c9e"
@@ -22,7 +22,7 @@
         id="@+id/tab_shop"
         title="好物"
         icon="@drawable/ic_shopping_cart_black_24dp"
-        barColorWhenSelected="#FF581B"
+        barColorWhenSelected="#ff5f2e"
         />
     <tab
         id="@+id/tab_user"

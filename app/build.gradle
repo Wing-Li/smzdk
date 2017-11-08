@@ -34,14 +34,14 @@ android {
     }
 
     // 多渠道打包
-   productFlavors {
+    productFlavors {
 //        dev {}
 //        prod {}
-       Smzdk{}
+        Smzdk {}
     }
 
     buildTypes {
-        debug{
+        debug {
             buildConfigField "String", "Environment", '"dev"'
 //            buildConfigField "String", "BuglyAppId", properties.getProperty('BuglyAppId')
 //            manifestPlaceholders = [GAODE_KEY: properties.getProperty('gaodeKey')]
@@ -75,6 +75,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
+    compile 'com.jakewharton:butterknife:8.7.0'
     compile 'com.roughike:bottom-bar:2.3.1'
     //数据抓取
     compile 'org.jsoup:jsoup:1.10.2'
@@ -89,6 +90,7 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    compile 'com.android.support:support-v4:26.0.0-beta1'
 }
 repositories {
     mavenCentral()

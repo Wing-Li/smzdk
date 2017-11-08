@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+
+    <color name="main_actionbar">#1EA1E5</color>
+    <color name="video_actionbar">#DEA82E</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gary">#DADADA</color>

@@ -9,13 +9,13 @@
     tools:context="com.lyl.smzdk.ui.MainActivity">
 
     <FrameLayout
-        android:id="@+id/contentContainer"
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
+        android:id="@+id/main_bottombar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:bb_activeTabColor="#ffffff"

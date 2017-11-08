@@ -4,4 +4,7 @@
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="home">主页</string>
+
+    <string name="hello_blank_fragment">主页</string>
+    <string name="exit_app">再次点击退出</string>
 </resources>

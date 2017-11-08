@@ -20,6 +20,7 @@ public class ActionBar extends RelativeLayout {
 
     private Context context;
 
+    private RelativeLayout mLayout;
     private RelativeLayout mLeftLayout;
     private ImageView mImgLeft;
     private TextView mTxtLet;
@@ -56,6 +57,7 @@ public class ActionBar extends RelativeLayout {
     private void initView() {
         View view = LayoutInflater.from(context).inflate(R.layout.activity_actionbar, this);
 
+        mLayout = view.findViewById(R.id.actionbar_layout);
         mLeftLayout = view.findViewById(R.id.actionbar_left_layout);
         mImgLeft = view.findViewById(R.id.actionbar_img_left);
         mTxtLet = view.findViewById(R.id.actionbar_txt_left);
@@ -166,6 +168,10 @@ public class ActionBar extends RelativeLayout {
         });
     }
 
+
+    public void setBackgroundColor(int resId){
+        mLayout.setBackgroundColor(resId);
+    }
 
     public void setOkHide() {
         mTxtRight.setVisibility(View.GONE);
