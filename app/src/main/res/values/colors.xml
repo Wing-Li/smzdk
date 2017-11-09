@@ -19,6 +19,6 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gary">#DADADA</color>
-    <color name="bg_gary">#F2F2F2</color>
+    <color name="bg_gary">#F1F2F3</color>
     <color name="bg_gary_fleet">#33FDFDFD</color>
 </resources>

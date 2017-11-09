@@ -53,7 +53,7 @@ public class ImgUtils {
         Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).into(imageView);
     }
 
-    public static void load(Context context, int url, ImageView imageView) {
+    public static void load(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url).apply(baseOptions).into(imageView);
     }
 
