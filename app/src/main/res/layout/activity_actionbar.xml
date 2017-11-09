@@ -1,80 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/actionbar_layout"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/actionbar_height"
-                android:background="@color/actionbar_background">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height">
 
     <RelativeLayout
-        android:id="@+id/actionbar_left_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/actionbar_height"
-        android:paddingRight="4dp"
-        android:visibility="gone">
+        android:id="@+id/actionbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
 
-        <ImageView
-            android:id="@+id/actionbar_img_left"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+        <RelativeLayout
+            android:id="@+id/actionbar_left_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="4dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/actionbar_img_left"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/actionbar_txt_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/actionbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/actionbar_txt_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="@string/cancel"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="gone"/>
-    </RelativeLayout>
+            android:textSize="20dip"/>
 
-    <TextView
-        android:id="@+id/actionbar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="20dip"/>
-
-    <RelativeLayout
-        android:id="@+id/actionbar_right_layout"
-        android:layout_width="100dp"
-        android:layout_height="@dimen/actionbar_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:paddingLeft="4dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/actionbar_img_right"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+        <RelativeLayout
+            android:id="@+id/actionbar_right_layout"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:padding="4dp"
-            android:src="@drawable/ic_send_white_24dp"
-            android:visibility="gone"/>
+            android:paddingLeft="4dp"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/actionbar_txt_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/ok"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/actionbar_img_right"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_send_white_24dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/actionbar_txt_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="@string/ok"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
-
+</FrameLayout>

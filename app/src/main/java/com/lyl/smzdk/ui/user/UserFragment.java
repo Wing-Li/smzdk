@@ -14,7 +14,13 @@ public class UserFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_user;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setStatusBarColor(R.color.user_primary);
+    }
 }

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#008c9e</color>
+    <color name="colorPrimaryDark">#008c9e</color>
+    <color name="colorAccent">#00ABC1</color>
 
+    <color name="mian_accent">#1AB0FF</color>
+    <color name="main_primary">#1EA1E5</color>
+    <color name="video_accent">#fcbe32</color>
+    <color name="video_primary">#DEA82E</color>
+    <color name="search_accent">#00ABC1</color>
+    <color name="search_primary">#008c9e</color>
+    <color name="shop_accent">#ff5f2e</color>
+    <color name="shop_primary">#BD4622</color>
+    <color name="user_accent">#79bd9a</color>
+    <color name="user_primary">#4DBD83</color>
 
-    <color name="main_actionbar">#1EA1E5</color>
-    <color name="video_actionbar">#DEA82E</color>
-
+    <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gary">#DADADA</color>
     <color name="bg_gary">#F2F2F2</color>
     <color name="bg_gary_fleet">#33FDFDFD</color>
-
-    <color name="actionbar_background">@color/colorPrimary</color>
 </resources>

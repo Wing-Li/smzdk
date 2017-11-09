@@ -4,13 +4,13 @@
         id="@+id/tab_news"
         title="资讯"
         icon="@drawable/ic_description_black_24dp"
-        barColorWhenSelected="#1AB0FF"
+        barColorWhenSelected="@color/main_primary"
         />
     <tab
         id="@+id/tab_video"
         title="视频"
         icon="@drawable/ic_video_library_black_24dp"
-        barColorWhenSelected="#fcbe32"
+        barColorWhenSelected="@color/video_primary"
         />
     <tab
         id="@+id/tab_search"

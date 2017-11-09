@@ -10,9 +10,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
+    <!--嵌套滚动-->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/main_nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <!--轮播图-->
+            <com.youth.banner.Banner
+                android:id="@+id/mian_banner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

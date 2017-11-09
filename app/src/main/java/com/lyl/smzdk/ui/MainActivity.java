@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.news.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
@@ -34,14 +35,24 @@ public class MainActivity extends BaseActivity {
 
     private Fragment oldFragment;
 
+    /**
+     * 是否第一次进入页面。
+     * 因为，Bottombar.setOnTabSelectListener 第一次就会被执行。
+     */
+    private boolean isFristInPage = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initStatusbar();
         initMainContent();
         initBottombar();
+    }
+
+    private void initStatusbar() {
+        ImmersionBar.with(this).init();
     }
 
     private void initMainContent() {
@@ -53,41 +64,49 @@ public class MainActivity extends BaseActivity {
     //  —————————————————— ↓底部 Bar 处理↓ —————————————————————————
 
     private void initBottombar() {
-
         mainBottombar = findViewById(R.id.main_bottombar);
         mainBottombar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
+                if (isFristInPage){
+                    isFristInPage = false;
+                    return;
+                }
                 switch (tabId) {
                     case R.id.tab_news: { // 资讯
                         if (mainFragment == null) {
                             mainFragment = new MainFragment();
                         }
                         toFragment(mainFragment);
+                        break;
                     }
                     case R.id.tab_video: { // 视频
                         if (videoFragment == null) {
                             videoFragment = new VideoFragment();
                         }
                         toFragment(videoFragment);
+                        break;
                     }
                     case R.id.tab_search: { // 搜索
                         if (searchFragment == null) {
                             searchFragment = new SearchFragment();
                         }
                         toFragment(searchFragment);
+                        break;
                     }
                     case R.id.tab_shop: { // 好物
                         if (shopFragment == null) {
                             shopFragment = new ShopFragment();
                         }
                         toFragment(shopFragment);
+                        break;
                     }
                     case R.id.tab_user: { // 个人
                         if (userFragment == null) {
                             userFragment = new UserFragment();
                         }
                         toFragment(userFragment);
+                        break;
                     }
                 }
             }

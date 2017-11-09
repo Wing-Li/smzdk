@@ -1,14 +1,8 @@
 package com.lyl.smzdk.ui.video;
 
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseFragment;
-
-import static com.lyl.smzdk.R.color.video_actionbar;
 
 public class VideoFragment extends BaseFragment {
 
@@ -17,22 +11,14 @@ public class VideoFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_video;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onStart() {
         super.onStart();
-        mActionBar.setBackgroundColor(video_actionbar);
+        setStatusBarColor(R.color.video_primary);
     }
 }

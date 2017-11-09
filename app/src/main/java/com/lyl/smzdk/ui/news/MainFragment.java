@@ -1,15 +1,21 @@
 package com.lyl.smzdk.ui.news;
 
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.youth.banner.Banner;
+
+import butterknife.BindView;
 
 public class MainFragment extends BaseFragment {
 
+
+    @BindView(R.id.mian_banner)
+    Banner mianBanner;
+    @BindView(R.id.main_nestedscrollview)
+    NestedScrollView mainNestedscrollview;
 
     public MainFragment() {
         // Required empty public constructor
@@ -22,14 +28,8 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @SuppressLint("ResourceAsColor")
-    @Override
     public void onStart() {
         super.onStart();
-        mActionBar.setBackgroundColor(R.color.main_actionbar);
+        setStatusBarColor(R.color.main_primary);
     }
 }

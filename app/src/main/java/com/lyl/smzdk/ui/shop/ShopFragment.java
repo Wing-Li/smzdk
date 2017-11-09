@@ -14,7 +14,12 @@ public class ShopFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_shop;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        setStatusBarColor(R.color.shop_primary);
+    }
 }

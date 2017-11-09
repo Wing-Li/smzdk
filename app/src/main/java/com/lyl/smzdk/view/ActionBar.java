@@ -169,10 +169,6 @@ public class ActionBar extends RelativeLayout {
     }
 
 
-    public void setBackgroundColor(int resId){
-        mLayout.setBackgroundColor(resId);
-    }
-
     public void setOkHide() {
         mTxtRight.setVisibility(View.GONE);
     }
