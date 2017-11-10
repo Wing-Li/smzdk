@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.event.MainEvent;
 import com.lyl.smzdk.ui.news.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.shop.ShopFragment;
@@ -18,6 +19,8 @@ import com.lyl.smzdk.ui.video.VideoFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Author: lyl
@@ -115,6 +118,13 @@ public class MainActivity extends BaseActivity {
         mainBottombar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
+                switch (tabId){
+                    case R.id.tab_news:{
+                        // 在 MainFragment 中 刷新数据
+                        EventBus.getDefault().post(new MainEvent(1));
+                        break;
+                    }
+                }
             }
         });
     }

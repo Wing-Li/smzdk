@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.event.MainEvent;
 import com.lyl.smzdk.network.entity.NewChannel;
 import com.lyl.smzdk.network.entity.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
@@ -26,6 +27,10 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,12 +64,13 @@ public class MainFragment extends BaseFragment {
             "365挑战营与世间事联合征文 /简书那么大，我在哪里？"};//
 
 
-    private List<NewChannel> mNewChannelList;
+    private List<NewChannel> mNewChannelList = new ArrayList<>();
     private MainMenuListAdapter mMenuListAdapter;
 
-    private List<NewInfo> mNewInfoList;
+    private List<NewInfo> mNewInfoList = new ArrayList<>();
     private MainContentApadter mMainContentApadter;
 
+    private int page = 1;
 
     @Override
     protected int getLayoutResource() {
@@ -82,11 +88,10 @@ public class MainFragment extends BaseFragment {
         setContentListView();
         setBanner();
         setMenu();
-        loadMoreData();
+        loadMoreData(new MainEvent(page));
     }
 
     private void initData() {
-        mNewChannelList = new ArrayList<>();
         NewChannel channel;
         for (int i = 0; i < 8; i++) {
             channel = new NewChannel();
@@ -96,24 +101,39 @@ public class MainFragment extends BaseFragment {
         }
     }
 
-    private void loadMoreData() {
-        mNewInfoList = new ArrayList<>();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void loadMoreData(MainEvent event) {
         NewInfo newInfo;
         for (int i = 0; i < 10; i++) {
             newInfo = new NewInfo();
-            newInfo.setTitle("BRVAH是一个强大的RecyclerAdapter框架" + i);
-            newInfo.setImage("http://s.go2yd.com/b/icms7905_7i00d1d1.jpg");
-            newInfo.setIntroduce("An Amazon Kinesis 应用程序是读取和处理来自 Amazon Kinesis 数据流数据的数据使用器。您可以使用 Kinesis API 或 客户端库 " +
-                    "" + "(KCL) 构建 Amazon Kinesis 应用程序。");
+            newInfo.setTitle(event.page + "." + i + "BRVAH是一个强大的RecyclerAdapter框架");
+            if (mMainContentApadter.getLoadMoreViewPosition() % 3 == 0) {
+                String[] images = {"http://s.go2yd.com/b/ilulgedc_7g00d1d1.jpg", //
+                        "https://s.go2yd" + ".com/b/j9dslc00_8a19b6b6.png", //
+                        "https://s.go2yd.com/b/j7juj0ba_8708b6b6.jpg"};
+                newInfo.setImages(Arrays.asList(images));
+            } else {
+                newInfo.setImage("http://s.go2yd.com/b/icms7905_7i00d1d1.jpg");
+            }
+            newInfo.setIntroduce("An Amazon Kinesis 应用程序是读取和处理来自 Amazon Kinesis 数据流数据" +//
+                    "的数据使用器。您可以使用 Kinesis API 或 客户端库(KCL) 构建 Amazon Kinesis 应用程序。");
             mMainContentApadter.addData(newInfo);
         }
         mMainContentApadter.loadMoreComplete();
+        page = ++event.page;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
         setStatusBarColor(R.color.main_primary);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -166,7 +186,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setContentListView() {
-        mMainContentApadter = new MainContentApadter(R.layout.item_main_content, mNewInfoList);
+        mMainContentApadter = new MainContentApadter(mNewInfoList);
         mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
 
         mMainContentApadter.setHeaderView(headerView);
@@ -175,7 +195,7 @@ public class MainFragment extends BaseFragment {
         mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                loadMoreData();
+                loadMoreData(new MainEvent(page));
             }
         }, mainContentListView);
         // 当列表滑动到倒数第N个Item的时候(默认是1)回调onLoadMoreRequested方法

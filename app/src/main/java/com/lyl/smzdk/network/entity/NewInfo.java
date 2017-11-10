@@ -1,5 +1,7 @@
 package com.lyl.smzdk.network.entity;
 
+import java.util.List;
+
 /**
  * Author: lyl
  * Date Created : 2017/11/10.
@@ -10,6 +12,7 @@ public class NewInfo {
     private String type;
     private String title;
     private String image;
+    private List<String> images;
     private String introduce;
 
     public String getId() {
@@ -42,6 +45,14 @@ public class NewInfo {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public String getIntroduce() {
