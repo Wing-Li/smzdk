@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--轮播图-->
+    <com.youth.banner.Banner
+        android:id="@+id/mian_banner"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"/>
+
+    <!-- 分类 -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_menu_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+
+    <!--最新公告-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/gary_circular_bg"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_volume_up_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/main_new_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:text="最新公告，赶快点开看看吧"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <!--分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/gary_bg"/>
 
 </LinearLayout>
+

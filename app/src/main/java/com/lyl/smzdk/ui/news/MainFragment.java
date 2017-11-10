@@ -5,12 +5,12 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,16 +36,13 @@ import butterknife.BindView;
 public class MainFragment extends BaseFragment {
 
 
-    @BindView(R.id.mian_banner)
-    Banner mianBanner;
-    @BindView(R.id.main_nestedscrollview)
-    NestedScrollView mainNestedscrollview;
-    @BindView(R.id.main_menu_list)
-    RecyclerView mainMenuListView;
-    @BindView(R.id.main_new_notice)
-    TextView mainNewNotice;
     @BindView(R.id.main_content_list)
     RecyclerView mainContentListView;
+
+    private View headerView;
+    Banner mianBanner;
+    RecyclerView mainMenuListView;
+    TextView mainNewNotice;
 
     private String[] images = {//
             "http://img1.imgtn.bdimg.com/it/u=1794894692,1423685501&fm=27&gp=0.jpg",//
@@ -78,9 +75,13 @@ public class MainFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
+        headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
+        mianBanner = headerView.findViewById(R.id.mian_banner);
+        mainMenuListView = headerView.findViewById(R.id.main_menu_list);
+        mainNewNotice = headerView.findViewById(R.id.main_new_notice);
+        setContentListView();
         setBanner();
         setMenu();
-        setContentListView();
         loadMoreData();
     }
 
@@ -142,10 +143,6 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setMenu() {
-//        WrappingLinearLayoutManager layoutManager = new WrappingLinearLayoutManager(getHolder());
-//        layoutManager.setAutoMeasureEnabled(false);
-//        mainMenuListView.setLayoutManager(layoutManager);
-
         mMenuListAdapter = new MainMenuListAdapter(R.layout.item_main_menu, mNewChannelList);
         mainMenuListView.setLayoutManager(new GridLayoutManager(getHolder(), 4));
         mainMenuListView.addItemDecoration(new ItemDecoration() {
@@ -171,24 +168,22 @@ public class MainFragment extends BaseFragment {
     private void setContentListView() {
         mMainContentApadter = new MainContentApadter(R.layout.item_main_content, mNewInfoList);
         mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+
+        mMainContentApadter.setHeaderView(headerView);
+
         // 加载更多。  注意：默认第一次加载会进入回调
         mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-//                loadMoreData();
+                loadMoreData();
             }
         }, mainContentListView);
         // 当列表滑动到倒数第N个Item的时候(默认是1)回调onLoadMoreRequested方法
-        mMainContentApadter.setPreLoadNumber(3);
+//        mMainContentApadter.setPreLoadNumber(3);
 
-//        WrappingLinearLayoutManager layoutManager = new WrappingLinearLayoutManager(getHolder());
-//        layoutManager.setAutoMeasureEnabled(false);
         mainContentListView.setLayoutManager(new LinearLayoutManager(getHolder()));
-
         mainContentListView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         mainContentListView.setAdapter(mMainContentApadter);
-
-
     }
 
 }
