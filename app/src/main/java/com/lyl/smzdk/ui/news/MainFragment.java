@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.LayoutInflater;
@@ -17,12 +16,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.event.MainEvent;
+import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.NewChannel;
 import com.lyl.smzdk.network.entity.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
+import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -88,7 +88,7 @@ public class MainFragment extends BaseFragment {
         setContentListView();
         setBanner();
         setMenu();
-        loadMoreData(new MainEvent(page));
+        loadMoreData(new MainLoadDataEvent(page));
     }
 
     private void initData() {
@@ -102,7 +102,7 @@ public class MainFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void loadMoreData(MainEvent event) {
+    public void loadMoreData(MainLoadDataEvent event) {
         NewInfo newInfo;
         for (int i = 0; i < 10; i++) {
             newInfo = new NewInfo();
@@ -195,13 +195,13 @@ public class MainFragment extends BaseFragment {
         mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                loadMoreData(new MainEvent(page));
+                loadMoreData(new MainLoadDataEvent(page));
             }
         }, mainContentListView);
         // 当列表滑动到倒数第N个Item的时候(默认是1)回调onLoadMoreRequested方法
 //        mMainContentApadter.setPreLoadNumber(3);
 
-        mainContentListView.setLayoutManager(new LinearLayoutManager(getHolder()));
+        mainContentListView.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         mainContentListView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         mainContentListView.setAdapter(mMainContentApadter);
     }

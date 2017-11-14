@@ -1,16 +1,16 @@
 package com.lyl.smzdk.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.event.MainEvent;
+import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.ui.news.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.shop.ShopFragment;
@@ -21,6 +21,8 @@ import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import org.greenrobot.eventbus.EventBus;
+
+import cn.jzvd.JZVideoPlayer;
 
 /**
  * Author: lyl
@@ -66,12 +68,13 @@ public class MainActivity extends BaseActivity {
 
     //  —————————————————— ↓底部 Bar 处理↓ —————————————————————————
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initBottombar() {
         mainBottombar = findViewById(R.id.main_bottombar);
         mainBottombar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if (isFristInPage){
+                if (isFristInPage) {
                     isFristInPage = false;
                     return;
                 }
@@ -118,10 +121,10 @@ public class MainActivity extends BaseActivity {
         mainBottombar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
-                switch (tabId){
-                    case R.id.tab_news:{
+                switch (tabId) {
+                    case R.id.tab_news: {
                         // 在 MainFragment 中 刷新数据
-                        EventBus.getDefault().post(new MainEvent(1));
+                        EventBus.getDefault().post(new MainLoadDataEvent(1));
                         break;
                     }
                 }
@@ -149,19 +152,31 @@ public class MainActivity extends BaseActivity {
 
     //  —————————————————— ↑底部 Bar 处理↑ —————————————————————————
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 屏幕关闭时，停止所有正在播放的视频
+        JZVideoPlayer.releaseAllVideos();
+    }
+
     private long time = 0;
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (System.currentTimeMillis() - time <= 2000) {
-                finish();
-            } else {
-                time = System.currentTimeMillis();
-                Toast.makeText(getApplicationContext(), R.string.exit_app, Toast.LENGTH_SHORT).show();
-            }
-            return true;
+    public void onBackPressed() {
+        // 如果视频正在全屏播放，则退出全屏
+        if (JZVideoPlayer.backPress()) {
+            return;
         }
-        return super.onKeyDown(keyCode, event);
+
+        // 双击 返回键 退出 App
+        if (System.currentTimeMillis() - time <= 2000) {
+            finish();
+        } else {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), R.string.exit_app, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        super.onBackPressed();
     }
 }
