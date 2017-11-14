@@ -6,10 +6,14 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.ui.news.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
@@ -21,6 +25,8 @@ import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import cn.jzvd.JZVideoPlayer;
 
@@ -54,6 +60,18 @@ public class MainActivity extends BaseActivity {
         initStatusbar();
         initMainContent();
         initBottombar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);//订阅
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);//解除订阅
     }
 
     private void initStatusbar() {
@@ -148,6 +166,48 @@ public class MainActivity extends BaseActivity {
             transaction.hide(oldFragment).show(to).commit(); // 隐藏当前的fragment，显示下一个
         }
         oldFragment = to;
+    }
+
+    /**
+     * 当用户向上滑动时，隐藏底部的 bar 以得到更多的阅读空间
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void hideBottombar(HideBottombarEvent event) {
+        if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide == true) {
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_top);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mainBottombar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            mainBottombar.startAnimation(animation);
+        } else if (mainBottombar.getVisibility() == View.GONE && event.isHide == false) {
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_bottom);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mainBottombar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            mainBottombar.startAnimation(animation);
+        }
     }
 
     //  —————————————————— ↑底部 Bar 处理↑ —————————————————————————

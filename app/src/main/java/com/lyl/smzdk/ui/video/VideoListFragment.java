@@ -6,9 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.VideoInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,17 @@ public class VideoListFragment extends BaseFragment {
 
         videoListview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         videoListview.setAdapter(mVideoListAdapter);
+        videoListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy >= 5) {// 手指向上滚动
+                    EventBus.getDefault().post(new HideBottombarEvent(true));
+                } else if (dy <= -5) {// 手指向下滚动
+                    EventBus.getDefault().post(new HideBottombarEvent(false));
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void loadData() {
@@ -75,6 +89,7 @@ public class VideoListFragment extends BaseFragment {
             info.setTitle("饺子这样不好");
             info.setUrl("http://jzvd.nathen.cn/b201be3093814908bf987320361c5a73/2f6d913ea25941ffa78cc53a59025383" +
                     "-5287d2089db37e62345123a1be272f8b.mp4");
+            info.setThumbs("http://jzvd-pic.nathen.cn/jzvd-pic/f03cee95-9b78-4dd5-986f-d162c06c385c.png");
             mVideoListAdapter.addData(info);
         }
         mVideoListAdapter.loadMoreComplete();

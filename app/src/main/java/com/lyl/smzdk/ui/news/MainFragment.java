@@ -204,6 +204,7 @@ public class MainFragment extends BaseFragment {
         mainContentListView.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         mainContentListView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         mainContentListView.setAdapter(mMainContentApadter);
+        mainContentListView.addOnScrollListener(mOnScrollHideBottombarListener);
     }
 
 }
