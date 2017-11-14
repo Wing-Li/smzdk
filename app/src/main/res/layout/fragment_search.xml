@@ -5,14 +5,55 @@
               android:orientation="vertical"
               tools:context="com.lyl.smzdk.ui.news.MainFragment">
 
-    <com.lyl.smzdk.view.ActionBar
-        android:id="@+id/actionbar"
+    <RelativeLayout
+        android:id="@+id/search_actionbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="64dp"
+        android:background="@color/search_primary"
+        android:paddingTop="16dp">
 
-    <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/search_actionbar"
+            android:gravity="center_vertical"
+            android:padding="2dp">
+
+            <ImageView
+                android:id="@+id/search_actionbar_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_black_24dp"/>
+
+            <EditText
+                android:id="@+id/search_actionbar_edt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:gravity="start|center_vertical"
+                android:hint="请输入您要搜索的内容(长按切换磁力搜索)..."
+                android:singleLine="true"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/search_actionbar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:text="网盘搜"
+                android:textColor="@color/black_flee"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/search_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="搜索"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -8,6 +8,7 @@
     <color name="main_primary">#1EA1E5</color>
     <color name="video_accent">#fcbe32</color>
     <color name="video_primary">#DEA82E</color>
+    <color name="search_actionbar">#65FFFFFF</color>
     <color name="search_accent">#00ABC1</color>
     <color name="search_primary">#008c9e</color>
     <color name="shop_accent">#ff5f2e</color>
@@ -17,6 +18,7 @@
 
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
+    <color name="black_flee">#AA000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gary">#DADADA</color>
     <color name="bg_gary">#F1F2F3</color>
