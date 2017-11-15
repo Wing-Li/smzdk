@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -55,16 +56,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:text="网盘搜"
+                    android:text="@string/search_wangpan"
                     android:textColor="@color/black_flee"
                     android:textStyle="bold"/>
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/search_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gary"
+        app:tabIndicatorColor="@color/search_primary"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/search_primary"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/search_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

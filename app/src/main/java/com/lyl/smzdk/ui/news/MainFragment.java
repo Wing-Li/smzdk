@@ -80,6 +80,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mActionBar.setModelOnlyTitle(R.string.home);
         initData();
         headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
         mianBanner = headerView.findViewById(R.id.mian_banner);

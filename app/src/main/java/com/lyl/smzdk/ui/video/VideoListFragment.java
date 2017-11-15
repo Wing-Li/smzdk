@@ -29,9 +29,6 @@ public class VideoListFragment extends BaseFragment {
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
 
-    public VideoListFragment() {
-    }
-
     public static VideoListFragment newInstance(String type, String title) {
         VideoListFragment fragment = new VideoListFragment();
         Bundle args = new Bundle();
@@ -43,7 +40,7 @@ public class VideoListFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_videoinfo_list;
+        return R.layout.fragment_video_list;
     }
 
     @Override
@@ -59,6 +56,7 @@ public class VideoListFragment extends BaseFragment {
     private void setListView() {
         mInfoList = new ArrayList<>();
         mVideoListAdapter = new VideoListAdapter(R.layout.item_video_list, mInfoList);
+        mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN );
         mVideoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

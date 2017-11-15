@@ -24,7 +24,7 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
     protected void convert(BaseViewHolder holder, VideoInfo info) {
         JZVideoPlayer.releaseAllVideos();
 
-        JZVideoPlayerStandard player = holder.getView(R.id.item_list_videoplayer);
+        JZVideoPlayerStandard player = holder.getView(R.id.item_video_player);
         player.setUp(info.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, info.getTitle());
         ImgUtils.load(mContext, info.getThumbs(), player.thumbImageView);
         player.positionInList = holder.getLayoutPosition();

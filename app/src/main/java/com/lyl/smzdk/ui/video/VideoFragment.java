@@ -37,6 +37,7 @@ public class VideoFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mActionBar.setModelOnlyTitle(R.string.video_title);
         initMenuData();
         setViewPager();
     }
