@@ -37,6 +37,10 @@ public class MyUtils {
         Toast.makeText(context, r, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showT(Context context, String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * 随即获取指定位数的一串纯数字字符串
      *

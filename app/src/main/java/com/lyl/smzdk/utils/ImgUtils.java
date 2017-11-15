@@ -57,6 +57,10 @@ public class ImgUtils {
         Glide.with(context).load(url).apply(baseOptions).into(imageView);
     }
 
+    public static void loadF(Context context, String url, ImageView imageView) {
+        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().centerInside()).into(imageView);
+    }
+
     /**
      * 加载圆形图片。
      */

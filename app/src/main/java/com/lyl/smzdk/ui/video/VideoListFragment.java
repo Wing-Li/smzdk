@@ -56,7 +56,7 @@ public class VideoListFragment extends BaseFragment {
     private void setListView() {
         mInfoList = new ArrayList<>();
         mVideoListAdapter = new VideoListAdapter(R.layout.item_video_list, mInfoList);
-        mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN );
+        mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN );
         mVideoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -87,7 +87,6 @@ public class VideoListFragment extends BaseFragment {
             info.setTitle("饺子这样不好");
             info.setUrl("http://jzvd.nathen.cn/b201be3093814908bf987320361c5a73/2f6d913ea25941ffa78cc53a59025383" +
                     "-5287d2089db37e62345123a1be272f8b.mp4");
-            info.setThumbs("http://jzvd-pic.nathen.cn/jzvd-pic/f03cee95-9b78-4dd5-986f-d162c06c385c.png");
             mVideoListAdapter.addData(info);
         }
         mVideoListAdapter.loadMoreComplete();

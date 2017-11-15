@@ -39,7 +39,7 @@
         android:id="@+id/item_main_content_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/gary_bg"
+        android:background="@drawable/gary_bg_img"
         android:scaleType="centerCrop"/>
 
 </LinearLayout>

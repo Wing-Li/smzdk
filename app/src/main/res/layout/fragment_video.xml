@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_gary"
     android:orientation="vertical"
-    tools:context="com.lyl.smzdk.ui.news.MainFragment">
+    tools:context="com.lyl.smzdk.ui.video.VideoFragment">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
