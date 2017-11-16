@@ -1,55 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_gary"
+              android:elevation="2dp"
+              android:orientation="vertical"
+              android:translationZ="2dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="@color/bg_gary"
-                  android:orientation="vertical"
-                  android:padding="8dp">
+    <ImageView
+        android:id="@+id/item_shop_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"/>
 
-        <ImageView
-            android:id="@+id/item_shop_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/item_shop_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="如果大家觉得这种多布局方式有点由于耦合了实体类，还有支持另外一种多布局方式具体可查看"
+        android:textColor="@color/black"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/item_shop_title"
+            android:id="@+id/item_shop_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/item_shop_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="如果大家觉得这种多布局方式有点由于耦合了实体类，还有支持另外一种多布局方式具体可查看"
-            android:textColor="@color/black"/>
+            android:maxLines="1"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp">
+            android:gravity="bottom">
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/ic_money"/>
 
             <TextView
                 android:id="@+id/item_shop_price"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:id="@+id/item_shop_buy"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_shopping_cart_black_24dp"/>
+                android:includeFontPadding="false"
+                android:text="168"
+                android:textColor="@color/shop_accent"
+                android:textSize="18sp"/>
         </LinearLayout>
-    </LinearLayout>
 
-</FrameLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/item_shop_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/ic_more_h"/>
+    </LinearLayout>
+</LinearLayout>

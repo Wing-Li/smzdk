@@ -2,6 +2,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/bg_gary"
               android:orientation="vertical"
               tools:context="com.lyl.smzdk.ui.user.UserFragment">
 
@@ -10,9 +11,229 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="个人中心"/>
+    <LinearLayout
+        android:id="@+id/user_login"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="16dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person_outline_black_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="登陆与注册"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_vip"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_vip_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="成为会员"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="(会有意外发现)"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/user_software"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_software"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="开发者的其他应用"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_qq_group"
+        style="@style/UserLinearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_qq_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="QQ群"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_share"
+        style="@style/UserLinearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_black_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="分享给朋友"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_help"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notifications_none_black_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="公告与帮助"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_suggestion"
+        style="@style/UserLinearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_suggestion"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="意见反馈"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_update"
+        style="@style/UserLinearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_update_black_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="检查更新"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_about"
+        style="@style/UserLinearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info_outline_black_24dp"/>
+
+        <TextView
+            style="@style/UserItemTitle"
+            android:text="关于"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+    </LinearLayout>
 </LinearLayout>

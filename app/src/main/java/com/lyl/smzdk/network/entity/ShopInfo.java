@@ -17,6 +17,8 @@ public class ShopInfo {
     private String password;// 口令
     private String price;
     private String salePrice;// 打折后价格
+    private String location;// 产地
+    private String salesVolume;// 销量
 
     public String getId() {
         return id;
@@ -88,5 +90,21 @@ public class ShopInfo {
 
     public void setSalePrice(String salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getSalesVolume() {
+        return salesVolume;
+    }
+
+    public void setSalesVolume(String salesVolume) {
+        this.salesVolume = salesVolume;
     }
 }

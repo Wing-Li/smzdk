@@ -83,7 +83,7 @@ public class VideoListFragment extends BaseFragment {
         VideoInfo info;
         for (int i = 0; i < 10; i++) {
             info = new VideoInfo();
-            info.setThumbs("http://jzvd-pic.nathen.cn/jzvd-pic/1d935cc5-a1e7-4779-bdfa-20fd7a60724c.jpg");
+            info.setThumbs("http://img.hb.aicdn.com/188b0b050d2a59494b65d9a056de8a38a5f174d04af8f-zht301_fw658");
             info.setTitle("饺子这样不好");
             info.setUrl("http://jzvd.nathen.cn/b201be3093814908bf987320361c5a73/2f6d913ea25941ffa78cc53a59025383" +
                     "-5287d2089db37e62345123a1be272f8b.mp4");
