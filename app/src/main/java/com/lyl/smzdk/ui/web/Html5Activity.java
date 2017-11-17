@@ -128,6 +128,21 @@ public class Html5Activity extends BaseActivity {
         actionbarTitle.setText(mTitle);
     }
 
+//    /**
+//     * 如果传过来的不是完整的Html，而是只有body部分的内容，那么我们就需要补充并添加一些css样式来达到自适应的效果。
+//     */
+//    private void loadW(){
+//        webView.loadData(getHtmlData(body), "text/html; charset=utf-8", "utf-8");
+//    }
+
+    private String getHtmlData(String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "</head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
+
     private long mOldTime;
 
     /**
