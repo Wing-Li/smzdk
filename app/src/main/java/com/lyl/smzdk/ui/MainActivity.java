@@ -174,40 +174,54 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void hideBottombar(HideBottombarEvent event) {
         if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide == true) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_top);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mainBottombar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            mainBottombar.startAnimation(animation);
+            hideBar();
         } else if (mainBottombar.getVisibility() == View.GONE && event.isHide == false) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_bottom);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mainBottombar.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            mainBottombar.startAnimation(animation);
+            showBar();
         }
+    }
+
+    /**
+     * 隐藏底部 Bar
+     */
+    private void hideBar(){
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_top);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mainBottombar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mainBottombar.startAnimation(animation);
+    }
+
+    /**
+     * 显示底部 Bar
+     */
+    private void showBar(){
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_bottom);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mainBottombar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mainBottombar.startAnimation(animation);
     }
 
     //  —————————————————— ↑底部 Bar 处理↑ —————————————————————————
@@ -225,6 +239,12 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         // 如果视频正在全屏播放，则退出全屏
         if (JZVideoPlayer.backPress()) {
+            return;
+        }
+
+        // 点击返回时，如果底部的 Bar 是隐藏的，就让它显示出来
+        if (mainBottombar.getVisibility() == View.GONE){
+            showBar();
             return;
         }
 

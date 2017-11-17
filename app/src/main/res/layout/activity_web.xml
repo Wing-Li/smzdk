@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/actionbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height_real"
+        android:background="@color/colorPrimary"
+        android:elevation="2dp"
+        android:translationZ="2dp">
+
+        <ImageView
+            android:id="@+id/actionbar_img_left"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/actionbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:transitionName="content_title"
+            android:ellipsize="end"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="20dip"/>
+
+        <ImageView
+            android:id="@+id/actionbar_img_right"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="4dp"
+            android:src="@drawable/ic_send_white_24dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/web_sbr"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:focusable="false"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:progressDrawable="@drawable/po_seekbar"
+        android:thumb="@null"/>
+
+    <FrameLayout
+        android:id="@+id/web_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

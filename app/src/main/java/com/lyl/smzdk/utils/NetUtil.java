@@ -78,7 +78,7 @@ public final class NetUtil {
         try {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        }catch (Exception e){
+        } catch (Exception e) {
             // 没有权限
             return false;
         }
@@ -92,7 +92,8 @@ public final class NetUtil {
      * @return 是否是Wifi上网
      */
     public static boolean isWifi(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
     }
@@ -105,7 +106,8 @@ public final class NetUtil {
      * @return 是否是3G上网
      */
     public static boolean is3G(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE;
     }
@@ -118,7 +120,8 @@ public final class NetUtil {
      * @return 是否是4G上网
      */
     public static boolean is4G(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         if (activeNetInfo != null && activeNetInfo.isConnectedOrConnecting()) {
             if (activeNetInfo.getType() == TelephonyManager.NETWORK_TYPE_LTE) {
@@ -161,8 +164,9 @@ public final class NetUtil {
      * @return 是否是IP地址
      */
     public static boolean isIP(String ip) {
-        Pattern pattern = Pattern.compile("\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\"
-                + "." + "((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
+        Pattern pattern = Pattern.compile("\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)" +
+                "\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\" + "." + "((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.(" +
+                "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
         Matcher matcher = pattern.matcher(ip);
         return matcher.matches();
     }
@@ -193,6 +197,12 @@ public final class NetUtil {
         NET_NO, NET_2G, NET_3G, NET_4G, NET_WIFI, NET_UNKNOWN
     }
 
+    /**
+     * 是否有网
+     */
+    public static boolean isConnected(Context context) {
+        return netSatus(context) != NetState.NET_NO;
+    }
 
     /**
      * 判断当前是否网络连接
@@ -200,7 +210,7 @@ public final class NetUtil {
      * @param context 上下文
      * @return 状态码
      */
-    public NetState isConnected(Context context) {
+    public static NetState netSatus(Context context) {
         NetState stateCode = NetState.NET_NO;
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 /**
  * Author: lyl
@@ -20,5 +21,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mActivity = this;
+    }
+
+    protected void showToast(String str) {
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showToast(int res) {
+        Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
     }
 }

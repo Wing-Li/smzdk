@@ -13,6 +13,7 @@ public class NewInfo {
     private String title;
     private String image;
     private List<String> images;
+    private String url;
     private String introduce;
 
     public String getId() {
@@ -61,5 +62,13 @@ public class NewInfo {
 
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

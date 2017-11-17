@@ -1,7 +1,9 @@
 package com.lyl.smzdk.ui.news;
 
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,10 +19,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.NewChannel;
 import com.lyl.smzdk.network.entity.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
@@ -110,7 +115,7 @@ public class MainFragment extends BaseFragment {
             newInfo.setTitle(event.page + "." + i + "BRVAH是一个强大的RecyclerAdapter框架");
             if (mMainContentApadter.getLoadMoreViewPosition() % 3 == 0) {
                 String[] images = {"http://s.go2yd.com/b/ilulgedc_7g00d1d1.jpg", //
-                        "https://s.go2yd" + ".com/b/j9dslc00_8a19b6b6.png", //
+                        "https://s.go2yd.com/b/j9dslc00_8a19b6b6.png", //
                         "https://s.go2yd.com/b/j7juj0ba_8708b6b6.jpg"};
                 newInfo.setImages(Arrays.asList(images));
             } else {
@@ -118,6 +123,7 @@ public class MainFragment extends BaseFragment {
             }
             newInfo.setIntroduce("An Amazon Kinesis 应用程序是读取和处理来自 Amazon Kinesis 数据流数据" +//
                     "的数据使用器。您可以使用 Kinesis API 或 客户端库(KCL) 构建 Amazon Kinesis 应用程序。");
+            newInfo.setUrl("http://www.jianshu.com/p/a43daa1e3d6e");
             mMainContentApadter.addData(newInfo);
         }
         mMainContentApadter.loadMoreComplete();
@@ -206,6 +212,30 @@ public class MainFragment extends BaseFragment {
         mainContentListView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         mainContentListView.setAdapter(mMainContentApadter);
         mainContentListView.addOnScrollListener(mOnScrollHideBottombarListener);
+
+        mMainContentApadter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
+                if (info == null) {
+                    showToast(getString(R.string.data_error));
+                    return;
+                }
+                View titleView = view.findViewById(R.id.item_main_content_title);
+
+                Intent intent = new Intent(getHolder(), Html5Activity.class);
+                intent.putExtra(Constans.I_WEB_TITLE, info.getTitle());
+                intent.putExtra(Constans.I_WEB_URL, info.getUrl());
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
+                            (titleView, "content_title"));
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 }

@@ -71,6 +71,10 @@ public class ActionBar extends RelativeLayout {
         mTitle.setText(resTitle);
     }
 
+    private void setTitle(String resTitle) {
+        mTitle.setText(resTitle);
+    }
+
     private void setBack(final Activity activity) {
         mLeftLayout.setVisibility(View.VISIBLE);
         mImgLeft.setVisibility(View.VISIBLE);
@@ -86,6 +90,10 @@ public class ActionBar extends RelativeLayout {
      * 只有标题
      */
     public void setModelOnlyTitle(int resTitle) {
+        setTitle(resTitle);
+    }
+
+    public void setModelOnlyTitle(String resTitle) {
         setTitle(resTitle);
     }
 
@@ -147,12 +155,12 @@ public class ActionBar extends RelativeLayout {
     /**
      * 左边返回、右边自定文字（自定义点击事件）
      *
+     * @param activity        本页面
      * @param resTitle        中间标题
      * @param resRight        右边文字
-     * @param activity        本页面
      * @param onClickListener 右边文字的点击事件
      */
-    public void setModelLeftAndRight(int resTitle, int resRight, Activity activity, final OnClickListener
+    public void setModelLeftAndRightTxt(Activity activity, int resTitle, int resRight, final OnClickListener
             onClickListener) {
         setTitle(resTitle);
         setBack(activity);
@@ -160,6 +168,30 @@ public class ActionBar extends RelativeLayout {
         mTxtRight.setText(resRight);
         mRightLayout.setVisibility(View.VISIBLE);
         mTxtRight.setVisibility(View.VISIBLE);
+        mRightLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListener.onClick(view);
+            }
+        });
+    }
+
+    /**
+     * 左边返回、右边自定文字（自定义点击事件）
+     *
+     * @param activity        本页面
+     * @param resTitle        中间标题
+     * @param resImgRight     右边文字
+     * @param onClickListener 右边文字的点击事件
+     */
+    public void setModelLeftAndRightImg(Activity activity, int resTitle, int resImgRight, final OnClickListener
+            onClickListener) {
+        setTitle(resTitle);
+        setBack(activity);
+
+        mImgRight.setImageResource(resImgRight);
+        mRightLayout.setVisibility(View.VISIBLE);
+        mImgRight.setVisibility(View.VISIBLE);
         mRightLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

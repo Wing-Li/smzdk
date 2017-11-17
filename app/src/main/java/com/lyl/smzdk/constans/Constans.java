@@ -16,4 +16,7 @@ public class Constans {
     public static String SP_DEVICE_ID = "sp_device_id";
     public static String SP_UUID_EASSAY = "sp_uuid_eassay";
 
+
+    public static String I_WEB_URL = "i_web_url";
+    public static String I_WEB_TITLE = "i_web_title";
 }
