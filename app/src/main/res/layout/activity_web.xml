@@ -1,63 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.lyl.smzdk.ui.web.Html5Activity">
 
-    <RelativeLayout
-        android:id="@+id/actionbar_layout"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_height_real"
-        android:background="@color/colorPrimary"
-        android:elevation="2dp"
-        android:translationZ="2dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/actionbar_img_left"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height_real"
+            android:background="@color/colorPrimary"
+            android:elevation="2dp"
+            android:translationZ="2dp">
 
-        <TextView
-            android:id="@+id/actionbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:transitionName="content_title"
-            android:ellipsize="end"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:singleLine="true"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="20dip"/>
+            <ImageView
+                android:id="@+id/actionbar_img_left"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:visibility="gone"/>
 
-        <ImageView
-            android:id="@+id/actionbar_img_right"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="4dp"
-            android:src="@drawable/ic_send_white_24dp"
-            android:visibility="gone"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/actionbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="20dip"
+                android:transitionName="content_title"/>
 
-    <SeekBar
-        android:id="@+id/web_sbr"
+            <ImageView
+                android:id="@+id/actionbar_img_right"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="4dp"
+                android:src="@drawable/ic_send_white_24dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:focusable="false"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:progressDrawable="@drawable/po_seekbar"
-        android:thumb="@null"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <FrameLayout
-        android:id="@+id/web_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <SeekBar
+                android:id="@+id/web_sbr"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:focusable="false"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:progressDrawable="@drawable/po_seekbar"
+                android:thumb="@null"/>
+
+            <FrameLayout
+                android:id="@+id/web_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
