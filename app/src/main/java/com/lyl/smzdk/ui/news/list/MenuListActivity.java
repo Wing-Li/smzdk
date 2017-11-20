@@ -57,7 +57,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
     }
 
     @Override
-    public void initMenueView(final List<NewMenu> menuList) {
+    public void setMenuTab(final List<NewMenu> menuList) {
         menuListViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

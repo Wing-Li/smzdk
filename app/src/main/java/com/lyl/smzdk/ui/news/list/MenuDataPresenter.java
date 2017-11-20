@@ -26,6 +26,6 @@ public class MenuDataPresenter implements MenuContract.Presenter {
 
         // 初始化 目录的数据
 
-        mView.initMenueView(mNewMenuList);
+        mView.setMenuTab(mNewMenuList);
     }
 }

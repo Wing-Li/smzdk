@@ -1,22 +1,20 @@
 package com.lyl.smzdk.ui.news.list;
 
-import com.lyl.smzdk.network.entity.NewMenu;
+import com.lyl.smzdk.network.entity.NewInfo;
 
 import java.util.List;
 
 /**
- * 目录页面 的抽象
  * Author: lyl
  * Date Created : 2017/11/20.
  */
-public class MenuContract {
+public class ListContract {
 
     interface View {
-
         /**
-         * 将目录设置进列表
+         * 将数据设置进列表
          */
-        void setMenuTab(List<NewMenu> menuList);
+        void setData(List<NewInfo> newInfos);
 
         /**
          * 加载目录时的进度圈
@@ -25,10 +23,9 @@ public class MenuContract {
     }
 
     interface Presenter {
-
         /**
-         * 获取目录数据
+         * 获取数据
          */
-        void initMenuData(int type);
+        void loadData(String type);
     }
 }
