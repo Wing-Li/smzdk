@@ -21,7 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
-import com.lyl.smzdk.network.entity.NewChannel;
+import com.lyl.smzdk.network.entity.NewMenu;
 import com.lyl.smzdk.network.entity.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.web.Html5Activity;
@@ -69,7 +69,7 @@ public class MainFragment extends BaseFragment {
             "365挑战营与世间事联合征文 /简书那么大，我在哪里？"};//
 
 
-    private List<NewChannel> mNewChannelList = new ArrayList<>();
+    private List<NewMenu> mNewChannelList = new ArrayList<>();
     private MainMenuListAdapter mMenuListAdapter;
 
     private List<NewInfo> mNewInfoList = new ArrayList<>();
@@ -98,9 +98,9 @@ public class MainFragment extends BaseFragment {
     }
 
     private void initData() {
-        NewChannel channel;
+        NewMenu channel;
         for (int i = 0; i < 8; i++) {
-            channel = new NewChannel();
+            channel = new NewMenu();
             channel.setName("互联网" + i);
             channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
             mNewChannelList.add(channel);

@@ -19,4 +19,8 @@ public class Constans {
 
     public static String I_WEB_URL = "i_web_url";
     public static String I_WEB_TITLE = "i_web_title";
+
+
+    public static String I_MENU_LIST_TYPE = "i_menu_list_type";
+
 }

@@ -4,7 +4,7 @@ package com.lyl.smzdk.network.entity;
  * Author: lyl
  * Date Created : 2017/11/10.
  */
-public class NewChannel {
+public class NewMenu {
 
 //    {
 //        "id": "u1019",

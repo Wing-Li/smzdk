@@ -27,6 +27,8 @@
         <activity
             android:name=".ui.web.Html5Activity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.news.list.MenuListActivity">
+        </activity>
     </application>
 
 </manifest>

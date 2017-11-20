@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,10 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
@@ -30,14 +32,12 @@ import butterknife.ButterKnife;
  */
 public class Html5Activity extends BaseActivity {
 
-    @BindView(R.id.actionbar_img_left)
+    @BindView(R.id.web_actionbar_img_left)
     ImageView actionbarImgLeft;
-    @BindView(R.id.actionbar_title)
-    TextView actionbarTitle;
-    @BindView(R.id.actionbar_img_right)
+    @BindView(R.id.web_actionbar_title)
+    TextSwitcher actionbarTitle;
+    @BindView(R.id.web_actionbar_img_right)
     ImageView actionbarImgRight;
-    @BindView(R.id.actionbar_layout)
-    RelativeLayout actionbarLayout;
     @BindView(R.id.web_sbr)
     SeekBar mSeekBar;
     @BindView(R.id.web_layout)
@@ -55,7 +55,7 @@ public class Html5Activity extends BaseActivity {
         ButterKnife.bind(this);
 
         getParameter();
-        if (TextUtils.isEmpty(mUrl)){
+        if (TextUtils.isEmpty(mUrl)) {
             showToast(R.string.data_error);
             finish();
             return;
@@ -125,7 +125,31 @@ public class Html5Activity extends BaseActivity {
         mUrl = intent.getStringExtra(Constans.I_WEB_URL);
         mTitle = intent.getStringExtra(Constans.I_WEB_TITLE);
 
+        setTitleAnims();
         actionbarTitle.setText(mTitle);
+    }
+
+    private void setTitleAnims() {
+        // 注意：必须在 setText() 之前
+        actionbarTitle.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                final TextView textView = new TextView(mContext);
+                textView.setSingleLine(true);
+                textView.setTextAppearance(mContext, R.style.action_title_style);
+                textView.setGravity(Gravity.CENTER);
+                textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                textView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.setSelected(true);
+                    }
+                }, 1738);
+                return textView;
+            }
+        });
+        actionbarTitle.setInAnimation(this, android.R.anim.fade_in);
+        actionbarTitle.setOutAnimation(this, android.R.anim.fade_out);
     }
 
 //    /**
@@ -136,10 +160,8 @@ public class Html5Activity extends BaseActivity {
 //    }
 
     private String getHtmlData(String bodyHTML) {
-        String head = "<head>" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
-                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
-                "</head>";
+        String head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, " +
+                "user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 
@@ -158,7 +180,11 @@ public class Html5Activity extends BaseActivity {
             } else if (mWebView.canGoBack()) {
                 mWebView.goBack();
             } else {
-                Html5Activity.this.finish();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                } else {
+                    finish();
+                }
             }
             mOldTime = System.currentTimeMillis();
             return true;
