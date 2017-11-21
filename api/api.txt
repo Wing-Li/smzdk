@@ -1,0 +1,123 @@
+知乎：
+
+首页：
+https://api.zhihu.com/topstory?action=down&scroll=up&resolution=1280x720&limit=10
+x-api-version: 3.0.70
+x-app-version: 5.4.1
+x-app-za: OS=Android&Release=4.4.4&Model=7+plus&VersionName=5.4.1&VersionCode=558&Width=720&Height=1280&Installer=Zhihu+Web&WebView=33.0.0.0DeviceType=AndroidPhoneBrand=iPhoneOperatorType=46000
+x-app-build: release
+x-network-type: WiFi
+X-SUGER: SU1FST04NjE1MTA5NDI3NzQ3NDI7QU5EUk9JRF9JRD01MDExMDQzNDcxMjk1ODQ0O01BQz0wODowMDoyNzoyYTpjMzplYg==
+x-udid: AADC4BsknAxLBTdq8Qh0VKkZBUUuvrGVnfk=
+Authorization: Bearer 2.1rCYvAAAAAAAAAMLgGyScDAwAAABgAlVNuXYnWgDXXJDcinzxuGXiCak4Kdv93PfpRA
+
+
+问题答案（第一次不输入个数）
+https://api.zhihu.com/questions/37248069/answers?order_by
+GET https://api.zhihu.com/questions/37248069/answers?order_by&offset=5
+id =  198955004
+
+根据答案里面的 id 获取具体答案：
+GET https://api.zhihu.com/answers/198955004?with_pagination
+
+
+根据 id 获取评论（评论第一次，不输入个数）
+获取的数据里，有 精选评论n个。然后，返回的列表前n个就是精选评论
+https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false
+https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false&offset=10
+
+
+
+
+一点咨询
+阅读：
+
+目录（可订阅的栏目）：
+https://a1.go2yd.com/Website/group/get-channels?platform=1&group_id=101142602846&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509936563655_30727&need_preset=false&version=020130&net=wifi
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+某个栏目的列表：
+雾霾：
+https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509938006772_30723&channel_id=17495591390&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi HTTP/1.1
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+
+GIF:
+https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509936882418_30727&channel_id=17495513806&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+美女：
+https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509936882418_30727&channel_id=17495513806&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+item：区分类别
+ctype=news content_type=news
+ctype=video_live content_type=video
+ctype=joke  content_type=joke gif
+
+image_urls 预览图（可返回多张）
+
+item 里面返回 url 就是详情，用 WebView 打开
+
+
+某个列表中item的评论
+https://a1.go2yd.com/Website/contents/comments?platform=1&docid=0HcedL1K&count=30&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509937105419_30726&version=020130&net=wifi HTTP/1.1
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+
+视频：
+目录（可订阅的栏目）
+https://a1.go2yd.com/Website/group/get-channels?platform=1&group_id=101142602942&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509938456656_30726&need_preset=false&version=020130&net=wifi HTTP/1.1
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+美女：
+https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509938499235_30723&channel_id=17495510974&version=020130&infinite=true&group_fromid=g184&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi HTTP/1.1
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+u195
+科技：
+https://a1.go2yd.com/Website/channel/news-list-for-channel
+?platform=1             平台
+&cstart=0
+&cend=30
+&refresh=1              下拉刷新
+&appid=yidian           App Id
+&cv=4.5.3.1             App版本
+&distribution=XSwebpages2 分配
+&reqid=a95htalv_1509938538600_30723 请求id
+&channel_id=17495511022 频道ID
+&version=020130         版本
+&infinite=true          无限的
+&group_fromid=g184      组ID
+&ad_version=010941      广告版本
+&net=wifi               网络类型
+
+&fields=docid
+&fields=date
+&fields=image
+&fields=image_urls
+&fields=like
+&fields=source
+&fields=title
+&fields=url
+&fields=comment_count
+&fields=up
+&fields=down
+
+HTTP/1.1
+Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
+
+// 段子
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=29&cend=39&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911373
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=39&cend=49&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911374
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=49&cend=59&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911375
+
+
+// 视频：
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244170024
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=20&cend=30&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061156
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061157
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061156
+
+
+
+
