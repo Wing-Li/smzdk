@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.NewMenu;
+import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseActivity;
 
 import java.util.List;

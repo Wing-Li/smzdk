@@ -1,6 +1,6 @@
 package com.lyl.smzdk.ui.news.list;
 
-import com.lyl.smzdk.network.entity.NewMenu;
+import com.lyl.smzdk.network.entity.news.NewMenu;
 
 import java.util.ArrayList;
 import java.util.List;

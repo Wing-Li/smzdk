@@ -1,6 +1,6 @@
 package com.lyl.smzdk.ui.news.list;
 
-import com.lyl.smzdk.network.entity.NewInfo;
+import com.lyl.smzdk.network.entity.news.NewInfo;
 
 import java.util.List;
 

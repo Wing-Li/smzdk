@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.network.entity.NewMenu;
+import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.utils.ImgUtils;
 
 import java.util.List;

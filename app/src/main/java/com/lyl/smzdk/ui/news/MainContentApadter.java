@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.network.entity.NewInfo;
+import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.utils.ImgUtils;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.lyl.smzdk.network.entity;
+package com.lyl.smzdk.network.entity.news;
 
 import java.util.List;
 
