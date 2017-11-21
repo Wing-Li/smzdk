@@ -25,13 +25,21 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         LogUtils.d("当前位置：" + position);
 
         //由于每行都只有2个，所以第一个都是2的倍数，把左边距设为0
-        if ((position + 1) % 2 == 1) {
-            outRect.left = 0;
-            outRect.bottom = space;
-        }else {
-            //不是第一个的格子都设一个左边和底部的间距
-            outRect.left = space;
-            outRect.bottom = space;
+//        if ((position + 1) % 2 == 1) {
+//            outRect.left = 0;
+//            outRect.bottom = space;
+//        }else {
+//            //不是第一个的格子都设一个左边和底部的间距
+//            outRect.left = space;
+//            outRect.bottom = space;
+//        }
+
+        outRect.left = space;
+        outRect.right = space;
+        if (position != 0 && position != 1) {
+            outRect.top = 2 * space;
+        } else {
+            outRect.top = space;
         }
     }
 }

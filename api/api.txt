@@ -113,10 +113,10 @@ http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart
 
 
 // 视频：
+http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244170024
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=20&cend=30&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061156
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061157
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061156
 
 
 

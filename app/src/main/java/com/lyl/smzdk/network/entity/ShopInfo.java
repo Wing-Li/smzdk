@@ -16,7 +16,8 @@ public class ShopInfo {
     private List<String> images;
     private String password;// 口令
     private String price;
-    private String salePrice;// 打折后价格
+    private String salePrice;// 优惠的价格
+    private String originalPrice;// 原价
     private String location;// 产地
     private String salesVolume;// 销量
 
@@ -42,6 +43,14 @@ public class ShopInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(String originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     public String getMsg() {

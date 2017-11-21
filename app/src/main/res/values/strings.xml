@@ -20,4 +20,7 @@
     <string name="exit_app">再次点击退出</string>
     <string name="data_error">数据异常，请稍后再试</string>
 
+    <string name="shop_sale_price_txt">%1$s元卷</string>
+    <string name="shop_salesvolume">已抢%1$s件</string>
+
 </resources>
