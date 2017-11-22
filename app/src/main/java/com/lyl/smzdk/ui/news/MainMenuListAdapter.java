@@ -24,6 +24,10 @@ public class MainMenuListAdapter extends BaseQuickAdapter<NewMenu, BaseViewHolde
     protected void convert(BaseViewHolder holder, NewMenu newChannel) {
         holder.setText(R.id.item_main_menu_title, newChannel.getName());
 
-        ImgUtils.loadCircle(mContext, newChannel.getImage(), (ImageView) holder.getView(R.id.item_main_menu_img));
+        if (newChannel.getImageRes() != 0) {
+            ImgUtils.load(mContext, newChannel.getImageRes(), (ImageView) holder.getView(R.id.item_main_menu_img));
+        } else {
+            ImgUtils.loadCircle(mContext, newChannel.getImage(), (ImageView) holder.getView(R.id.item_main_menu_img));
+        }
     }
 }

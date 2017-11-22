@@ -100,7 +100,12 @@ public class MainFragment extends BaseFragment {
 
     private void initData() {
         NewMenu channel;
-        for (int i = 0; i < 8; i++) {
+        channel = new NewMenu();
+        channel.setName("微信精选");
+        channel.setImageRes(R.drawable.weixin_icon);
+        mNewChannelList.add(channel);
+
+        for (int i = 0; i < 7; i++) {
             channel = new NewMenu();
             channel.setName("互联网" + i);
             channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
@@ -233,13 +238,14 @@ public class MainFragment extends BaseFragment {
                     showToast(getString(R.string.data_error));
                     return;
                 }
-                View titleView = view.findViewById(R.id.item_main_content_title);
+
 
                 Intent intent = new Intent(getHolder(), Html5Activity.class);
                 intent.putExtra(Constans.I_WEB_TITLE, info.getTitle());
                 intent.putExtra(Constans.I_WEB_URL, info.getUrl());
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    View titleView = view.findViewById(R.id.item_main_content_title);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
                             (titleView, "content_title"));
                     startActivity(intent, options.toBundle());

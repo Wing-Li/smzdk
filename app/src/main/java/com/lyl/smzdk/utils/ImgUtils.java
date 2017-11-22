@@ -39,9 +39,9 @@ public class ImgUtils {
 
     /**
      * @param context
-     * @param url               图片的地址
-     * @param imageView         ImageView
-     * @param thumbnail         简单的缩略图:0.1f 作为参数，Glide 将会显示原始图像的10%的大小
+     * @param url       图片的地址
+     * @param imageView ImageView
+     * @param thumbnail 简单的缩略图:0.1f 作为参数，Glide 将会显示原始图像的10%的大小
      */
     public static void load(Context context, String url, ImageView imageView, float thumbnail) {
         // 加载GIF慢
@@ -51,6 +51,10 @@ public class ImgUtils {
 //
 //        glide.register(GlideUrl.class, InputStream.class, factory);
         Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).into(imageView);
+    }
+
+    public static void load(Context context, int url, ImageView imageView) {
+        Glide.with(context).load(url).apply(baseOptions).into(imageView);
     }
 
     public static void load(Context context, String url, ImageView imageView) {

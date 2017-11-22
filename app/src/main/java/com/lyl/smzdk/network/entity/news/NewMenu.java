@@ -20,6 +20,7 @@ public class NewMenu {
     private String name;
     private String type;
     private String image;
+    private int imageRes;
     private Object category;
     private String bookcount;
     private String share_id;
@@ -70,6 +71,14 @@ public class NewMenu {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getImageRes() {
+        return imageRes;
+    }
+
+    public void setImageRes(int imageRes) {
+        this.imageRes = imageRes;
     }
 
     public String getShare_id() {
