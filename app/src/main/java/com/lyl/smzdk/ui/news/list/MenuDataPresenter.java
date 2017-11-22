@@ -2,7 +2,7 @@ package com.lyl.smzdk.ui.news.list;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
-import com.lyl.smzdk.network.imp.news.weixin.WxImp;
+import com.lyl.smzdk.network.imp.news.WxImp;
 
 import java.util.ArrayList;
 import java.util.List;

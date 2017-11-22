@@ -119,15 +119,30 @@ http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061157
 
 
-// 热门
-
+// 微信精选
 // 要闻
 http://weixin.sogou.com/pcindex/pc/pc_1/pc_1.html
 http://weixin.sogou.com/pcindex/pc/pc_1/1.html
 // 段子手
 http://weixin.sogou.com/pcindex/pc/pc_2/pc_2.html
 http://weixin.sogou.com/pcindex/pc/pc_2/1.html
-//
-http://weixin.sogou.com/pcindex/pc/pc_5/pc_5.html
 
+
+// 知乎精选 id
+// 编辑推荐 recommend_tab
+http://zhihu.sogou.com/include/pc/2/recommend/recommend1.html
+http://zhihu.sogou.com/include/pc/2/recommend/recommend2.html
+// 今日最热 hot_tab
+http://zhihu.sogou.com/include/pc/pc/hot/hot0.html
+http://zhihu.sogou.com/include/pc/3/hot/hot1.html
+http://zhihu.sogou.com/include/pc/3/hot/hot2.html
+// 话题 topic_tab
+// -- 篮球 position="17"
+http://zhihu.sogou.com/include/pc/pc/topic/topic17_0.html
+http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
+
+http://zhihu.sogou.com/include/pc/3/topic/topic19_0.html
+
+
+http://zhihu.sogou.com/include/pc/3/hot/hot0.html
 

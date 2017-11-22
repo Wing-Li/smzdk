@@ -1,4 +1,4 @@
-package com.lyl.smzdk.network.imp.news.weixin;
+package com.lyl.smzdk.network.imp.news;
 
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
