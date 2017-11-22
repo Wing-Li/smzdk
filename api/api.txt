@@ -144,5 +144,3 @@ http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
 http://zhihu.sogou.com/include/pc/3/topic/topic19_0.html
 
 
-http://zhihu.sogou.com/include/pc/3/hot/hot0.html
-
