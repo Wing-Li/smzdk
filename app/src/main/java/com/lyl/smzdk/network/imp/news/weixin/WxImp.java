@@ -1,7 +1,7 @@
 package com.lyl.smzdk.network.imp.news.weixin;
 
-import com.lyl.smzdk.network.entity.news.weixin.WxInfo;
-import com.lyl.smzdk.network.entity.news.weixin.WxMenu;
+import com.lyl.smzdk.network.entity.news.NewInfo;
+import com.lyl.smzdk.network.entity.news.NewMenu;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,31 +21,31 @@ public class WxImp {
     private static final String WX_MENU = "http://weixin.sogou.com/";
     private static final String WX_LIST_INFO = "http://weixin.sogou.com/pcindex/pc/%1$s/%2$s.html";
 
-    public List<WxMenu> getWxMenu() {
-        List<WxMenu> wxMenuList = new ArrayList<>();
+    public List<NewMenu> getWxMenu() {
+        List<NewMenu> newMenuList = new ArrayList<>();
 
         try {
             Document jsoup = Jsoup.connect(WX_MENU).get();
             Elements fieed_box = jsoup.select("div[class=fieed-box]");
             Elements a = fieed_box.select("a");
 
-            WxMenu wxMenu;
+            NewMenu menu;
             for (Element element : a) {
-                wxMenu = new WxMenu();
+                menu = new NewMenu();
                 // 获取 id ，根据 id 来获取详情页面
                 String id = element.attr("id");
-                wxMenu.setType(id);
+                menu.setType(id);
                 // 目录的标题
                 String text = element.text();
-                wxMenu.setName(text);
-                wxMenuList.add(wxMenu);
+                menu.setName(text);
+                newMenuList.add(menu);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return wxMenuList;
+        return newMenuList;
     }
 
     /**
@@ -55,8 +55,8 @@ public class WxImp {
      * @param p    页数
      * @return
      */
-    public List<WxInfo> getWxList(String type, int p) {
-        List<WxInfo> wxInfoList = new ArrayList<>();
+    public List<NewInfo> getWxList(String type, int p) {
+        List<NewInfo> newInfoList = new ArrayList<>();
 
         // 第0页的页数就是 类型
         String page = p == 0 ? type : String.valueOf(p);
@@ -66,41 +66,41 @@ public class WxImp {
             Document jsoup = Jsoup.connect(url).get();
             Elements news_list = jsoup.select("li");
 
-            WxInfo wxInfo;
+            NewInfo info;
             for (Element element : news_list) {
-                wxInfo = new WxInfo();
+                info = new NewInfo();
 
                 // 图片
                 Element img = element.select("div[class=img-box] a img").first();
                 String imgSrc = img.attr("src");
-                wxInfo.setImg(imgSrc);
+                info.setImage(imgSrc);
 
                 Element txt_box = element.select("div[class=txt-box]").first();
                 // 标题、链接
                 Element a = txt_box.select("h3 a").first();
                 String title = a.text();
                 String href = a.attr("href");
-                wxInfo.setTime(title);
-                wxInfo.setHref(href);
+                info.setTitle(title);
+                info.setUrl(href);
                 // 内容
                 Element txt_info = txt_box.select("p[class=txt-info]").first();
                 String msg = txt_info.text();
-                wxInfo.setMsg(msg);
+                info.setIntroduce(msg);
                 // 作者
                 Element sp = txt_box.select("div[class=s-p]").first();
                 String author = sp.select("a").text();
-                wxInfo.setAuthor(author);
+                info.setAuthor(author);
                 // 时间
                 Element time = sp.select("span").first();
-                wxInfo.setTime(time.text());
+                info.setTime(time.text());
 
-                wxInfoList.add(wxInfo);
+                newInfoList.add(info);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return wxInfoList;
+        return newInfoList;
     }
 }

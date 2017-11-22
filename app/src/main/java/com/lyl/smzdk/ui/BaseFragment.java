@@ -30,9 +30,9 @@ public abstract class BaseFragment extends Fragment {
     private BaseActivity holder;
 
     protected ActionBar mActionBar;
-//    protected Subscription subscription;
-
     private Unbinder unbinder;
+
+    private ImmersionBar mImmersionBar;
 
     @Override
     public void onAttach(Context context) {
@@ -71,18 +71,15 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null) mImmersionBar.destroy();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        unsubscribe();
-        ImmersionBar.with(this).destroy(); //必须调用该方法，防止内存泄漏
-    }
-
-    protected void unsubscribe() {
-//        if (subscription != null && !subscription.isUnsubscribed()) {
-//            subscription.unsubscribe();
-//            subscription = null;
-//        }
     }
 
     protected void showToast(String str) {
@@ -99,22 +96,16 @@ public abstract class BaseFragment extends Fragment {
     protected void setStatusBarColor(int resId) {
         mActionBar.setBackgroundColor(ContextCompat.getColor(getHolder(), resId));
 
-        ImmersionBar.with(this).transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
-                .statusBarColor(resId)     //状态栏颜色，不写默认透明色
-//                .navigationBarColor(resId) //导航栏颜色，不写默认黑色
-//                .barColor(resId)  //同时自定义状态栏和导航栏颜色，不写默认状态栏为透明色，导航栏为黑色
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
+                .statusBarColor(resId)//
                 .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
-//                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
-//                .fullScreen(true)      //有导航栏的情况下，activity全屏显示，也就是activity最下面被导航栏覆盖，不写默认非全屏
-//                .titleBarMarginTop(mActionBar)     //解决状态栏和布局重叠问题，任选其一
-//                .statusBarView(mActionBar)  //解决状态栏和布局重叠问题，任选其一
                 .fitsSystemWindows(true)    //解决状态栏和布局重叠问题，任选其一，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色，还有一些重载方法
                 .navigationBarEnable(true)   //是否可以修改导航栏颜色，默认为true
                 .navigationBarWithKitkatEnable(true)  //是否可以修改安卓4.4和emui3.1手机导航栏颜色，默认为true
                 .reset()  //重置所以沉浸式参数
                 .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
                 .init();  //必须调用方可沉浸式
-
     }
 
     /**

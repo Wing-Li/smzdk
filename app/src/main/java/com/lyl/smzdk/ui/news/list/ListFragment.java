@@ -3,6 +3,7 @@ package com.lyl.smzdk.ui.news.list;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,6 +12,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.news.MainContentApadter;
+import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 
 import java.util.List;
 
@@ -27,16 +29,23 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     private ListPresenter mPresenter;
 
-    private String mType;
+    private int mChannelType;
+    private String mMenuType;
 
     private List<NewInfo> mNewInfos;
     private MainContentApadter mContentApadter;
 
 
-    public static ListFragment newInstance(String type) {
+    /**
+     * @param channelType 频道类型。 微信精选、一点资讯
+     * @param menuType    频道底下的二级目录类型
+     * @return
+     */
+    public static ListFragment newInstance(int channelType, String menuType) {
         ListFragment listFragment = new ListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Constans.I_MENU_LIST_TYPE, type);
+        bundle.putInt(Constans.I_CHANNEL_TYPE_TYPE, channelType);
+        bundle.putString(Constans.I_MENU_LIST_TYPE, menuType);
         listFragment.setArguments(bundle);
 
         return listFragment;
@@ -46,7 +55,8 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
-        mType = arguments.getString(Constans.I_MENU_LIST_TYPE);
+        mChannelType = arguments.getInt(Constans.I_CHANNEL_TYPE_TYPE);
+        mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
     }
 
     @Override
@@ -61,25 +71,28 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         initAdapter();
 
         mPresenter = new ListPresenter(this);
-        mPresenter.loadData(mType);
+        mPresenter.reLoadData(mChannelType, mMenuType);
     }
 
     @Override
     public void setData(List<NewInfo> newInfos) {
-
         mContentApadter.addData(newInfos);
         mContentApadter.loadMoreComplete();
     }
 
     private void initAdapter() {
         mContentApadter = new MainContentApadter(mNewInfos);
-        mContentApadter.setDuration(BaseQuickAdapter.ALPHAIN);
+        mContentApadter.setDuration(BaseQuickAdapter.SLIDEIN_RIGHT);
         mContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.loadData(mType);
+                mPresenter.loadData(mChannelType, mMenuType);
             }
         }, recyclerview);
+
+        recyclerview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
+        recyclerview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
+        recyclerview.setAdapter(mContentApadter);
     }
 
     @Override

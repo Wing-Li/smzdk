@@ -24,6 +24,7 @@ import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.ui.news.list.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
@@ -187,7 +188,18 @@ public class MainFragment extends BaseFragment {
         mMenuListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                showToast("点击了第 " + (i + 1) + " 张图");
+                Intent intent = new Intent();
+                switch (i) {
+                    case 0:// 微信精选
+                        intent.setClass(getHolder(), MenuListActivity.class);
+                        intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_WEIXIN);
+                        break;
+                    default:
+                        intent = null;
+                        return;
+                }
+
+                startActivity(intent);
             }
         });
     }

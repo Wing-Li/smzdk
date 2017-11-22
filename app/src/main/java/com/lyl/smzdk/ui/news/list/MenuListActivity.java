@@ -37,7 +37,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
     ViewPager menuListViewpager;
 
     private MenuContract.Presenter mDataPresenter;
-    private int mType;
+    private int mChannelType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +48,12 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         getPremter();
 
         mDataPresenter = new MenuDataPresenter(this);
-        mDataPresenter.initMenuData(mType);
+        mDataPresenter.initMenuData(mChannelType);
     }
 
     private void getPremter() {
         Intent intent = getIntent();
-        mType = intent.getIntExtra(Constans.I_MENU_LIST_TYPE, 0);
+        mChannelType = intent.getIntExtra(Constans.I_CHANNEL_TYPE_TYPE, 0);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         menuListViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return ListFragment.newInstance(menuList.get(i).getType());
+                return ListFragment.newInstance(mChannelType, menuList.get(i).getType());
             }
 
             @Override

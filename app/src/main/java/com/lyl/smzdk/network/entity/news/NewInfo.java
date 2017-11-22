@@ -14,7 +14,25 @@ public class NewInfo {
     private String image;
     private List<String> images;
     private String url;
-    private String introduce;
+    private String introduce;// 简介
+    private String author;
+    private String time;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getId() {
         return id;

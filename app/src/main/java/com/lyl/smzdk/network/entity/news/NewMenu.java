@@ -17,11 +17,11 @@ public class NewMenu {
 //    }
 
     private String id;
+    private String name;
     private String type;
+    private String image;
     private Object category;
     private String bookcount;
-    private String name;
-    private String image;
     private String share_id;
 
     public String getId() {
