@@ -24,7 +24,7 @@ import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.lyl.smzdk.ui.news.list.MenuListActivity;
+import com.lyl.smzdk.ui.news.list.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
@@ -104,12 +104,14 @@ public class MainFragment extends BaseFragment {
         channel.setName("微信精选");
         channel.setImageRes(R.drawable.weixin_icon);
         channel.setType(Constans.NEWS_TYPE_WEIXIN);
+        channel.setShowType(Constans.ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
         channel.setName("知乎精选");
         channel.setImageRes(R.drawable.zhihu_icon);
         channel.setType(Constans.NEWS_TYPE_ZHIHU);
+        channel.setShowType(Constans.ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         for (int i = 0; i < 6; i++) {
@@ -205,6 +207,7 @@ public class MainFragment extends BaseFragment {
                 Intent intent = new Intent();
                 intent.setClass(getHolder(), MenuListActivity.class);
                 intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
+                intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list;
+package com.lyl.smzdk.ui.news.list.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseActivity;
+import com.lyl.smzdk.ui.news.list.list.ListFragment;
 
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
 
     private MenuContract.Presenter mDataPresenter;
     private String mChannelType;
+    private int mListItemShowType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +50,30 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         ButterKnife.bind(this);
 
         getPremter();
-        if (TextUtils.isEmpty(mChannelType)){
+        if (TextUtils.isEmpty(mChannelType)) {
             showToast(R.string.data_error);
             finish();
         }
 
         mDataPresenter = new MenuDataPresenter(this);
         mDataPresenter.initMenuData(mChannelType);
+
+        initView();
+    }
+
+    private void initView() {
+        actionbarImgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void getPremter() {
         Intent intent = getIntent();
         mChannelType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
+        mListItemShowType = intent.getIntExtra(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.ITEM_CONTENT_1);
     }
 
     @Override
@@ -66,7 +81,8 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         menuListViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return ListFragment.newInstance(mChannelType, menuList.get(i).getType());
+                NewMenu menu = menuList.get(i);
+                return ListFragment.newInstance(mChannelType, menu.getType(), mListItemShowType);
             }
 
             @Override

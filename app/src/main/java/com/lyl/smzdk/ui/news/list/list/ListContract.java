@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list;
+package com.lyl.smzdk.ui.news.list.list;
 
 import com.lyl.smzdk.network.entity.news.NewInfo;
 

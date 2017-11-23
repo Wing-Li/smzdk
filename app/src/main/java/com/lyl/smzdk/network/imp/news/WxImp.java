@@ -2,6 +2,7 @@ package com.lyl.smzdk.network.imp.news;
 
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
+import com.lyl.smzdk.utils.DateUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,7 +40,7 @@ public class WxImp {
                 String text = element.text();
                 menu.setName(text);
 
-                if ("更多".equals(text)){
+                if ("更多".equals(text)) {
                     menu = null;
                     continue;
                 }
@@ -97,8 +98,10 @@ public class WxImp {
                 String author = sp.select("a").text();
                 info.setAuthor(author);
                 // 时间
-                Element time = sp.select("span").first();
-                info.setTime(time.text());
+                Element time = sp.select("span.s2").first();
+                String t = time.attr("t");
+                String s = DateUtils.translateDate(Long.parseLong(t), System.currentTimeMillis() / 1000);
+                info.setTime(s);
 
                 newInfoList.add(info);
             }

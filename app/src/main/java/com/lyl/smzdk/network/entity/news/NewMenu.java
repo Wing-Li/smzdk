@@ -19,11 +19,21 @@ public class NewMenu {
     private String id;
     private String name;
     private String type;
+    private int showType;// 显示布局的类型
+
     private String image;
     private int imageRes;
     private Object category;
     private String bookcount;
     private String share_id;
+
+    public int getShowType() {
+        return showType;
+    }
+
+    public void setShowType(int showType) {
+        this.showType = showType;
+    }
 
     public String getId() {
         return id;

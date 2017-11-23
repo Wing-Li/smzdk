@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list;
+package com.lyl.smzdk.ui.news.list.list;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
@@ -15,10 +16,9 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.lyl.smzdk.ui.news.MainContentApadter;
 import com.lyl.smzdk.ui.web.Html5Activity;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,9 +36,10 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     private String mChannelType;
     private String mMenuType;
+    private int mShowItemType;
 
     private List<NewInfo> mNewInfos;
-    private MainContentApadter mContentApadter;
+    private ListContentApadter mContentApadter;
 
 
     /**
@@ -46,11 +47,12 @@ public class ListFragment extends BaseFragment implements ListContract.View {
      * @param menuType    频道底下的二级目录类型
      * @return
      */
-    public static ListFragment newInstance(String channelType, String menuType) {
+    public static ListFragment newInstance(String channelType, String menuType, int showItemType) {
         ListFragment listFragment = new ListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constans.I_CHANNEL_TYPE_TYPE, channelType);
         bundle.putString(Constans.I_MENU_LIST_TYPE, menuType);
+        bundle.putInt(Constans.I_LIST_ITEM_SHOW_TYPE, showItemType);
         listFragment.setArguments(bundle);
 
         return listFragment;
@@ -62,6 +64,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         Bundle arguments = getArguments();
         mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
         mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
+        mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.ITEM_CONTENT_1);
     }
 
     @Override
@@ -75,6 +78,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
         initAdapter();
 
+        mNewInfos = new ArrayList<>();
         mPresenter = new ListPresenter(this);
         mPresenter.reLoadData(mChannelType, mMenuType);
     }
@@ -87,7 +91,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     private void initAdapter() {
         // 设置Item
-        mContentApadter = new MainContentApadter(mNewInfos);
+        mContentApadter = new ListContentApadter(mNewInfos, mShowItemType);
         mContentApadter.setDuration(BaseQuickAdapter.SLIDEIN_RIGHT);
         mContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -97,7 +101,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         }, recyclerview);
 
         // 设置 RecyclerView
-        recyclerview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
+        recyclerview.setLayoutManager(new LinearLayoutManager(getHolder()));
         recyclerview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         recyclerview.setAdapter(mContentApadter);
 
