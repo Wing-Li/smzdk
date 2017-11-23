@@ -38,6 +38,12 @@ public class WxImp {
                 // 目录的标题
                 String text = element.text();
                 menu.setName(text);
+
+                if ("更多".equals(text)){
+                    menu = null;
+                    continue;
+                }
+
                 newMenuList.add(menu);
             }
 

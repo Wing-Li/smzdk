@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class ZhImp {
 
-    private static final String ZH_MENU = "http://weixin.sogou.com/";
+    private static final String ZH_MENU = "http://zhihu.sogou.com/";
     private static final String ZH_LIST_INFO = "http://weixin.sogou.com/pcindex/pc/%1$s/%2$s.html";
 
-    public static List<NewMenu> getMenu(){
+    public List<NewMenu> getMenu() {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         try {

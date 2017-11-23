@@ -34,7 +34,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
     private ListPresenter mPresenter;
 
-    private int mChannelType;
+    private String mChannelType;
     private String mMenuType;
 
     private List<NewInfo> mNewInfos;
@@ -46,10 +46,10 @@ public class ListFragment extends BaseFragment implements ListContract.View {
      * @param menuType    频道底下的二级目录类型
      * @return
      */
-    public static ListFragment newInstance(int channelType, String menuType) {
+    public static ListFragment newInstance(String channelType, String menuType) {
         ListFragment listFragment = new ListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constans.I_CHANNEL_TYPE_TYPE, channelType);
+        bundle.putString(Constans.I_CHANNEL_TYPE_TYPE, channelType);
         bundle.putString(Constans.I_MENU_LIST_TYPE, menuType);
         listFragment.setArguments(bundle);
 
@@ -60,7 +60,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
-        mChannelType = arguments.getInt(Constans.I_CHANNEL_TYPE_TYPE);
+        mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
         mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
     }
 

@@ -103,9 +103,16 @@ public class MainFragment extends BaseFragment {
         channel = new NewMenu();
         channel.setName("微信精选");
         channel.setImageRes(R.drawable.weixin_icon);
+        channel.setType(Constans.NEWS_TYPE_WEIXIN);
         mNewChannelList.add(channel);
 
-        for (int i = 0; i < 7; i++) {
+        channel = new NewMenu();
+        channel.setName("知乎精选");
+        channel.setImageRes(R.drawable.zhihu_icon);
+        channel.setType(Constans.NEWS_TYPE_ZHIHU);
+        mNewChannelList.add(channel);
+
+        for (int i = 0; i < 6; i++) {
             channel = new NewMenu();
             channel.setName("互联网" + i);
             channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
@@ -193,17 +200,11 @@ public class MainFragment extends BaseFragment {
         mMenuListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                Intent intent = new Intent();
-                switch (i) {
-                    case 0:// 微信精选
-                        intent.setClass(getHolder(), MenuListActivity.class);
-                        intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_WEIXIN);
-                        break;
-                    default:
-                        intent = null;
-                        return;
-                }
+                NewMenu newMenu = mNewChannelList.get(i);
 
+                Intent intent = new Intent();
+                intent.setClass(getHolder(), MenuListActivity.class);
+                intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                 startActivity(intent);
             }
         });

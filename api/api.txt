@@ -129,6 +129,7 @@ http://weixin.sogou.com/pcindex/pc/pc_2/1.html
 
 
 // 知乎精选 id
+http://zhihu.sogou.com/
 // 编辑推荐 recommend_tab
 http://zhihu.sogou.com/include/pc/2/recommend/recommend1.html
 http://zhihu.sogou.com/include/pc/2/recommend/recommend2.html

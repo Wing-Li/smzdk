@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
     ViewPager menuListViewpager;
 
     private MenuContract.Presenter mDataPresenter;
-    private int mChannelType;
+    private String mChannelType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,10 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         ButterKnife.bind(this);
 
         getPremter();
+        if (TextUtils.isEmpty(mChannelType)){
+            showToast(R.string.data_error);
+            finish();
+        }
 
         mDataPresenter = new MenuDataPresenter(this);
         mDataPresenter.initMenuData(mChannelType);
@@ -53,7 +58,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
 
     private void getPremter() {
         Intent intent = getIntent();
-        mChannelType = intent.getIntExtra(Constans.I_CHANNEL_TYPE_TYPE, 0);
+        mChannelType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
     }
 
     @Override

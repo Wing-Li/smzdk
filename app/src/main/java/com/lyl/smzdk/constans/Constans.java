@@ -9,7 +9,10 @@ public class Constans {
     public static String SP_THEME = "sp_theme";
 
     // News 类型
-    public static final int NEWS_TYPE_WEIXIN = 10001;
+    // 微信精选
+    public static final String NEWS_TYPE_WEIXIN = "10001";
+    // 知乎精选
+    public static final String NEWS_TYPE_ZHIHU = "10002";
 
     // 内涵段子 需要的常量字段
     public static String SP_CITY = "sp_city";

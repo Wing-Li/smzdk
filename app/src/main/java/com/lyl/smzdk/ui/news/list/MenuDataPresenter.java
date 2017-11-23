@@ -3,6 +3,7 @@ package com.lyl.smzdk.ui.news.list;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.imp.news.WxImp;
+import com.lyl.smzdk.network.imp.news.ZhImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class MenuDataPresenter implements MenuContract.Presenter {
     }
 
     @Override
-    public void initMenuData(final int type) {
+    public void initMenuData(final String type) {
         Observable.create(new ObservableOnSubscribe<List<NewMenu>>() {
             @Override
             public void subscribe(ObservableEmitter<List<NewMenu>> ob) throws Exception {
@@ -40,6 +41,11 @@ public class MenuDataPresenter implements MenuContract.Presenter {
                     case Constans.NEWS_TYPE_WEIXIN: { // 微信精选
                         WxImp wxImp = new WxImp();
                         mNewMenuList = wxImp.getWxMenu();
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_ZHIHU:{ // 知乎精选
+                        ZhImp zhImp = new ZhImp();
+                        mNewMenuList = zhImp.getMenu();
                         break;
                     }
                 }

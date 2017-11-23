@@ -23,11 +23,11 @@ public class ListContract {
     }
 
     interface Presenter {
-        void reLoadData(int channelType, String type);
+        void reLoadData(String channelType, String type);
 
         /**
          * 获取数据
          */
-        void loadData(int channelType, String type);
+        void loadData(String channelType, String type);
     }
 }

@@ -14,9 +14,27 @@ public class NewInfo {
     private String image;
     private List<String> images;
     private String url;
-    private String introduce;// 简介
-    private String author;
+    private String introduce;// 简介 新闻简介
+    private String author; // 微信公众号，知乎作者
+    private String authorSignature; // 作者签名
+    private String laudNum; // 点赞
     private String time;
+
+    public String getLaudNum() {
+        return laudNum;
+    }
+
+    public void setLaudNum(String laudNum) {
+        this.laudNum = laudNum;
+    }
+
+    public String getAuthorSignature() {
+        return authorSignature;
+    }
+
+    public void setAuthorSignature(String authorSignature) {
+        this.authorSignature = authorSignature;
+    }
 
     public String getAuthor() {
         return author;

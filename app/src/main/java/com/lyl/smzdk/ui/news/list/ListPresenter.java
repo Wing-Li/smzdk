@@ -30,13 +30,13 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void reLoadData(int channelType, String type) {
+    public void reLoadData(String channelType, String type) {
         page = 0;
         loadData(channelType,type);
     }
 
     @Override
-    public void loadData(final int channel, final String type) {
+    public void loadData(final String channel, final String type) {
         Observable.create(new ObservableOnSubscribe<List<NewInfo>>() {
             @Override
             public void subscribe(ObservableEmitter<List<NewInfo>> ob) throws Exception {

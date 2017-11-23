@@ -29,6 +29,6 @@ public class MenuContract {
         /**
          * 获取目录数据
          */
-        void initMenuData(int type);
+        void initMenuData(String type);
     }
 }
