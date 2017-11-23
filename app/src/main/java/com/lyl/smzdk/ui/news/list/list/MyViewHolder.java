@@ -27,4 +27,11 @@ public class MyViewHolder extends BaseViewHolder {
         }
         return this;
     }
+
+    @Override
+    public BaseViewHolder setVisible(int viewId, boolean visible) {
+        View view = this.getView(viewId);
+        if (view != null) view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return this;
+    }
 }

@@ -3,6 +3,7 @@ package com.lyl.smzdk.network.imp.news;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.utils.DateUtils;
+import com.lyl.smzdk.utils.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -70,6 +71,7 @@ public class WxImp {
         // 该类型的链接
         String url = String.format(WX_LIST_INFO, type, String.valueOf(page));
         try {
+            LogUtils.d("请求链接：" + url);
             Document jsoup = Jsoup.connect(url).get();
             Elements news_list = jsoup.select("li");
 

@@ -2,6 +2,7 @@ package com.lyl.smzdk.network.imp.news;
 
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
+import com.lyl.smzdk.utils.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,15 +45,19 @@ public class ZhImp {
             newMenuList.add(menu);
             // 话题 -- topic
             // http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
-            Elements a = jsoup.select("div[class=main-list-box] div[class=tab-lv2] a");
+            Elements a = jsoup.select("div[class=main-list-box] div[id=topic_assort] a");
             for (Element element : a) {
                 menu = new NewMenu();
-                // 获取 position ，根据 position 来获取详情页面
-                String id = element.attr("position");
-                menu.setType(id);
                 // 目录的标题
                 String text = element.text();
                 menu.setName(text);
+                if ("展开".equals(text) || "收起".equals(text)) {
+                    continue;
+                }
+
+                // 获取 position ，根据 position 来获取详情页面
+                String id = element.attr("position");
+                menu.setType(id);
                 newMenuList.add(menu);
             }
 
@@ -70,7 +75,7 @@ public class ZhImp {
      * @param p    页数
      * @return
      */
-    public List<NewInfo> getWxList(String type, int p) {
+    public List<NewInfo> getZhList(String type, int p) {
         List<NewInfo> newInfoList = new ArrayList<>();
 
         String url;
@@ -84,6 +89,7 @@ public class ZhImp {
         }
 
         try {
+            LogUtils.d("请求链接：" + url);
             Document jsoup = Jsoup.connect(url).get();
             Elements news_list = jsoup.select("li");
 
@@ -91,29 +97,34 @@ public class ZhImp {
             for (Element element : news_list) {
                 info = new NewInfo();
 
-                // 图片
-                Element img = element.select("div[class=img-box] a img").first();
-                String imgSrc = img.attr("src");
-                info.setImage(imgSrc);
+                Element title = element.select("p.tit a").first();
+                // 标题
+                info.setTitle(title.text());
+                // 链接
+                info.setUrl(title.attr("href"));
 
-                Element txt_box = element.select("div[class=txt-box]").first();
-                // 标题、链接
-                Element a = txt_box.select("h3 a").first();
-                String title = a.text();
-                String href = a.attr("href");
-                info.setTitle(title);
-                info.setUrl(href);
-                // 内容
-                Element txt_info = txt_box.select("p[class=txt-info]").first();
-                String msg = txt_info.text();
-                info.setIntroduce(msg);
+                Element txt_box = element.select("div.td-b div.txt-box").first();
+                // 点赞数
+                Element laud = txt_box.select("p.p1 span").first();
+                info.setLaudNum(laud.text());
                 // 作者
-                Element sp = txt_box.select("div[class=s-p]").first();
-                String author = sp.select("a").text();
-                info.setAuthor(author);
-                // 时间
-                Element time = sp.select("span").first();
-                info.setTime(time.text());
+                Element author = txt_box.select("p.p1 a").first();
+                info.setAuthor(author.ownText());
+                // 作者链接
+                info.setAuthorUrl(author.attr("href"));
+                // 作者签名
+                Element authorSgin = txt_box.select("p.p1").first();
+                info.setAuthorSignature(authorSgin.ownText());
+
+                // 简介
+                Element msg = txt_box.select("p.p2 a").first();
+                info.setIntroduce(msg.text());
+
+                // 如果有图片的话，获取图片
+                Element img = element.select("div.td-b div.img-box img").first();
+                if (img != null) {
+                    info.setImage(img.attr("src"));
+                }
 
                 newInfoList.add(info);
             }

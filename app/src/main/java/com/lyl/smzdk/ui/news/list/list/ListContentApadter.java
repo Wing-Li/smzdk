@@ -20,7 +20,6 @@ import java.util.List;
 public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> {
 
 
-
     public ListContentApadter(@Nullable List<NewInfo> data, final int itemType) {
         super(data);
 
@@ -47,13 +46,16 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> 
 
         if (!TextUtils.isEmpty(newInfo.getImage())) { // 单图
             ImgUtils.load(mContext, newInfo.getImage(), (ImageView) holder.getView(R.id.item_main_content_image));
-        } else if (newInfo.getImages().size() == 3) { // 3 张图
+        } else if (newInfo.getImages() != null && newInfo.getImages().size() == 3) { // 3 张图
             ImgUtils.load(mContext, newInfo.getImages().get(0), (ImageView) holder.getView(R.id
                     .item_main_content_image1));
             ImgUtils.load(mContext, newInfo.getImages().get(1), (ImageView) holder.getView(R.id
                     .item_main_content_image2));
             ImgUtils.load(mContext, newInfo.getImages().get(2), (ImageView) holder.getView(R.id
                     .item_main_content_image3));
+        } else {
+            // 图片都是空，则隐藏图片
+            holder.setVisible(R.id.item_main_content_image, false);
         }
     }
 }

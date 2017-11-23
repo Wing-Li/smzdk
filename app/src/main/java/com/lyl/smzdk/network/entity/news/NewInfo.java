@@ -15,10 +15,20 @@ public class NewInfo {
     private List<String> images;
     private String url;
     private String introduce;// 简介 新闻简介
-    private String author; // 微信公众号，知乎作者
-    private String authorSignature; // 作者签名
     private String laudNum; // 点赞
     private String time;
+
+    private String author; // 微信公众号，知乎作者
+    private String authorSignature; // 作者签名
+    private String authorUrl;
+
+    public String getAuthorUrl() {
+        return authorUrl;
+    }
+
+    public void setAuthorUrl(String authorUrl) {
+        this.authorUrl = authorUrl;
+    }
 
     public String getLaudNum() {
         return laudNum;

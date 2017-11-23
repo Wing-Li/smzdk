@@ -3,6 +3,7 @@ package com.lyl.smzdk.ui.news.list.list;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.WxImp;
+import com.lyl.smzdk.network.imp.news.ZhImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ListPresenter implements ListContract.Presenter {
     @Override
     public void reLoadData(String channelType, String type) {
         page = 0;
-        loadData(channelType,type);
+        loadData(channelType, type);
     }
 
     @Override
@@ -42,9 +43,14 @@ public class ListPresenter implements ListContract.Presenter {
             public void subscribe(ObservableEmitter<List<NewInfo>> ob) throws Exception {
                 List<NewInfo> newInfoList = new ArrayList<>();
                 switch (channel) {
-                    case Constans.NEWS_TYPE_WEIXIN: {// 微信精选
+                    case Constans.NEWS_TYPE_WEIXIN: { // 微信精选
                         WxImp wxImp = new WxImp();
                         newInfoList = wxImp.getWxList(type, page);
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_ZHIHU: { // 知乎精选
+                        ZhImp zhImp = new ZhImp();
+                        newInfoList = zhImp.getZhList(type, page);
                         break;
                     }
                     default:
