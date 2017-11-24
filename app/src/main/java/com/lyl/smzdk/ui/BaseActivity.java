@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -51,5 +52,19 @@ public class BaseActivity extends AppCompatActivity {
                 .reset()  //重置所以沉浸式参数
                 .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
                 .init();  //必须调用方可沉浸式
+    }
+
+    /**
+     * 防止 String 为 null
+     *
+     * @param s
+     * @return
+     */
+    public String FS(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return "";
+        } else {
+            return s;
+        }
     }
 }

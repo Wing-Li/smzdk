@@ -13,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.lyl.smzdk.R;
 
 import java.security.MessageDigest;
@@ -81,8 +80,8 @@ public class ImgUtils {
                 GlideCircleTransform(context))).into(imageView);
     }
 
-    public static void getBitmap(Context context, String url, Target simpleTarget) {
-        Glide.with(context).asBitmap().apply(baseOptions).load(url).into(simpleTarget);
+    public static void getBitmap(Context context, String url, BitmapTransformation simpleTarget) {
+        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().transform(simpleTarget));
     }
 
     /**

@@ -21,9 +21,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
-import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.entity.news.NewInfo;
+import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.ui.news.list.essay.NhMenuActivity;
 import com.lyl.smzdk.ui.news.list.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
@@ -87,7 +88,7 @@ public class MainFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActionBar.setModelOnlyTitle(R.string.home);
-        initData();
+        initMenuData();
         headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
         mianBanner = headerView.findViewById(R.id.mian_banner);
         mainMenuListView = headerView.findViewById(R.id.main_menu_list);
@@ -96,30 +97,6 @@ public class MainFragment extends BaseFragment {
         setBanner();
         setMenu();
         loadMoreData(new MainLoadDataEvent(page));
-    }
-
-    private void initData() {
-        NewMenu channel;
-        channel = new NewMenu();
-        channel.setName("微信精选");
-        channel.setImageRes(R.drawable.weixin_icon);
-        channel.setType(Constans.NEWS_TYPE_WEIXIN);
-        channel.setShowType(Constans.ITEM_CONTENT_2);
-        mNewChannelList.add(channel);
-
-        channel = new NewMenu();
-        channel.setName("知乎精选");
-        channel.setImageRes(R.drawable.zhihu_icon);
-        channel.setType(Constans.NEWS_TYPE_ZHIHU);
-        channel.setShowType(Constans.ITEM_CONTENT_2);
-        mNewChannelList.add(channel);
-
-        for (int i = 0; i < 6; i++) {
-            channel = new NewMenu();
-            channel.setName("互联网" + i);
-            channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
-            mNewChannelList.add(channel);
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -184,6 +161,41 @@ public class MainFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 设置目录列表
+     */
+    private void initMenuData() {
+        NewMenu channel;
+        channel = new NewMenu();
+        channel.setName("微信精选");
+        channel.setImageRes(R.drawable.weixin_icon);
+        channel.setType(Constans.NEWS_TYPE_WEIXIN);
+        channel.setShowType(Constans.ITEM_CONTENT_2);
+        mNewChannelList.add(channel);
+
+        channel = new NewMenu();
+        channel.setName("知乎精选");
+        channel.setImageRes(R.drawable.zhihu_icon);
+        channel.setType(Constans.NEWS_TYPE_ZHIHU);
+        channel.setShowType(Constans.ITEM_CONTENT_2);
+        mNewChannelList.add(channel);
+
+        channel = new NewMenu();
+        channel.setName("内涵精选");
+        channel.setImageRes(R.drawable.neihan_icon);
+        mNewChannelList.add(channel);
+
+        for (int i = 0; i < 5; i++) {
+            channel = new NewMenu();
+            channel.setName("互联网" + i);
+            channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
+            mNewChannelList.add(channel);
+        }
+    }
+
+    /**
+     * 设置目录的显示
+     */
     private void setMenu() {
         mMenuListAdapter = new MainMenuListAdapter(R.layout.item_main_menu, mNewChannelList);
         mainMenuListView.setLayoutManager(new GridLayoutManager(getHolder(), 4));
@@ -199,16 +211,21 @@ public class MainFragment extends BaseFragment {
         });
         mainMenuListView.setAdapter(mMenuListAdapter);
 
+        // 目录点击事件
         mMenuListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                NewMenu newMenu = mNewChannelList.get(i);
+                if (i == 2) { // 内涵精选
+                    Intent intent = new Intent(getHolder(), NhMenuActivity.class);
+                    startActivity(intent);
+                } else {// 微信、知乎
+                    NewMenu newMenu = mNewChannelList.get(i);
+                    Intent intent = new Intent(getHolder(), MenuListActivity.class);
+                    intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
+                    intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());
+                    startActivity(intent);
+                }
 
-                Intent intent = new Intent();
-                intent.setClass(getHolder(), MenuListActivity.class);
-                intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
-                intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());
-                startActivity(intent);
             }
         });
     }

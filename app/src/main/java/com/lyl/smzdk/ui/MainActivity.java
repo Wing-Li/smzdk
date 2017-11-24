@@ -20,6 +20,7 @@ import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.shop.ShopFragment;
 import com.lyl.smzdk.ui.user.UserFragment;
 import com.lyl.smzdk.ui.video.VideoFragment;
+import com.lyl.smzdk.utils.ImgUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -231,6 +232,12 @@ public class MainActivity extends BaseActivity {
         super.onPause();
         // 屏幕关闭时，停止所有正在播放的视频
         JZVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImgUtils.clearMemory(getApplicationContext());
     }
 
     private long time = 0;

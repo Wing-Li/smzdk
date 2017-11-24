@@ -76,18 +76,15 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.roughike:bottom-bar:2.3.1'
-    //数据抓取
     compile 'org.jsoup:jsoup:1.10.2'
-    // http://square.github.io/retrofit/#contributing
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    //https://zhuanlan.zhihu.com/p/24482660?refer=dreawer
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'org.greenrobot:eventbus:3.1.1'
-    // https://muyangmin.github.io/glide-docs-cn/
-    compile 'com.github.bumptech.glide:glide:4.2.0'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.8.0'
     compile 'cn.jzvd:jiaozivideoplayer:6.1.2'
 
     compile 'com.android.support:support-v4:26.1.0'
@@ -97,4 +94,6 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     // Adapter
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
 }

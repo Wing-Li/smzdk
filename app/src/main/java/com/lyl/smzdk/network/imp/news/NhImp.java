@@ -1,4 +1,4 @@
-package com.lyl.smzdk.network.imp;
+package com.lyl.smzdk.network.imp.news;
 
 import android.app.Activity;
 import android.text.TextUtils;
@@ -19,7 +19,7 @@ import retrofit2.Call;
  * Created by lyl on 2017/5/23.
  */
 
-public class NeihanImp {
+public class NhImp {
 
     private String version_code = "625";
     private String version_name = "6.2.5";
@@ -46,13 +46,12 @@ public class NeihanImp {
     private String mResolution;
     private int mDpi;
 
-    public NeihanImp(Activity context) {
+    public NhImp(Activity context) {
         mContext = context;
         initData();
     }
 
     private void initData() {
-
         mCity = (String) SPUtil.get(mContext, Constans.SP_CITY, "北京");
         mLatitude = (String) SPUtil.get(mContext, Constans.SP_LATITUDE, "0");
         mLongitude = (String) SPUtil.get(mContext, Constans.SP_LONGITUDE, "0");
@@ -87,6 +86,12 @@ public class NeihanImp {
         mDpi = displayMetrics.densityDpi;
     }
 
+    /**
+     * 获取段子
+     *
+     * @param mContentType 图片的是-103，段子的是-102
+     * @return
+     */
     public Call<NhEassay> getNhEssayDetails(String mContentType) {
         return Network.getNeihanApi().getNhEssay(mContentType,// 图片的是-103，段子的是-102
                 mCity,// 城市
@@ -112,6 +117,13 @@ public class NeihanImp {
                 update_version_code);
     }
 
+    /**
+     * 获取评论列表
+     *
+     * @param group_id
+     * @param page
+     * @return
+     */
     public Call<NhComments> getNhComments(String group_id, int page) {
         return Network.getNeihanApi().getNhComments(group_id,// 段子group_id
                 group_id,//
@@ -133,6 +145,13 @@ public class NeihanImp {
                 update_version_code);
     }
 
+    /**
+     * 获取热门评论 的二级评论
+     *
+     * @param id
+     * @param page
+     * @return
+     */
     public Call<NhCommentReply> getNhCommentReply(String id, int page) {
         return Network.getNeihanApi().getNhCommentReply(id,// 段子group_id
                 CONTENT_NUM,// 数量

@@ -31,6 +31,20 @@
             android:name=".ui.news.list.menu.MenuListActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.news.list.essay.NhMenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--加载图片-->
+        <activity
+            android:name=".ui.image.SpecialImageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.image.ImageActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

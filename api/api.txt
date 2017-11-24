@@ -145,3 +145,9 @@ http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
 http://zhihu.sogou.com/include/pc/3/topic/topic19_0.html
 
 
+// 内涵段子
+// 精华
+http://ic.snssdk.com/neihan/in_app/essence_list/
+http://iu.snssdk.com/neihan/in_app/essence_detail/6491434569319842318/?item_id=6491434569319842318&refer=list
+
+https://mp.weixin.qq.com/profile?src=3&timestamp=1511491466&ver=1&signature=UUUffsBKhmzsKm0VuR341fnHfAd7HyOFFf1yRxWFSrc7SIyiDavshT5F7ZBlQkjj0HAZDafLigrSB9Kvsi43aw==
