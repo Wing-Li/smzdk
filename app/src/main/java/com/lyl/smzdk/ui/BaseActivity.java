@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.lyl.smzdk.R;
 
 /**
  * Author: lyl
@@ -26,6 +27,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mActivity = this;
+        setStatusBar();
     }
 
     protected void showToast(String str) {
@@ -45,6 +47,7 @@ public class BaseActivity extends AppCompatActivity {
     private void setStatusBar() {
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
+                .statusBarColor(R.color.bg_gary)//
                 .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
                 .fitsSystemWindows(true)    //解决状态栏和布局重叠问题，任选其一，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色，还有一些重载方法
                 .navigationBarEnable(true)   //是否可以修改导航栏颜色，默认为true

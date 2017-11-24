@@ -2,6 +2,7 @@ package com.lyl.smzdk.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,10 @@ public class ActionBar extends RelativeLayout {
 
     private void setTitle(String resTitle) {
         mTitle.setText(resTitle);
+    }
+
+    public void setTitleColor(int resColor) {
+        mTitle.setTextColor(ContextCompat.getColor(context, resColor));
     }
 
     private void setBack(final Activity activity) {

@@ -24,6 +24,7 @@ import com.lyl.smzdk.ui.image.ImageActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
+import com.lyl.smzdk.view.ActionBar;
 import com.lyl.smzdk.view.WrappingLinearLayoutManager;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -39,6 +40,8 @@ import retrofit2.Response;
 
 public class EassayDetailActivity extends BaseActivity {
 
+    @BindView(R.id.actionbar)
+    ActionBar mActionBar;
     @BindView(R.id.eassay_detail_icon)
     ImageView eassayDetailIcon;
     @BindView(R.id.eassay_detail_name)
@@ -193,15 +196,18 @@ public class EassayDetailActivity extends BaseActivity {
                 mImageUrl = bundle.getString(Constans.SPECIAL_IMAGE_URL);
                 break;
             case Constans.EASSAY_DETAIL_CONTENT_LIST://列表
-                mImageThumbListBeanList = (List<NhEassay.DataBeanX.DataBean.GroupBean.ThumbImageListBean>) bundle.getSerializable
-                        (Constans.IMAGE_THUMB_LIST);
-                mImageListBeanList = (List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean>) bundle.getSerializable(Constans
-                        .IMAGE_LIST);
+                mImageThumbListBeanList = (List<NhEassay.DataBeanX.DataBean.GroupBean.ThumbImageListBean>) bundle
+                        .getSerializable(Constans.IMAGE_THUMB_LIST);
+                mImageListBeanList = (List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean>) bundle
+                        .getSerializable(Constans.IMAGE_LIST);
                 break;
         }
     }
 
     private void initView() {
+        mActionBar.setTitleColor(R.color.black);
+        mActionBar.setModelBack(R.string.details, mActivity);
+
         ImgUtils.loadCircle(mContext, mUserIcon, eassayDetailIcon);
 
         eassayDetailName.setText(FS(mUserName));
@@ -221,7 +227,8 @@ public class EassayDetailActivity extends BaseActivity {
         WrappingLinearLayoutManager wrappingLinearLayoutManager = new WrappingLinearLayoutManager(mContext);
         wrappingLinearLayoutManager.setAutoMeasureEnabled(false);
         eassayDetailRecyclerHot.setLayoutManager(wrappingLinearLayoutManager);
-        mHotCommentAdapter = new EassayDetailCommentAdapter(mContext, mHotCommentsList, EassayDetailCommentAdapter.COMMENT_TYPE_HOT);
+        mHotCommentAdapter = new EassayDetailCommentAdapter(mContext, mHotCommentsList, EassayDetailCommentAdapter
+                .COMMENT_TYPE_HOT);
         eassayDetailRecyclerHot.setAdapter(mHotCommentAdapter);
         eassayDetailRecyclerHot.setNestedScrollingEnabled(false);
 
@@ -229,7 +236,8 @@ public class EassayDetailActivity extends BaseActivity {
         WrappingLinearLayoutManager wrappingLinearLayoutManager2 = new WrappingLinearLayoutManager(mContext);
         wrappingLinearLayoutManager2.setAutoMeasureEnabled(false);
         eassayDetailRecyclerAll.setLayoutManager(wrappingLinearLayoutManager2);
-        mAllCommentAdapter = new EassayDetailCommentAdapter(mContext, mAllCommentsList, EassayDetailCommentAdapter.COMMENT_TYPE_ALL);
+        mAllCommentAdapter = new EassayDetailCommentAdapter(mContext, mAllCommentsList, EassayDetailCommentAdapter
+                .COMMENT_TYPE_ALL);
         eassayDetailRecyclerAll.setAdapter(mAllCommentAdapter);
         eassayDetailRecyclerAll.setNestedScrollingEnabled(true);
 

@@ -51,9 +51,15 @@ public class NhMenuActivity extends BaseActivity {
 
     private void initMenuData() {
         menuList = new ArrayList<>();
+        // 内涵段子
         NewMenu menu = new NewMenu();
-        menu.setName("段子");
+        menu.setName(getString(R.string.menu_neihan_eassay));
         menu.setType(NhEassayListFragment.CONTENT_TYPE_ESSAY);
+        menuList.add(menu);
+        // 内涵图片
+        menu = new NewMenu();
+        menu.setName(getString(R.string.menu_neihan_eassay_image));
+        menu.setType(NhEassayListFragment.CONTENT_TYPE_IMAGE);
         menuList.add(menu);
     }
 
@@ -85,5 +91,15 @@ public class NhMenuActivity extends BaseActivity {
             }
         });
         menuListTablayout.setupWithViewPager(menuListViewpager);
+
+        // 设置顶部 Actionbar
+        actionbarImgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        actionbarTitle.setText(R.string.menu_neihan);
+        actionbarImgRight.setVisibility(View.GONE);
     }
 }

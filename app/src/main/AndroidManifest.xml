@@ -35,6 +35,14 @@
             android:name=".ui.news.list.essay.NhMenuActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.news.list.essay.EassayDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.news.list.essay.DetailCommentReplyActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <!--加载图片-->
         <activity

@@ -141,13 +141,6 @@ public class NhEassayListFragment extends BaseFragment {
     }
 
     private void initView() {
-        int title = 0;
-        if (CONTENT_TYPE_ESSAY.equals(mContentType)) {
-            title = R.string.nheassay;
-        } else if (CONTENT_TYPE_IMAGE.equals(mContentType)) {
-            title = R.string.nheassay_image;
-        }
-
         mAdapter = new NhEassayListAdapter(mDataBeen, mContentType, mScreenWidth);
         recyclerView.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         recyclerView.setAdapter(mAdapter);

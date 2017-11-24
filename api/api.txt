@@ -144,6 +144,8 @@ http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
 
 http://zhihu.sogou.com/include/pc/3/topic/topic19_0.html
 
+// 读者
+http://www.duzhe.com/index.php?v=listing&cid=39&page=1
 
 // 内涵段子
 // 精华

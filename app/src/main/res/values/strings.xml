@@ -16,8 +16,13 @@
     <string name="search_bt">磁力搜</string>
 
 
-    <string name="nheassay">内涵段子</string>
-    <string name="nheassay_image">内涵图片</string>
+    <string name="menu_weixin">微信精选</string>
+    <string name="menu_zhihu">知乎精选</string>
+    <string name="menu_duzhe">读者精选</string>
+    <string name="menu_neihan">内涵精选</string>
+
+    <string name="menu_neihan_eassay">段子</string>
+    <string name="menu_neihan_eassay_image">内涵图</string>
     <string name="details">"详情"</string>
 
     <!--提示性信息-->

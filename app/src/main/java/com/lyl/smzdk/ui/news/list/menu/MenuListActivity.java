@@ -68,6 +68,21 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
                 onBackPressed();
             }
         });
+
+        int title;
+        switch (mChannelType) {
+            case Constans.NEWS_TYPE_WEIXIN:
+                title = R.string.menu_weixin;
+                break;
+            case Constans.NEWS_TYPE_ZHIHU:
+                title = R.string.menu_zhihu;
+                break;
+            default:
+                title = R.string.app_name;
+                break;
+        }
+
+        actionbarTitle.setText(title);
     }
 
     private void getPremter() {
