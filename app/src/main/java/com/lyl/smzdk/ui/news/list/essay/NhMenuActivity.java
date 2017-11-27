@@ -61,6 +61,12 @@ public class NhMenuActivity extends BaseActivity {
         menu.setName(getString(R.string.menu_neihan_eassay_image));
         menu.setType(NhEassayListFragment.CONTENT_TYPE_IMAGE);
         menuList.add(menu);
+        // 一点资讯-搞笑GIF
+        menu = new NewMenu();
+        menu.setName(getString(R.string.menu_ydzx_gif));
+        menu.setType(NhEassayListFragment.CONTENT_TYPE_YDZX_GIF);
+        menuList.add(menu);
+
     }
 
     public void initMenuView() {

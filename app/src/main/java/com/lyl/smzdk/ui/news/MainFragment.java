@@ -170,14 +170,14 @@ public class MainFragment extends BaseFragment {
         channel.setName("微信精选");
         channel.setImageRes(R.drawable.weixin_icon);
         channel.setType(Constans.NEWS_TYPE_WEIXIN);
-        channel.setShowType(Constans.ITEM_CONTENT_2);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
         channel.setName("知乎精选");
         channel.setImageRes(R.drawable.zhihu_icon);
         channel.setType(Constans.NEWS_TYPE_ZHIHU);
-        channel.setShowType(Constans.ITEM_CONTENT_2);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();

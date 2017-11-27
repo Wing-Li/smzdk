@@ -21,6 +21,15 @@ public class NewInfo {
     private String author; // 微信公众号，知乎作者
     private String authorSignature; // 作者签名
     private String authorUrl;
+    private String authorIcon;
+
+    public String getAuthorIcon() {
+        return authorIcon;
+    }
+
+    public void setAuthorIcon(String authorIcon) {
+        this.authorIcon = authorIcon;
+    }
 
     public String getAuthorUrl() {
         return authorUrl;

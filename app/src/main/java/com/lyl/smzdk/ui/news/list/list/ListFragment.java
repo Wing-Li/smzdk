@@ -64,7 +64,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         Bundle arguments = getArguments();
         mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
         mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
-        mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.ITEM_CONTENT_1);
+        mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.SHOW_ITEM_CONTENT_1);
     }
 
     @Override
