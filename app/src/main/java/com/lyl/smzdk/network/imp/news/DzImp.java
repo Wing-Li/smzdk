@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +92,16 @@ public class DzImp {
         }
 
         return newInfoList;
+    }
+
+    public String getDetail(String url) {
+        try {
+            Document jsoup = Jsoup.connect(url).get();
+            Element left_p = jsoup.select("div.left_p").first();
+            return left_p.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

@@ -20,10 +20,18 @@ import android.widget.ViewSwitcher;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.ui.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Author: lyl
@@ -41,8 +49,10 @@ public class Html5Activity extends BaseActivity {
     SeekBar mSeekBar;
     @BindView(R.id.web_layout)
     FrameLayout mLayout;
+
     private String mUrl;
     private String mTitle;
+    private String mType;
 
     private Html5WebView mWebView;
 
@@ -82,7 +92,14 @@ public class Html5Activity extends BaseActivity {
         mLayout.addView(mWebView);
         mWebView.setWebChromeClient(new Html5WebChromeClient());
         mWebView.setWebViewClient(new Html5WebClient());
-        mWebView.loadUrl(mUrl);
+        switch (mType) {
+            case Constans.NEWS_TYPE_DUZHE:
+                replaceDuzhe();
+                break;
+            default:
+                mWebView.loadUrl(mUrl);
+                break;
+        }
     }
 
     // 继承 WebView 里面实现的基类
@@ -129,6 +146,7 @@ public class Html5Activity extends BaseActivity {
         Intent intent = getIntent();
         mUrl = intent.getStringExtra(Constans.I_WEB_URL);
         mTitle = intent.getStringExtra(Constans.I_WEB_TITLE);
+        mType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
 
         setTitleAnims();
         actionbarTitle.setText(mTitle);
@@ -157,18 +175,43 @@ public class Html5Activity extends BaseActivity {
         actionbarTitle.setOutAnimation(this, android.R.anim.fade_out);
     }
 
-//    /**
-//     * 如果传过来的不是完整的Html，而是只有body部分的内容，那么我们就需要补充并添加一些css样式来达到自适应的效果。
-//     */
-//    private void loadW(){
-//        webView.loadData(getHtmlData(body), "text/html; charset=utf-8", "utf-8");
-//    }
 
-    private String getHtmlData(String bodyHTML) {
-        String head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, " +
-                "user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "</head>";
-        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    private void replaceDuzhe() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> ob) throws Exception {
+                DzImp dzImp = new DzImp();
+                String detail = dzImp.getDetail(mUrl);
+                ob.onNext(detail);
+            }
+        })//
+                .subscribeOn(Schedulers.io())//
+                .observeOn(AndroidSchedulers.mainThread())//
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        String html = HTML_MODEL.DUZHE.replace("%**##%%**", s);
+                        mWebView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
+
+    // ===================================================================================================
 
     private long mOldTime;
 

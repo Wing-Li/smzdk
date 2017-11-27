@@ -40,8 +40,10 @@ public class Html5WebView extends WebView {
     private void init() {
         WebSettings mWebSettings = getSettings();
         mWebSettings.setSupportZoom(true);
-        mWebSettings.setLoadWithOverviewMode(true);
         mWebSettings.setUseWideViewPort(true);
+        mWebSettings.setBuiltInZoomControls(true); // 设置可以缩放
+        mWebSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+        mWebSettings.setLoadWithOverviewMode(true);
         mWebSettings.setDefaultTextEncodingName("utf-8");
         mWebSettings.setLoadsImagesAutomatically(true);
 
