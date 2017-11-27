@@ -2,6 +2,7 @@ package com.lyl.smzdk.ui.news.list.list;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
+import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
 
@@ -51,6 +52,11 @@ public class ListPresenter implements ListContract.Presenter {
                     case Constans.NEWS_TYPE_ZHIHU: { // 知乎精选
                         ZhImp zhImp = new ZhImp();
                         newInfoList = zhImp.getZhList(type, page);
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_DUZHE: { // 读者精选
+                        DzImp dzImp = new DzImp();
+                        newInfoList = dzImp.getInfo(type, page);
                         break;
                     }
                     default:

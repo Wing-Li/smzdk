@@ -2,6 +2,7 @@ package com.lyl.smzdk.network.imp.news;
 
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
+import com.lyl.smzdk.utils.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,9 +20,9 @@ import java.util.List;
 public class DzImp {
 
     private static final String DUZHE_BASE = "http://www.duzhe.com/";
-    private static final String DUZHE = DUZHE_BASE + "index.php?v=listing&cid=%1$s&page=%1$s";
+    private static final String DUZHE = DUZHE_BASE + "index.php?v=listing&cid=%1$s&page=%2$s";
 
-    public List<NewMenu> getWxMenu() {
+    public List<NewMenu> getDzMenu() {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         NewMenu menu = new NewMenu();
@@ -29,14 +30,17 @@ public class DzImp {
         menu.setType("39");
         newMenuList.add(menu);
 
+        menu = new NewMenu();
         menu.setName("图书");
         menu.setType("38");
         newMenuList.add(menu);
 
+        menu = new NewMenu();
         menu.setName("话题");
         menu.setType("42");
         newMenuList.add(menu);
 
+        menu = new NewMenu();
         menu.setName("游戏");
         menu.setType("41");
         newMenuList.add(menu);
@@ -44,11 +48,12 @@ public class DzImp {
         return newMenuList;
     }
 
-    private static List<NewInfo> getInfo(String type, int p) {
+    public List<NewInfo> getInfo(String type, int p) {
         List<NewInfo> newInfoList = new ArrayList<NewInfo>();
 
         String url = String.format(DUZHE, type, p);
         try {
+            LogUtils.d("读者：" + url);
             Document jsoup = Jsoup.connect(url).get();
             Elements post_list = jsoup.select("ul.post_list li");
 

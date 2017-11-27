@@ -13,6 +13,10 @@ public class Constans {
     public static final String NEWS_TYPE_WEIXIN = "10001";
     // 知乎精选
     public static final String NEWS_TYPE_ZHIHU = "10002";
+    // 读者精选
+    public static final String NEWS_TYPE_DUZHE = "10003";
+    // 休闲精选
+    public static final String NEWS_TYPE_XIUXIAN = "10004";
 
     // 显示布局的类型
     public static final int SHOW_ITEM_CONTENT_1 = 10001;

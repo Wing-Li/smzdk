@@ -167,30 +167,32 @@ public class MainFragment extends BaseFragment {
     private void initMenuData() {
         NewMenu channel;
         channel = new NewMenu();
-        channel.setName("微信精选");
+        channel.setName(getString(R.string.menu_weixin));
         channel.setImageRes(R.drawable.weixin_icon);
         channel.setType(Constans.NEWS_TYPE_WEIXIN);
         channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
-        channel.setName("知乎精选");
+        channel.setName(getString(R.string.menu_zhihu));
         channel.setImageRes(R.drawable.zhihu_icon);
         channel.setType(Constans.NEWS_TYPE_ZHIHU);
         channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
-        channel.setName("内涵精选");
-        channel.setImageRes(R.drawable.neihan_icon);
+        channel.setName(getString(R.string.menu_duzhe));
+        channel.setImageRes(R.drawable.duzhe_icon);
+        channel.setType(Constans.NEWS_TYPE_DUZHE);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
-        for (int i = 0; i < 5; i++) {
-            channel = new NewMenu();
-            channel.setName("互联网" + i);
-            channel.setImage("http://s.go2yd.com/b/iclolrmr_bu00d1d1.jpg");
-            mNewChannelList.add(channel);
-        }
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_neihan));
+        channel.setImageRes(R.drawable.neihan_icon);
+        channel.setType(Constans.NEWS_TYPE_XIUXIAN);
+        mNewChannelList.add(channel);
+
     }
 
     /**
@@ -215,11 +217,11 @@ public class MainFragment extends BaseFragment {
         mMenuListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                if (i == 2) { // 内涵精选
+                NewMenu newMenu = mNewChannelList.get(i);
+                if (Constans.NEWS_TYPE_XIUXIAN.equals(newMenu.getType())) { // 内涵精选
                     Intent intent = new Intent(getHolder(), NhMenuActivity.class);
                     startActivity(intent);
-                } else {// 微信、知乎
-                    NewMenu newMenu = mNewChannelList.get(i);
+                } else {// 微信、知乎、读者
                     Intent intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());

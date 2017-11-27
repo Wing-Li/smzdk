@@ -77,6 +77,9 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             case Constans.NEWS_TYPE_ZHIHU:
                 title = R.string.menu_zhihu;
                 break;
+            case Constans.NEWS_TYPE_DUZHE:
+                title = R.string.menu_duzhe;
+                break;
             default:
                 title = R.string.app_name;
                 break;
@@ -93,6 +96,12 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
 
     @Override
     public void setMenuTab(final List<NewMenu> menuList) {
+        if (menuList.size() <= 4) {
+            menuListTablayout.setTabMode(TabLayout.MODE_FIXED);
+        }else {
+            menuListTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
+
         menuListViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

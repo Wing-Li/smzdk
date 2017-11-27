@@ -2,6 +2,7 @@ package com.lyl.smzdk.ui.news.list.menu;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
+import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
 
@@ -45,7 +46,12 @@ public class MenuDataPresenter implements MenuContract.Presenter {
                     }
                     case Constans.NEWS_TYPE_ZHIHU:{ // 知乎精选
                         ZhImp zhImp = new ZhImp();
-                        mNewMenuList = zhImp.getMenu();
+                        mNewMenuList = zhImp.getZhMenu();
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_DUZHE:{ // 读者精选
+                        DzImp dzImp = new DzImp();
+                        mNewMenuList = dzImp.getDzMenu();
                         break;
                     }
                 }

@@ -21,7 +21,7 @@ public class ZhImp {
     private static final String ZH_MENU = "http://zhihu.sogou.com/";
     private static final String ZH_LIST_INFO = "http://zhihu.sogou.com/include/pc/3/%1$s/%2$s.html";
 
-    public List<NewMenu> getMenu() {
+    public List<NewMenu> getZhMenu() {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         try {

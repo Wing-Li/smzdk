@@ -41,7 +41,11 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> 
         holder.setText(R.id.item_main_content_title, newInfo.getTitle());
         holder.setText(R.id.item_main_content_introduce, newInfo.getIntroduce());
 
-        holder.setText(R.id.item_main_content_author, newInfo.getAuthor());
+        if (TextUtils.isEmpty(newInfo.getAuthor())) {
+            holder.setVisible(R.id.item_main_content_author, false);
+        } else {
+            holder.setText(R.id.item_main_content_author, newInfo.getAuthor());
+        }
         holder.setText(R.id.item_main_content_time, newInfo.getTime());
 
         if (!TextUtils.isEmpty(newInfo.getImage())) { // 单图
