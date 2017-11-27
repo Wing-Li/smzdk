@@ -318,7 +318,7 @@ public class EassayDetailActivity extends BaseActivity {
             eassayDetailImageGrid.setVisibility(View.GONE);
 
             // 加载图片
-            ImgUtils.loadCircle(mContext, mImageUrl, eassayDetailImageContent);
+            ImgUtils.load(mContext, mImageUrl, eassayDetailImageContent);
 
             if (mContentType == Constans.EASSAY_DETAIL_CONTENT_GIF) {//GIF
                 eassayDetailLongImageText.setText(R.string.show_gif_image);

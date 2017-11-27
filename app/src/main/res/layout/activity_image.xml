@@ -8,7 +8,7 @@
     android:background="@color/black"
     tools:context=".ui.image.ImageActivity">
 
-    <com.lyl.myallforyou.view.HackyViewPager
+    <com.lyl.smzdk.view.HackyViewPager
         android:id="@+id/image_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

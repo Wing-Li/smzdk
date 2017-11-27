@@ -125,7 +125,7 @@ public class NhEassayListAdapter extends BaseQuickAdapter<NhEassay.DataBeanX.Dat
                         holder.setVisible(R.id.item_long_image_text, true);
 
                         String tmUrl = group.getMiddle_image().getUrl_list().get(0).getUrl();
-                        ImgUtils.loadCircle(mContext, tmUrl, (ImageView) imageContent);
+                        ImgUtils.load(mContext, tmUrl, (ImageView) imageContent);
                         LogUtils.d("GIF显示的Url:", tmUrl);
                         // 跳转到 GIF 页面
                         RelativeLayout singleImg = holder.getView(R.id.item_single_image_layout);
@@ -155,7 +155,7 @@ public class NhEassayListAdapter extends BaseQuickAdapter<NhEassay.DataBeanX.Dat
                                 }
                             });
                         } else {// 普通图片
-                            ImgUtils.loadF(mContext, imgUrl, (ImageView) holder.getView(R.id.item_image_content));
+                            ImgUtils.load(mContext, imgUrl, (ImageView) holder.getView(R.id.item_image_content));
                             // 跳转到可放大缩小页面
                             RelativeLayout singleImg = holder.getView(R.id.item_single_image_layout);
                             singleImg.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,7 @@ package com.lyl.smzdk.network;
 
 
 import com.lyl.smzdk.network.api.NeihanApi;
+import com.lyl.smzdk.network.api.YdzxApi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,12 +15,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Network {
 
+    /**
+     * 内涵段子 网址
+     */
     private static String URL_NEIHAN = "http://is.snssdk.com/";
+
+    /**
+     * 一点资讯
+     */
+    private static String URL_YDZX = "http://www.yidianzixun.com/";
 
     private static final int DEFAULT_TIMEOUT = 15;
 
     public static OkHttpClient httpClient;
     private static NeihanApi neihanApi;
+    private static YdzxApi ydzxApi;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -42,10 +52,23 @@ public class Network {
                 .build();
     }
 
+    /**
+     * 内涵段子
+     */
     public static NeihanApi getNeihanApi() {
         if (neihanApi == null) {
             neihanApi = getRetrofit(URL_NEIHAN).create(NeihanApi.class);
         }
         return neihanApi;
+    }
+
+    /**
+     * 一点咨询
+     */
+    public static YdzxApi getYdzxApi() {
+        if (ydzxApi == null) {
+            ydzxApi = getRetrofit(URL_YDZX).create(YdzxApi.class);
+        }
+        return ydzxApi;
     }
 }

@@ -87,8 +87,8 @@ public class NhEassayListFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         initData();
-        getData(true);
         initView();
+        getData(true);
     }
 
     private void initData() {

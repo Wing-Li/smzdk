@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -43,7 +42,6 @@ public class SpecialImageActivity extends BaseImageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_image_special);
         ButterKnife.bind(this);
@@ -53,12 +51,7 @@ public class SpecialImageActivity extends BaseImageActivity {
     }
 
     private void initView() {
-        if (Constans.SPECIAL_IMAGE_GIF.equals(mType)) {
-            longImage.setVisibility(View.GONE);
-            gifImage.setVisibility(View.VISIBLE);
-
-            ImgUtils.load(mContext, mUrl, gifImage);
-        }else if (Constans.SPECIAL_IMAGE_LONG.equals(mType)) {
+        if (Constans.SPECIAL_IMAGE_LONG.equals(mType)) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -78,13 +71,14 @@ public class SpecialImageActivity extends BaseImageActivity {
                 }
 
                 @Override
-                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int
+                        outHeight) {
                     longImage.setImage(ImageSource.bitmap(toTransform));
                     return toTransform;
                 }
             });
 
-        }else {
+        } else {
             // 默认使用正常的图
             // ConstantIntent.SPECIAL_IMAGE_NORMAL
             longImage.setVisibility(View.GONE);
