@@ -98,6 +98,9 @@ public class DzImp {
         try {
             Document jsoup = Jsoup.connect(url).get();
             Element left_p = jsoup.select("div.left_p").first();
+            left_p.select("img").attr("class","img-responsive");
+            left_p.select("div.copyright_bar").remove();
+            left_p.select("div.share_icons").remove();
             return left_p.toString();
         } catch (IOException e) {
             e.printStackTrace();
