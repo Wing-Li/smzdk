@@ -92,13 +92,18 @@ public class Html5Activity extends BaseActivity {
         mLayout.addView(mWebView);
         mWebView.setWebChromeClient(new Html5WebChromeClient());
         mWebView.setWebViewClient(new Html5WebClient());
-        switch (mType) {
-            case Constans.NEWS_TYPE_DUZHE:
-                replaceDuzhe();
-                break;
-            default:
-                mWebView.loadUrl(mUrl);
-                break;
+
+        if (TextUtils.isEmpty(mType)) {
+            mWebView.loadUrl(mUrl);
+        } else {
+            switch (mType) {
+                case Constans.NEWS_TYPE_DUZHE:
+                    replaceDuzhe();
+                    break;
+                default:
+                    mWebView.loadUrl(mUrl);
+                    break;
+            }
         }
     }
 
