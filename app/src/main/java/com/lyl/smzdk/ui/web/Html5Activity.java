@@ -100,8 +100,6 @@ public class Html5Activity extends BaseActivity {
         } else {
             switch (mType) {
                 case Constans.NEWS_TYPE_DUZHE:
-                    replaceHtml();
-                    break;
                 case Constans.NEWS_TYPE_XIUXIAN:
                     replaceHtml();
                     break;
@@ -157,7 +155,7 @@ public class Html5Activity extends BaseActivity {
         mUrl = intent.getStringExtra(Constans.I_WEB_URL);
         mTitle = intent.getStringExtra(Constans.I_WEB_TITLE);
         mType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
-        LogUtils.d("WebView 打开链接：" + mType);
+        LogUtils.d("WebView 打开链接：" + mUrl);
 
         setTitleAnims();
         actionbarTitle.setText(mTitle);
