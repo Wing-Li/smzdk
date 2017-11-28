@@ -48,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
                 .statusBarColor(R.color.bg_gary)//
+                .statusBarDarkFont(false)  //状态栏字体是深色，不写默认为亮色
                 .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
                 .fitsSystemWindows(true)    //解决状态栏和布局重叠问题，任选其一，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色，还有一些重载方法
                 .navigationBarEnable(true)   //是否可以修改导航栏颜色，默认为true
