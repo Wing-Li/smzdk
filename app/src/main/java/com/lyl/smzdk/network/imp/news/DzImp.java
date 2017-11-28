@@ -94,6 +94,11 @@ public class DzImp {
         return newInfoList;
     }
 
+    /**
+     * 获取 文章详情的网页， 并且修改指定内容
+     * @param url
+     * @return
+     */
     public String getDetail(String url) {
         try {
             Document jsoup = Jsoup.connect(url).get();

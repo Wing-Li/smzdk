@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.utils.NetUtil;
 
 import java.io.File;
@@ -98,6 +99,7 @@ public class Html5WebView extends WebView {
          */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            LogUtils.d("WebView 打开链接：" + url);
             view.loadUrl(url);
             return true;
         }

@@ -21,7 +21,9 @@ import android.widget.ViewSwitcher;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.imp.news.DzImp;
+import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseActivity;
+import com.lyl.smzdk.utils.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,7 +100,10 @@ public class Html5Activity extends BaseActivity {
         } else {
             switch (mType) {
                 case Constans.NEWS_TYPE_DUZHE:
-                    replaceDuzhe();
+                    replaceHtml();
+                    break;
+                case Constans.NEWS_TYPE_XIUXIAN:
+                    replaceHtml();
                     break;
                 default:
                     mWebView.loadUrl(mUrl);
@@ -152,6 +157,7 @@ public class Html5Activity extends BaseActivity {
         mUrl = intent.getStringExtra(Constans.I_WEB_URL);
         mTitle = intent.getStringExtra(Constans.I_WEB_TITLE);
         mType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
+        LogUtils.d("WebView 打开链接：" + mType);
 
         setTitleAnims();
         actionbarTitle.setText(mTitle);
@@ -181,13 +187,27 @@ public class Html5Activity extends BaseActivity {
     }
 
 
-    private void replaceDuzhe() {
+    private void replaceHtml() {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> ob) throws Exception {
-                DzImp dzImp = new DzImp();
-                String detail = dzImp.getDetail(mUrl);
-                ob.onNext(detail);
+                String html = "";
+                switch (mType) {
+                    case Constans.NEWS_TYPE_DUZHE: {
+                        DzImp dzImp = new DzImp();
+                        String detail = dzImp.getDetail(mUrl);
+                        html = HTML_MODEL.DUZHE.replace(HTML_MODEL.REPLACE_DEFAULT, detail);
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_XIUXIAN: {
+                        YdzxImp ydzxImp = new YdzxImp();
+                        String detail = ydzxImp.getDetail(mUrl);
+                        html = HTML_MODEL.YDZX.replace(HTML_MODEL.REPLACE_DEFAULT, detail);
+                        break;
+                    }
+                }
+
+                ob.onNext(html);
             }
         })//
                 .subscribeOn(Schedulers.io())//
@@ -200,18 +220,15 @@ public class Html5Activity extends BaseActivity {
 
                     @Override
                     public void onNext(String s) {
-                        String html = HTML_MODEL.DUZHE.replace("%**##%%**", s);
-                        mWebView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+                        mWebView.loadDataWithBaseURL(null, s, "text/html", "utf-8", null);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-
                     }
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }
