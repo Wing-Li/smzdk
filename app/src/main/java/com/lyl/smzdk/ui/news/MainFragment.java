@@ -264,8 +264,8 @@ public class MainFragment extends BaseFragment {
 
 
                 Intent intent = new Intent(getHolder(), Html5Activity.class);
-                intent.putExtra(Constans.I_WEB_TITLE, info.getTitle());
-                intent.putExtra(Constans.I_WEB_URL, info.getUrl());
+                intent.putExtra(Constans.I_TITLE, info.getTitle());
+                intent.putExtra(Constans.I_URL, info.getUrl());
                 intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_WEIXIN);
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

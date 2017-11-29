@@ -270,8 +270,8 @@ public class NhEassayListFragment extends BaseFragment {
                         NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
 
                         Intent intent = new Intent(getHolder(), Html5Activity.class);
-                        intent.putExtra(Constans.I_WEB_URL, info.getUrl());
-                        intent.putExtra(Constans.I_WEB_TITLE, info.getTitle());
+                        intent.putExtra(Constans.I_URL, info.getUrl());
+                        intent.putExtra(Constans.I_TITLE, info.getTitle());
                         intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_XIUXIAN);
 
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

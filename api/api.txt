@@ -152,4 +152,27 @@ http://www.duzhe.com/index.php?v=listing&cid=39&page=1
 http://ic.snssdk.com/neihan/in_app/essence_list/
 http://iu.snssdk.com/neihan/in_app/essence_detail/6491434569319842318/?item_id=6491434569319842318&refer=list
 
-https://mp.weixin.qq.com/profile?src=3&timestamp=1511491466&ver=1&signature=UUUffsBKhmzsKm0VuR341fnHfAd7HyOFFf1yRxWFSrc7SIyiDavshT5F7ZBlQkjj0HAZDafLigrSB9Kvsi43aw==
+
+// 西瓜视频
+// 推荐 video_new
+https://www.ixigua.com/api/pc/feed/?max_behot_time=0&category=video_new&utm_source=toutiao&widen=1&tadrequire=true&cp=5A1EA438D44F3E1
+// 音乐 subv_voice
+https://www.ixigua.com/api/pc/feed/?min_behot_time=1511930611&category=subv_voice&utm_source=toutiao&widen=1&tadrequire=true&as=A1250AF1BE34B1E&cp=5A1EF4DBD14EAE1
+// 搞笑 subv_funny
+https://www.ixigua.com/api/pc/feed/?min_behot_time=0&category=subv_funny&utm_source=toutiao&widen=1&tadrequire=true&as=A105BA016E54B6D&cp=5A1E24FBF65DBE1
+// 社会 subv_society
+// 小品 subv_comedy
+// 生活 subv_life
+// 影视 subv_movie
+// 娱乐 subv_entertainment
+// 呆萌 subv_cute
+// 游戏 subv_game
+// 原创 subv_boutique
+// 开眼 subv_broaden_view
+
+group_id=6480422859939250701
+视频详情：https://www.ixigua.com/a6480422859939250701/
+http://v6-tt.ixigua.com/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/?Expires=1511939108&AWSAccessKeyId=qh0h9TdcEMoS2oPj7aKX&Signature=iZoyTxHIeuVFy2tMltU%2FbcKFMpI%3D
+http://v6-tt.ixigua.com/video/m/2202517a2b86cff4e3d95f5cdea725f202d1151d5a40000bf89a569431e/?Expires=1511939108&AWSAccessKeyId=qh0h9TdcEMoS2oPj7aKX&Signature=cKpIOeIzAQSHDN8i1hNn5I0LTWY%3D
+
+http://v3-tt.ixigua.com/e0c6cc999c38928de82dc64cc8cab9e9/5a1e4d0f/video/m/220ad95c91f21864d50b7af302818fb18ee1152699d00002dc7aed18a5c/

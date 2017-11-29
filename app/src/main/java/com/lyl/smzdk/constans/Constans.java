@@ -58,8 +58,9 @@ public class Constans {
     public static final int EASSAY_DETAIL_CONTENT_LIST = 4;
 
 
-    public static String I_WEB_URL = "i_web_url";
-    public static String I_WEB_TITLE = "i_web_title";
+    public static String I_URL = "i_url";
+    public static String I_TITLE = "i_title";
+    public static String I_IMAGE = "i_image";
 
 
     public static String I_CHANNEL_TYPE_TYPE = "i_channel_type_type";

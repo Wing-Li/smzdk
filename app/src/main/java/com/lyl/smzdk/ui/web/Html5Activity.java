@@ -152,8 +152,8 @@ public class Html5Activity extends BaseActivity {
 
     public void getParameter() {
         Intent intent = getIntent();
-        mUrl = intent.getStringExtra(Constans.I_WEB_URL);
-        mTitle = intent.getStringExtra(Constans.I_WEB_TITLE);
+        mUrl = intent.getStringExtra(Constans.I_URL);
+        mTitle = intent.getStringExtra(Constans.I_TITLE);
         mType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
         LogUtils.d("WebView 打开链接：" + mUrl);
 
