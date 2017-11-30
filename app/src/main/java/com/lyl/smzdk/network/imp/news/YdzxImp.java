@@ -1,7 +1,7 @@
 package com.lyl.smzdk.network.imp.news;
 
 import com.lyl.smzdk.network.Network;
-import com.lyl.smzdk.network.entity.YdzxInfo;
+import com.lyl.smzdk.network.entity.news.YdzxInfo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

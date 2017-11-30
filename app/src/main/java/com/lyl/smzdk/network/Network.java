@@ -2,6 +2,8 @@ package com.lyl.smzdk.network;
 
 
 import com.lyl.smzdk.network.api.NeihanApi;
+import com.lyl.smzdk.network.api.VideoInflater;
+import com.lyl.smzdk.network.api.XgApi;
 import com.lyl.smzdk.network.api.YdzxApi;
 
 import java.util.concurrent.TimeUnit;
@@ -24,12 +26,23 @@ public class Network {
      * 一点资讯
      */
     private static String URL_YDZX = "http://www.yidianzixun.com/";
+    /**
+     * 视频
+     */
+    public static String URL_XG = "https://www.ixigua.com/";
+    /**
+     * 视频解析
+     */
+    public static String URL_XG_INFLATER = "http://v.ranks.xin/video-parse.php";
+
 
     private static final int DEFAULT_TIMEOUT = 15;
 
     public static OkHttpClient httpClient;
     private static NeihanApi neihanApi;
     private static YdzxApi ydzxApi;
+    private static XgApi xgApi;
+    private static VideoInflater videoInflater;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -70,5 +83,25 @@ public class Network {
             ydzxApi = getRetrofit(URL_YDZX).create(YdzxApi.class);
         }
         return ydzxApi;
+    }
+
+    /**
+     * 视频
+     */
+    public static XgApi getXgApi() {
+        if (xgApi == null) {
+            xgApi = getRetrofit(URL_XG).create(XgApi.class);
+        }
+        return xgApi;
+    }
+
+    /**
+     * 视频解析
+     */
+    public static VideoInflater getVideoInflaterApi() {
+        if (videoInflater == null) {
+            videoInflater = getRetrofit(URL_XG_INFLATER).create(VideoInflater.class);
+        }
+        return videoInflater;
     }
 }

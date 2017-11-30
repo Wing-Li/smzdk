@@ -9,7 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.network.entity.VideoMenuInfo;
+import com.lyl.smzdk.network.entity.video.VideoMenu;
+import com.lyl.smzdk.network.imp.video.XgImp;
 import com.lyl.smzdk.ui.BaseFragment;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class VideoFragment extends BaseFragment {
     @BindView(R.id.video_viewpager)
     ViewPager videoViewpager;
 
-    private List<VideoMenuInfo> mVideoMenuInfos = new ArrayList<>();
+    private List<VideoMenu> mVideoMenuInfos = new ArrayList<>();
 
     @Override
     protected int getLayoutResource() {
@@ -49,13 +50,8 @@ public class VideoFragment extends BaseFragment {
     }
 
     private void initMenuData() {
-        VideoMenuInfo menuInfo;
-        for (int i = 0; i < 6; i++) {
-            menuInfo = new VideoMenuInfo();
-            menuInfo.setType("type" + i);
-            menuInfo.setTitle("科技" + i);
-            mVideoMenuInfos.add(menuInfo);
-        }
+        XgImp xgImp = new XgImp();
+        mVideoMenuInfos = xgImp.getMenu();
     }
 
     private void setViewPager() {
@@ -68,14 +64,13 @@ public class VideoFragment extends BaseFragment {
 
             @Override
             public Fragment getItem(int i) {
-                VideoMenuInfo menuInfo = mVideoMenuInfos.get(i);
-                VideoListFragment fragment = VideoListFragment.newInstance(menuInfo.getType(), menuInfo.getTitle());
-                return fragment;
+                VideoMenu menuInfo = mVideoMenuInfos.get(i);
+                return VideoListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return mVideoMenuInfos.get(position).getTitle();
+                return mVideoMenuInfos.get(position).getName();
             }
         });
 

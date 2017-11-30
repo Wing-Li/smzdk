@@ -1,6 +1,6 @@
 package com.lyl.smzdk.network.api;
 
-import com.lyl.smzdk.network.entity.YdzxInfo;
+import com.lyl.smzdk.network.entity.news.YdzxInfo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,6 +1,7 @@
 package com.lyl.smzdk.ui.video;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -39,15 +40,48 @@ public class VideoPlayerActivity extends BaseActivity {
     }
 
     private void setVideoPlay() {
-        videoPlay.setUp(mUrl, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, mTitle);
         ImgUtils.load(mContext, mThumbnail, videoPlay.thumbImageView);
+
+//        Observable.create(new ObservableOnSubscribe<String>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<String> observableEmitter) throws Exception {
+//                XgImp xgImp = new XgImp();
+//                String videoUrl = xgImp.getVideoUrl(mUrl);
+//
+//                observableEmitter.onNext(videoUrl);
+//            }
+//        })//
+//                .subscribeOn(Schedulers.io())//
+//                .observeOn(AndroidSchedulers.mainThread())//
+//                .subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable disposable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        videoPlay.setUp(s, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, mTitle);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
+
     }
 
     public void getParameter() {
         Intent intent = getIntent();
-        mUrl = intent.getStringExtra(Constans.I_URL);
         mTitle = intent.getStringExtra(Constans.I_TITLE);
         mThumbnail = intent.getStringExtra(Constans.I_IMAGE);
+        mUrl = intent.getStringExtra(Constans.I_URL);
         LogUtils.d("视频地址：" + mUrl);
     }
 
@@ -57,6 +91,12 @@ public class VideoPlayerActivity extends BaseActivity {
             return;
         }
         super.onBackPressed();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
     }
 
     @Override

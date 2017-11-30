@@ -173,7 +173,12 @@ https://www.ixigua.com/api/pc/feed/?min_behot_time=0&category=subv_funny&utm_sou
 
 group_id=6480422859939250701
 视频详情：https://www.ixigua.com/a6480422859939250701/
-http://v6-tt.ixigua.com/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/?Expires=1511939108&AWSAccessKeyId=qh0h9TdcEMoS2oPj7aKX&Signature=iZoyTxHIeuVFy2tMltU%2FbcKFMpI%3D
-http://v6-tt.ixigua.com/video/m/2202517a2b86cff4e3d95f5cdea725f202d1151d5a40000bf89a569431e/?Expires=1511939108&AWSAccessKeyId=qh0h9TdcEMoS2oPj7aKX&Signature=cKpIOeIzAQSHDN8i1hNn5I0LTWY%3D
 
-http://v3-tt.ixigua.com/e0c6cc999c38928de82dc64cc8cab9e9/5a1e4d0f/video/m/220ad95c91f21864d50b7af302818fb18ee1152699d00002dc7aed18a5c/
+http://v.ranks.xin/video-parse.php?url=https%3A%2F%2Fwww.ixigua.com%2Fa6480422859939250701%2F
+
+
+
+68f95c9afb8747269793cb0f0a1fe123
+http://v3-tt.ixigua.com/197ee00b91f27b808917da53a30f1192/5a1fb0be/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
+http://v1-tt.ixigua.com/c4dead7f1812be6a053f4a0942dcc105/5a1fb2fb/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
+http://v3-tt.ixigua.com/0b595ae9655914e2804f776bc3d5fbfb/5a1fb321/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
