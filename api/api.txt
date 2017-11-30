@@ -152,6 +152,7 @@ http://www.duzhe.com/index.php?v=listing&cid=39&page=1
 http://ic.snssdk.com/neihan/in_app/essence_list/
 http://iu.snssdk.com/neihan/in_app/essence_detail/6491434569319842318/?item_id=6491434569319842318&refer=list
 
+http://www.yidianzixun.com/home/q/news_list_for_channel?infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian&channel_id=s10671&cstart=0&cend=10
 
 // 西瓜视频
 // 推荐 video_new

@@ -282,6 +282,7 @@ public class YdzxInfo {
         private String source;
         private String url;
         private String channel_id;
+        private String content_type;
         private String ctype;
 
         private List<String> image_urls;
@@ -292,6 +293,14 @@ public class YdzxInfo {
 
 //        private List<VideoUrlsBean> video_urls;
 
+
+        public String getContent_type() {
+            return content_type;
+        }
+
+        public void setContent_type(String content_type) {
+            this.content_type = content_type;
+        }
 
         public String getCtype() {
             return ctype;
