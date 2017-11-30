@@ -5,6 +5,7 @@ import com.lyl.smzdk.network.entity.video.VideoInflaterInfo;
 import com.lyl.smzdk.network.entity.video.VideoMenu;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,8 +102,16 @@ public class XgImp {
      * @return
      */
     public Call<VideoInflaterInfo> getVideoUrl(String group_id) {
-        String url = "https://www.ixigua.com/a%1$s/";
-       return Network.getVideoInflaterApi().getInfoList(url);
+
+        try {
+            String url = "https://www.ixigua.com/a%1$s/";
+            url = String.format(url,group_id);
+            url = URLEncoder.encode(url,"utf-8");
+            return Network.getVideoInflaterApi().getInfoList(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

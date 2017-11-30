@@ -33,7 +33,7 @@ public class Network {
     /**
      * 视频解析
      */
-    public static String URL_XG_INFLATER = "http://v.ranks.xin/video-parse.php";
+    public static String URL_XG_INFLATER = "http://v.ranks.xin/";
 
 
     private static final int DEFAULT_TIMEOUT = 15;

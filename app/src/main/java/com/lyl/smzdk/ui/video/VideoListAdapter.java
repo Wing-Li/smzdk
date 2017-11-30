@@ -30,18 +30,26 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
         JZVideoPlayer.releaseAllVideos();
 
         final JZVideoPlayerStandard player = holder.getView(R.id.item_video_player);
+        ImgUtils.load(mContext, info.getImage(), player.thumbImageView);
+        player.positionInList = holder.getLayoutPosition();
 
         XgImp xgImp = new XgImp();
         Call<VideoInflaterInfo> inflaterInfoCall = xgImp.getVideoUrl(info.getGroup_id());
+        if (inflaterInfoCall == null) {
+            return;
+        }
         Call<VideoInflaterInfo> clone = inflaterInfoCall.clone();
         clone.enqueue(new Callback<VideoInflaterInfo>() {
             @Override
             public void onResponse(Call<VideoInflaterInfo> call, Response<VideoInflaterInfo> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     VideoInflaterInfo body = response.body();
-                    VideoInflaterInfo.DataBean dataBean = body.getData().get(1);
+                    if (body != null) {
+                        List<VideoInflaterInfo.DataBean> data = body.getData();
+                        VideoInflaterInfo.DataBean dataBean = data.get(0);
 
-                    player.setUp( dataBean.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, info.getTitle());
+                        player.setUp(dataBean.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, info.getTitle());
+                    }
                 }
             }
 
@@ -50,9 +58,5 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
 
             }
         });
-
-
-        ImgUtils.load(mContext, info.getImage(), player.thumbImageView);
-        player.positionInList = holder.getLayoutPosition();
     }
 }
