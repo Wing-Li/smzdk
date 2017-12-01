@@ -1,22 +1,15 @@
 package com.lyl.smzdk.ui.video;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.network.entity.video.VideoInflaterInfo;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
-import com.lyl.smzdk.network.imp.video.XgImp;
 import com.lyl.smzdk.utils.ImgUtils;
 
 import java.util.List;
-
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
@@ -27,36 +20,9 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder holder, final VideoInfo info) {
-        JZVideoPlayer.releaseAllVideos();
 
-        final JZVideoPlayerStandard player = holder.getView(R.id.item_video_player);
-        ImgUtils.load(mContext, info.getImage(), player.thumbImageView);
-        player.positionInList = holder.getLayoutPosition();
-
-        XgImp xgImp = new XgImp();
-        Call<VideoInflaterInfo> inflaterInfoCall = xgImp.getVideoUrl(info.getGroup_id());
-        if (inflaterInfoCall == null) {
-            return;
-        }
-        Call<VideoInflaterInfo> clone = inflaterInfoCall.clone();
-        clone.enqueue(new Callback<VideoInflaterInfo>() {
-            @Override
-            public void onResponse(Call<VideoInflaterInfo> call, Response<VideoInflaterInfo> response) {
-                if (response.isSuccessful()) {
-                    VideoInflaterInfo body = response.body();
-                    if (body != null) {
-                        List<VideoInflaterInfo.DataBean> data = body.getData();
-                        VideoInflaterInfo.DataBean dataBean = data.get(0);
-
-                        player.setUp(dataBean.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, info.getTitle());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<VideoInflaterInfo> call, Throwable t) {
-
-            }
-        });
+        holder.setText(R.id.item_video_title, info.getTitle());
+        ImgUtils.load(mContext, info.getImage(), (ImageView) holder.getView(R.id.item_video_thm));
     }
+
 }

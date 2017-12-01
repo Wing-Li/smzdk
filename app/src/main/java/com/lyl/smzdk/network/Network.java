@@ -1,6 +1,7 @@
 package com.lyl.smzdk.network;
 
 
+import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflater;
 import com.lyl.smzdk.network.api.XgApi;
@@ -9,6 +10,7 @@ import com.lyl.smzdk.network.api.YdzxApi;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -49,11 +51,13 @@ public class Network {
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
-//        if ("dev".equals(BuildConfig.Environment)) {
-//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//            httpClientBuilder.addInterceptor(logging);
-//        }
+        // compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+        // compile 'com.squareup.okhttp3:okhttp:3.8.0'
+        if ("dev".equals(BuildConfig.Environment)) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClientBuilder.addInterceptor(logging);
+        }
         httpClient = httpClientBuilder.build();
     }
 

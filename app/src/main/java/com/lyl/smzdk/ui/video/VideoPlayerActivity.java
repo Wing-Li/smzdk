@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.network.entity.video.VideoInflaterInfo;
+import com.lyl.smzdk.network.imp.video.XgImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
@@ -15,6 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Author: lyl
@@ -41,39 +46,30 @@ public class VideoPlayerActivity extends BaseActivity {
 
     private void setVideoPlay() {
         ImgUtils.load(mContext, mThumbnail, videoPlay.thumbImageView);
+        videoPlay.bottomProgressBar.setBackgroundResource(R.color.black);
 
-//        Observable.create(new ObservableOnSubscribe<String>() {
-//            @Override
-//            public void subscribe(ObservableEmitter<String> observableEmitter) throws Exception {
-//                XgImp xgImp = new XgImp();
-//                String videoUrl = xgImp.getVideoUrl(mUrl);
-//
-//                observableEmitter.onNext(videoUrl);
-//            }
-//        })//
-//                .subscribeOn(Schedulers.io())//
-//                .observeOn(AndroidSchedulers.mainThread())//
-//                .subscribe(new Observer<String>() {
-//                    @Override
-//                    public void onSubscribe(Disposable disposable) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String s) {
-//                        videoPlay.setUp(s, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, mTitle);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+
+        XgImp xgImp = new XgImp();
+        Call<VideoInflaterInfo> inflaterInfoCall = xgImp.getVideoUrl(mUrl);
+        Call<VideoInflaterInfo> clone = inflaterInfoCall.clone();
+        clone.enqueue(new Callback<VideoInflaterInfo>() {
+            @Override
+            public void onResponse(Call<VideoInflaterInfo> call, Response<VideoInflaterInfo> response) {
+                if (response.isSuccessful()) {
+                    VideoInflaterInfo body = response.body();
+                    if (body != null) {
+                        if (body.getData() != null && body.getData().size() > 0) {
+                            videoPlay.setUp(body.getData().get(0).getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, mTitle);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideoInflaterInfo> call, Throwable t) {
+
+            }
+        });
 
     }
 

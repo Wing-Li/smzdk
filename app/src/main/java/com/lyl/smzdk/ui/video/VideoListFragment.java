@@ -87,14 +87,14 @@ public class VideoListFragment extends BaseFragment {
             }
         }, videoListview);
 
-//        mVideoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-//                VideoInfo videoInfo = (VideoInfo) baseQuickAdapter.getItem(i);
-//                View videoPlayView = view.findViewById(R.id.item_video_player);
-//                goToVideoPlayActivity(videoInfo, videoPlayView);
-//            }
-//        });
+        mVideoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                VideoInfo videoInfo = (VideoInfo) baseQuickAdapter.getItem(i);
+                View videoPlayView = view.findViewById(R.id.item_video_thm);
+                goToVideoPlayActivity(videoInfo, videoPlayView);
+            }
+        });
 
         videoListview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         videoListview.setAdapter(mVideoListAdapter);

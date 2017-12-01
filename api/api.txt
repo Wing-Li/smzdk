@@ -175,7 +175,7 @@ group_id=6480422859939250701
 视频详情：https://www.ixigua.com/a6480422859939250701/
 
 http://v.ranks.xin/video-parse.php?url=https%3A%2F%2Fwww.ixigua.com%2Fa6480422859939250701%2F
-
+http://v.ranks.xin/video-parse.php?url=https://www.ixigua.com/a6480422859939250701/
 
 
 68f95c9afb8747269793cb0f0a1fe123
