@@ -106,17 +106,15 @@ https://a1.go2yd.com/Website/channel/news-list-for-channel
 HTTP/1.1
 Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
 
+// 一点资讯
 // 段子
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=29&cend=39&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911373
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=39&cend=49&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911374
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=49&cend=59&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911375
 
 
 // 视频：
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244170024
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=20&cend=30&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061156
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=30&cend=40&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244061157
 
 
 // 微信精选
@@ -178,7 +176,13 @@ http://v.ranks.xin/video-parse.php?url=https%3A%2F%2Fwww.ixigua.com%2Fa648042285
 http://v.ranks.xin/video-parse.php?url=https://www.ixigua.com/a6480422859939250701/
 
 
-68f95c9afb8747269793cb0f0a1fe123
-http://v3-tt.ixigua.com/197ee00b91f27b808917da53a30f1192/5a1fb0be/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
-http://v1-tt.ixigua.com/c4dead7f1812be6a053f4a0942dcc105/5a1fb2fb/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
-http://v3-tt.ixigua.com/0b595ae9655914e2804f776bc3d5fbfb/5a1fb321/video/m/220e4d6d57523b24a8aae9600318bc345811151d89d0000a9b9760d4394/
+// 磁力  awl
+https://m.zhongziso.com/list/awl/1
+https://m.zhongziso.com/list/%1$s/2
+
+http://www.diaosisou.org/list/awl/1/rala_d
+http://www.diaosisou.org/list/awl/2/rala_d
+
+http://zhongzicili.pw/zhongzi/awl/1-0-2.html
+http://zhongzicili.me/zhongzi/awl/2-0-2.html
+
