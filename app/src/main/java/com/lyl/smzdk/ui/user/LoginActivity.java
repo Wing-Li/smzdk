@@ -3,6 +3,7 @@ package com.lyl.smzdk.ui.user;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseActivity;
 
 /**
@@ -14,5 +15,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
     }
 }

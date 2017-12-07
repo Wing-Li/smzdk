@@ -88,8 +88,8 @@ public class XgImp {
      *
      * @param type 通过 getMenu() 获取的目录
      */
-    public Call<XgInfo> getXgList(String type) {
-        return Network.getXgApi().getInfoList(type);
+    public Call<XgInfo> getXgList(String type, int max_behot_time) {
+        return Network.getXgApi().getInfoList(type, max_behot_time);
     }
 
     /**

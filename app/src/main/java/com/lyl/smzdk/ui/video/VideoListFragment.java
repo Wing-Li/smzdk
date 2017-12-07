@@ -42,6 +42,7 @@ public class VideoListFragment extends BaseFragment {
     private XgImp mXgImp;
     private String mTitle;
     private String mType;
+    private int max_behot_time;
 
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
@@ -132,7 +133,7 @@ public class VideoListFragment extends BaseFragment {
             mXgImp = new XgImp();
         }
 
-        Call<XgInfo> xgList = mXgImp.getXgList(mType);
+        Call<XgInfo> xgList = mXgImp.getXgList(mType,max_behot_time);
         Call<XgInfo> clone = xgList.clone();
         clone.enqueue(new Callback<XgInfo>() {
             @Override
@@ -140,6 +141,7 @@ public class VideoListFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     XgInfo body = response.body();
                     if (body == null) return;
+                    max_behot_time = body.getNext().getMax_behot_time();
 
                     List<XgInfo.DataBean> data = body.getData();
                     if (data != null && data.size() > 0) {
