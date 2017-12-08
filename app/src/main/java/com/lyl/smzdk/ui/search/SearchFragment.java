@@ -7,20 +7,27 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.event.BtLoadDataEvent;
 import com.lyl.smzdk.ui.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import butterknife.BindView;
 
 public class SearchFragment extends BaseFragment {
 
 
-    @BindView(R.id.search_actionbar_img)
-    ImageView searchActionbarImg;
     @BindView(R.id.search_actionbar_edt)
     EditText searchActionbarEdt;
     @BindView(R.id.search_actionbar_btn)
@@ -30,8 +37,9 @@ public class SearchFragment extends BaseFragment {
     @BindView(R.id.search_viewpager)
     ViewPager searchViewpager;
 
-    private String mSearchStr;
-    private String[] mSearchMenu = {"网盘1","网盘2","网盘3","网盘4"};
+    private String mContent;
+    private String[] mSearchMenu = {"资源1", "资源2", "资源3", "资源4"};
+    private String[] mSearchType = {Constans.BT_TYPE_1, Constans.BT_TYPE_2, Constans.BT_TYPE_3, Constans.BT_TYPE_4};
 
     @Override
     protected int getLayoutResource() {
@@ -42,8 +50,10 @@ public class SearchFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initView();
         setViewPager();
     }
+
 
     @Override
     public void onStart() {
@@ -55,7 +65,7 @@ public class SearchFragment extends BaseFragment {
         searchViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return SearchListFragment.newInstance("10001");
+                return SearchListFragment.newInstance(mSearchType[i], mContent);
             }
 
             @Override
@@ -69,5 +79,35 @@ public class SearchFragment extends BaseFragment {
             }
         });
         searchTablayout.setupWithViewPager(searchViewpager);
+    }
+
+    private void initView() {
+        searchActionbarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchContent();
+            }
+        });
+
+        searchActionbarEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    searchContent();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void searchContent(){
+        mContent = searchActionbarEdt.getText().toString().trim();
+        try {
+            mContent = URLEncoder.encode(mContent, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        EventBus.getDefault().post(new BtLoadDataEvent(mContent));
     }
 }

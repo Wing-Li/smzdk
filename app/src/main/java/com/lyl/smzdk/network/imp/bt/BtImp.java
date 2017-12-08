@@ -2,7 +2,9 @@ package com.lyl.smzdk.network.imp.bt;
 
 
 import com.lyl.smzdk.network.entity.bt.BtInfo;
+import com.lyl.smzdk.utils.LogUtils;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,7 +28,9 @@ public class BtImp {
 
         String url = "https://m.zhongziso.com/list/" + content + "/" + page;
         try {
-            Document jsoup = Jsoup.connect(url).get();
+            LogUtils.d("BT:" + url);
+            Connection connect = Jsoup.connect(url);
+            Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.panel-body").select("ul.list-group");
 
             BtInfo info;
@@ -63,9 +67,20 @@ public class BtImp {
     public static List<BtInfo> getList2(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "http://www.diaosisou.org/list/" + content + "/" + page + "/rala_d";
+        String url = "https://www.diaosisou.org/list/" + content + "/" + page + "/rala_d";
         try {
-            Document jsoup = Jsoup.connect(url).get();
+            LogUtils.d("BT:" + url);
+            Connection connect = Jsoup.connect(url);
+            // http://www.diaosisou.org/list/%E7%BE%8E%E9%A3%9F/1/rala_d
+//            Upgrade-Insecure-Requests:1
+//            User-Agent:Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+// Chrome/62.0.3202.94 Safari/537.36
+            connect.header("Upgrade-Insecure-Requests", "1");
+            connect.header("User-Agent", "User-Agent:Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
+                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
+            connect.timeout(10000);
+            connect.ignoreContentType(true).ignoreHttpErrors(true);
+            Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
 
             BtInfo info;
@@ -102,9 +117,11 @@ public class BtImp {
     public static List<BtInfo> getList3(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "http://www.runbt.co/list/" + content + "/" + page;
+        String url = "https://www.runbt.co/list/" + content + "/" + page;
         try {
-            Document jsoup = Jsoup.connect(url).get();
+            LogUtils.d("BT:" + url);
+            Connection connect = Jsoup.connect(url);
+            Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
 
             BtInfo info;
@@ -141,9 +158,11 @@ public class BtImp {
     public static List<BtInfo> getList4(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "http://zhongzicili.me/zhongzi/" + content + "/" + page + "-0-2.html";
+        String url = "https://zhongzicili.me/zhongzi/" + content + "/" + page + "-0-2.html";
         try {
-            Document jsoup = Jsoup.connect(url).get();
+            LogUtils.d("BT:" + url);
+            Connection connect = Jsoup.connect(url);
+            Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.content").select("div.list-area").select("dl");
 
             BtInfo info;

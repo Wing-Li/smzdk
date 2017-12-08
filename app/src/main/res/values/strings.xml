@@ -12,8 +12,7 @@
     <string name="shop_title">好物</string>
     <string name="user_title">个人</string>
 
-    <string name="search_wangpan">网盘搜</string>
-    <string name="search_bt">磁力搜</string>
+    <string name="search_text">搜 索</string>
 
 
     <string name="menu_weixin">微信精选</string>
