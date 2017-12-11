@@ -86,7 +86,9 @@ public class SearchListFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadData();
+        if (mSearchListAdapter.getData().size() <= 0) {
+            loadData();
+        }
         EventBus.getDefault().register(this);
     }
 

@@ -11,6 +11,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +28,14 @@ public class BtImp {
     public static List<BtInfo> getList(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
+        try {
+            content = URLEncoder.encode(content,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String url = "https://m.zhongziso.com/list/" + content + "/" + page;
         try {
-            LogUtils.d("BT:" + url);
+            LogUtils.d("BT-1:" + url);
             Connection connect = Jsoup.connect(url);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.panel-body").select("ul.list-group");
@@ -69,14 +76,13 @@ public class BtImp {
 
         String url = "https://www.diaosisou.org/list/" + content + "/" + page + "/rala_d";
         try {
-            LogUtils.d("BT:" + url);
+            LogUtils.d("BT-2:" + url);
             Connection connect = Jsoup.connect(url);
             // http://www.diaosisou.org/list/%E7%BE%8E%E9%A3%9F/1/rala_d
 //            Upgrade-Insecure-Requests:1
 //            User-Agent:Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
 // Chrome/62.0.3202.94 Safari/537.36
-            connect.header("Upgrade-Insecure-Requests", "1");
-            connect.header("User-Agent", "User-Agent:Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
+            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
                     "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
             connect.timeout(10000);
             connect.ignoreContentType(true).ignoreHttpErrors(true);
@@ -119,8 +125,12 @@ public class BtImp {
 
         String url = "https://www.runbt.co/list/" + content + "/" + page;
         try {
-            LogUtils.d("BT:" + url);
+            LogUtils.d("BT-3:" + url);
             Connection connect = Jsoup.connect(url);
+            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
+                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
+            connect.timeout(10000);
+            connect.ignoreContentType(true).ignoreHttpErrors(true);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
 
@@ -158,10 +168,13 @@ public class BtImp {
     public static List<BtInfo> getList4(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "https://zhongzicili.me/zhongzi/" + content + "/" + page + "-0-2.html";
+        String url = "http://zhongzicili.me/zhongzi/" + content + "/" + page + "-0-2.html";
         try {
-            LogUtils.d("BT:" + url);
+            LogUtils.d("BT-4:" + url);
             Connection connect = Jsoup.connect(url);
+            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
+                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
+            connect.timeout(10000);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.content").select("div.list-area").select("dl");
 

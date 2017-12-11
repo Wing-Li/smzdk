@@ -20,9 +20,6 @@ import com.lyl.smzdk.ui.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import butterknife.BindView;
 
 public class SearchFragment extends BaseFragment {
@@ -62,6 +59,7 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void setViewPager() {
+        searchViewpager.setOffscreenPageLimit(4);
         searchViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -103,11 +101,6 @@ public class SearchFragment extends BaseFragment {
 
     private void searchContent(){
         mContent = searchActionbarEdt.getText().toString().trim();
-        try {
-            mContent = URLEncoder.encode(mContent, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
         EventBus.getDefault().post(new BtLoadDataEvent(mContent));
     }
 }
