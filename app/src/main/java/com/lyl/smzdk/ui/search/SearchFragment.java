@@ -6,11 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lyl.smzdk.R;
@@ -27,6 +31,8 @@ public class SearchFragment extends BaseFragment {
 
     @BindView(R.id.search_actionbar_edt)
     EditText searchActionbarEdt;
+    @BindView(R.id.search_actionbar_edt_clear)
+    ImageView searchActionbarEdtClear;
     @BindView(R.id.search_actionbar_btn)
     TextView searchActionbarBtn;
     @BindView(R.id.search_tablayout)
@@ -90,16 +96,44 @@ public class SearchFragment extends BaseFragment {
         searchActionbarEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     searchContent();
                     return true;
                 }
                 return false;
             }
         });
+
+        searchActionbarEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    searchActionbarEdtClear.setVisibility(View.GONE);
+                } else {
+                    searchActionbarEdtClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        searchActionbarEdtClear.setColorFilter(ContextCompat.getColor(getHolder(), R.color.search_primary));
+        searchActionbarEdtClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchActionbarEdt.setText("");
+            }
+        });
+
     }
 
-    private void searchContent(){
+    private void searchContent() {
         mContent = searchActionbarEdt.getText().toString().trim();
         EventBus.getDefault().post(new BtLoadDataEvent(mContent));
     }
