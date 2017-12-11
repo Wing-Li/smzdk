@@ -49,16 +49,17 @@
                     android:gravity="start|center_vertical"
                     android:hint="请输入您要搜索的内容..."
                     android:imeOptions="actionSearch"
-                    android:singleLine="true"
                     android:inputType="text"
+                    android:singleLine="true"
                     android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/search_actionbar_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
                     android:layout_marginRight="4dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
                     android:text="@string/search_text"
                     android:textColor="@color/black_flee"
                     android:textStyle="bold"/>

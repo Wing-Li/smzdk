@@ -167,7 +167,11 @@ public class SearchListFragment extends BaseFragment {
                     @Override
                     public void onNext(List<BtInfo> btInfos) {
                         if (btInfos != null || btInfos.size() >= 0) {
-                            mSearchListAdapter.addData(btInfos);
+                            if (page == 1) {
+                                mSearchListAdapter.setNewData(btInfos);
+                            } else {
+                                mSearchListAdapter.addData(btInfos);
+                            }
                             mSearchListAdapter.loadMoreComplete();
                             closeRefresh();
                         }
