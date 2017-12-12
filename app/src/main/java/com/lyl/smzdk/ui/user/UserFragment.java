@@ -53,6 +53,6 @@ public class UserFragment extends BaseFragment {
     @OnClick(R.id.user_login)
     void skipLogin() {
         Intent intent = new Intent(getHolder(), LoginActivity.class);
-        startActivity(intent);
+        skipActivity(intent, false);
     }
 }

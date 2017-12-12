@@ -2,14 +2,20 @@ package com.lyl.smzdk.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.view.TransitionHelper;
 
 /**
  * Author: lyl
@@ -56,6 +62,32 @@ public class BaseActivity extends AppCompatActivity {
                 .reset()  //重置所以沉浸式参数
                 .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
                 .init();  //必须调用方可沉浸式
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param intent
+     * @param includeStatusBar 如果是false，状态栏将不会被添加为过渡参与者
+     */
+    public void skipActivity(Intent intent, boolean includeStatusBar) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, false);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
     }
 
     /**

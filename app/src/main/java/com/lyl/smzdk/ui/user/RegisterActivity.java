@@ -2,6 +2,7 @@ package com.lyl.smzdk.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseActivity;
+import com.lyl.smzdk.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,12 +42,30 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+
+        setupWindowAnimations();
+    }
+
+    private void setupWindowAnimations() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Fade slide = new Fade();
+            slide.setDuration(1300);
+
+            getWindow().setEnterTransition(slide);
+            getWindow().setExitTransition(slide);
+        }
     }
 
     @OnClick(R.id.register_back)
-    void skipLogin(){
-        Intent intent = new Intent(mContext,LoginActivity.class);
-        startActivity(intent);
-        finish();
+    void skipLogin() {
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        skipActivity(intent, false);
     }
+
+    @OnClick(R.id.register_btn)
+    void login() {
+        Intent intent = new Intent(mContext, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
