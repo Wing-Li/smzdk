@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.lyl.smzdk.utils.MyUtils;
+import com.tencent.bugly.Bugly;
+
 import java.io.File;
 
 /**
@@ -18,6 +21,16 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
 
+        initBugly();
+    }
+
+    private void initBugly() {
+        String key = BuildConfig.BuglyKey;
+        if (MyUtils.isDev()) {
+            Bugly.init(getApplicationContext(), key, true);
+        } else {
+            Bugly.init(getApplicationContext(), key, false);
+        }
     }
 
     public static String getAppPath() {
