@@ -35,4 +35,21 @@
         <item name="android:textSize">13sp</item>
         <item name="android:layout_marginLeft">16dp</item>
     </style>
+
+    <style name="LoginItemLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="LoginItemEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor_white</item>
+    </style>
 </resources>

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.utils.ImgUtils;
 
 import java.util.List;

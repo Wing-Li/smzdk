@@ -1,10 +1,13 @@
 package com.lyl.smzdk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.view.ActionBar;
+import com.lyl.smzdk.view.TransitionHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -106,6 +110,22 @@ public abstract class BaseFragment extends Fragment {
                 .reset()  //重置所以沉浸式参数
                 .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
                 .init();  //必须调用方可沉浸式
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param intent
+     * @param includeStatusBar 如果是false，状态栏将不会被添加为过渡参与者
+     */
+    public void skipActivity(Intent intent, boolean includeStatusBar) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getHolder(), false);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getHolder(), pairs);
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     /**

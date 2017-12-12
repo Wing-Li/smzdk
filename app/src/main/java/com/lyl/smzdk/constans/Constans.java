@@ -18,6 +18,12 @@ public class Constans {
     // 休闲精选
     public static final String NEWS_TYPE_XIUXIAN = "10004";
 
+    // 磁力
+    public static final String BT_TYPE_1 = "zhongziso";
+    public static final String BT_TYPE_2 = "diaosisou";
+    public static final String BT_TYPE_3 = "runbt";
+    public static final String BT_TYPE_4 = "zhongzicili";
+
     // 显示布局的类型
     public static final int SHOW_ITEM_CONTENT_1 = 10001;
     public static final int SHOW_ITEM_CONTENT_2 = 10002;

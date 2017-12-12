@@ -6,9 +6,9 @@ import android.util.DisplayMetrics;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.Network;
-import com.lyl.smzdk.network.entity.NhCommentReply;
-import com.lyl.smzdk.network.entity.NhComments;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhCommentReply;
+import com.lyl.smzdk.network.entity.news.NhComments;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.utils.AppUtils;
 import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.utils.SPUtil;

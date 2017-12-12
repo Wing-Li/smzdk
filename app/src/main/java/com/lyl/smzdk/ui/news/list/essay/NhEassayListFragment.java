@@ -15,7 +15,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.network.entity.news.YdzxInfo;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.NhImp;

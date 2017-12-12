@@ -1,9 +1,9 @@
 package com.lyl.smzdk.network.api;
 
 
-import com.lyl.smzdk.network.entity.NhCommentReply;
-import com.lyl.smzdk.network.entity.NhComments;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhCommentReply;
+import com.lyl.smzdk.network.entity.news.NhComments;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

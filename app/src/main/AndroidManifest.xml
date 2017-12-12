@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApp"
@@ -21,7 +18,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -48,7 +46,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <!--加载图片-->
+        <!-- 加载图片 -->
         <activity
             android:name=".ui.image.SpecialImageActivity"
             android:screenOrientation="portrait">
@@ -63,6 +61,12 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.user.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.user.RegisterActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
         <provider
