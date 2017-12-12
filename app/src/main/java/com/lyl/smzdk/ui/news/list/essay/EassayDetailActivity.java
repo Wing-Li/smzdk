@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.NhComments;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhComments;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.ImageActivity;

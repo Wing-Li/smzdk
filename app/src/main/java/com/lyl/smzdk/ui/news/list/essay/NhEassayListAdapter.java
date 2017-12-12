@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.ui.image.ImageActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.ui.news.list.list.MyViewHolder;

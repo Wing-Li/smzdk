@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.NhEassay;
+import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.view.HackyViewPager;
 
 import java.util.List;

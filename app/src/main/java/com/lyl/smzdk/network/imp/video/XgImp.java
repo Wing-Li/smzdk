@@ -4,6 +4,7 @@ import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.video.VideoInflaterInfo;
 import com.lyl.smzdk.network.entity.video.VideoMenu;
 import com.lyl.smzdk.network.entity.video.XgInfo;
+import com.lyl.smzdk.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +89,10 @@ public class XgImp {
      *
      * @param type 通过 getMenu() 获取的目录
      */
-    public Call<XgInfo> getXgList(String type, int max_behot_time) {
-        return Network.getXgApi().getInfoList(type, max_behot_time);
+    public Call<XgInfo> getXgList(String type, long max_behot_time) {
+        String as = "A1" + MyUtils.randomHexString(13);
+        String cp = "5A1E" + MyUtils.randomHexString(9) + "E1";
+        return Network.getXgApi().getInfoList(type, max_behot_time, as, cp);
     }
 
     /**
