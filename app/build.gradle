@@ -61,7 +61,7 @@ android {
 
             // 批量打包
             applicationVariants.all { variant ->
-                variant.outputs.all{
+                variant.outputs.all {
                     outputFileName = "${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
                 }
             }

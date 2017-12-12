@@ -1,6 +1,7 @@
 package com.lyl.smzdk.ui.user;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UserFragment extends BaseFragment {
 
@@ -46,5 +48,11 @@ public class UserFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         setStatusBarColor(R.color.user_primary);
+    }
+
+    @OnClick(R.id.user_login)
+    void skipLogin() {
+        Intent intent = new Intent(getHolder(), LoginActivity.class);
+        startActivity(intent);
     }
 }

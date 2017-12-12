@@ -45,7 +45,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <!--加载图片-->
+        <!-- 加载图片 -->
         <activity
             android:name=".ui.image.SpecialImageActivity"
             android:screenOrientation="portrait">
@@ -61,6 +61,10 @@
         <activity
             android:name=".ui.user.LoginActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.user.RegisterActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
