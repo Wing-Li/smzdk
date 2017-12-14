@@ -1,6 +1,7 @@
 package com.lyl.smzdk.ui.news.list.list;
 
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -8,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.greendao.imp.HistoryImp;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.utils.ImgUtils;
 
@@ -40,6 +42,11 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> 
     protected void convert(MyViewHolder holder, NewInfo newInfo) {
         holder.setText(R.id.item_main_content_title, newInfo.getTitle());
         holder.setText(R.id.item_main_content_introduce, newInfo.getIntroduce());
+
+        if (HistoryImp.isHistoryExist(newInfo.getTitle(), newInfo.getUrl())) {
+            holder.setTextColor(R.id.item_main_content_title, ContextCompat.getColor(mContext, R.color.black_flee_two));
+            holder.setTextColor(R.id.item_main_content_introduce, ContextCompat.getColor(mContext, R.color.black_flee_three));
+        }
 
         if (TextUtils.isEmpty(newInfo.getAuthor())) {
             holder.setVisible(R.id.item_main_content_author, false);

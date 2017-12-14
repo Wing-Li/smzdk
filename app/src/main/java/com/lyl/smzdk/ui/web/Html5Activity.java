@@ -20,6 +20,7 @@ import android.widget.ViewSwitcher;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.greendao.imp.HistoryImp;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseActivity;
@@ -70,6 +71,9 @@ public class Html5Activity extends BaseActivity {
             finish();
             return;
         }
+
+        // 将这个网页存进历史记录
+        HistoryImp.saveHistory(mTitle, mUrl);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().setDuration(getResources().getInteger(R.integer.anim_duration_long));

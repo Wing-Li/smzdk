@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
@@ -125,6 +127,16 @@ public class ListFragment extends BaseFragment implements ListContract.View {
                     startActivity(intent);
                 }
 
+                TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_title);
+                if (titleView != null) {
+                    titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
+                }
+
+                TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
+                        .item_main_content_introduce);
+                if (introduceView != null) {
+                    introduceView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_three));
+                }
             }
         });
     }

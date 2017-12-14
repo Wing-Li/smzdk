@@ -1,7 +1,6 @@
 package com.lyl.smzdk.greendao.gen;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -11,44 +10,35 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class HistoryEntity {
 
-    @Id(autoincrement = true)
-    private long id;
-
     private String title;
     private String url;
-
-    @Generated(hash = 562388329)
-    public HistoryEntity(long id, String title, String url) {
-        this.id = id;
+    private String date;
+    @Generated(hash = 2010950680)
+    public HistoryEntity(String title, String url, String date) {
         this.title = title;
         this.url = url;
+        this.date = date;
     }
-
     @Generated(hash = 1235354573)
     public HistoryEntity() {
     }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return this.title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getUrl() {
         return this.url;
     }
-
     public void setUrl(String url) {
         this.url = url;
     }
+    public String getDate() {
+        return this.date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
 }

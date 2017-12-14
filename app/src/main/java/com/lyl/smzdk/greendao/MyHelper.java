@@ -12,14 +12,14 @@ import org.greenrobot.greendao.database.Database;
  * Author: lyl
  * Date Created : 2017/11/30.
  */
-public class Helper extends DaoMaster.OpenHelper{
+public class MyHelper extends DaoMaster.OpenHelper{
 
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
 
-    public static final String DBNAME = "greendao.db";
+    public static final String DBNAME = "zmzdk.db";
 
-    public Helper(Context context){
+    public MyHelper(Context context){
         super(context,DBNAME,null);
     }
 
