@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.lyl.smzdk.utils.MyUtils;
+import com.tencent.bugly.Bugly;
+
 import com.lyl.smzdk.greendao.MyHelper;
 import com.lyl.smzdk.greendao.gen.DaoMaster;
 import com.lyl.smzdk.greendao.gen.DaoSession;
@@ -26,7 +29,17 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
 
+        initBugly();
         getDB();
+    }
+
+    private void initBugly() {
+        String key = BuildConfig.BuglyKey;
+        if (MyUtils.isDev()) {
+            Bugly.init(getApplicationContext(), key, true);
+        } else {
+            Bugly.init(getApplicationContext(), key, false);
+        }
     }
 
     public DaoSession getDB() {
