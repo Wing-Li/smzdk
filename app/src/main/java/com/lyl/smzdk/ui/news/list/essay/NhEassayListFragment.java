@@ -5,19 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.network.entity.news.YdzxInfo;
-import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseFragment;
@@ -269,6 +271,11 @@ public class NhEassayListFragment extends BaseFragment {
                     public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                         NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
 
+                        if (info == null){
+                            showToast(R.string.data_error);
+                            return;
+                        }
+
                         Intent intent = new Intent(getHolder(), Html5Activity.class);
                         intent.putExtra(Constans.I_URL, info.getUrl());
                         intent.putExtra(Constans.I_TITLE, info.getTitle());
@@ -281,6 +288,17 @@ public class NhEassayListFragment extends BaseFragment {
                             startActivity(intent, options.toBundle());
                         } else {
                             startActivity(intent);
+                        }
+
+                        TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_title);
+                        if (titleView != null) {
+                            titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
+                        }
+
+                        TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
+                                .item_main_content_introduce);
+                        if (introduceView != null) {
+                            introduceView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_three));
                         }
                     }
                 });
