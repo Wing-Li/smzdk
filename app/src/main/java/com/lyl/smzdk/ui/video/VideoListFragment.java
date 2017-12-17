@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
@@ -37,6 +38,9 @@ public class VideoListFragment extends BaseFragment {
 
     @BindView(R.id.video_listview)
     RecyclerView videoListview;
+    @BindView(R.id.video_swiperefresh)
+    SwipeRefreshLayout videoSwiperefresh;
+
 
     private XgImp mXgImp;
     private String mTitle;
@@ -44,6 +48,7 @@ public class VideoListFragment extends BaseFragment {
 
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
+    private boolean isRefresh;
 
     public static VideoListFragment newInstance(String type, String title) {
         VideoListFragment fragment = new VideoListFragment();
@@ -108,6 +113,14 @@ public class VideoListFragment extends BaseFragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+
+        videoSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefresh = true;
+                loadData();
+            }
+        });
     }
 
     private void goToVideoPlayActivity(VideoInfo info, View videoPlayView) {
@@ -131,6 +144,8 @@ public class VideoListFragment extends BaseFragment {
             mXgImp = new XgImp();
         }
 
+        showRefresh();
+
         Call<XgInfo> xgList = mXgImp.getXgList(mType);
         Call<XgInfo> clone = xgList.clone();
         clone.enqueue(new Callback<XgInfo>() {
@@ -142,6 +157,7 @@ public class VideoListFragment extends BaseFragment {
 
                     List<XgInfo.DataBean> data = body.getData();
                     if (data != null && data.size() > 0) {
+                        List<VideoInfo> videoInfos = new ArrayList<>();
                         VideoInfo info;
                         for (XgInfo.DataBean bean : data) {
                             info = new VideoInfo();
@@ -156,11 +172,20 @@ public class VideoListFragment extends BaseFragment {
                             info.setAuthor(bean.getMedia_name());
                             info.setAuthorUrl(bean.getMedia_info().getAvatar_url());
 
-                            mVideoListAdapter.addData(info);
+                            videoInfos.add(info);
+                        }
+
+                        if (isRefresh) {
+                            mVideoListAdapter.setNewData(videoInfos);
+                            isRefresh = false;
+                        } else {
+                            mVideoListAdapter.addData(videoInfos);
                         }
 
                         mVideoListAdapter.loadMoreComplete();
                     }
+
+                    closeRefresh();
                 }
 
             }
@@ -171,7 +196,20 @@ public class VideoListFragment extends BaseFragment {
                 if (t != null) {
                     CrashReport.postCatchedException(t);
                 }
+                closeRefresh();
             }
         });
+    }
+
+    private void closeRefresh() {
+        if (videoSwiperefresh.isRefreshing()) {
+            videoSwiperefresh.setRefreshing(false);
+        }
+    }
+
+    private void showRefresh() {
+        if (!videoSwiperefresh.isRefreshing()) {
+            videoSwiperefresh.setRefreshing(true);
+        }
     }
 }

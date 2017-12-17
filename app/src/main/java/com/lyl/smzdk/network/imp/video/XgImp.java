@@ -29,13 +29,13 @@ public class XgImp {
         newMenus.add(menu);
 
         menu = new VideoMenu();
-        menu.setName("音乐");
-        menu.setType("subv_voice");
+        menu.setName("搞笑");
+        menu.setType("subv_funny");
         newMenus.add(menu);
 
         menu = new VideoMenu();
-        menu.setName("搞笑");
-        menu.setType("subv_funny");
+        menu.setName("生活");
+        menu.setType("subv_life");
         newMenus.add(menu);
 
         menu = new VideoMenu();
@@ -44,13 +44,13 @@ public class XgImp {
         newMenus.add(menu);
 
         menu = new VideoMenu();
-        menu.setName("小品");
-        menu.setType("subv_comedy");
+        menu.setName("游戏");
+        menu.setType("subv_game");
         newMenus.add(menu);
 
         menu = new VideoMenu();
-        menu.setName("生活");
-        menu.setType("subv_life");
+        menu.setName("小品");
+        menu.setType("subv_comedy");
         newMenus.add(menu);
 
         menu = new VideoMenu();
@@ -69,8 +69,8 @@ public class XgImp {
         newMenus.add(menu);
 
         menu = new VideoMenu();
-        menu.setName("游戏");
-        menu.setType("subv_game");
+        menu.setName("音乐");
+        menu.setType("subv_voice");
         newMenus.add(menu);
 
         menu = new VideoMenu();
