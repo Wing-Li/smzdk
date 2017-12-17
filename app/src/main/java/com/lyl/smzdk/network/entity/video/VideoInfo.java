@@ -12,7 +12,7 @@ public class VideoInfo {
     private String url;
     private String source_url;// /group/6468059723995283981/  前面拼接域名后，自动跳转到 aXXXXX
     private String group_id;// "6468059723995283981"
-    private String videoDuration;// 视频时长
+    private int videoDuration;// 视频时长
     private String introduce;// 简介 新闻简介
     private String laudNum; // 点赞
     private String playCount;
@@ -23,6 +23,15 @@ public class VideoInfo {
     private String authorSignature; // 作者签名
     private String authorUrl;
     private String authorIcon;
+
+
+    public int getVideoDuration() {
+        return videoDuration;
+    }
+
+    public void setVideoDuration(int videoDuration) {
+        this.videoDuration = videoDuration;
+    }
 
     public String getSource_url() {
         return source_url;
@@ -46,14 +55,6 @@ public class VideoInfo {
 
     public void setPlayCount(String playCount) {
         this.playCount = playCount;
-    }
-
-    public String getVideoDuration() {
-        return videoDuration;
-    }
-
-    public void setVideoDuration(String videoDuration) {
-        this.videoDuration = videoDuration;
     }
 
     public String getId() {

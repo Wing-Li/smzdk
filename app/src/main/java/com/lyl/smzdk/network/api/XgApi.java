@@ -15,7 +15,7 @@ public interface XgApi {
     /**
      * 获取视频
      */
-    @GET("api/pc/feed/?utm_source=toutiao&widen=1&tadrequire=true")
-    Call<XgInfo> getInfoList(@Query("category") String type, @Query("max_behot_time") long max_behot_time, @Query
-            ("as") String as, @Query("cp") String cp);
+    @GET("list/?ac=wap&count=20&format=json_raw")
+    Call<XgInfo> getInfoList(@Query("tag") String type, @Query("max_behot_time") String max_behot_time, @Query("as")
+            String as, @Query("cp") String cp);
 }

@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.HideBottombarEvent;
-import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 import com.lyl.smzdk.network.imp.video.XgImp;
@@ -42,7 +41,6 @@ public class VideoListFragment extends BaseFragment {
     private XgImp mXgImp;
     private String mTitle;
     private String mType;
-    private int max_behot_time;
 
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
@@ -133,7 +131,7 @@ public class VideoListFragment extends BaseFragment {
             mXgImp = new XgImp();
         }
 
-        Call<XgInfo> xgList = mXgImp.getXgList(mType,max_behot_time);
+        Call<XgInfo> xgList = mXgImp.getXgList(mType);
         Call<XgInfo> clone = xgList.clone();
         clone.enqueue(new Callback<XgInfo>() {
             @Override
@@ -141,7 +139,6 @@ public class VideoListFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     XgInfo body = response.body();
                     if (body == null) return;
-                    max_behot_time = body.getNext().getMax_behot_time();
 
                     List<XgInfo.DataBean> data = body.getData();
                     if (data != null && data.size() > 0) {
@@ -150,15 +147,14 @@ public class VideoListFragment extends BaseFragment {
                             info = new VideoInfo();
                             info.setId(bean.getVideo_id());
                             info.setTitle(bean.getTitle());
-                            info.setImage(bean.getImage_url());
-                            info.setVideoDuration(bean.getVideo_duration_str());
-                            info.setPlayCount(String.valueOf(bean.getVideo_play_count()));
+                            info.setImage(bean.getLarge_image_url());
+                            info.setVideoDuration(bean.getVideo_duration());
+                            info.setPlayCount(String.valueOf(bean.getVideo_detail_info().getVideo_watch_count()));
                             info.setGroup_id(bean.getGroup_id());
                             info.setSource_url(bean.getSource_url());
 
-                            info.setAuthor(bean.getSource());
-                            info.setAuthorUrl(Network.URL_XG + bean.getMedia_url());
-                            info.setAuthorIcon(bean.getMedia_avatar_url());
+                            info.setAuthor(bean.getMedia_name());
+                            info.setAuthorUrl(bean.getMedia_info().getAvatar_url());
 
                             mVideoListAdapter.addData(info);
                         }

@@ -31,7 +31,7 @@ public class Network {
     /**
      * 视频
      */
-    public static String URL_XG = "https://www.ixigua.com/";
+    public static String URL_XG = "http://m.ixigua.com/";
     /**
      * 视频解析
      */

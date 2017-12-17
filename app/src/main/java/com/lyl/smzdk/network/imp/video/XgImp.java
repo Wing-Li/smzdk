@@ -4,10 +4,13 @@ import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.video.VideoInflaterInfo;
 import com.lyl.smzdk.network.entity.video.VideoMenu;
 import com.lyl.smzdk.network.entity.video.XgInfo;
-import com.lyl.smzdk.utils.MyUtils;
+import com.lyl.smzdk.utils.Md5Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 
@@ -89,10 +92,12 @@ public class XgImp {
      *
      * @param type 通过 getMenu() 获取的目录
      */
-    public Call<XgInfo> getXgList(String type, long max_behot_time) {
-        String as = "A1" + MyUtils.randomHexString(13);
-        String cp = "5A1E" + MyUtils.randomHexString(9) + "E1";
-        return Network.getXgApi().getInfoList(type, max_behot_time, as, cp);
+    public Call<XgInfo> getXgList(String type) {
+        Map<String, String> asCp = getAsCp();
+        String as = asCp.get("as");
+        String cp = asCp.get("cp");
+        String time = asCp.get("time");
+        return Network.getXgApi().getInfoList(type, time, as, cp);
     }
 
     /**
@@ -107,13 +112,45 @@ public class XgImp {
         try {
             String url = "https://www.ixigua.com/a%1$s/";
             url = String.format(url, group_id);
-//            url = url.replace(":", "%3A");
-//            url = url.replace("/", "%2F");
             return Network.getVideoInflaterApi().getInfoList(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private static Map<String, String> getAsCp() {
+        long time = new Date().getTime() / 1000;
+        String key = Long.toHexString(time).toUpperCase();
+        String md5Key = Md5Utils.md5("" + time).toUpperCase();
+
+        Map<String, String> map = new HashMap<>();
+
+        if (key.length() != 8) {
+            map.put("as", "A1756A534687FB0");
+            map.put("cp", "5A36F75F5B806E1");
+            map.put("time", "1513520205");
+            return map;
+        } else {
+            String ascMd5 = md5Key.substring(0, 5);
+            String descMd5 = md5Key.substring(md5Key.length() - 5);
+            String as = "";
+            String cp = "";
+
+            for (int i = 0; i < 5; i++) {
+                as += String.valueOf(ascMd5.charAt(i)) + String.valueOf(key.charAt(i));
+                cp += String.valueOf(key.charAt(i + 3)) + String.valueOf(descMd5.charAt(i));
+            }
+
+            as = "A1" + as + key.substring(key.length() - 3);
+            cp = key.substring(0, 3) + cp + "E1";
+
+            map.put("as", as);
+            map.put("cp", cp);
+            map.put("time", String.valueOf(time));
+            return map;
+        }
     }
 
 }
