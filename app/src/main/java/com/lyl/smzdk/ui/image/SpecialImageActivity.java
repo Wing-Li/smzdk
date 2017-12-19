@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -19,8 +18,6 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
-
-import java.security.MessageDigest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,25 +56,12 @@ public class SpecialImageActivity extends BaseImageActivity {
             longImage.setVisibility(View.VISIBLE);
             gifImage.setVisibility(View.GONE);
 
-
-            ImgUtils.getBitmap(mContext, mUrl, new BitmapTransformation() {
+            ImgUtils.getBitmap(mContext, mUrl, new SimpleTarget<Bitmap>() {
                 @Override
-                public void updateDiskCacheKey(MessageDigest messageDigest) {
-                    try {
-                        messageDigest.update((mContext.getPackageName() + "BitmapTransform").getBytes("utf-8"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int
-                        outHeight) {
-                    longImage.setImage(ImageSource.bitmap(toTransform));
-                    return toTransform;
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                    longImage.setImage(ImageSource.bitmap(resource));
                 }
             });
-
         } else {
             // 默认使用正常的图
             // ConstantIntent.SPECIAL_IMAGE_NORMAL

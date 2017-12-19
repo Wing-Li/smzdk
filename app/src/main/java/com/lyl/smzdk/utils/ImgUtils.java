@@ -1,21 +1,18 @@
 package com.lyl.smzdk.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.lyl.smzdk.R;
 
-import java.security.MessageDigest;
+import java.io.File;
+
 
 /**
  * Wing_Li
@@ -34,7 +31,8 @@ public class ImgUtils {
 //    DiskCacheStrategy.NONE 什么都不缓存
 //    DiskCacheStrategy.DATA 仅仅只缓存原来的全分辨率的图像。
 //    DiskCacheStrategy.RESOURCE 仅仅缓存最终的图像，即，降低分辨率后的（或者是转换后的）
-//    DiskCacheStrategy.ALL 缓存所有版本的图像（默认行为）
+//    DiskCacheStrategy.ALL 缓存所有版本的图像
+//    DiskCacheStrategy.AUTOMATIC: 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
 
     /**
      * @param context
@@ -64,20 +62,55 @@ public class ImgUtils {
      * 加载圆形图片。
      */
     public static void loadCircle(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().transform(new
-                GlideCircleTransform(context))).into(imageView);
+        Glide.with(context).load(url).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
 
     /**
      * 加载圆形图片。加载 uri ，一般用来加载本地图片
      */
     public static void loadCircle(Context context, Uri uri, ImageView imageView) {
-        Glide.with(context).load(uri).apply(baseOptions).apply(new RequestOptions().transform(new
-                GlideCircleTransform(context))).into(imageView);
+        Glide.with(context).load(uri).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
 
-    public static void getBitmap(Context context, String url, BitmapTransformation simpleTarget) {
-        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().transform(simpleTarget));
+    /**
+     * 获取 Bitmap 图片
+     *
+     * @param context
+     * @param url
+     * @param simpleTarget
+     */
+    public static void getBitmap(Context context, String url, SimpleTarget simpleTarget) {
+        Glide.with(context).load(url).apply(baseOptions).into(simpleTarget);
+    }
+
+    /**
+     * 下载图片
+     *
+     * @param context
+     * @param url
+     * @param downloadImage
+     */
+    public static void downloadImg(final Context context, final String url, final DownloadImage downloadImage) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FutureTarget<File> target = Glide.with(context)//
+                            .asFile()//
+                            .load(url)//
+                            .apply(baseOptions)//
+                            .submit();
+                    File file = target.get();
+                    downloadImage.downloadImage(file);
+                } catch (Exception e) {
+                }
+
+            }
+        });
+    }
+
+    public interface DownloadImage {
+        void downloadImage(File imgFile);
     }
 
     /**
@@ -119,51 +152,5 @@ public class ImgUtils {
     public static void clearAll(Context context) {
         clearDiskCache(context);
         clearMemory(context);
-    }
-
-}
-
-/**
- * 圆形图片
- */
-class GlideCircleTransform extends BitmapTransformation {
-    private Context mContext;
-
-    public GlideCircleTransform(Context context) {
-        mContext = context;
-    }
-
-    @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return circleCrop(pool, toTransform);
-    }
-
-    private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
-        if (source == null) return null;
-        int size = Math.min(source.getWidth(), source.getHeight());
-        int x = (source.getWidth() - size) / 2;
-        int y = (source.getHeight() - size) / 2;
-        // TODO this could be acquired from the pool too
-        Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
-        Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-        }
-        Canvas canvas = new Canvas(result);
-        Paint paint = new Paint();
-        paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
-        paint.setAntiAlias(true);
-        float r = size / 2f;
-        canvas.drawCircle(r, r, r, paint);
-        return result;
-    }
-
-    @Override
-    public void updateDiskCacheKey(MessageDigest messageDigest) {
-        try {
-            messageDigest.update((mContext.getPackageName() + "CircleTransform").getBytes("utf-8"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
