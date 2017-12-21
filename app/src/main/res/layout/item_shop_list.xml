@@ -61,7 +61,7 @@
             android:id="@+id/item_shop_sale_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/shop_primary"
+            android:background="@color/images_primary"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:padding="2dp"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="到手￥"
-            android:textColor="@color/shop_accent"
+            android:textColor="@color/images_accent"
             android:textSize="11sp"/>
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11.9"
-            android:textColor="@color/shop_accent"
+            android:textColor="@color/images_accent"
             android:textSize="18sp"/>
 
         <View

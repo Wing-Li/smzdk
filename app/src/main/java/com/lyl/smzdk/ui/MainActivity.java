@@ -15,9 +15,9 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
+import com.lyl.smzdk.ui.images.ImagesFragment;
 import com.lyl.smzdk.ui.news.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
-import com.lyl.smzdk.ui.shop.ShopFragment;
 import com.lyl.smzdk.ui.user.UserFragment;
 import com.lyl.smzdk.ui.video.VideoFragment;
 import com.lyl.smzdk.utils.ImgUtils;
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     private MainFragment mainFragment;
     private VideoFragment videoFragment;
     private SearchFragment searchFragment;
-    private ShopFragment shopFragment;
+    private ImagesFragment shopFragment;
     private UserFragment userFragment;
 
     private Fragment oldFragment;
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity {
                     }
                     case R.id.tab_shop: { // 好物
                         if (shopFragment == null) {
-                            shopFragment = new ShopFragment();
+                            shopFragment = new ImagesFragment();
                         }
                         toFragment(shopFragment);
                         break;

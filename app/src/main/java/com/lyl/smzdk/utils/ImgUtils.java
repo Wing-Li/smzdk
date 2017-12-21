@@ -58,6 +58,10 @@ public class ImgUtils {
         Glide.with(context).load(url).apply(baseOptions).into(imageView);
     }
 
+    public static void load(Context context, String url, ImageView imageView, int w, int h) {
+        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
+    }
+
     /**
      * 加载圆形图片。
      */
@@ -80,7 +84,7 @@ public class ImgUtils {
      * @param simpleTarget
      */
     public static void getBitmap(Context context, String url, SimpleTarget simpleTarget) {
-        Glide.with(context).load(url).apply(baseOptions).into(simpleTarget);
+        Glide.with(context).asBitmap().load(url).into(simpleTarget);
     }
 
     /**
@@ -98,13 +102,12 @@ public class ImgUtils {
                     FutureTarget<File> target = Glide.with(context)//
                             .asFile()//
                             .load(url)//
-                            .apply(baseOptions)//
                             .submit();
                     File file = target.get();
                     downloadImage.downloadImage(file);
                 } catch (Exception e) {
+                    LogUtils.d("下载图片出错：" + e.getLocalizedMessage());
                 }
-
             }
         });
     }

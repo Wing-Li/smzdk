@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.shop;
+package com.lyl.smzdk.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

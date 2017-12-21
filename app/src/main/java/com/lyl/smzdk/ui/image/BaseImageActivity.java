@@ -26,7 +26,7 @@ public class BaseImageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected void download(final View view, String fileUrl, final boolean isGif) {
+    protected void download(final View view, String fileUrl) {
         Toast.makeText(mContext, R.string.download_running, Toast.LENGTH_SHORT).show();
         view.setVisibility(View.GONE);
 

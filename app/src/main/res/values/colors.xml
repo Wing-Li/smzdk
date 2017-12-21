@@ -11,8 +11,8 @@
     <color name="search_actionbar">#65FFFFFF</color>
     <color name="search_accent">#00ABC1</color>
     <color name="search_primary">#008c9e</color>
-    <color name="shop_accent">#ff5f2e</color>
-    <color name="shop_primary">#FF6B2E</color>
+    <color name="images_accent">#ff5f2e</color>
+    <color name="images_primary">#FF6B2E</color>
     <color name="user_accent">#79bd9a</color>
     <color name="user_primary">#4DBD83</color>
 

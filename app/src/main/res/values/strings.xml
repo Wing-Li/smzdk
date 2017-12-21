@@ -9,11 +9,10 @@
     <string name="news_title">资讯</string>
     <string name="video_title">视频</string>
     <string name="search_title">搜索</string>
-    <string name="shop_title">好物</string>
+    <string name="images_title">图集</string>
     <string name="user_title">个人</string>
 
     <string name="search_text">搜 索</string>
-
 
     <string name="menu_weixin">微信精选</string>
     <string name="menu_zhihu">知乎精选</string>

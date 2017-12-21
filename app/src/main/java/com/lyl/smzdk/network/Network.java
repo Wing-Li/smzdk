@@ -2,8 +2,9 @@ package com.lyl.smzdk.network;
 
 
 import com.lyl.smzdk.BuildConfig;
+import com.lyl.smzdk.network.api.ImgsApi;
 import com.lyl.smzdk.network.api.NeihanApi;
-import com.lyl.smzdk.network.api.VideoInflater;
+import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
 import com.lyl.smzdk.network.api.YdzxApi;
 
@@ -36,6 +37,11 @@ public class Network {
      * 视频解析
      */
     public static String URL_XG_INFLATER = "http://v.ranks.xin/";
+    /**
+     * 图片列表
+     */
+    public static String URL_IMG_SOGOU = "http://pic.sogou.com";
+
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -44,7 +50,8 @@ public class Network {
     private static NeihanApi neihanApi;
     private static YdzxApi ydzxApi;
     private static XgApi xgApi;
-    private static VideoInflater videoInflater;
+    private static VideoInflaterApi videoInflater;
+    private static ImgsApi imgsApi;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -102,10 +109,20 @@ public class Network {
     /**
      * 视频解析
      */
-    public static VideoInflater getVideoInflaterApi() {
+    public static VideoInflaterApi getVideoInflaterApi() {
         if (videoInflater == null) {
-            videoInflater = getRetrofit(URL_XG_INFLATER).create(VideoInflater.class);
+            videoInflater = getRetrofit(URL_XG_INFLATER).create(VideoInflaterApi.class);
         }
         return videoInflater;
+    }
+
+    /**
+     * 图片集合
+     */
+    public static ImgsApi getImgsApi(){
+        if (imgsApi == null){
+            imgsApi  = getRetrofit(URL_IMG_SOGOU).create(ImgsApi.class);
+        }
+        return imgsApi;
     }
 }

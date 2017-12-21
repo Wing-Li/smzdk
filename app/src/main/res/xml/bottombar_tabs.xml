@@ -2,31 +2,31 @@
 <tabs>
     <tab
         id="@+id/tab_news"
-        title="资讯"
+        title="@string/news_title"
         icon="@drawable/ic_description_black_24dp"
         barColorWhenSelected="@color/main_primary"
         />
     <tab
         id="@+id/tab_video"
-        title="视频"
+        title="@string/video_title"
         icon="@drawable/ic_video_library_black_24dp"
         barColorWhenSelected="@color/video_primary"
         />
     <tab
         id="@+id/tab_search"
-        title="搜索"
+        title="@string/search_title"
         icon="@drawable/ic_link_black_24dp"
         barColorWhenSelected="#008c9e"
         />
     <tab
         id="@+id/tab_shop"
-        title="好物"
+        title="@string/images_title"
         icon="@drawable/ic_shopping_cart_black_24dp"
         barColorWhenSelected="#ff5f2e"
         />
     <tab
         id="@+id/tab_user"
-        title="个人"
+        title="@string/user_title"
         icon="@drawable/ic_account_box_black_24dp"
         barColorWhenSelected="#79bd9a"
         />

@@ -74,11 +74,7 @@ public class SpecialImageActivity extends BaseImageActivity {
         imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mType.equals(Constans.SPECIAL_IMAGE_GIF)) {
-                    download(imageBtn, mUrl, true);
-                } else {
-                    download(imageBtn, mUrl, false);
-                }
+                    download(imageBtn, mUrl);
             }
         });
     }

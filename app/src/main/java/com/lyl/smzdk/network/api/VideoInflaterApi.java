@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Author: lyl
  * Date Created : 2017/11/30.
  */
-public interface VideoInflater {
+public interface VideoInflaterApi {
     /**
      * 获取视频
      * http://v.ranks.xin/video-parse.php?url=https%3A%2F%2Fwww.ixigua.com%2Fa6480422859939250701%2F
