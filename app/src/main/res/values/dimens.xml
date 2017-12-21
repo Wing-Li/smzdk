@@ -10,4 +10,7 @@
     <integer name="anim_duration_medium">300</integer>
 
     <dimen name="text_normal">14sp</dimen>
+
+    <dimen name="images_padding">6dp</dimen>
+
 </resources>

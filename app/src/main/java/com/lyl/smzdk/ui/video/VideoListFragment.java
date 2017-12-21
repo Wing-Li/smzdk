@@ -17,7 +17,6 @@ import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 import com.lyl.smzdk.network.imp.video.XgImp;
-import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -31,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VideoListFragment extends BaseFragment {
+public class VideoListFragment extends NoPreloadFragment {
 
     private static final String VIDEO_LIST_TYPE = "video_list_type";
     private static final String VIDEO_LIST_TITLE = "video_list_title";
@@ -49,6 +48,7 @@ public class VideoListFragment extends BaseFragment {
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
     private boolean isRefresh;
+    private boolean isFirst = true;
 
     public static VideoListFragment newInstance(String type, String title) {
         VideoListFragment fragment = new VideoListFragment();
@@ -65,6 +65,8 @@ public class VideoListFragment extends BaseFragment {
         Bundle bundle = getArguments();
         mType = bundle.getString(VIDEO_LIST_TYPE);
         mTitle = bundle.getString(VIDEO_LIST_TITLE);
+
+        mInfoList = new ArrayList<>();
     }
 
     @Override
@@ -77,11 +79,9 @@ public class VideoListFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         setListView();
-        loadData();
     }
 
     private void setListView() {
-        mInfoList = new ArrayList<>();
         mVideoListAdapter = new VideoListAdapter(R.layout.item_video_list, mInfoList);
         mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mVideoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -139,14 +139,14 @@ public class VideoListFragment extends BaseFragment {
 
     }
 
-    private void loadData() {
+    protected void loadData() {
         if (mXgImp == null) {
             mXgImp = new XgImp();
         }
 
         showRefresh();
 
-        Call<XgInfo> xgList = mXgImp.getXgList(mType);
+        Call<XgInfo> xgList = mXgImp.getXgList(mType, isFirst);
         Call<XgInfo> clone = xgList.clone();
         clone.enqueue(new Callback<XgInfo>() {
             @Override
@@ -175,14 +175,18 @@ public class VideoListFragment extends BaseFragment {
                             videoInfos.add(info);
                         }
 
-                        if (isRefresh) {
-                            mVideoListAdapter.setNewData(videoInfos);
-                            isRefresh = false;
-                        } else {
-                            mVideoListAdapter.addData(videoInfos);
-                        }
+                        if (mVideoListAdapter != null) {
+                            if (isRefresh) {
+                                mVideoListAdapter.setNewData(videoInfos);
+                                isRefresh = false;
+                            } else {
+                                mVideoListAdapter.addData(videoInfos);
+                            }
 
-                        mVideoListAdapter.loadMoreComplete();
+                            mVideoListAdapter.loadMoreComplete();
+                        } else {
+                            mInfoList = videoInfos;
+                        }
                     }
 
                     closeRefresh();
@@ -199,6 +203,10 @@ public class VideoListFragment extends BaseFragment {
                 closeRefresh();
             }
         });
+
+        if (isFirst) {
+            isFirst = false;
+        }
     }
 
     private void closeRefresh() {

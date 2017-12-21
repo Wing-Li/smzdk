@@ -154,10 +154,8 @@ http://www.yidianzixun.com/home/q/news_list_for_channel?infinite=true&refresh=1&
 
 // 西瓜视频
 // 推荐 video_new
-http://m.ixigua.com/list/?tag=video_new&ac=wap&count=20&format=json_raw&as=A1C53AB26F7814B&cp=5A2F18D134AB0E1&min_behot_time=0
-http://m.ixigua.com/list/?tag=video_new&ac=wap&count=20&format=json_raw&as=A1651A721F981A3&cp=5A2FF8510A03CE1&max_behot_time=1513058623
-http://m.ixigua.com/list/?tag=video_new&ac=wap&count=20&format=json_raw&as=A105EA427F381EB&cp=5A2FB8F15E5B1E1&max_behot_time=1513057973
-http://m.ixigua.com/list/?tag=subv_voice&ac=wap&count=20&format=json_raw&as=A135DA82AFA8788&cp=5A2FF8A708083E1&max_behot_time=1513059509
+http://m.ixigua.com/list/?tag=subv_voice&ac=wap&count=20&format=json_raw&as=A165EAF37BEA881&cp=5A3B8AB818814E1&min_behot_time=0
+http://m.ixigua.com/list/?tag=subv_voice&ac=wap&count=20&format=json_raw&as=A1D5EA83CB0A8A8&cp=5A3B9A186AC88E1&max_behot_time=1513853714
 
 https://www.ixigua.com/api/pc/feed/?max_behot_time=0&category=video_new&utm_source=toutiao&widen=1&tadrequire=true&cp=5A1EA438D44F3E1
 // 音乐 subv_voice

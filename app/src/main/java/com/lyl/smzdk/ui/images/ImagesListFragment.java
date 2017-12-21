@@ -20,14 +20,13 @@ import com.lyl.smzdk.network.entity.images.ImgsCall;
 import com.lyl.smzdk.network.imp.images.ImgsImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
-import com.lyl.smzdk.utils.DisplayUtil;
-import com.lyl.smzdk.view.SpaceItemDecoration;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -124,7 +123,6 @@ public class ImagesListFragment extends BaseFragment {
 
         imageListview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         imageListview.setAdapter(mImagesListApapter);
-        imageListview.addItemDecoration(new SpaceItemDecoration(DisplayUtil.dip2px(getHolder(), 4)));
         imageListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -141,6 +139,7 @@ public class ImagesListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 isRefresh = true;
+                start = new Random().nextInt(500);
                 loadData();
             }
         });
@@ -189,13 +188,13 @@ public class ImagesListFragment extends BaseFragment {
     }
 
     private void closeRefresh() {
-        if (imageSwiperefresh.isRefreshing()) {
+        if (imageSwiperefresh != null && imageSwiperefresh.isRefreshing()) {
             imageSwiperefresh.setRefreshing(false);
         }
     }
 
     private void showRefresh() {
-        if (!imageSwiperefresh.isRefreshing()) {
+        if (imageSwiperefresh != null && !imageSwiperefresh.isRefreshing()) {
             imageSwiperefresh.setRefreshing(true);
         }
     }
