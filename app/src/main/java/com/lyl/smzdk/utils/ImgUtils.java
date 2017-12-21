@@ -13,6 +13,14 @@ import com.lyl.smzdk.R;
 
 import java.io.File;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Wing_Li
@@ -95,21 +103,40 @@ public class ImgUtils {
      * @param downloadImage
      */
     public static void downloadImg(final Context context, final String url, final DownloadImage downloadImage) {
-        new Thread(new Runnable() {
+        Observable.create(new ObservableOnSubscribe<File>() {
             @Override
-            public void run() {
-                try {
-                    FutureTarget<File> target = Glide.with(context)//
-                            .asFile()//
-                            .load(url)//
-                            .submit();
-                    File file = target.get();
-                    downloadImage.downloadImage(file);
-                } catch (Exception e) {
-                    LogUtils.d("下载图片出错：" + e.getLocalizedMessage());
-                }
+            public void subscribe(ObservableEmitter<File> observableEmitter) throws Exception {
+                FutureTarget<File> target = Glide.with(context)//
+                        .asFile()//
+                        .load(url)//
+                        .submit();
+                File file = target.get();
+
+                observableEmitter.onNext(file);
             }
-        });
+        })//
+                .subscribeOn(Schedulers.io())//
+                .observeOn(AndroidSchedulers.mainThread())//
+                .subscribe(new Observer<File>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                    }
+
+                    @Override
+                    public void onNext(File file) {
+                        downloadImage.downloadImage(file);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        downloadImage.downloadImage(null);
+                        LogUtils.d("下载图片出错："+throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     public interface DownloadImage {

@@ -22,6 +22,7 @@ import java.io.File;
 public class MyApp extends Application {
 
     private static String appPath;
+    private static String appImagePath;
 
     public static DaoSession mDaoSession;
 
@@ -56,11 +57,25 @@ public class MyApp extends Application {
         if (!TextUtils.isEmpty(appPath)) {
             return appPath;
         }
-        File sdFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();
-        File my = new File(sdFile, "smzdk");
+
+        File sdFile = Environment.getExternalStorageDirectory();
+        File my = new File(sdFile, "Smzdk");
         if (!my.exists()) {
             my.mkdirs();
         }
         return appPath = my.getAbsolutePath();
+    }
+
+    public static String getAppImagePath() {
+        if (!TextUtils.isEmpty(appImagePath)) {
+            return appImagePath;
+        }
+
+        String sdFile = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DCIM";
+        File my = new File(sdFile, "Smzdk");
+        if (!my.exists()) {
+            my.mkdirs();
+        }
+        return appImagePath = my.getAbsolutePath();
     }
 }
