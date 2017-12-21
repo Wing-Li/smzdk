@@ -53,7 +53,7 @@ public class PlayUtils {
      */
     private static void qrPlayAlipay(Context context, boolean isAlipay) {
         FileOutputStream fos = null;
-        String filePath = MyApp.getAppPath() + File.separator + "play.jpg";
+        String filePath = MyApp.getAppImagePath() + File.separator + "play.jpg";
         try {
             File file = new File(filePath);
             if (file.exists()){
