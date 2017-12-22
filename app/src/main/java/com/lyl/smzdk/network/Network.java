@@ -7,10 +7,12 @@ import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
 import com.lyl.smzdk.network.api.YdzxApi;
+import com.lyl.smzdk.utils.LogUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -80,18 +82,25 @@ public class Network {
     }
 
     private static Retrofit getXgVideoRetrofit(String url) {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
+                        HttpUrl httpUrl = chain.request().url();
+                        String path = httpUrl.url().toString().substring(20);
                         Request request = chain.request()//
                                 .newBuilder()//
+                                .addHeader(":authority", "m.ixigua.com")//
+                                .addHeader(":method", "GET")//
+                                .addHeader(":path", path)//
+                                .addHeader(":scheme", "https")//
+                                .addHeader("cache-control", "no-cache")//
+                                .addHeader("pragma", "no-cache")//
                                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36")//
+                                .addHeader("upgrade-insecure-requests", "1")//
                                 .addHeader("Cookie", "UM_distinctid=15fe7d49584716-0774d592b71f07-5e183017-1fa400-15fe7d49585b32; tt_webid=6491512292630398478; csrftoken=9d0993216394e68e20639fe705e719dd; _ba=BA0.2-20171212-51225-U3xIto01M3RTM3mNZEo3; _ga=GA1.2.1462588719.1511422990")//
                                 .build();
+                        LogUtils.d("视频地址：" + request.url());
                         return chain.proceed(request);
                     }
                 })

@@ -160,4 +160,14 @@ public class VideoInfo {
     public void setAuthorIcon(String authorIcon) {
         this.authorIcon = authorIcon;
     }
+
+    @Override
+    public String toString() {
+        return "VideoInfo{" + "id='" + id + '\'' + ", type='" + type + '\'' + ", title='" + title + '\'' + ", " +
+                "image='" + image + '\'' + ", images=" + images + ", url='" + url + '\'' + ", source_url='" +
+                source_url + '\'' + ", group_id='" + group_id + '\'' + ", videoDuration=" + videoDuration + ", " +
+                "introduce='" + introduce + '\'' + ", laudNum='" + laudNum + '\'' + ", playCount='" + playCount +
+                '\'' + ", time='" + time + '\'' + ", author='" + author + '\'' + ", authorSignature='" +
+                authorSignature + '\'' + ", authorUrl='" + authorUrl + '\'' + ", authorIcon='" + authorIcon + '\'' + '}';
+    }
 }
