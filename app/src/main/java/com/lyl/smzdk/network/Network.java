@@ -89,10 +89,6 @@ public class Network {
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request()//
                                 .newBuilder()//
-                                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")//
-                                .addHeader("Accept-Encoding", "gzip, deflate, br")//
-                                .addHeader("Accept-Language", "zh-CN,zh;q=0.9")//
-                                .addHeader("Connection", "keep-alive")//
                                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36")//
                                 .addHeader("Cookie", "UM_distinctid=15fe7d49584716-0774d592b71f07-5e183017-1fa400-15fe7d49585b32; tt_webid=6491512292630398478; csrftoken=9d0993216394e68e20639fe705e719dd; _ba=BA0.2-20171212-51225-U3xIto01M3RTM3mNZEo3; _ga=GA1.2.1462588719.1511422990")//
                                 .build();

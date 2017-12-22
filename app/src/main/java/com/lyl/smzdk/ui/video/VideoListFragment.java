@@ -165,12 +165,19 @@ public class VideoListFragment extends NoPreloadFragment {
                             info.setTitle(bean.getTitle());
                             info.setImage(bean.getLarge_image_url());
                             info.setVideoDuration(bean.getVideo_duration());
-                            info.setPlayCount(String.valueOf(bean.getVideo_detail_info().getVideo_watch_count()));
                             info.setGroup_id(bean.getGroup_id());
                             info.setSource_url(bean.getSource_url());
 
+                            XgInfo.DataBean.VideoDetailInfoBean video_detail_info = bean.getVideo_detail_info();
+                            if (video_detail_info != null) {
+                                info.setPlayCount(String.valueOf(video_detail_info.getVideo_watch_count()));
+                            }
+
                             info.setAuthor(bean.getMedia_name());
-                            info.setAuthorUrl(bean.getMedia_info().getAvatar_url());
+                            XgInfo.DataBean.MediaInfoBean media_info = bean.getMedia_info();
+                            if (media_info != null) {
+                                info.setAuthorUrl(media_info.getAvatar_url());
+                            }
 
                             videoInfos.add(info);
                         }
