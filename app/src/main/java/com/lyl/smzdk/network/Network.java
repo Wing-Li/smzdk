@@ -8,9 +8,13 @@ import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
 import com.lyl.smzdk.network.api.YdzxApi;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -57,7 +61,6 @@ public class Network {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-
         // compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
         // compile 'com.squareup.okhttp3:okhttp:3.8.0'
         if ("dev".equals(BuildConfig.Environment)) {
@@ -69,6 +72,35 @@ public class Network {
     }
 
     private static Retrofit getRetrofit(String url) {
+        return new Retrofit.Builder()//
+                .client(httpClient)//
+                .baseUrl(url)//
+                .addConverterFactory(GsonConverterFactory.create())//
+                .build();
+    }
+
+    private static Retrofit getXgVideoRetrofit(String url) {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()//
+                                .newBuilder()//
+                                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")//
+                                .addHeader("Accept-Encoding", "gzip, deflate, br")//
+                                .addHeader("Accept-Language", "zh-CN,zh;q=0.9")//
+                                .addHeader("Connection", "keep-alive")//
+                                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36")//
+                                .addHeader("Cookie", "UM_distinctid=15fe7d49584716-0774d592b71f07-5e183017-1fa400-15fe7d49585b32; tt_webid=6491512292630398478; csrftoken=9d0993216394e68e20639fe705e719dd; _ba=BA0.2-20171212-51225-U3xIto01M3RTM3mNZEo3; _ga=GA1.2.1462588719.1511422990")//
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
         return new Retrofit.Builder()//
                 .client(httpClient)//
                 .baseUrl(url)//
@@ -101,7 +133,7 @@ public class Network {
      */
     public static XgApi getXgApi() {
         if (xgApi == null) {
-            xgApi = getRetrofit(URL_XG).create(XgApi.class);
+            xgApi = getXgVideoRetrofit(URL_XG).create(XgApi.class);
         }
         return xgApi;
     }
@@ -121,7 +153,8 @@ public class Network {
      */
     public static ImgsApi getImgsApi(){
         if (imgsApi == null){
-            imgsApi  = getRetrofit(URL_IMG_SOGOU).create(ImgsApi.class);
+            Retrofit retrofit = getRetrofit(URL_IMG_SOGOU);
+            imgsApi  = retrofit.create(ImgsApi.class);
         }
         return imgsApi;
     }
