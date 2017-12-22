@@ -92,15 +92,14 @@ public class XgImp {
      *
      * @param type 通过 getMenu() 获取的目录
      */
-    public Call<XgInfo> getXgList(String type, boolean isFirst) {
+    public Call<XgInfo> getXgList(String type, long behot_time, boolean isFirst) {
         Map<String, String> asCp = getAsCp();
         String as = asCp.get("as");
         String cp = asCp.get("cp");
-        String time = asCp.get("time");
         if (isFirst) {
-            return Network.getXgApi().getFirstInfoList(type, "0", as, cp);
+            return Network.getXgApi().getFirstInfoList(type, 0, as, cp);
         } else {
-            return Network.getXgApi().getInfoList(type, time, as, cp);
+            return Network.getXgApi().getInfoList(type, behot_time, as, cp);
         }
     }
 

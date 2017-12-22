@@ -94,11 +94,13 @@ public class Network {
                                 .addHeader(":method", "GET")//
                                 .addHeader(":path", path)//
                                 .addHeader(":scheme", "https")//
+                                .addHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")//
+                                .addHeader("accept-language", "zh-CN,zh;q=0.8")//
                                 .addHeader("cache-control", "no-cache")//
+                                .addHeader("cookie", "UM_distinctid=15ff6bdfbeba02-0c38ac8ad2598-5c153d17-100200-15ff6bdfbec9d0; tt_webid=6492584011599889933; __tasessionId=zncr5205k1513963900312; _ba=BA0.2-20171217-51225-4K42chFL2KxM68AR8KWP; _ga=GA1.2.2090532234.1511673167; _gid=GA1.2.2028382406.1513962277; csrftoken=141cdc8e06a4468e048d14beaf230f7f")//
                                 .addHeader("pragma", "no-cache")//
-                                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36")//
                                 .addHeader("upgrade-insecure-requests", "1")//
-                                .addHeader("Cookie", "UM_distinctid=15fe7d49584716-0774d592b71f07-5e183017-1fa400-15fe7d49585b32; tt_webid=6491512292630398478; csrftoken=9d0993216394e68e20639fe705e719dd; _ba=BA0.2-20171212-51225-U3xIto01M3RTM3mNZEo3; _ga=GA1.2.1462588719.1511422990")//
+                                .addHeader("user-agent", "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Mobile Safari/537.36")//
                                 .build();
                         LogUtils.d("视频地址：" + request.url());
                         return chain.proceed(request);

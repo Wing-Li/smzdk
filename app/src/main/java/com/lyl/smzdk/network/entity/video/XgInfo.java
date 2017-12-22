@@ -63,7 +63,16 @@ public class XgInfo {
         private String tag;
         private String url;
         private int like_count;
+        private long behot_time;
 
+
+        public long getBehot_time() {
+            return behot_time;
+        }
+
+        public void setBehot_time(long behot_time) {
+            this.behot_time = behot_time;
+        }
 
         public String getVideo_id() {
             return video_id;

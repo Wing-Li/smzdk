@@ -50,6 +50,7 @@ public class VideoListFragment extends NoPreloadFragment {
     private VideoListAdapter mVideoListAdapter;
     private boolean isRefresh;
     private boolean isFirst = true;
+    private long behot_time;
 
     public static VideoListFragment newInstance(String type, String title) {
         VideoListFragment fragment = new VideoListFragment();
@@ -147,7 +148,7 @@ public class VideoListFragment extends NoPreloadFragment {
 
         showRefresh();
 
-        Call<XgInfo> xgList = mXgImp.getXgList(mType, isFirst);
+        Call<XgInfo> xgList = mXgImp.getXgList(mType, behot_time, isFirst);
         Call<XgInfo> clone = xgList.clone();
         clone.enqueue(new Callback<XgInfo>() {
             @Override
@@ -181,6 +182,10 @@ public class VideoListFragment extends NoPreloadFragment {
                             }
 
                             videoInfos.add(info);
+
+                            // 实际上，这里需要的是最后一个视频的时间，下一次请求是传过去，就知道哪个是最后一个了
+                            // 为了方便，这里每次循环都赋值，到了最后一次，就会替换掉之前所有的。
+                            behot_time = bean.getBehot_time();
                             LogUtils.d("视频：" + info.toString());
                         }
 
