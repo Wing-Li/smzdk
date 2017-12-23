@@ -224,13 +224,13 @@ public class VideoListFragment extends NoPreloadFragment {
     }
 
     private void closeRefresh() {
-        if (videoSwiperefresh.isRefreshing()) {
+        if (videoSwiperefresh != null && videoSwiperefresh.isRefreshing()) {
             videoSwiperefresh.setRefreshing(false);
         }
     }
 
     private void showRefresh() {
-        if (!videoSwiperefresh.isRefreshing()) {
+        if (videoSwiperefresh != null && !videoSwiperefresh.isRefreshing()) {
             videoSwiperefresh.setRefreshing(true);
         }
     }

@@ -1,12 +1,17 @@
 package com.lyl.smzdk.ui.search;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
@@ -116,14 +121,61 @@ public class SearchListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
+                clearData();
                 openRefresh();
                 loadData();
+            }
+        });
+
+        mSearchListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                BtInfo info = (BtInfo) baseQuickAdapter.getItem(i);
+                if (info == null){
+                    showToast(R.string.data_error);
+                    return;
+                }
+
+                switch (view.getId()) {
+                    case R.id.item_search_copy:
+                        copyUrl(info.getBtUrl());
+                        break;
+                    case R.id.item_search_download:
+                        downloadUrl(info.getBtUrl());
+                        break;
+                    case R.id.item_search_share:
+                        break;
+                }
+            }
+
+            private void copyUrl(String url) {
+                ClipboardManager clipboardManager = (ClipboardManager) getHolder().getSystemService(Context
+                        .CLIPBOARD_SERVICE);
+                if (clipboardManager != null) {
+                    ClipData clipData = ClipData.newPlainText("test", url);
+                    clipboardManager.setPrimaryClip(clipData);
+
+                    showToast("已复制到粘贴板");
+                } else {
+                    showToast("粘贴板获取错误，请尝试直接下载");
+                }
+            }
+
+            private void downloadUrl(String url){
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void searchContent(BtLoadDataEvent dataEvent) {
+        // 数据换了，先把以前的从页面清除掉
+        if (!mContent.equals(dataEvent.content)){
+            clearData();
+        }
+
         mContent = dataEvent.content;
         page = 1;
         openRefresh();
@@ -142,13 +194,13 @@ public class SearchListFragment extends BaseFragment {
                 List<BtInfo> btInfos = new ArrayList<>();
                 switch (mType) {
                     case Constans.BT_TYPE_1:
-                        btInfos = BtImp.getList(mContent, page);
+                        btInfos = BtImp.getList3(mContent, page);
                         break;
                     case Constans.BT_TYPE_2:
                         btInfos = BtImp.getList2(mContent, page);
                         break;
                     case Constans.BT_TYPE_3:
-                        btInfos = BtImp.getList3(mContent, page);
+                        btInfos = BtImp.getList(mContent, page);
                         break;
                     case Constans.BT_TYPE_4:
                         btInfos = BtImp.getList4(mContent, page);
@@ -167,13 +219,23 @@ public class SearchListFragment extends BaseFragment {
 
                     @Override
                     public void onNext(List<BtInfo> btInfos) {
-                        if (btInfos != null || btInfos.size() >= 0) {
-                            if (page == 1) {
-                                mSearchListAdapter.setNewData(btInfos);
+                        if (btInfos != null) {
+                            if (btInfos.size() > 0) {
+                                if (page == 1) {
+                                    mSearchListAdapter.setNewData(btInfos);
+                                } else {
+                                    mSearchListAdapter.addData(btInfos);
+                                }
+                                mSearchListAdapter.loadMoreComplete();
                             } else {
-                                mSearchListAdapter.addData(btInfos);
+                                // 返回的数据是 0 个：1. 空数据；2. 加载完了。
+                                if (mSearchListAdapter.getItemCount() <= 0){
+                                    mSearchListAdapter.setEmptyView(R.layout.layout_empty_view);
+                                }else {
+                                    mSearchListAdapter.loadMoreEnd();
+                                }
                             }
-                            mSearchListAdapter.loadMoreComplete();
+
                             closeRefresh();
                         }
 
@@ -191,7 +253,7 @@ public class SearchListFragment extends BaseFragment {
                 });
     }
 
-    private void clearData(){
+    private void clearData() {
         closeRefresh();
         mSearchListAdapter.replaceData(new ArrayList<BtInfo>());
     }

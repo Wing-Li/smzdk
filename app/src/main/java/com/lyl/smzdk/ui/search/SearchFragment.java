@@ -1,6 +1,9 @@
 package com.lyl.smzdk.ui.search;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -40,7 +43,8 @@ public class SearchFragment extends BaseFragment {
     @BindView(R.id.search_viewpager)
     ViewPager searchViewpager;
 
-    private String mContent;
+    private ClipboardManager clipboardManager;
+
     private String[] mSearchMenu = {"资源1", "资源2", "资源3", "资源4"};
     private String[] mSearchType = {Constans.BT_TYPE_1, Constans.BT_TYPE_2, Constans.BT_TYPE_3, Constans.BT_TYPE_4};
 
@@ -55,6 +59,7 @@ public class SearchFragment extends BaseFragment {
 
         initView();
         setViewPager();
+        clipboardManager = (ClipboardManager) getHolder().getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
 
@@ -62,14 +67,26 @@ public class SearchFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         setStatusBarColor(R.color.search_primary);
+        getClipData();
     }
+
+    private void getClipData() {
+        ClipData clipData = clipboardManager.getPrimaryClip();
+        ClipData.Item item = clipData.getItemAt(0);
+        if (item != null) {
+            String content = item.getText().toString();
+            searchActionbarEdt.setText(content);
+            searchContent(content);
+        }
+    }
+
 
     private void setViewPager() {
         searchViewpager.setOffscreenPageLimit(4);
         searchViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return SearchListFragment.newInstance(mSearchType[i], mContent);
+                return SearchListFragment.newInstance(mSearchType[i], "");
             }
 
             @Override
@@ -89,7 +106,8 @@ public class SearchFragment extends BaseFragment {
         searchActionbarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchContent();
+                String content = searchActionbarEdt.getText().toString().trim();
+                searchContent(content);
             }
         });
 
@@ -97,7 +115,8 @@ public class SearchFragment extends BaseFragment {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    searchContent();
+                    String content = searchActionbarEdt.getText().toString().trim();
+                    searchContent(content);
                     return true;
                 }
                 return false;
@@ -133,8 +152,7 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-    private void searchContent() {
-        mContent = searchActionbarEdt.getText().toString().trim();
-        EventBus.getDefault().post(new BtLoadDataEvent(mContent));
+    private void searchContent(String content) {
+        EventBus.getDefault().post(new BtLoadDataEvent(content));
     }
 }

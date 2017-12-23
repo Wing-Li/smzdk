@@ -37,6 +37,8 @@
     <string name="download_running">正在下载...</string>
     <string name="parameter_error">参数错误，请尝试重新打开</string>
     <string name="net_error">网络异常，请稍后再试</string>
+    <string name="search_fail">您要的资源躲起来了，没有找到它呢~~~\n去看看其它引擎有没有找到 (*^▽^*)</string>
+
 
     <string name="shop_sale_price_txt">%1$s元卷</string>
     <string name="shop_salesvolume">已抢%1$s件</string>
