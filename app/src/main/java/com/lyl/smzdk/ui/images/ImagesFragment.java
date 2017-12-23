@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.network.entity.images.ImageMenu;
 import com.lyl.smzdk.network.imp.images.ImgsImp;
@@ -41,6 +42,10 @@ public class ImagesFragment extends BaseFragment {
 
         initMenuData();
         setViewPager();
+
+        if (!MyApp.isWifi) {
+            showToast(R.string.no_wifi_status);
+        }
     }
 
     @Override

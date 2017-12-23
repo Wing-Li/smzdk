@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.utils.NetUtil;
 import com.lyl.smzdk.view.TransitionHelper;
 
 /**
@@ -34,6 +36,13 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         mActivity = this;
         setStatusBar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        MyApp.isWifi = NetUtil.isWifi(getApplicationContext());
     }
 
     protected void showToast(String str) {

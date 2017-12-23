@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class BtImp {
 
+    public static int timeout = 10000;
+
     /**
      * 种子搜
      */
@@ -37,6 +39,7 @@ public class BtImp {
         try {
             LogUtils.d("BT-1:" + url);
             Connection connect = Jsoup.connect(url);
+            connect.timeout(timeout);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.panel-body").select("ul.list-group");
 
@@ -84,7 +87,7 @@ public class BtImp {
 // Chrome/62.0.3202.94 Safari/537.36
             connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
                     "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(10000);
+            connect.timeout(timeout);
             connect.ignoreContentType(true).ignoreHttpErrors(true);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
@@ -129,7 +132,7 @@ public class BtImp {
             Connection connect = Jsoup.connect(url);
             connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
                     "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(10000);
+            connect.timeout(timeout);
             connect.ignoreContentType(true).ignoreHttpErrors(true);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
@@ -174,7 +177,7 @@ public class BtImp {
             Connection connect = Jsoup.connect(url);
             connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
                     "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(10000);
+            connect.timeout(timeout);
             Document jsoup = connect.get();
             Elements list_group = jsoup.select("div.content").select("div.list-area").select("dl");
 

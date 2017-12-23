@@ -20,6 +20,7 @@ import com.lyl.smzdk.network.entity.images.ImgsCall;
 import com.lyl.smzdk.network.imp.images.ImgsImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
+import com.lyl.smzdk.utils.NetUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;

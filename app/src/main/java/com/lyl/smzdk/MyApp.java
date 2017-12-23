@@ -26,6 +26,8 @@ public class MyApp extends Application {
 
     public static DaoSession mDaoSession;
 
+    public static boolean isWifi;
+
     @Override
     public void onCreate() {
         super.onCreate();
