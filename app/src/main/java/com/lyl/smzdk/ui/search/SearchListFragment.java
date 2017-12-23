@@ -132,6 +132,7 @@ public class SearchListFragment extends BaseFragment {
 
     private void loadData() {
         if (TextUtils.isEmpty(mContent)) {
+            clearData();
             return;
         }
 
@@ -188,6 +189,11 @@ public class SearchListFragment extends BaseFragment {
                     public void onComplete() {
                     }
                 });
+    }
+
+    private void clearData(){
+        closeRefresh();
+        mSearchListAdapter.replaceData(new ArrayList<BtInfo>());
     }
 
     private void closeRefresh() {
