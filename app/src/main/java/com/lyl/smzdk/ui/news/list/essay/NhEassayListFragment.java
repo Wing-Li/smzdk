@@ -62,6 +62,8 @@ public class NhEassayListFragment extends BaseFragment {
      * 一点咨询 - GIF
      */
     public static final String CONTENT_TYPE_YDZX_GIF = "s10671";
+    public static final String CONTENT_TYPE_YDZX_GIF2 = "u11272";
+    public static final String CONTENT_TYPE_YDZX_GIF3 = "m378250";
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -131,7 +133,7 @@ public class NhEassayListFragment extends BaseFragment {
             case CONTENT_TYPE_IMAGE: // 内涵图片
                 getEassayList(isRefresh);
                 break;
-            case CONTENT_TYPE_YDZX_GIF: // 一点咨询 - GIF
+            default: // 一点咨询 - GIF
                 getYdzxList(isRefresh);
                 break;
         }
@@ -227,8 +229,11 @@ public class NhEassayListFragment extends BaseFragment {
                             info.setUrl(bean.getUrl());
                             info.setIntroduce(bean.getSummary());
                             info.setTime(bean.getDate());
-                            info.setAuthor(bean.getWemedia_info().getName());
-                            info.setAuthorIcon(bean.getWemedia_info().getImage());
+                            YdzxInfo.ResultBean.WemediaInfoBean wemedia_info = bean.getWemedia_info();
+                            if (wemedia_info != null) {
+                                info.setAuthor(wemedia_info.getName());
+                                info.setAuthorIcon(wemedia_info.getImage());
+                            }
 
                             newInfoList.add(info);
                         }
@@ -264,14 +269,14 @@ public class NhEassayListFragment extends BaseFragment {
             case CONTENT_TYPE_IMAGE: // 内涵图片
                 mAdapter = new NhEassayListAdapter(mDataBeen, mContentType, mScreenWidth);
                 break;
-            case CONTENT_TYPE_YDZX_GIF: // 一点咨询 - GIF
+            default: // 一点咨询 - GIF
                 mAdapter = new ListContentApadter(mNewInfoList, Constans.SHOW_ITEM_CONTENT_2);
                 mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                         NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
 
-                        if (info == null){
+                        if (info == null) {
                             showToast(R.string.data_error);
                             return;
                         }
@@ -283,14 +288,15 @@ public class NhEassayListFragment extends BaseFragment {
 
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                             View titleView = view.findViewById(R.id.item_main_content_title);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
-                                    (titleView, "content_title"));
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
+                                    Pair.create(titleView, "content_title"));
                             startActivity(intent, options.toBundle());
                         } else {
                             startActivity(intent);
                         }
 
-                        TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_title);
+                        TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
+                                .item_main_content_title);
                         if (titleView != null) {
                             titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
                         }

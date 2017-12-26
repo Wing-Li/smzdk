@@ -21,7 +21,9 @@
 
     <string name="menu_neihan_eassay">段子</string>
     <string name="menu_neihan_eassay_image">内涵图</string>
-    <string name="menu_ydzx_gif">搞笑gif</string>
+    <string name="menu_ydzx_gif">搞笑</string>
+    <string name="menu_ydzx_gif2">搞笑GIF</string>
+    <string name="menu_ydzx_gif3">每天GIF</string>
     <string name="details">"详情"</string>
 
     <!--提示性信息-->

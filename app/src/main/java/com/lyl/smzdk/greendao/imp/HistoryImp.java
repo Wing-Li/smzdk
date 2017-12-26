@@ -3,6 +3,7 @@ package com.lyl.smzdk.greendao.imp;
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.greendao.gen.HistoryEntity;
 import com.lyl.smzdk.greendao.gen.HistoryEntityDao;
+import com.lyl.smzdk.utils.LogUtils;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -35,13 +36,18 @@ public class HistoryImp {
      * @return
      */
     public static boolean isHistoryExist(String title, String url) {
-        QueryBuilder qb = MyApp.mDaoSession.queryBuilder(HistoryEntity.class);
-        qb.where(HistoryEntityDao.Properties.Title.eq(title))//
-                .where(HistoryEntityDao.Properties.Url.eq(url));
-        long count = qb.count();
-        if (count > 0) {
-            return true;
-        } else {
+        try {
+            QueryBuilder qb = MyApp.mDaoSession.queryBuilder(HistoryEntity.class);
+            qb.where(HistoryEntityDao.Properties.Title.eq(title))//
+                    .where(HistoryEntityDao.Properties.Url.eq(url));
+            long count = qb.count();
+            if (count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            LogUtils.e("历史记录查询错误：" + e.getLocalizedMessage());
             return false;
         }
     }
