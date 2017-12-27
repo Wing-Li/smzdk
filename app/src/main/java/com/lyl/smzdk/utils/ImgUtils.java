@@ -28,8 +28,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ImgUtils {
 
-    private static final int placeholderRes = R.drawable.gary_bg;
-    private static final int errorRes = R.drawable.gary_bg;
+    private static final int placeholderRes = R.drawable.bg_gary;
+    private static final int errorRes = R.drawable.bg_gary;
 
     private static RequestOptions baseOptions = new RequestOptions()//
             .placeholder(placeholderRes)//

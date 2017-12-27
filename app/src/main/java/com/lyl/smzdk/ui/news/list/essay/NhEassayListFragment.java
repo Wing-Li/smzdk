@@ -115,7 +115,7 @@ public class NhEassayListFragment extends BaseFragment {
 
         initData();
         initView();
-        getData(true);
+        getData(false);
     }
 
     private void initData() {
@@ -157,7 +157,7 @@ public class NhEassayListFragment extends BaseFragment {
                 setRefresh(false);
                 if (response.isSuccessful()) {
                     NhEassay body = response.body();
-                    if ("success".equals(body.getMessage())) {
+                    if (body != null && "success".equals(body.getMessage())) {
                         mHasMore = body.getData().isHas_more();
                         mTip = body.getData().getTip();
 
@@ -171,8 +171,8 @@ public class NhEassayListFragment extends BaseFragment {
                             }
                         }
                         mAdapter.loadMoreComplete();
+                        page++;
                     }
-                    page++;
                 } else {
                 }
             }

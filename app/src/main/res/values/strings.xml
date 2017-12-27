@@ -41,11 +41,16 @@
     <string name="net_error">网络异常，请稍后再试</string>
     <string name="search_fail">您要的资源躲起来了，没有找到它呢~~~\n去看看其它引擎有没有找到 (*^▽^*)</string>
     <string name="no_wifi_status">已为您调整为流量模式</string>
+    <string name="share_app_fail">抱歉，分享出现异常。要分享的文字已复制到您的粘贴板中，你可以直接去想要分享的平台 粘贴 即可。</string>
 
+    <string name="join_qq">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DNBg_ouAY8Clp07tHP0A3gtNUigmeDDFK</string>
+    <string name="join_qq_fail">未安装手Q或安装的版本不支持</string>
 
     <string name="shop_sale_price_txt">%1$s元卷</string>
     <string name="shop_salesvolume">已抢%1$s件</string>
-
     <string name="text_show_num_comment">查看%1$d条回复</string>
+    <string name="share_text">给你推荐个APP(什么值得看)。 这里有热点新闻，好玩的知识，有趣的视频，搞笑的段子，逗逼的图片等等各种内容，以及强大的磁力搜索。 快来下载，一览究竟吧：%1$s</string>
+    <string name="acout">关于</string>
+
 
 </resources>

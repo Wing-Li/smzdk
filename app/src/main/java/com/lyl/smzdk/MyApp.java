@@ -21,6 +21,8 @@ import java.io.File;
  */
 public class MyApp extends Application {
 
+    public static String appDownloadUrl = "https://www.coolapk.com/apk/com.lyl.smzdk";
+
     private static String appPath;
     private static String appImagePath;
 
