@@ -49,6 +49,18 @@ public class VideoFragment extends BaseFragment {
         setStatusBarColor(R.color.video_primary);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {// show
+            if (videoViewpager != null && videoViewpager.getCurrentItem() != 0) {
+                videoViewpager.setCurrentItem(0, false);
+            }
+        } else {// hide
+            JZVideoPlayer.releaseAllVideos();
+        }
+    }
+
     private void initMenuData() {
         XgImp xgImp = new XgImp();
         mVideoMenuInfos = xgImp.getMenu();
@@ -56,7 +68,7 @@ public class VideoFragment extends BaseFragment {
 
     private void setViewPager() {
         // 设置每个目录的页面
-        videoViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
+        videoViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public int getCount() {
                 return mVideoMenuInfos.size() <= 0 ? 0 : mVideoMenuInfos.size();

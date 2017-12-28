@@ -54,6 +54,16 @@ public class ImagesFragment extends BaseFragment {
         setStatusBarColor(R.color.images_primary);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {// show
+            if (imagesViewpager != null && imagesViewpager.getCurrentItem() != 0) {
+                imagesViewpager.setCurrentItem(0, false);
+            }
+        }
+    }
+
     private void initMenuData() {
         ImgsImp imgsImp = new ImgsImp();
         mImageMenuList = imgsImp.getMenu();
@@ -61,7 +71,7 @@ public class ImagesFragment extends BaseFragment {
 
     private void setViewPager() {
         // 设置每个目录的页面
-        imagesViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
+        imagesViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public int getCount() {
                 return mImageMenuList.size() <= 0 ? 0 : mImageMenuList.size();

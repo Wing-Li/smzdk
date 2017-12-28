@@ -17,7 +17,6 @@ import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 import com.lyl.smzdk.network.imp.video.XgImp;
-import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -49,7 +48,7 @@ public class VideoListFragment extends NoPreloadFragment {
     private List<VideoInfo> mInfoList;
     private VideoListAdapter mVideoListAdapter;
     private boolean isRefresh;
-    private boolean isFirst = true;
+    private boolean isFirst;
     private long behot_time;
 
     public static VideoListFragment newInstance(String type, String title) {
@@ -80,6 +79,8 @@ public class VideoListFragment extends NoPreloadFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        isFirst = true;
+        isRefresh = true;
         setListView();
     }
 
@@ -186,7 +187,6 @@ public class VideoListFragment extends NoPreloadFragment {
                             // 实际上，这里需要的是最后一个视频的时间，下一次请求是传过去，就知道哪个是最后一个了
                             // 为了方便，这里每次循环都赋值，到了最后一次，就会替换掉之前所有的。
                             behot_time = bean.getBehot_time();
-                            LogUtils.d("视频：" + info.toString());
                         }
 
                         if (mVideoListAdapter != null) {

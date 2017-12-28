@@ -62,7 +62,6 @@ public class SearchFragment extends BaseFragment {
         clipboardManager = (ClipboardManager) getHolder().getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -70,6 +69,9 @@ public class SearchFragment extends BaseFragment {
         getClipData();
     }
 
+    /**
+     * 获取剪切板上的文字，并设置给编辑框
+     */
     private void getClipData() {
         ClipData clipData = clipboardManager.getPrimaryClip();
         ClipData.Item item = clipData.getItemAt(0);
@@ -80,10 +82,9 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
-
     private void setViewPager() {
         searchViewpager.setOffscreenPageLimit(4);
-        searchViewpager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
+        searchViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 return SearchListFragment.newInstance(mSearchType[i], "");
