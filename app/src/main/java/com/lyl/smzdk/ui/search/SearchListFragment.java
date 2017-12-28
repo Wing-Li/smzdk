@@ -255,7 +255,8 @@ public class SearchListFragment extends BaseFragment {
 
     private void clearData() {
         closeRefresh();
-        mSearchListAdapter.replaceData(new ArrayList<BtInfo>());
+        mSearchListAdapter.getData().clear();
+        mSearchListAdapter.notifyDataSetChanged();
     }
 
     private void closeRefresh() {
