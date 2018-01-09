@@ -189,3 +189,16 @@ http://www.diaosisou.org/list/awl/2/rala_d
 http://zhongzicili.pw/zhongzi/awl/1-0-2.html
 http://zhongzicili.me/zhongzi/awl/2-0-2.html
 
+
+
+360 图片
+分类：
+http://image.so.com/api/channel_tags.json?callback=jQuery183045264748053964143_1515509922450&type=beauty&_=1515509922846
+
+
+某个人的专辑（分类由上面得到）：
+http://image.so.com/zj?ch=beauty&t1=596&sn=30&listtype=new&temp=1
+"id":"77455f9644cda030c8e2a3a6135c0ca9"
+
+专辑列表（id由上面得到）：
+http://image.so.com/zvj?ch=beauty&t1=596&id=77455f9644cda030c8e2a3a6135c0ca9
