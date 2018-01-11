@@ -22,6 +22,10 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
     protected void convert(BaseViewHolder holder, final VideoInfo info) {
 
         holder.setText(R.id.item_video_title, info.getTitle());
+        holder.setText(R.id.item_video_date, info.getDatetime());
+        holder.setText(R.id.item_video_wetch_count, info.getPlayCount());
+        holder.setText(R.id.item_video_land_count, info.getLaudNum());
+
         ImgUtils.load(mContext, info.getImage(), (ImageView) holder.getView(R.id.item_video_thm));
     }
 

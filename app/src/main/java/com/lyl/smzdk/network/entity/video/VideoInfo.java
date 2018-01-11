@@ -17,6 +17,7 @@ public class VideoInfo {
     private String laudNum; // 点赞
     private String playCount;
     private String time;
+    private String datetime;// 视频发布时间
 
 
     private String author; // 微信公众号，知乎作者
@@ -24,6 +25,14 @@ public class VideoInfo {
     private String authorUrl;
     private String authorIcon;
 
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
 
     public int getVideoDuration() {
         return videoDuration;

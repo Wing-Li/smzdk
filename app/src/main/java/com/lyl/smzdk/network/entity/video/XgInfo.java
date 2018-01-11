@@ -62,7 +62,7 @@ public class XgInfo {
         private String datetime;
         private String tag;
         private String url;
-        private int like_count;
+        private int digg_count;
         private long behot_time;
 
 
@@ -178,12 +178,12 @@ public class XgInfo {
             this.url = url;
         }
 
-        public int getLike_count() {
-            return like_count;
+        public int getDigg_count() {
+            return digg_count;
         }
 
-        public void setLike_count(int like_count) {
-            this.like_count = like_count;
+        public void setDigg_count(int digg_count) {
+            this.digg_count = digg_count;
         }
 
         public static class VideoDetailInfoBean {

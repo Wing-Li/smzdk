@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
@@ -104,6 +105,7 @@ public class VideoListFragment extends NoPreloadFragment {
         });
 
         videoListview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
+        videoListview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         videoListview.setAdapter(mVideoListAdapter);
         videoListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -170,10 +172,19 @@ public class VideoListFragment extends NoPreloadFragment {
                             info.setVideoDuration(bean.getVideo_duration());
                             info.setGroup_id(bean.getGroup_id());
                             info.setSource_url(bean.getSource_url());
+                            info.setDatetime(bean.getDatetime());
+                            info.setLaudNum(String.valueOf(bean.getDigg_count()));
 
                             XgInfo.DataBean.VideoDetailInfoBean video_detail_info = bean.getVideo_detail_info();
                             if (video_detail_info != null) {
-                                info.setPlayCount(String.valueOf(video_detail_info.getVideo_watch_count()));
+                                String playCount = "0";
+                                int watchCount = video_detail_info.getVideo_watch_count();
+                                if (watchCount > 1000){
+                                    playCount = (watchCount / 1000) +"k";
+                                } else if (watchCount > 1000000){
+                                    playCount = (watchCount / 1000000) +"M";
+                                }
+                                info.setPlayCount(playCount);
                             }
 
                             info.setAuthor(bean.getMedia_name());
