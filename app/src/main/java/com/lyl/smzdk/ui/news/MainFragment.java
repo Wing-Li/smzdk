@@ -227,7 +227,6 @@ public class MainFragment extends BaseFragment {
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());
                     startActivity(intent);
                 }
-
             }
         });
     }

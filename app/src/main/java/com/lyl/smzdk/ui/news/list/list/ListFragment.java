@@ -140,9 +140,4 @@ public class ListFragment extends BaseFragment implements ListContract.View {
             }
         });
     }
-
-    @Override
-    public void setLoading() {
-
-    }
 }

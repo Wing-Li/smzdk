@@ -15,11 +15,6 @@ public class ListContract {
          * 将数据设置进列表
          */
         void setData(List<NewInfo> newInfos);
-
-        /**
-         * 加载目录时的进度圈
-         */
-        void setLoading();
     }
 
     interface Presenter {

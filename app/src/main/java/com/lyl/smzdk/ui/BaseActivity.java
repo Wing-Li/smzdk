@@ -18,6 +18,7 @@ import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.utils.NetUtil;
 import com.lyl.smzdk.view.TransitionHelper;
+import com.lyl.smzdk.view.loading.LoadingDialog;
 
 /**
  * Author: lyl
@@ -27,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public Activity mActivity;
     public Context mContext;
+    protected LoadingDialog mLoadingDialog;
 
     private ImmersionBar mImmersionBar;
 
@@ -96,6 +98,25 @@ public class BaseActivity extends AppCompatActivity {
             finishAfterTransition();
         } else {
             finish();
+        }
+    }
+
+    /**
+     * 显示加载圈
+     */
+    protected void showDialog(){
+        if (mLoadingDialog == null){
+            mLoadingDialog = new LoadingDialog(mContext);
+        }
+        mLoadingDialog.show();
+    }
+
+    /**
+     * 隐藏加载进度圈
+     */
+    protected void hideDialog(){
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()){
+            mLoadingDialog.dismiss();
         }
     }
 

@@ -19,6 +19,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.view.ActionBar;
 import com.lyl.smzdk.view.TransitionHelper;
+import com.lyl.smzdk.view.loading.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,9 +32,10 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
-    private BaseActivity holder;
-
     protected ActionBar mActionBar;
+    protected LoadingDialog mLoadingDialog;
+
+    private BaseActivity holder;
     private Unbinder unbinder;
 
     private ImmersionBar mImmersionBar;
@@ -142,4 +144,24 @@ public abstract class BaseFragment extends Fragment {
             super.onScrolled(recyclerView, dx, dy);
         }
     };
+
+    /**
+     * 显示加载圈
+     */
+    protected void showDialog(){
+        if (mLoadingDialog == null){
+            mLoadingDialog = new LoadingDialog(getHolder());
+        }
+        mLoadingDialog.show();
+    }
+
+    /**
+     * 隐藏加载进度圈
+     */
+    protected void hideDialog(){
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()){
+            mLoadingDialog.dismiss();
+        }
+    }
+
 }

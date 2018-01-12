@@ -55,6 +55,9 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             finish();
         }
 
+        // 显示加载进度
+        showDialog();
+        // 初始化目录数据
         mDataPresenter = new MenuDataPresenter(this);
         mDataPresenter.initMenuData(mChannelType);
 
@@ -120,10 +123,8 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             }
         });
         menuListTablayout.setupWithViewPager(menuListViewpager);
-    }
 
-    @Override
-    public void setLoading() {
-
+        // 隐藏加载进度
+        hideDialog();
     }
 }

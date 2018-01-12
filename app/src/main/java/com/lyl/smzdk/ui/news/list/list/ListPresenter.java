@@ -71,7 +71,6 @@ public class ListPresenter implements ListContract.Presenter {
                 .subscribe(new Observer<List<NewInfo>>() {
                     @Override
                     public void onSubscribe(Disposable disposable) {
-
                     }
 
                     @Override
@@ -83,12 +82,10 @@ public class ListPresenter implements ListContract.Presenter {
 
                     @Override
                     public void onError(Throwable throwable) {
-
                     }
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }
