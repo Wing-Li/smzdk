@@ -26,9 +26,7 @@ GET https://api.zhihu.com/answers/198955004?with_pagination
 https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false
 https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false&offset=10
 
-
-
-
+=================================================================
 一点咨询
 阅读：
 
@@ -39,15 +37,6 @@ Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
 某个栏目的列表：
 雾霾：
 https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509938006772_30723&channel_id=17495591390&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi HTTP/1.1
-Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
-
-
-GIF:
-https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509936882418_30727&channel_id=17495513806&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi
-Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
-
-美女：
-https://a1.go2yd.com/Website/channel/news-list-for-channel?platform=1&cstart=0&appid=yidian&cv=4.5.3.1&distribution=XSwebpages2&reqid=a95htalv_1509936882418_30727&channel_id=17495513806&version=020130&infinite=true&group_fromid=g181&cend=30&refresh=1&ad_version=010941&fields=docid&fields=date&fields=image&fields=image_urls&fields=like&fields=source&fields=title&fields=url&fields=comment_count&fields=up&fields=down&net=wifi
 Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
 
 item：区分类别
@@ -106,17 +95,17 @@ https://a1.go2yd.com/Website/channel/news-list-for-channel
 HTTP/1.1
 Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
 
+=================================================================
 // 一点资讯
 // 段子
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=29&cend=39&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911373
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=39&cend=49&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911374
 
-
 // 视频：
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian
 http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244170024
 
-
+=================================================================
 // 微信精选
 // 要闻
 http://weixin.sogou.com/pcindex/pc/pc_1/pc_1.html
@@ -125,7 +114,7 @@ http://weixin.sogou.com/pcindex/pc/pc_1/1.html
 http://weixin.sogou.com/pcindex/pc/pc_2/pc_2.html
 http://weixin.sogou.com/pcindex/pc/pc_2/1.html
 
-
+=================================================================
 // 知乎精选 id
 http://zhihu.sogou.com/
 // 编辑推荐 recommend_tab
@@ -142,9 +131,11 @@ http://zhihu.sogou.com/include/pc/3/topic/topic17_1.html
 
 http://zhihu.sogou.com/include/pc/3/topic/topic19_0.html
 
+=================================================================
 // 读者
 http://www.duzhe.com/index.php?v=listing&cid=39&page=1
 
+=================================================================
 // 内涵段子
 // 精华
 http://ic.snssdk.com/neihan/in_app/essence_list/
@@ -152,6 +143,7 @@ http://iu.snssdk.com/neihan/in_app/essence_detail/6491434569319842318/?item_id=6
 
 http://www.yidianzixun.com/home/q/news_list_for_channel?infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian&channel_id=s10671&cstart=0&cend=10
 
+=================================================================
 // 西瓜视频
 // 推荐 video_new
 http://m.ixigua.com/list/?tag=subv_voice&ac=wap&count=20&format=json_raw&as=A165EAF37BEA881&cp=5A3B8AB818814E1&min_behot_time=0
@@ -178,7 +170,12 @@ group_id=6480422859939250701
 http://v.ranks.xin/video-parse.php?url=https%3A%2F%2Fwww.ixigua.com%2Fa6480422859939250701%2F
 http://v.ranks.xin/video-parse.php?url=https://www.ixigua.com/a6480422859939250701/
 
+// 视频的评论
+https://www.ixigua.com/api/comment/list/?group_id=6498118025852486157&item_id=6498118025852486157&offset=0&count=10
+// 评论的评论
+https://www.ixigua.com/api/comment/get_reply/?comment_id=1590379640268829&dongtai_id=1590379640268829&offset=0&count=20
 
+=================================================================
 // 磁力  awl
 https://m.zhongziso.com/list/awl/1
 https://m.zhongziso.com/list/%1$s/2
@@ -189,12 +186,10 @@ http://www.diaosisou.org/list/awl/2/rala_d
 http://zhongzicili.pw/zhongzi/awl/1-0-2.html
 http://zhongzicili.me/zhongzi/awl/2-0-2.html
 
-
-
+=================================================================
 360 图片
 分类：
 http://image.so.com/api/channel_tags.json?callback=jQuery183045264748053964143_1515509922450&type=beauty&_=1515509922846
-
 
 某个人的专辑（分类由上面得到）：
 http://image.so.com/zj?ch=beauty&t1=596&sn=30&listtype=new&temp=1
@@ -202,3 +197,17 @@ http://image.so.com/zj?ch=beauty&t1=596&sn=30&listtype=new&temp=1
 
 专辑列表（id由上面得到）：
 http://image.so.com/zvj?ch=beauty&t1=596&id=77455f9644cda030c8e2a3a6135c0ca9
+
+
+=================================================================
+雪球财经：
+https://xueqiu.com/v4/statuses/public_timeline_by_category.json?since_id=-1&max_id=-1&count=10&category=-1  头条
+https://xueqiu.com/v4/statuses/public_timeline_by_category.json?since_id=-1&max_id=-1&count=10&category=105  沪深
+104 基金
+111 房产
+102 港股
+101 美股
+110 保险
+
+
+===================================================================
