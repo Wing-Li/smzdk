@@ -151,7 +151,7 @@ public class Network {
     }
 
     /**
-     * 视频
+     * 视频评论
      */
     public static XgApi getXgCommentApi() {
         if (xgApi == null) {

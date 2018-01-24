@@ -30,6 +30,7 @@ public class ImageInfo {
     // 原图
     private String title;
     private String pic_url;
+    private String detial_url;
     private int width;
     private int height;
     private int size;
@@ -37,6 +38,14 @@ public class ImageInfo {
     private String publish_time;
 
     private List<String> tags;
+
+    public String getDetial_url() {
+        return detial_url;
+    }
+
+    public void setDetial_url(String detial_url) {
+        this.detial_url = detial_url;
+    }
 
     public int getId() {
         return id;

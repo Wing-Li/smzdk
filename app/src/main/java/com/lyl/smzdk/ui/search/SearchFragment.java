@@ -74,6 +74,8 @@ public class SearchFragment extends BaseFragment {
      */
     private void getClipData() {
         ClipData clipData = clipboardManager.getPrimaryClip();
+        if (clipData == null) return;
+
         ClipData.Item item = clipData.getItemAt(0);
         if (item != null) {
             String content = item.getText().toString();
