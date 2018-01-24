@@ -36,9 +36,13 @@ public class Network {
      */
     private static String URL_YDZX = "http://www.yidianzixun.com/";
     /**
-     * 视频
+     * 视频列表
      */
     public static String URL_XG = "https://m.ixigua.com/";
+    /**
+     * 视频评论
+     */
+    public static String URL_XG_COMMENT = "https://www.ixigua.com/";
     /**
      * 视频解析
      */
@@ -142,6 +146,16 @@ public class Network {
     public static XgApi getXgApi() {
         if (xgApi == null) {
             xgApi = getXgVideoRetrofit(URL_XG).create(XgApi.class);
+        }
+        return xgApi;
+    }
+
+    /**
+     * 视频
+     */
+    public static XgApi getXgCommentApi() {
+        if (xgApi == null) {
+            xgApi = getXgVideoRetrofit(URL_XG_COMMENT).create(XgApi.class);
         }
         return xgApi;
     }

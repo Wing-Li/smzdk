@@ -113,6 +113,11 @@ public class ActionBar extends RelativeLayout {
         setBack(activity);
     }
 
+    public void setModelBack(String strTitle, final Activity activity) {
+        setTitle(strTitle);
+        setBack(activity);
+    }
+
     /**
      * 标题、返回按钮（自定义事件）
      *

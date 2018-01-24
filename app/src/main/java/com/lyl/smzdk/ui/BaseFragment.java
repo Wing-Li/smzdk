@@ -102,6 +102,8 @@ public abstract class BaseFragment extends Fragment {
     protected void setStatusBarColor(int resId) {
         mActionBar.setBackgroundColor(ContextCompat.getColor(getHolder(), resId));
 
+        // StatusBarCompat.compat(getHolder(), resId);
+
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
                 .statusBarColor(resId)//

@@ -159,8 +159,9 @@ public class MainActivity extends BaseActivity {
     private void toFragment(Fragment to) {
         if (to == oldFragment) return;
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(android
-                .R.anim.fade_in, android.R.anim.fade_out);
+        FragmentTransaction transaction = getSupportFragmentManager()//
+                .beginTransaction()//
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         if (!to.isAdded()) {    // 先判断是否被add过
             transaction.hide(oldFragment).add(R.id.main_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
         } else {
@@ -174,9 +175,9 @@ public class MainActivity extends BaseActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void hideBottombar(HideBottombarEvent event) {
-        if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide == true) {
+        if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide) {
             hideBar();
-        } else if (mainBottombar.getVisibility() == View.GONE && event.isHide == false) {
+        } else if (mainBottombar.getVisibility() == View.GONE && event.isHide) {
             showBar();
         }
     }
@@ -184,7 +185,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 隐藏底部 Bar
      */
-    private void hideBar(){
+    private void hideBar() {
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_top);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -206,7 +207,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 显示底部 Bar
      */
-    private void showBar(){
+    private void showBar() {
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_bottom);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -250,7 +251,7 @@ public class MainActivity extends BaseActivity {
         }
 
         // 点击返回时，如果底部的 Bar 是隐藏的，就让它显示出来
-        if (mainBottombar.getVisibility() == View.GONE){
+        if (mainBottombar.getVisibility() == View.GONE) {
             showBar();
             return;
         }
