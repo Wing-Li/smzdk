@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news;
+package com.lyl.smzdk.ui.main;
 
 
 import android.app.ActivityOptions;
@@ -24,8 +24,8 @@ import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.lyl.smzdk.ui.news.list.essay.NhMenuActivity;
-import com.lyl.smzdk.ui.news.list.menu.MenuListActivity;
+import com.lyl.smzdk.ui.main.essay.NhMenuActivity;
+import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;

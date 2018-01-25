@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.essay;
+package com.lyl.smzdk.ui.main.essay;
 
 import android.content.Context;
 import android.content.Intent;

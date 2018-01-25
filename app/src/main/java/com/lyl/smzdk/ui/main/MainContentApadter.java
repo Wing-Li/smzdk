@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news;
+package com.lyl.smzdk.ui.main;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;

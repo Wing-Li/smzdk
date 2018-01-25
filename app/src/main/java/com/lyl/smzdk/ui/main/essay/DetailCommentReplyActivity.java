@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.essay;
+package com.lyl.smzdk.ui.main.essay;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

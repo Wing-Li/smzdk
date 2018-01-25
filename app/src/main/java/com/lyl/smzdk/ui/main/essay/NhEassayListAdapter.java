@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.essay;
+package com.lyl.smzdk.ui.main.essay;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.ui.image.ImageActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
-import com.lyl.smzdk.ui.news.list.list.MyViewHolder;
+import com.lyl.smzdk.ui.main.news.list.MyViewHolder;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.utils.MyUtils;

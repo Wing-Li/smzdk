@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
@@ -43,6 +44,10 @@ public class VideoPlayerActivity extends BaseActivity {
     LinearLayout videoLayout;
     @BindView(R.id.actionbar)
     ActionBar actionbar;
+    @BindView(R.id.video_title)
+    TextView videoTitle;
+    @BindView(R.id.video_comment_layout)
+    LinearLayout videoCommentLayout;
     @BindView(R.id.video_comment_list)
     RecyclerView videoCommentList;
 
@@ -66,8 +71,12 @@ public class VideoPlayerActivity extends BaseActivity {
     }
 
     private void setVideoPlay() {
+        videoTitle.setText(mTitle);
+
         ImgUtils.load(mContext, mThumbnail, videoPlay.thumbImageView);
         videoPlay.bottomProgressBar.setBackgroundResource(R.color.black);
+
+        videoPlay.titleTextView.setVisibility(View.GONE);
 
         XgImp xgImp = new XgImp();
         Call<VideoInflaterInfo> inflaterInfoCall = xgImp.getVideoUrl(mUrl);
@@ -116,6 +125,12 @@ public class VideoPlayerActivity extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
     public void onBackPressed() {
         if (JZVideoPlayer.backPress()) {
             return;
@@ -127,11 +142,5 @@ public class VideoPlayerActivity extends BaseActivity {
         } else {
             finish();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JZVideoPlayer.releaseAllVideos();
     }
 }

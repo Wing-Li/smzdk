@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.list;
+package com.lyl.smzdk.ui.main.news.list;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;

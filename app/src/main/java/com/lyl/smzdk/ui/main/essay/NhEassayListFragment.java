@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.essay;
+package com.lyl.smzdk.ui.main.essay;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -23,7 +23,7 @@ import com.lyl.smzdk.network.entity.news.YdzxInfo;
 import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.lyl.smzdk.ui.news.list.list.ListContentApadter;
+import com.lyl.smzdk.ui.main.news.list.ListContentApadter;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;

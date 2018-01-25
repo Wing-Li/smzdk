@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.list;
+package com.lyl.smzdk.ui.main.news.list;
 
 import android.app.ActivityOptions;
 import android.content.Context;

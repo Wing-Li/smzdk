@@ -35,19 +35,19 @@
             android:name=".ui.web.Html5Activity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.news.list.menu.MenuListActivity"
+            android:name=".ui.main.news.menu.MenuListActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.news.list.essay.NhMenuActivity"
+            android:name=".ui.main.essay.NhMenuActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.news.list.essay.EassayDetailActivity"
+            android:name=".ui.main.essay.EassayDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.news.list.essay.DetailCommentReplyActivity"
+            android:name=".ui.main.essay.DetailCommentReplyActivity"
             android:screenOrientation="portrait">
         </activity>
 

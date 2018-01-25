@@ -10,6 +10,7 @@
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/video_primary"
         android:visibility="gone"/>
 
     <RelativeLayout
@@ -21,14 +22,37 @@
         <cn.jzvd.JZVideoPlayerStandard
             android:id="@+id/video_play"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="230dp"
             android:layout_centerInParent="true"
             android:transitionName="video_play"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/video_comment_list"
+    <!--评论列表-->
+    <LinearLayout
+        android:id="@+id/video_comment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gary"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/video_comment_list"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+    </LinearLayout>
 </LinearLayout>

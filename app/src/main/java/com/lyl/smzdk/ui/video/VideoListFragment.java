@@ -110,9 +110,9 @@ public class VideoListFragment extends NoPreloadFragment {
         videoListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy >= 5) {// 手指向上滚动
+                if (dy >= 10) {// 手指向上滚动
                     EventBus.getDefault().post(new HideBottombarEvent(true));
-                } else if (dy <= -5) {// 手指向下滚动
+                } else if (dy <= -10) {// 手指向下滚动
                     EventBus.getDefault().post(new HideBottombarEvent(false));
                 }
                 super.onScrolled(recyclerView, dx, dy);

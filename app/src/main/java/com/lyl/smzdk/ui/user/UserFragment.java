@@ -100,4 +100,9 @@ public class UserFragment extends BaseFragment {
          */
         Beta.checkUpgrade(true, false);
     }
+
+    @OnClick(R.id.user_about)
+    void aboutMe(){
+        startActivity(new Intent(getHolder(), AboutActivity.class));
+    }
 }

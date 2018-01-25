@@ -16,7 +16,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.ui.images.ImagesFragment;
-import com.lyl.smzdk.ui.news.MainFragment;
+import com.lyl.smzdk.ui.main.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.user.UserFragment;
 import com.lyl.smzdk.ui.video.VideoFragment;
@@ -175,9 +175,9 @@ public class MainActivity extends BaseActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void hideBottombar(HideBottombarEvent event) {
-        if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide) {
+        if (mainBottombar.getVisibility() == View.VISIBLE && event.isHide == true) {// 必须写 == true，否则每次都会出现隐藏
             hideBar();
-        } else if (mainBottombar.getVisibility() == View.GONE && event.isHide) {
+        } else if (mainBottombar.getVisibility() == View.GONE && event.isHide == false) {
             showBar();
         }
     }

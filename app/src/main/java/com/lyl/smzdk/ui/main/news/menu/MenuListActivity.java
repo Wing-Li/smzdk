@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.news.list.menu;
+package com.lyl.smzdk.ui.main.news.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseActivity;
-import com.lyl.smzdk.ui.news.list.list.ListFragment;
+import com.lyl.smzdk.ui.main.news.list.ListFragment;
 
 import java.util.List;
 
