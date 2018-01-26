@@ -130,6 +130,7 @@ public class VideoListFragment extends NoPreloadFragment {
 
     private void goToVideoPlayActivity(VideoInfo info, View videoPlayView) {
         Intent intent = new Intent(getHolder(), VideoPlayerActivity.class);
+        intent.putExtra(Constans.I_ID, info.getGroup_id());
         intent.putExtra(Constans.I_TITLE, info.getTitle());
         intent.putExtra(Constans.I_IMAGE, info.getImage());
         intent.putExtra(Constans.I_URL, info.getGroup_id());

@@ -12,6 +12,6 @@
         android:left="16dp"
         android:right="16dp"
         android:top="2dp"/>
-    <solid android:color="@color/bg_gary_fleet"/>
+    <solid android:color="@color/bg_gary_fleet_tran"/>
 
 </shape>

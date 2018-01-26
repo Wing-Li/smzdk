@@ -43,8 +43,8 @@ public interface XgApi {
     @GET("api/comment/list/")
     Call<XgComment> getCommentList(@Query("group_id") String group_id,  //
                                    @Query("item_id") String item_id, //
-                                   @Query("offset") String offset, //
-                                   @Query("count") String count);
+                                   @Query("offset") int offset, //
+                                   @Query("count") int count);
 
     /**
      * 获取视频评论的评论
@@ -54,7 +54,7 @@ public interface XgApi {
     @GET("api/comment/get_reply/")
     Call<XgCommentReply> getCommentReplyList(@Query("comment_id") String comment_id, //
                                              @Query("dongtai_id") String dongtai_id, //
-                                             @Query("offset") String offset, //
-                                             @Query("count") String count);
+                                             @Query("offset") int offset, //
+                                             @Query("count") int count);
 
 }

@@ -12,7 +12,7 @@
         android:name="com.lyl.smzdk.ui.video.VideoListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_gary_fleet"
+        android:background="@color/bg_gary_fleet_tran"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.lyl.smzdk.ui.video.VideoListFragment"
         tools:listitem="@layout/item_video_list"/>

@@ -13,8 +13,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="#C6C6C6"
+            android:layout_height="@dimen/actionbar_margin_top"
+            android:background="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
         <LinearLayout
@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/actionbar_img_left"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginLeft="10dp"
                 android:padding="4dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"
@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/actionbar_img_right"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginRight="10dp"
                 android:padding="4dp"
                 android:src="@drawable/ic_add_black_24dp"

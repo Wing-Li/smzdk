@@ -206,7 +206,9 @@ public class EassayDetailActivity extends BaseActivity {
 
     private void initView() {
         mActionBar.setTitleColor(R.color.black);
+        mActionBar.mImgLeft.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         mActionBar.setModelBack(R.string.details, mActivity);
+        mActionBar.setStatusBarColor(R.color.colorPrimary);
 
         ImgUtils.loadCircle(mContext, mUserIcon, eassayDetailIcon);
 

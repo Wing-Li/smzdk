@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#888888</color>
-    <color name="colorPrimaryDark">#AA555555</color>
+    <color name="colorPrimaryDark">#888888</color>
     <color name="colorAccent">#333333</color>
 
     <color name="mian_accent">#1AB0FF</color>
@@ -24,6 +24,6 @@
     <color name="white">#FFFFFF</color>
     <color name="gary">#DADADA</color>
     <color name="bg_gary">#F1F2F3</color>
-    <color name="bg_gary_fleet">#33FDFDFD</color>
+    <color name="bg_gary_fleet_tran">#33FDFDFD</color>
     <color name="sky_blue">#4ABEE2</color>
 </resources>

@@ -11,7 +11,9 @@
     <com.lyl.smzdk.view.ActionBar
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:translationZ="4dp"/>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/eassay_detail_nestedscrollview"

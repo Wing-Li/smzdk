@@ -65,6 +65,7 @@ public class Constans {
 
 
     public static String I_URL = "i_url";
+    public static String I_ID = "i_id";
     public static String I_TITLE = "i_title";
     public static String I_IMAGE = "i_image";
 

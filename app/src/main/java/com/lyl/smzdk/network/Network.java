@@ -60,6 +60,7 @@ public class Network {
     private static NeihanApi neihanApi;
     private static YdzxApi ydzxApi;
     private static XgApi xgApi;
+    private static XgApi xgConmentApi;
     private static VideoInflaterApi videoInflater;
     private static ImgsApi imgsApi;
 
@@ -154,10 +155,10 @@ public class Network {
      * 视频评论
      */
     public static XgApi getXgCommentApi() {
-        if (xgApi == null) {
-            xgApi = getXgVideoRetrofit(URL_XG_COMMENT).create(XgApi.class);
+        if (xgConmentApi == null) {
+            xgConmentApi = getXgVideoRetrofit(URL_XG_COMMENT).create(XgApi.class);
         }
-        return xgApi;
+        return xgConmentApi;
     }
 
     /**

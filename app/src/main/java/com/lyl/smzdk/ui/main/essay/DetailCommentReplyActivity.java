@@ -14,6 +14,7 @@ import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
+import com.lyl.smzdk.view.ActionBar;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class DetailCommentReplyActivity extends BaseActivity {
     RecyclerView commentReplyRecycler;
     @BindView(R.id.comment_reply_all_count)
     TextView commentReplyAllCount;
+    @BindView(R.id.actionbar)
+    ActionBar actionbar;
 
     private String mGroupId;
     private String mUserName;
@@ -121,6 +124,11 @@ public class DetailCommentReplyActivity extends BaseActivity {
     }
 
     private void initView() {
+        actionbar.setModelBack(R.string.comment, mActivity);
+        actionbar.setTitleColor(R.color.black);
+        actionbar.mImgLeft.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        actionbar.setStatusBarColor(R.color.colorPrimary);
+
         ImgUtils.loadCircle(mContext, mUserIcon, commentReplyIcon);
 
         commentReplyName.setText(mUserName);
@@ -130,7 +138,8 @@ public class DetailCommentReplyActivity extends BaseActivity {
         commentReplyContent.setText(mContent);
 
         commentReplyRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new EassayDetailCommentAdapter(mContext, mCommentsBeenList, EassayDetailCommentAdapter.COMMENT_TYPE_ALL);
+        mAdapter = new EassayDetailCommentAdapter(mContext, mCommentsBeenList, EassayDetailCommentAdapter
+                .COMMENT_TYPE_ALL);
         commentReplyRecycler.setAdapter(mAdapter);
 
 //        commentReplyRecycler.addOnScrollListener(new OnRecycleViewScrollListener() {

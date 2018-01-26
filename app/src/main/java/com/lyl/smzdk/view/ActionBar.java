@@ -21,14 +21,15 @@ public class ActionBar extends RelativeLayout {
 
     private Context context;
 
-    private RelativeLayout mLayout;
-    private RelativeLayout mLeftLayout;
-    private ImageView mImgLeft;
-    private TextView mTxtLet;
-    private RelativeLayout mRightLayout;
-    private TextView mTitle;
-    private ImageView mImgRight;
-    private TextView mTxtRight;
+    public View mStatusBar;
+    public RelativeLayout mLayout;
+    public RelativeLayout mLeftLayout;
+    public ImageView mImgLeft;
+    public TextView mTxtLet;
+    public RelativeLayout mRightLayout;
+    public TextView mTitle;
+    public ImageView mImgRight;
+    public TextView mTxtRight;
 
 
     public ActionBar(Context context) {
@@ -58,6 +59,7 @@ public class ActionBar extends RelativeLayout {
     private void initView() {
         View view = LayoutInflater.from(context).inflate(R.layout.activity_actionbar, this);
 
+        mStatusBar = view.findViewById(R.id.actionbar_statusbar);
         mLayout = view.findViewById(R.id.actionbar_layout);
         mLeftLayout = view.findViewById(R.id.actionbar_left_layout);
         mImgLeft = view.findViewById(R.id.actionbar_img_left);
@@ -210,6 +212,9 @@ public class ActionBar extends RelativeLayout {
         });
     }
 
+    public void setStatusBarColor(int resColor){
+        mStatusBar.setBackgroundResource(resColor);
+    }
 
     public void setOkHide() {
         mTxtRight.setVisibility(View.GONE);
