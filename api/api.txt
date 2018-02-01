@@ -191,12 +191,28 @@ http://zhongzicili.me/zhongzi/awl/2-0-2.html
 分类：
 http://image.so.com/api/channel_tags.json?callback=jQuery183045264748053964143_1515509922450&type=beauty&_=1515509922846
 
-某个人的专辑（分类由上面得到）：
-http://image.so.com/zj?ch=beauty&t1=596&sn=30&listtype=new&temp=1
-"id":"77455f9644cda030c8e2a3a6135c0ca9"
+    某个人的专辑（分类由上面得到）：
+    http://image.so.com/zj?ch=beauty&t1=596&sn=30&listtype=new&temp=1
+    "id":"77455f9644cda030c8e2a3a6135c0ca9"
 
-专辑列表（id由上面得到）：
-http://image.so.com/zvj?ch=beauty&t1=596&id=77455f9644cda030c8e2a3a6135c0ca9
+        专辑列表（id由上面得到）：
+        http://image.so.com/zvj?ch=beauty&t1=596&id=77455f9644cda030c8e2a3a6135c0ca9
+
+搜狗动图
+大分类:
+http://pic.sogou.com/pic/gif2.0/category.jsp?&from=navtab
+
+主页大分类下的小目录：
+http://pic.sogou.com/pics/gif/home.jsp?type=group&start=0&xml_len=12
+主页大分类下内容页：
+http://pic.sogou.com/pics/gif/home.jsp?type=recom&start=0&xml_len=48
+
+大分类下的小目录 和 大分类的列表详情（通过搜索某个文字获得数据，需URL转码）
+http://pic.sogou.com/pics/gif/category.jsp?start=0&xml_len=48&query=%E6%90%9E%E7%AC%91  搞笑
+http://pic.sogou.com/pics/gif/category.jsp?start=0&xml_len=48&query=%E6%98%8E%E6%98%9F  明星
+
+    小目录的列表页
+    http://pic.sogou.com/pics/gif/search.jsp?query=%E6%97%A9%E5%AE%89&start=0&xml_len=100&ie=utf8 早安
 
 
 =================================================================
