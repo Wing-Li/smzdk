@@ -25,6 +25,7 @@ import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.essay.NhMenuActivity;
+import com.lyl.smzdk.ui.main.images.ImagesActivity;
 import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
@@ -193,6 +194,12 @@ public class MainFragment extends BaseFragment {
         channel.setType(Constans.NEWS_TYPE_XIUXIAN);
         mNewChannelList.add(channel);
 
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_meinv));
+        channel.setImageRes(R.drawable.duzhe_icon);
+        channel.setType(Constans.NEWS_TYPE_MEINV);
+        mNewChannelList.add(channel);
+
     }
 
     /**
@@ -218,11 +225,15 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 NewMenu newMenu = mNewChannelList.get(i);
+                Intent intent;
                 if (Constans.NEWS_TYPE_XIUXIAN.equals(newMenu.getType())) { // 内涵精选
-                    Intent intent = new Intent(getHolder(), NhMenuActivity.class);
+                    intent = new Intent(getHolder(), NhMenuActivity.class);
+                    startActivity(intent);
+                } else if(Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())){
+                    intent = new Intent(getHolder(), ImagesActivity.class);
                     startActivity(intent);
                 } else {// 微信、知乎、读者
-                    Intent intent = new Intent(getHolder(), MenuListActivity.class);
+                    intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());
                     startActivity(intent);

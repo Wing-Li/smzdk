@@ -9,9 +9,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
  * Author: lyl
  * Date Created : 2017/11/23.
  */
-public class MyViewHolder extends BaseViewHolder {
+public class MyBaseViewHolder extends BaseViewHolder {
 
-    public MyViewHolder(View view) {
+    public MyBaseViewHolder(View view) {
         super(view);
     }
 

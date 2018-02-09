@@ -17,7 +17,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.ui.image.ImageActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
-import com.lyl.smzdk.ui.main.news.list.MyViewHolder;
+import com.lyl.smzdk.ui.main.news.list.MyBaseViewHolder;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.utils.MyUtils;
@@ -29,7 +29,7 @@ import java.util.List;
  * Author: lyl
  * Date Created : 2017/11/24.
  */
-public class NhEassayListAdapter extends BaseQuickAdapter<NhEassay.DataBeanX.DataBean, MyViewHolder> {
+public class NhEassayListAdapter extends BaseQuickAdapter<NhEassay.DataBeanX.DataBean, MyBaseViewHolder> {
 
     public static final int CONTENT_TYPE_ESSAY = 1;
     public static final int CONTENT_TYPE_IMAGE = 2;
@@ -62,7 +62,7 @@ public class NhEassayListAdapter extends BaseQuickAdapter<NhEassay.DataBeanX.Dat
     }
 
     @Override
-    protected void convert(MyViewHolder holder, final NhEassay.DataBeanX.DataBean dataBean) {
+    protected void convert(MyBaseViewHolder holder, final NhEassay.DataBeanX.DataBean dataBean) {
         if ("5".equals(dataBean.getType())) { // 广告
             return;
         }

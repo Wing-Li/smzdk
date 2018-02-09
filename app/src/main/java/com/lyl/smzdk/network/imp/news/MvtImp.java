@@ -94,20 +94,25 @@ public class MvtImp {
                 try {
                     imageInfo = new ImageInfo();
 
-                    // 原图 链接
-                    String pic_url = item.attr("href");
-                    imageInfo.setPic_url(pic_url);
+                    // 缩略图 链接
+                    String thumb_url = item.attr("data-src");
 
                     // 通过链接中的数值计算 宽高
-                    int start = pic_url.lastIndexOf("-");
-                    int end = pic_url.lastIndexOf(".");
-                    String wh = pic_url.substring(start + 1, end);
+                    int start = thumb_url.lastIndexOf("-");
+                    int end = thumb_url.lastIndexOf(".");
+                    String wh = thumb_url.substring(start + 1, end);
                     String[] split = wh.split("x");
 
                     // 原图 宽
-                    imageInfo.setWidth(Integer.parseInt(split[0]));
+                    imageInfo.setThumb_width(Integer.parseInt(split[0]));
                     // 原图 高
-                    imageInfo.setHeight(Integer.parseInt(split[1]));
+                    imageInfo.setThumb_height(Integer.parseInt(split[1]));
+                    // 缩略图地址
+                    imageInfo.setThumbUrl(thumb_url);
+
+                    // 原图地址是 去掉缩略图 后面的尺寸
+                    String pic_url = thumb_url.replace(thumb_url.substring(start, end), "");
+                    imageInfo.setPic_url(pic_url);
 
                     imageInfoList.add(imageInfo);
                 } catch (Exception e) {

@@ -71,31 +71,25 @@ public class ImagesFragment extends BaseFragment {
 
     private void setViewPager() {
         // 设置每个目录的页面
-        imagesViewpager.setAdapter(mFragmentPagerAdapter);
+        imagesViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @Override
+            public int getCount() {
+                return mImageMenuList.size() <= 0 ? 0 : mImageMenuList.size();
+            }
+
+            @Override
+            public Fragment getItem(int i) {
+                ImageMenu menuInfo = mImageMenuList.get(i);
+                return ImagesListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mImageMenuList.get(position).getName();
+            }
+        });
 
         // 绑定 Tablayout 和 Viewpager
         imagesTablayout.setupWithViewPager(imagesViewpager);
     }
-
-    /**
-     * 设置目录
-     */
-    private FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
-        @Override
-        public int getCount() {
-            return mImageMenuList.size() <= 0 ? 0 : mImageMenuList.size();
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            ImageMenu menuInfo = mImageMenuList.get(i);
-            return ImagesListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mImageMenuList.get(position).getName();
-        }
-    };
-
 }

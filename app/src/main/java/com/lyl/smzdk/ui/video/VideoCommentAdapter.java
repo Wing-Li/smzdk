@@ -11,7 +11,7 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.video.XgComment;
 import com.lyl.smzdk.ui.main.essay.DetailCommentReplyActivity;
-import com.lyl.smzdk.ui.main.news.list.MyViewHolder;
+import com.lyl.smzdk.ui.main.news.list.MyBaseViewHolder;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
 
@@ -19,7 +19,7 @@ import com.lyl.smzdk.utils.MyUtils;
  * 视频评论适配器
  * by lyl on 2017/5/23.
  */
-public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.CommentsBean, MyViewHolder>{
+public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.CommentsBean, MyBaseViewHolder>{
 
 
     public VideoCommentAdapter() {
@@ -27,7 +27,7 @@ public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.Com
     }
 
     @Override
-    protected void convert(MyViewHolder holder,final XgComment.DataBean.CommentsBean data) {
+    protected void convert(MyBaseViewHolder holder, final XgComment.DataBean.CommentsBean data) {
 
         ImgUtils.loadCircle(mContext, data.getUser().getAvatar_url(), (ImageView) holder.getView(R.id.item_comment_icon));
 

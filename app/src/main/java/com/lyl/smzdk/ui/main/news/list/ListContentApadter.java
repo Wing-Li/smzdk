@@ -19,7 +19,7 @@ import java.util.List;
  * Author: lyl
  * Date Created : 2017/11/10.
  */
-public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> {
+public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHolder> {
 
 
     public ListContentApadter(@Nullable List<NewInfo> data, final int itemType) {
@@ -39,7 +39,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyViewHolder> 
     }
 
     @Override
-    protected void convert(MyViewHolder holder, NewInfo newInfo) {
+    protected void convert(MyBaseViewHolder holder, NewInfo newInfo) {
         holder.setText(R.id.item_main_content_title, newInfo.getTitle());
         holder.setText(R.id.item_main_content_introduce, newInfo.getIntroduce());
 

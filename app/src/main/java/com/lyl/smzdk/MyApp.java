@@ -8,7 +8,6 @@ import com.lyl.smzdk.greendao.MyHelper;
 import com.lyl.smzdk.greendao.gen.DaoMaster;
 import com.lyl.smzdk.greendao.gen.DaoSession;
 import com.lyl.smzdk.utils.MyUtils;
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 
 import org.greenrobot.greendao.database.Database;
@@ -36,7 +35,6 @@ public class MyApp extends Application {
 
         initBugly();
         getDB();
-        LeakCanary.install(this);
     }
 
     private void initBugly() {

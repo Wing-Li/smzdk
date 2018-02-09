@@ -244,7 +244,12 @@ public class SearchListFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        closeRefresh();
+                        getHolder().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                closeRefresh();
+                            }
+                        });
                     }
 
                     @Override

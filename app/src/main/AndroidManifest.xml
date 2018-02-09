@@ -76,6 +76,12 @@
         <activity
             android:name=".ui.user.AboutActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.images.ImagesActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.images.SummaryImagesActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

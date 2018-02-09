@@ -70,6 +70,10 @@ public class ImgUtils {
         Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
     }
 
+    public static void load(Context context, String url, ImageView imageView, int w, int h, float thumbnail) {
+        Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).apply(new RequestOptions().override(w, h)).into(imageView);
+    }
+
     /**
      * 加载圆形图片。
      */
