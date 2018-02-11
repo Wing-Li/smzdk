@@ -74,7 +74,7 @@ public class SpecialImageActivity extends BaseImageActivity {
         imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                download(imageBtn, mUrl);
+                download(imageBtn, mUrl, false);
             }
         });
     }

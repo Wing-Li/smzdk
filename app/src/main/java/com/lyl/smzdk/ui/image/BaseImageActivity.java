@@ -1,5 +1,6 @@
 package com.lyl.smzdk.ui.image;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import java.io.File;
  * Author: lyl
  * Date Created : 2017/5/16.
  */
+@SuppressLint("Registered")
 public class BaseImageActivity extends BaseActivity {
 
     @Override
@@ -26,15 +28,22 @@ public class BaseImageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected void download(final View view, String fileUrl) {
+    protected void download(final View view, String fileUrl, final boolean isGif) {
         Toast.makeText(mContext, R.string.download_running, Toast.LENGTH_SHORT).show();
-        view.setVisibility(View.GONE);
+        if (view != null){
+            view.setVisibility(View.GONE);
+        }
 
         ImgUtils.downloadImg(getApplicationContext(), fileUrl, new ImgUtils.DownloadImage() {
             @Override
             public void downloadImage(File imgFile) {
                 if (imgFile != null) {
-                    String imgName = "smzdk_" + System.currentTimeMillis() + ".jpg";
+                    String imgName = "";
+                    if (isGif){
+                        imgName = "smzdk_" + System.currentTimeMillis() + ".gif";
+                    } else {
+                        imgName = "smzdk_" + System.currentTimeMillis() + ".jpg";
+                    }
                     // 目标路径
                     File destDir = new File(MyApp.getAppImagePath() + File.separator + imgName);
                     // 移动下载的图片到 目标路径

@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.web;
+package com.lyl.smzdk.view;
 
 
 import android.content.Context;
@@ -92,7 +92,7 @@ public class Html5WebView extends WebView {
     /**
      * 实现一个基础的 WebViewClient ，如果有更多的需要，直接继承它
      */
-    static class BaseWebViewClient extends WebViewClient {
+    public static class BaseWebViewClient extends WebViewClient {
 
         /**
          * 多页面在同一个WebView中打开，就是不新建activity或者调用系统浏览器打开
@@ -108,7 +108,7 @@ public class Html5WebView extends WebView {
     /**
      * 实现一个基础的 WebChromeClient ，如果有更多的需要，直接继承它
      */
-    static class BaseWebChromeClient extends WebChromeClient {
+    public static class BaseWebChromeClient extends WebChromeClient {
         //=========HTML5定位==========================================================
         //需要先加入权限
         //<uses-permission android:name="android.permission.INTERNET"/>

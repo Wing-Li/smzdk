@@ -21,10 +21,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
+import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.essay.NhMenuActivity;
+import com.lyl.smzdk.ui.main.images.GifWebActivity;
 import com.lyl.smzdk.ui.main.images.ImagesActivity;
 import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
@@ -196,14 +198,20 @@ public class MainFragment extends BaseFragment {
 
         channel = new NewMenu();
         channel.setName(getString(R.string.menu_meinv));
-        channel.setImageRes(R.drawable.duzhe_icon);
+        channel.setImageRes(R.drawable.girl_icon);
         channel.setType(Constans.NEWS_TYPE_MEINV);
         mNewChannelList.add(channel);
 
+//        channel = new NewMenu();
+//        channel.setName(getString(R.string.menu_gif));
+//        channel.setImageRes(R.drawable.duzhe_icon);
+//        channel.setType(Constans.NEWS_TYPE_GIF);
+//        mNewChannelList.add(channel);
+
         channel = new NewMenu();
         channel.setName(getString(R.string.menu_gif));
-        channel.setImageRes(R.drawable.duzhe_icon);
-        channel.setType(Constans.NEWS_TYPE_GIF);
+        channel.setImageRes(R.drawable.gif_icon);
+        channel.setType(Constans.NEWS_TYPE_GIF_WEB);
         mNewChannelList.add(channel);
 
     }
@@ -244,6 +252,12 @@ public class MainFragment extends BaseFragment {
                 } else if(Constans.NEWS_TYPE_GIF.equals(newMenu.getType())){
                     intent = new Intent(getHolder(), ImagesActivity.class);
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
+                    startActivity(intent);
+
+                } else if(Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())){
+                    intent = new Intent(getHolder(), GifWebActivity.class);
+                    intent.putExtra(Constans.I_URL, Network.URL_IMG_SOGOU_GIF);
+                    intent.putExtra(Constans.I_TITLE, newMenu.getName());
                     startActivity(intent);
 
                 } else {// 微信、知乎、读者

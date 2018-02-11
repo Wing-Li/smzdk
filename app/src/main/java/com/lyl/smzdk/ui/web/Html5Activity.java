@@ -25,6 +25,7 @@ import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.LogUtils;
+import com.lyl.smzdk.view.Html5WebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,7 +124,6 @@ public class Html5Activity extends BaseActivity {
             // 顶部显示网页加载进度
             mSeekBar.setProgress(newProgress);
         }
-
     }
 
     class Html5WebClient extends Html5WebView.BaseWebViewClient {

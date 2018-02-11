@@ -52,6 +52,10 @@ public class Network {
      * SOGOU图片列表
      */
     public static String URL_IMG_SOGOU = "http://pic.sogou.com";
+    /**
+     * SOGOU动态图
+     */
+    public static String URL_IMG_SOGOU_GIF = "http://pic.sogou.com/pic/gif2.0/category.jsp?&from=picIndexTop";
 
 
 
