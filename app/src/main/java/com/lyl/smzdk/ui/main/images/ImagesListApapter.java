@@ -29,7 +29,7 @@ public class ImagesListApapter extends BaseQuickAdapter<ImageInfo, MyBaseViewHol
         if (TextUtils.isEmpty(title)){
             holder.setVisible(R.id.item_images_title, false);
         } else {
-            holder.setText(R.id.item_images_title, shopInfo.getTitle());
+            holder.setText(R.id.item_images_title, title);
         }
 
         ImgUtils.load(mContext, shopInfo.getPic_url(), (ImageView) holder.getView(R.id.item_images_img));

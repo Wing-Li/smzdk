@@ -82,6 +82,9 @@
         <activity
             android:name=".ui.main.images.SummaryImagesActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.images.GifSummarysActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

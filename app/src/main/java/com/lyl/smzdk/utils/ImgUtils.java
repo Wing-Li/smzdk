@@ -12,6 +12,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.lyl.smzdk.R;
 
 import java.io.File;
+import java.net.URL;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -66,12 +67,24 @@ public class ImgUtils {
         Glide.with(context).load(url).apply(baseOptions).into(imageView);
     }
 
+    public static void load(Context context, URL url, ImageView imageView) {
+        Glide.with(context).load(url).apply(baseOptions).into(imageView);
+    }
+
     public static void load(Context context, String url, ImageView imageView, int w, int h) {
         Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
     }
 
     public static void load(Context context, String url, ImageView imageView, int w, int h, float thumbnail) {
         Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).apply(new RequestOptions().override(w, h)).into(imageView);
+    }
+
+    public static void loadGif(Context context, String url, ImageView imageView) {
+        Glide.with(context).asGif().load(url).apply(baseOptions).apply(new RequestOptions()).into(imageView);
+    }
+
+    public static void loadGif(Context context, String url, ImageView imageView, int w, int h) {
+        Glide.with(context).asGif().load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
     }
 
     /**

@@ -200,6 +200,12 @@ public class MainFragment extends BaseFragment {
         channel.setType(Constans.NEWS_TYPE_MEINV);
         mNewChannelList.add(channel);
 
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_gif));
+        channel.setImageRes(R.drawable.duzhe_icon);
+        channel.setType(Constans.NEWS_TYPE_GIF);
+        mNewChannelList.add(channel);
+
     }
 
     /**
@@ -229,9 +235,17 @@ public class MainFragment extends BaseFragment {
                 if (Constans.NEWS_TYPE_XIUXIAN.equals(newMenu.getType())) { // 内涵精选
                     intent = new Intent(getHolder(), NhMenuActivity.class);
                     startActivity(intent);
+
                 } else if(Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())){
                     intent = new Intent(getHolder(), ImagesActivity.class);
+                    intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_IMG);
                     startActivity(intent);
+
+                } else if(Constans.NEWS_TYPE_GIF.equals(newMenu.getType())){
+                    intent = new Intent(getHolder(), ImagesActivity.class);
+                    intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
+                    startActivity(intent);
+
                 } else {// 微信、知乎、读者
                     intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());

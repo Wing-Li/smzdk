@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.network.entity.images.ImageMenu;
+import com.lyl.smzdk.network.imp.news.GifImp;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.ImgUtils;
@@ -32,6 +33,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ImagesActivity extends BaseActivity {
 
+    public static final String IMG_TYPE = "IMG_TYPE";
+    public static final int IMG_TYPE_SOGOU_IMG = 1001;
+    public static final int IMG_TYPE_SOGOU_GIF = 1002;
+
     @BindView(R.id.images_tablayout)
     TabLayout imagesTablayout;
     @BindView(R.id.images_viewpager)
@@ -39,6 +44,7 @@ public class ImagesActivity extends BaseActivity {
     @BindView(R.id.actionbar)
     ActionBar actionbar;
 
+    private int mType;
     private List<ImageMenu> mImageMenuList = new ArrayList<>();
 
 
@@ -48,6 +54,7 @@ public class ImagesActivity extends BaseActivity {
         setContentView(R.layout.fragment_images);
         ButterKnife.bind(this);
 
+        mType = getIntent().getIntExtra(IMG_TYPE, 1001);
         initView();
         initMenuData();
     }
@@ -64,47 +71,57 @@ public class ImagesActivity extends BaseActivity {
         Observable.create(new ObservableOnSubscribe<List<ImageMenu>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ImageMenu>> observableEmitter) throws Exception {
-                MvtImp mvtImp = new MvtImp();
-                List<ImageMenu> menu = mvtImp.getMenu();
+                List<ImageMenu> menu = new ArrayList<>();
+                switch (mType) {
+                    case IMG_TYPE_SOGOU_IMG:
+                        MvtImp mvtImp = new MvtImp();
+                        menu = mvtImp.getMenu();
+                        break;
+                    case IMG_TYPE_SOGOU_GIF:
+                        GifImp gifImp = new GifImp();
+                        menu = gifImp.getMenu();
+                        break;
+                }
+
                 observableEmitter.onNext(menu);
             }
         })//
-        .subscribeOn(Schedulers.io())//
-        .observeOn(AndroidSchedulers.mainThread())//
-        .subscribe(new Observer<List<ImageMenu>>() {
-            @Override
-            public void onSubscribe(Disposable disposable) {
-
-            }
-
-            @Override
-            public void onNext(List<ImageMenu> imageMenus) {
-                mImageMenuList = imageMenus;
-                // 设置每个目录的页面
-                imagesViewpager.setAdapter(mFragmentPagerAdapter);
-
-                // 绑定 Tablayout 和 Viewpager
-                imagesTablayout.setupWithViewPager(imagesViewpager);
-            }
-
-            @Override
-            public void onError(final Throwable throwable) {
-                runOnUiThread(new Runnable() {
+                .subscribeOn(Schedulers.io())//
+                .observeOn(AndroidSchedulers.mainThread())//
+                .subscribe(new Observer<List<ImageMenu>>() {
                     @Override
-                    public void run() {
-                        showToast(R.string.net_error);
-                        if (throwable != null) {
-                            CrashReport.postCatchedException(throwable);
-                        }
+                    public void onSubscribe(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<ImageMenu> imageMenus) {
+                        mImageMenuList = imageMenus;
+                        // 设置每个目录的页面
+                        imagesViewpager.setAdapter(mFragmentPagerAdapter);
+
+                        // 绑定 Tablayout 和 Viewpager
+                        imagesTablayout.setupWithViewPager(imagesViewpager);
+                    }
+
+                    @Override
+                    public void onError(final Throwable throwable) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showToast(R.string.net_error);
+                                if (throwable != null) {
+                                    CrashReport.postCatchedException(throwable);
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
     /**
@@ -118,8 +135,20 @@ public class ImagesActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int i) {
+            Fragment fragment = null;
             ImageMenu menuInfo = mImageMenuList.get(i);
-            return ImagesListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
+
+            switch (mType) {
+                case IMG_TYPE_SOGOU_IMG:
+                    fragment = ImagesListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
+                    break;
+
+                case IMG_TYPE_SOGOU_GIF:
+                    fragment = GifListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
+                    break;
+            }
+
+            return fragment;
         }
 
         @Override
