@@ -22,7 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by lyl on 2017/5/9.
+ * Author: lyl
+ * Date Created : 2017/5/9.
  */
 public class Network {
 
@@ -48,7 +49,7 @@ public class Network {
      */
     public static String URL_XG_INFLATER = "http://v.ranks.xin/";
     /**
-     * 图片列表
+     * SOGOU图片列表
      */
     public static String URL_IMG_SOGOU = "http://pic.sogou.com";
 
