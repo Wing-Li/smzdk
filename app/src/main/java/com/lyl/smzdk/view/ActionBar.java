@@ -141,6 +141,21 @@ public class ActionBar extends RelativeLayout {
         mRightLayout.setOnClickListener(null);
     }
 
+    public void setModelLeft(String resTitle, final OnClickListener onClickListener) {
+        setTitle(resTitle);
+        mLeftLayout.setVisibility(View.VISIBLE);
+        mImgLeft.setVisibility(View.VISIBLE);
+        mLeftLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListener.onClick(view);
+            }
+        });
+
+        mRightLayout.setVisibility(View.GONE);
+        mRightLayout.setOnClickListener(null);
+    }
+
     /**
      * 标题、确定按钮
      *

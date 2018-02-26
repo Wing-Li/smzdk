@@ -79,7 +79,12 @@ public class VideoPlayerActivity extends BaseActivity {
     }
 
     private void initView() {
-        actionbar.setModelBack(mTitle, mActivity);
+        actionbar.setModelLeft(mTitle, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mCommentAdapter = new VideoCommentAdapter();
         videoCommentList.setLayoutManager(new LinearLayoutManagerWrapper(mContext));
@@ -112,9 +117,6 @@ public class VideoPlayerActivity extends BaseActivity {
                         if (body.getData() != null && body.getData().size() > 0) {
                             videoPlay.setUp(body.getData().get(0).getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, mTitle);
                             videoPlay.startButton.performClick();
-
-                            // 视频加载成功之后，开始默默的加载评论
-                            loadCommentData();
                         }
                     }
                 }
@@ -125,6 +127,9 @@ public class VideoPlayerActivity extends BaseActivity {
 
             }
         });
+
+        // 同时开始默默的加载评论
+        loadCommentData();
     }
 
     public void getParameter() {
