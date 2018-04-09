@@ -161,7 +161,6 @@ public class SearchFragment extends BaseFragment {
                 searchActionbarEdt.setText("");
             }
         });
-
     }
 
     private void searchContent(String content) {
