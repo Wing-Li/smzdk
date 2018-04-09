@@ -103,8 +103,6 @@ dependencies {
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.8.0'
     compile 'cn.jzvd:jiaozivideoplayer:6.1.2'
 
-    // 状态栏
-    compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     // 轮播图
     compile 'com.youth.banner:banner:1.4.10'
     // Adapter

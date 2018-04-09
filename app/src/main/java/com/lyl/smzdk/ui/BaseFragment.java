@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
+import com.lyl.smzdk.utils.StatusBarCompat;
 import com.lyl.smzdk.view.ActionBar;
 import com.lyl.smzdk.view.TransitionHelper;
 import com.lyl.smzdk.view.loading.LoadingDialog;
@@ -37,8 +37,6 @@ public abstract class BaseFragment extends Fragment {
 
     private BaseActivity holder;
     private Unbinder unbinder;
-
-    private ImmersionBar mImmersionBar;
 
     @Override
     public void onAttach(Context context) {
@@ -77,12 +75,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mImmersionBar != null) mImmersionBar.destroy();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -102,18 +94,7 @@ public abstract class BaseFragment extends Fragment {
     protected void setStatusBarColor(int resId) {
         mActionBar.setBackgroundColor(ContextCompat.getColor(getHolder(), resId));
 
-        // StatusBarCompat.compat(getHolder(), resId);
-
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
-                .statusBarColor(resId)//
-                .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
-                .fitsSystemWindows(true)    //解决状态栏和布局重叠问题，任选其一，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色，还有一些重载方法
-                .navigationBarEnable(true)   //是否可以修改导航栏颜色，默认为true
-                .navigationBarWithKitkatEnable(true)  //是否可以修改安卓4.4和emui3.1手机导航栏颜色，默认为true
-                .reset()  //重置所以沉浸式参数
-                .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
-                .init();  //必须调用方可沉浸式
+         StatusBarCompat.compat(getHolder(), resId);
     }
 
     /**

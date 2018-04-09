@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
@@ -58,7 +57,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initStatusbar();
         initMainContent();
         initBottombar();
     }
@@ -73,10 +71,6 @@ public class MainActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);//解除订阅
-    }
-
-    private void initStatusbar() {
-        ImmersionBar.with(this).init();
     }
 
     private void initMainContent() {
@@ -160,8 +154,8 @@ public class MainActivity extends BaseActivity {
         if (to == oldFragment) return;
 
         FragmentTransaction transaction = getSupportFragmentManager()//
-                .beginTransaction()//
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                .beginTransaction();//
+//                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         if (!to.isAdded()) {    // 先判断是否被add过
             transaction.hide(oldFragment).add(R.id.main_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
         } else {

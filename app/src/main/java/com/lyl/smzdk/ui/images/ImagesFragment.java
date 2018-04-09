@@ -38,6 +38,7 @@ public class ImagesFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.images_title);
 
         initMenuData();
@@ -49,15 +50,10 @@ public class ImagesFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        setStatusBarColor(R.color.images_primary);
-    }
-
-    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {// show
+            setStatusBarColor(R.color.images_primary);
             if (imagesViewpager != null && imagesViewpager.getCurrentItem() != 0) {
                 imagesViewpager.setCurrentItem(0, false);
             }

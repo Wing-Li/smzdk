@@ -90,6 +90,8 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.home);
         initMenuData();
         headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
@@ -129,7 +131,14 @@ public class MainFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        setStatusBarColor(R.color.main_primary);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            setStatusBarColor(R.color.main_primary);
+        }
     }
 
     @Override

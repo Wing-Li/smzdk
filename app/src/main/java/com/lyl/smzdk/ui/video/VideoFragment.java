@@ -38,21 +38,17 @@ public class VideoFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.video_title);
         initMenuData();
         setViewPager();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        setStatusBarColor(R.color.video_primary);
-    }
-
-    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {// show
+            setStatusBarColor(R.color.video_primary);
             if (videoViewpager != null && videoViewpager.getCurrentItem() != 0) {
                 videoViewpager.setCurrentItem(0, false);
             }

@@ -57,6 +57,7 @@ public class SearchFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        onHiddenChanged(false);
         initView();
         setViewPager();
         clipboardManager = (ClipboardManager) getHolder().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -65,8 +66,16 @@ public class SearchFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        setStatusBarColor(R.color.search_primary);
         getClipData();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (!hidden){
+            setStatusBarColor(R.color.search_primary);
+        }
     }
 
     /**

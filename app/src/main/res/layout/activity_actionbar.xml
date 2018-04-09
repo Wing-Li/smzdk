@@ -4,17 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_height">
 
-    <View
-        android:id="@+id/actionbar_statusbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_margin_top"
-        android:elevation="@dimen/dp_4"/>
-
     <RelativeLayout
         android:id="@+id/actionbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/actionbar_margin_top">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/actionbar_left_layout"

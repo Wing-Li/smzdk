@@ -47,13 +47,18 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.user_title);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        setStatusBarColor(R.color.user_primary);
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (!hidden){
+            setStatusBarColor(R.color.user_primary);
+        }
     }
 
     @OnClick(R.id.user_login)
