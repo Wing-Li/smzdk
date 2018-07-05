@@ -30,33 +30,36 @@ public class Network {
     /**
      * 内涵段子 网址
      */
-    private static String URL_NEIHAN = "http://is.snssdk.com/";
+    private final static String URL_NEIHAN = "http://is.snssdk.com/";
 
     /**
      * 一点资讯
      */
-    private static String URL_YDZX = "http://www.yidianzixun.com/";
+    private final static String URL_YDZX = "http://www.yidianzixun.com/";
     /**
      * 视频列表
      */
-    public static String URL_XG = "https://m.ixigua.com/";
+    public final static String URL_XG = "https://m.ixigua.com/";
     /**
      * 视频评论
      */
-    public static String URL_XG_COMMENT = "https://www.ixigua.com/";
+    public final static String URL_XG_COMMENT = "https://www.ixigua.com/";
     /**
      * 视频解析
      */
-    public static String URL_XG_INFLATER = "http://v.ranks.xin/";
+    public final static String URL_XG_INFLATER = "http://v.ranks.xin/";
     /**
      * SOGOU图片列表
      */
-    public static String URL_IMG_SOGOU = "http://pic.sogou.com";
+    public final static String URL_IMG_SOGOU = "http://pic.sogou.com";
     /**
      * SOGOU动态图
      */
-    public static String URL_IMG_SOGOU_GIF = "http://pic.sogou.com/pic/gif2.0/category.jsp?&from=picIndexTop";
-
+    public final static String URL_IMG_SOGOU_GIF = "http://pic.sogou.com/pic/gif2.0/category.jsp?&from=picIndexTop";
+    /**
+     * 闲读
+     */
+    public final static String URL_XIANDU = "http://gank.io/";
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -92,32 +95,37 @@ public class Network {
     }
 
     private static Retrofit getXgVideoRetrofit(String url) {
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        HttpUrl httpUrl = chain.request().url();
-                        String path = httpUrl.url().toString().substring(20);
-                        Request request = chain.request()//
-                                .newBuilder()//
-                                // cookie 最重要，没有会报 403
-                                .addHeader("cookie", "UM_distinctid=15ff6bdfbeba02-0c38ac8ad2598-5c153d17-100200-15ff6bdfbec9d0; tt_webid=6492584011599889933; __tasessionId=zncr5205k1513963900312; _ba=BA0.2-20171217-51225-4K42chFL2KxM68AR8KWP; _ga=GA1.2.2090532234.1511673167; _gid=GA1.2.2028382406.1513962277; csrftoken=141cdc8e06a4468e048d14beaf230f7f")//
-                                // .addHeader(":authority", "m.ixigua.com")//
-                                // .addHeader(":method", "GET")//
-                                // .addHeader(":path", path)//
-                                // .addHeader(":scheme", "https")//
-                                // .addHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")//
-                                // .addHeader("accept-language", "zh-CN,zh;q=0.8")//
-                                // .addHeader("cache-control", "no-cache")//
-                                // .addHeader("pragma", "no-cache")//
-                                // .addHeader("upgrade-insecure-requests", "1")//
-                                .addHeader("user-agent", "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Mobile Safari/537.36")//
-                                .build();
-                        LogUtils.d("视频地址：" + request.url());
-                        return chain.proceed(request);
-                    }
-                })
-                .build();
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                HttpUrl httpUrl = chain.request().url();
+                String path = httpUrl.url().toString().substring(20);
+                Request request = chain.request()//
+                        .newBuilder()//
+                        // cookie 最重要，没有会报 403
+                        .addHeader("cookie",
+                                "UM_distinctid=15ff6bdfbeba02-0c38ac8ad2598-5c153d17-100200-15ff6bdfbec9d0; " +
+                                        "tt_webid=6492584011599889933; __tasessionId=zncr5205k1513963900312; " +
+                                        "_ba=BA0.2-20171217-51225-4K42chFL2KxM68AR8KWP; " +
+                                        "_ga=GA1.2.2090532234.1511673167; _gid=GA1.2.2028382406.1513962277; " +
+                                        "csrftoken=141cdc8e06a4468e048d14beaf230f7f")//
+                        // .addHeader(":authority", "m.ixigua.com")//
+                        // .addHeader(":method", "GET")//
+                        // .addHeader(":path", path)//
+                        // .addHeader(":scheme", "https")//
+                        // .addHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,
+                        // image/apng,*/*;q=0.8")//
+                        // .addHeader("accept-language", "zh-CN,zh;q=0.8")//
+                        // .addHeader("cache-control", "no-cache")//
+                        // .addHeader("pragma", "no-cache")//
+                        // .addHeader("upgrade-insecure-requests", "1")//
+                        .addHeader("user-agent", "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) " +
+                                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Mobile Safari/537.36")//
+                        .build();
+                LogUtils.d("视频地址：" + request.url());
+                return chain.proceed(request);
+            }
+        }).build();
 
         return new Retrofit.Builder()//
                 .client(httpClient)//
@@ -179,10 +187,10 @@ public class Network {
     /**
      * 图片集合
      */
-    public static ImgsApi getImgsApi(){
-        if (imgsApi == null){
+    public static ImgsApi getImgsApi() {
+        if (imgsApi == null) {
             Retrofit retrofit = getRetrofit(URL_IMG_SOGOU);
-            imgsApi  = retrofit.create(ImgsApi.class);
+            imgsApi = retrofit.create(ImgsApi.class);
         }
         return imgsApi;
     }
