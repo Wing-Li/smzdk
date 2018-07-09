@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lyl.smzdk.R;
@@ -28,6 +30,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 
 /**
@@ -36,6 +40,9 @@ import cn.jzvd.JZVideoPlayer;
  */
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.main_content)
+    FrameLayout mainContent;
+    @BindView(R.id.main_bottombar)
     BottomBar mainBottombar;
 
     private MainFragment mainFragment;
@@ -56,6 +63,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         initMainContent();
         initBottombar();
@@ -74,6 +82,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initMainContent() {
+        // 设置空过状态栏
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mainContent.getLayoutParams();
+        layoutParams.setMargins(0, result, 0, 0);
+        mainContent.setLayoutParams(layoutParams);
+
         mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_content, mainFragment).commit();
         oldFragment = mainFragment;
@@ -83,7 +101,6 @@ public class MainActivity extends BaseActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void initBottombar() {
-        mainBottombar = findViewById(R.id.main_bottombar);
         mainBottombar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {

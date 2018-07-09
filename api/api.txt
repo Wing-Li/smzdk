@@ -237,3 +237,7 @@ http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx?t=1&lx=1&letter=&gsid=&text=&
 https://wapbaike.baidu.com/api/vbaike/knowledgeList?count=8&page=2&keyWord=
 生活
 https://wapbaike.baidu.com/api/vbaike/knowledgeList?count=8&page=1&keyWord=%E7%94%9F%E6%B4%BB
+
+====================================================================
+神回复
+http://api.tianapi.com/txapi/godreply/?key=021f511a2895e4d23b5530cf69ec11ff&num=50
