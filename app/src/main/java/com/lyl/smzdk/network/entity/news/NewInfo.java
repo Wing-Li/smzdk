@@ -16,6 +16,7 @@ public class NewInfo {
     private String url;
     private String introduce;// 简介 新闻简介
     private String laudNum; // 点赞
+    private String readNum; // 阅读量
     private String time;
 
     private String author; // 微信公众号，知乎作者
@@ -37,6 +38,14 @@ public class NewInfo {
 
     public void setAuthorUrl(String authorUrl) {
         this.authorUrl = authorUrl;
+    }
+
+    public String getReadNum() {
+        return readNum;
+    }
+
+    public void setReadNum(String readNum) {
+        this.readNum = readNum;
     }
 
     public String getLaudNum() {

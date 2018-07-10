@@ -23,7 +23,7 @@ public class LzsImp {
 
         NewMenu menu = new NewMenu();
         menu.setName("全部");
-        menu.setType("全部");
+        menu.setType("");
         newMenuList.add(menu);
 
         menu = new NewMenu();
@@ -72,7 +72,7 @@ public class LzsImp {
     /**
      * 获取冷知识的列表
      */
-    public Call<LzsInfo> getInfo(String type, String page){
-        return Network.getLzsApi().getList(page, type);
+    public Call<List<LzsInfo>> getInfo(String type, int page){
+        return Network.getLzsApi().getList(type, page);
     }
 }

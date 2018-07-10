@@ -231,6 +231,13 @@ public class MainFragment extends BaseFragment {
         channel.setShowType(Constans.SHOW_ITEM_CONTENT_4);
         mNewChannelList.add(channel);
 
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_lengzhishi));
+        channel.setImageRes(R.drawable.lengzhishi_icon);
+        channel.setType(Constans.NEWS_TYPE_LENGZHISHI);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
+        mNewChannelList.add(channel);
+
     }
 
     /**
@@ -277,7 +284,7 @@ public class MainFragment extends BaseFragment {
                     intent.putExtra(Constans.I_TITLE, newMenu.getName());
                     startActivity(intent);
 
-                } else {// 微信、知乎、读者、闲读
+                } else {// 微信、知乎、读者、闲读、冷知识
                     intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());

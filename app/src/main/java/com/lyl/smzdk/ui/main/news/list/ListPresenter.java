@@ -1,11 +1,14 @@
 package com.lyl.smzdk.ui.main.news.list;
 
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.network.entity.news.LzsInfo;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.DzImp;
+import com.lyl.smzdk.network.imp.news.LzsImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
+import com.lyl.smzdk.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Author: lyl
@@ -42,7 +48,7 @@ public class ListPresenter implements ListContract.Presenter {
     public void loadData(final String channel, final String type) {
         Observable.create(new ObservableOnSubscribe<List<NewInfo>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<NewInfo>> ob) throws Exception {
+            public void subscribe(final ObservableEmitter<List<NewInfo>> ob) throws Exception {
                 List<NewInfo> newInfoList = new ArrayList<>();
                 switch (channel) {
                     case Constans.NEWS_TYPE_WEIXIN: { // 微信精选
@@ -64,6 +70,46 @@ public class ListPresenter implements ListContract.Presenter {
                         XdImp xd = new XdImp();
                         newInfoList = xd.getInfo(type, page);
                         break;
+                    }
+                    case Constans.NEWS_TYPE_LENGZHISHI: { // 冷知识
+                        LzsImp lzs = new LzsImp();
+                        Call<List<LzsInfo>> infoCall = lzs.getInfo(type, page);
+                        Call<List<LzsInfo>> clone = infoCall.clone();
+
+                        clone.enqueue(new Callback<List<LzsInfo>>() {
+                            @Override
+                            public void onResponse(Call<List<LzsInfo>> call, Response<List<LzsInfo>> response) {
+                                if (response.isSuccessful()) {
+                                    List<LzsInfo> body = response.body();
+                                    if (body != null) {
+                                        List<NewInfo> newInfoList = new ArrayList<>();
+                                        NewInfo newInfo;
+
+                                        // 将从百度百科获取的数据，转化为自己的类
+                                        for (LzsInfo info : body) {
+                                            newInfo = new NewInfo();
+                                            newInfo.setTitle(info.getTitle());
+                                            newInfo.setUrl(info.getLink());
+                                            newInfo.setTime(DateUtils.translateDate((long) info.getPublishTime(), System.currentTimeMillis()));
+                                            newInfo.setAuthor(info.getAuthor());
+                                            newInfo.setIntroduce(info.getDesc());
+                                            newInfo.setImage(info.getPic());
+                                            newInfo.setReadNum(String.valueOf(info.getPv()));
+
+                                            newInfoList.add(newInfo);
+                                        }
+
+                                        ob.onNext(newInfoList);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<LzsInfo>> call, Throwable t) {
+
+                            }
+                        });
+                        return;
                     }
                     default:
                         return;

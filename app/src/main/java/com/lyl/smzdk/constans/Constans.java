@@ -25,6 +25,8 @@ public class Constans {
     public static final String NEWS_TYPE_GIF_WEB = "10007";
     // 闲读
     public static final String NEWS_TYPE_XIANDU = "10008";
+    // 冷知识
+    public static final String NEWS_TYPE_LENGZHISHI = "10009";
 
     // 磁力
     public static final String BT_TYPE_1 = "zhongziso";
