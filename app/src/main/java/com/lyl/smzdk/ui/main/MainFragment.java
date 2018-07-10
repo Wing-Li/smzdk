@@ -177,6 +177,7 @@ public class MainFragment extends BaseFragment {
      * 设置目录列表
      */
     private void initMenuData() {
+        // 如果是 新闻 类的，必须设置 setShowType
         NewMenu channel;
         channel = new NewMenu();
         channel.setName(getString(R.string.menu_weixin));
@@ -221,6 +222,13 @@ public class MainFragment extends BaseFragment {
         channel.setName(getString(R.string.menu_gif));
         channel.setImageRes(R.drawable.gif_icon);
         channel.setType(Constans.NEWS_TYPE_GIF_WEB);
+        mNewChannelList.add(channel);
+
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_xiandu));
+        channel.setImageRes(R.drawable.xiandu_icon);
+        channel.setType(Constans.NEWS_TYPE_XIANDU);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_4);
         mNewChannelList.add(channel);
 
     }
@@ -269,7 +277,7 @@ public class MainFragment extends BaseFragment {
                     intent.putExtra(Constans.I_TITLE, newMenu.getName());
                     startActivity(intent);
 
-                } else {// 微信、知乎、读者
+                } else {// 微信、知乎、读者、闲读
                     intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());

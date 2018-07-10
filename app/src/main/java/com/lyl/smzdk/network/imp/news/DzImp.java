@@ -84,9 +84,6 @@ public class DzImp {
                 newInfoList.add(info);
             }
 
-            for (NewInfo i : newInfoList) {
-                System.out.println(i.toString());
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

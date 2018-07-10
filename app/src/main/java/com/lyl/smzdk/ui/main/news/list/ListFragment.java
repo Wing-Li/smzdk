@@ -45,7 +45,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
 
     /**
-     * @param channelType 频道类型。 微信精选、一点资讯
+     * @param channelType 频道类型。 微信、知乎、读者、闲读
      * @param menuType    频道底下的二级目录类型
      * @return
      */

@@ -4,6 +4,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
+import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
 
 import java.util.ArrayList;
@@ -57,6 +58,11 @@ public class ListPresenter implements ListContract.Presenter {
                     case Constans.NEWS_TYPE_DUZHE: { // 读者精选
                         DzImp dzImp = new DzImp();
                         newInfoList = dzImp.getInfo(type, page);
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_XIANDU: { // 闲读
+                        XdImp xd = new XdImp();
+                        newInfoList = xd.getInfo(type, page);
                         break;
                     }
                     default:

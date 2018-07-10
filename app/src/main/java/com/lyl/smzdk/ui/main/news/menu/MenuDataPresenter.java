@@ -4,6 +4,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
+import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
 
 import java.util.ArrayList;
@@ -52,6 +53,11 @@ public class MenuDataPresenter implements MenuContract.Presenter {
                     case Constans.NEWS_TYPE_DUZHE:{ // 读者精选
                         DzImp dzImp = new DzImp();
                         mNewMenuList = dzImp.getDzMenu();
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_XIANDU:{ // 闲读
+                        XdImp xd = new XdImp();
+                        mNewMenuList = xd.getXdMenu();
                         break;
                     }
                 }

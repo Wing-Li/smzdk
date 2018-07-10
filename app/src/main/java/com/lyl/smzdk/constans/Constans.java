@@ -23,6 +23,8 @@ public class Constans {
     public static final String NEWS_TYPE_GIF = "10006";
     // 有趣动图
     public static final String NEWS_TYPE_GIF_WEB = "10007";
+    // 闲读
+    public static final String NEWS_TYPE_XIANDU = "10008";
 
     // 磁力
     public static final String BT_TYPE_1 = "zhongziso";
@@ -34,6 +36,7 @@ public class Constans {
     public static final int SHOW_ITEM_CONTENT_1 = 10001;
     public static final int SHOW_ITEM_CONTENT_2 = 10002;
     public static final int SHOW_ITEM_CONTENT_3 = 10003;
+    public static final int SHOW_ITEM_CONTENT_4 = 10004;
 
     // 内涵段子 需要的常量字段
     public static String SP_CITY = "sp_city";

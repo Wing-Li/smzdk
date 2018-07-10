@@ -83,6 +83,9 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             case Constans.NEWS_TYPE_DUZHE:
                 title = R.string.menu_duzhe;
                 break;
+            case Constans.NEWS_TYPE_XIANDU:
+                title = R.string.menu_xiandu;
+                break;
             default:
                 title = R.string.app_name;
                 break;
