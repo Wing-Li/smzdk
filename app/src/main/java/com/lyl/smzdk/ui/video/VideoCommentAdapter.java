@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.video.XgComment;
-import com.lyl.smzdk.ui.main.essay.DetailCommentReplyActivity;
 import com.lyl.smzdk.ui.main.news.list.MyBaseViewHolder;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;

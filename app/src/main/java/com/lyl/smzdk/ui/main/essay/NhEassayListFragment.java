@@ -18,9 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
-import com.lyl.smzdk.network.entity.news.NhEassay;
 import com.lyl.smzdk.network.entity.news.YdzxInfo;
-import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.news.list.ListContentApadter;
@@ -51,14 +49,6 @@ public class NhEassayListFragment extends BaseFragment {
      */
     public static final String CONTENT_TYPE = "content_type";
     /**
-     * 段子
-     */
-    public static final String CONTENT_TYPE_ESSAY = "-102";
-    /**
-     * 图片
-     */
-    public static final String CONTENT_TYPE_IMAGE = "-103";
-    /**
      * 一点咨询 - GIF
      */
     public static final String CONTENT_TYPE_YDZX_GIF = "s10671";
@@ -70,8 +60,6 @@ public class NhEassayListFragment extends BaseFragment {
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
 
-    private NhImp mNeihanImp;
-    private Call<NhEassay> essayCall;
     private YdzxImp mYdzxImp;
 
     // 页数。
@@ -85,7 +73,6 @@ public class NhEassayListFragment extends BaseFragment {
     private String mContentType;
     private int mScreenWidth;
 
-    private ArrayList<NhEassay.DataBeanX.DataBean> mDataBeen;
     private List<NewInfo> mNewInfoList;
 
 
@@ -119,7 +106,6 @@ public class NhEassayListFragment extends BaseFragment {
     }
 
     private void initData() {
-        mDataBeen = new ArrayList<>();
         mNewInfoList = new ArrayList<>();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -128,65 +114,9 @@ public class NhEassayListFragment extends BaseFragment {
     }
 
     private void getData(final boolean isRefresh) {
-        switch (mContentType) {
-            case CONTENT_TYPE_ESSAY: // 内涵段子
-            case CONTENT_TYPE_IMAGE: // 内涵图片
-                getEassayList(isRefresh);
-                break;
-            default: // 一点咨询 - GIF
-                getYdzxList(isRefresh);
-                break;
-        }
+        getYdzxList(isRefresh);// 一点咨询 - GIF
     }
 
-    /**
-     * 获取内涵段子的数据
-     *
-     * @param isRefresh 下拉刷新
-     */
-    private void getEassayList(final boolean isRefresh) {
-        setRefresh(true);
-        if (mNeihanImp == null) {
-            mNeihanImp = new NhImp(getHolder());
-        }
-        essayCall = mNeihanImp.getNhEssayDetails(mContentType);
-        Call<NhEassay> clone = essayCall.clone();
-        clone.enqueue(new Callback<NhEassay>() {
-            @Override
-            public void onResponse(Call<NhEassay> call, Response<NhEassay> response) {
-                setRefresh(false);
-                if (response.isSuccessful()) {
-                    NhEassay body = response.body();
-                    if (body != null && "success".equals(body.getMessage())) {
-                        mHasMore = body.getData().isHas_more();
-                        mTip = body.getData().getTip();
-
-                        ArrayList<NhEassay.DataBeanX.DataBean> data = (ArrayList<NhEassay.DataBeanX.DataBean>) body
-                                .getData().getData();
-                        if (data != null && data.size() > 0) {
-                            if (isRefresh) {
-                                mAdapter.setNewData(data);
-                            } else {
-                                mAdapter.addData(data);
-                            }
-                        }
-                        mAdapter.loadMoreComplete();
-                        page++;
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NhEassay> call, Throwable t) {
-                setRefresh(false);
-                showToast(R.string.net_error);
-                if (t != null) {
-                    CrashReport.postCatchedException(t);
-                }
-            }
-        });
-    }
 
     /**
      * 获取一点资讯的数据
@@ -264,55 +194,47 @@ public class NhEassayListFragment extends BaseFragment {
     }
 
     private void initView() {
-        switch (mContentType) {
-            case CONTENT_TYPE_ESSAY: // 内涵段子
-            case CONTENT_TYPE_IMAGE: // 内涵图片
-                mAdapter = new NhEassayListAdapter(mDataBeen, mContentType, mScreenWidth);
-                break;
-            default: // 一点咨询 - GIF
-                mAdapter = new ListContentApadter(mNewInfoList, Constans.SHOW_ITEM_CONTENT_2);
-                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                        NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
+        // 一点咨询 - GIF
+        mAdapter = new ListContentApadter(mNewInfoList, Constans.SHOW_ITEM_CONTENT_2);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
 
-                        if (info == null) {
-                            showToast(R.string.data_error);
-                            return;
-                        }
+                if (info == null) {
+                    showToast(R.string.data_error);
+                    return;
+                }
 
-                        Intent intent = new Intent(getHolder(), Html5Activity.class);
-                        intent.putExtra(Constans.I_URL, info.getUrl());
-                        intent.putExtra(Constans.I_TITLE, info.getTitle());
-                        intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_XIUXIAN);
+                Intent intent = new Intent(getHolder(), Html5Activity.class);
+                intent.putExtra(Constans.I_URL, info.getUrl());
+                intent.putExtra(Constans.I_TITLE, info.getTitle());
+                intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_XIUXIAN);
 
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                            View titleView = view.findViewById(R.id.item_main_content_title);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(),
-                                    Pair.create(titleView, "content_title"));
-                            startActivity(intent, options.toBundle());
-                        } else {
-                            startActivity(intent);
-                        }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    View titleView = view.findViewById(R.id.item_main_content_title);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
+                            (titleView, "content_title"));
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
+                }
 
-                        TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
-                                .item_main_content_title);
-                        if (titleView != null) {
-                            titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
-                        }
+                TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_title);
+                if (titleView != null) {
+                    titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
+                }
 
-                        TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
-                                .item_main_content_introduce);
-                        if (introduceView != null) {
-                            introduceView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_three));
-                        }
-                    }
-                });
+                TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
+                        .item_main_content_introduce);
+                if (introduceView != null) {
+                    introduceView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_three));
+                }
+            }
+        });
 
-                // 设置每个 Item 中间横线
-                recyclerView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
-                break;
-        }
+        // 设置每个 Item 中间横线
+        recyclerView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
 
         recyclerView.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         recyclerView.setAdapter(mAdapter);
@@ -345,9 +267,6 @@ public class NhEassayListFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (essayCall != null && !essayCall.isCanceled()) {
-            essayCall.cancel();
-        }
         ImgUtils.cancelAllTasks(getHolder().getApplicationContext());
     }
 }

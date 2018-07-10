@@ -6,9 +6,7 @@ import android.util.DisplayMetrics;
 
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.Network;
-import com.lyl.smzdk.network.entity.news.NhCommentReply;
-import com.lyl.smzdk.network.entity.news.NhComments;
-import com.lyl.smzdk.network.entity.news.NhEassay;
+import com.lyl.smzdk.network.entity.video.NhCommentReply;
 import com.lyl.smzdk.utils.AppUtils;
 import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.utils.SPUtil;
@@ -84,65 +82,6 @@ public class NhImp {
 
         mResolution = displayMetrics.widthPixels + "*" + displayMetrics.heightPixels;
         mDpi = displayMetrics.densityDpi;
-    }
-
-    /**
-     * 获取段子
-     *
-     * @param mContentType 图片的是-103，段子的是-102
-     * @return
-     */
-    public Call<NhEassay> getNhEssayDetails(String mContentType) {
-        return Network.getNeihanApi().getNhEssay(mContentType,// 图片的是-103，段子的是-102
-                mCity,// 城市
-                mLongitude,//
-                mLatitude,//
-                mMinTime,// 上次更新时间的 Unix 时间戳，秒为单位
-                mMinTime = System.currentTimeMillis(),// 当前时间 Unix 时间戳，毫秒为单位
-                CONTENT_NUM,// 返回数量
-                mScreenWidth,// 屏幕宽度，px为单位 1450
-                mIid,// 一个长度为10的纯数字字符串，用于标识用户唯一性
-                mDeviceId,// 设备 id，一个长度为11的纯数字字符串
-                version_code,// 版本号去除小数点，例如612
-                version_name,// 版本号，例如6.1.2
-                mDeviceType,// 设备型号，例如 hongmi
-                mDeviceBrand,// 设备品牌，例如 xiaomi
-                mOsApi, // 操作系统版本，例如20
-                mOsVersion,// 操作系统版本号，例如7.1.0
-                mUuidEassay,// 用户 id，一个长度为15的纯数字字符串
-                mOpenudId,// 一个长度为16的数字和小写字母混合字符串
-                manifest_version_code,// 版本号去除小数点，例如612
-                mResolution,// 屏幕宽高，例如 1920*1080
-                mDpi,// 手机 dpi
-                update_version_code);
-    }
-
-    /**
-     * 获取评论列表
-     *
-     * @param group_id
-     * @param page
-     * @return
-     */
-    public Call<NhComments> getNhComments(String group_id, int page) {
-        return Network.getNeihanApi().getNhComments(group_id,// 段子group_id
-                group_id,//
-                CONTENT_NUM,// 数量
-                page * CONTENT_NUM,// 跳过 n 条
-                mIid,// 一个长度为10的纯数字字符串，用于标识用户唯一性
-                mDeviceId,// 设备 id，一个长度为11的纯数字字符串
-                version_code,// 版本号去除小数点，例如612
-                version_name,// 版本号，例如6.1.2
-                mDeviceType,// 设备型号，例如 hongmi
-                mDeviceBrand,// 设备品牌，例如 xiaomi
-                mOsApi, // 操作系统版本，例如20
-                mOsVersion,// 操作系统版本号，例如7.1.0
-                mUuidEassay,// 用户 id，一个长度为15的纯数字字符串
-                mOpenudId,// 一个长度为16的数字和小写字母混合字符串
-                manifest_version_code,// 版本号去除小数点，例如612
-                mResolution,// 屏幕宽高，例如 1920*1080
-                mDpi,// 手机 dpi
-                update_version_code);
     }
 
     /**

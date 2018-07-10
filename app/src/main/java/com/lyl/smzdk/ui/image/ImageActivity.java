@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.news.NhEassay;
+import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.view.HackyViewPager;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class ImageActivity extends BaseImageActivity {
 
     private ImageAdapter mImageAdapter;
 
-    private List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean> mImageListBeanList;
+    private List<ImageInfo> mImageListBeanList;
     private int mPostion;
 
     @Override
@@ -44,8 +44,7 @@ public class ImageActivity extends BaseImageActivity {
     private void getParameter() {
         Intent intent = getIntent();
         mPostion = intent.getIntExtra(Constans.IMAGE_LIST_POSTION, 0);
-        mImageListBeanList = (List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean>) intent
-                .getSerializableExtra(Constans.IMAGE_LIST);
+        mImageListBeanList = (List<ImageInfo>) intent.getSerializableExtra(Constans.IMAGE_LIST);
     }
 
     private void initView() {
@@ -74,7 +73,7 @@ public class ImageActivity extends BaseImageActivity {
         imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                download(imageBtn, mImageListBeanList.get(mPostion).getUrl(), false);
+                download(imageBtn, mImageListBeanList.get(mPostion).getPic_url(), false);
             }
         });
     }

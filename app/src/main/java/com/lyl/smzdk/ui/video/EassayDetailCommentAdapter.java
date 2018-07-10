@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.main.essay;
+package com.lyl.smzdk.ui.video;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.news.NhComments;
+import com.lyl.smzdk.network.entity.video.NhComments;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
 

@@ -45,11 +45,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.main.essay.EassayDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".ui.main.essay.DetailCommentReplyActivity"
+            android:name=".ui.video.DetailCommentReplyActivity"
             android:screenOrientation="portrait">
         </activity>
 

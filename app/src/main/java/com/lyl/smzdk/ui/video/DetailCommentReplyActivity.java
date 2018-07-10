@@ -1,4 +1,4 @@
-package com.lyl.smzdk.ui.main.essay;
+package com.lyl.smzdk.ui.video;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.network.entity.news.NhCommentReply;
-import com.lyl.smzdk.network.entity.news.NhComments;
+import com.lyl.smzdk.network.entity.video.NhCommentReply;
+import com.lyl.smzdk.network.entity.video.NhComments;
 import com.lyl.smzdk.network.imp.news.NhImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.ImgUtils;

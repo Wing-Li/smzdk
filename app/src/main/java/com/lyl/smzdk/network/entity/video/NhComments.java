@@ -1,4 +1,4 @@
-package com.lyl.smzdk.network.entity.news;
+package com.lyl.smzdk.network.entity.video;
 
 import java.util.List;
 

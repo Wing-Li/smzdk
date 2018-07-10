@@ -1,12 +1,13 @@
 package com.lyl.smzdk.network.entity.images;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Author: lyl
  * Date Created : 2017/12/21.
  */
-public class ImageInfo {
+public class ImageInfo implements Serializable {
 
     private int id;
     private int did;

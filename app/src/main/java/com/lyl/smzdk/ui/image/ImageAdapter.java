@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.lyl.smzdk.network.entity.news.NhEassay;
+import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
 
@@ -19,9 +19,9 @@ import java.util.List;
 public class ImageAdapter extends PagerAdapter {
 
     private Context mContext;
-    private List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean> mData;
+    private List<ImageInfo> mData;
 
-    public ImageAdapter(Context context, List<NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean> data) {
+    public ImageAdapter(Context context, List<ImageInfo> data) {
         mContext = context;
         mData = data;
     }
@@ -52,18 +52,15 @@ public class ImageAdapter extends PagerAdapter {
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        NhEassay.DataBeanX.DataBean.GroupBean.LargeImageListBean bean = mData.get(position);
+        ImageInfo bean = mData.get(position);
         PhotoView photoView = new PhotoView(mContext);
-        photoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        photoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT));
         photoView.setAdjustViewBounds(true);
 
-        if (bean.isIs_gif()) {
-            ImgUtils.load(mContext, bean.getUrl(), photoView);
-        } else {
-            ImgUtils.load(mContext, bean.getUrl(), photoView);
-        }
+        ImgUtils.load(mContext, bean.getPic_url(), photoView);
 
-        LogUtils.d("多图显示", "pos:" + position + " gif:" + bean.isIs_gif() + " ; " + bean.getUrl());
+        LogUtils.d("多图显示", "pos:" + position + bean.getPic_url());
 
         container.addView(photoView);
         return photoView;
