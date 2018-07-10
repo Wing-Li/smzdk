@@ -3,6 +3,7 @@ package com.lyl.smzdk.network;
 
 import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.network.api.ImgsApi;
+import com.lyl.smzdk.network.api.LzsApi;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
@@ -57,9 +58,9 @@ public class Network {
      */
     public final static String URL_IMG_SOGOU_GIF = "http://pic.sogou.com/pic/gif2.0/category.jsp?&from=picIndexTop";
     /**
-     * 闲读
+     * 百度百科 - 冷知识
      */
-    public final static String URL_XIANDU = "http://gank.io/";
+    public final static String URL_LENGZHISHI = "https://wapbaike.baidu.com/api/";
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -71,6 +72,7 @@ public class Network {
     private static XgApi xgConmentApi;
     private static VideoInflaterApi videoInflater;
     private static ImgsApi imgsApi;
+    private static LzsApi lzsApi;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -193,5 +195,16 @@ public class Network {
             imgsApi = retrofit.create(ImgsApi.class);
         }
         return imgsApi;
+    }
+
+    /**
+     * 百度百科 - 冷知识
+     */
+    public static LzsApi getLzsApi() {
+        if (lzsApi == null) {
+            Retrofit retrofit = getRetrofit(URL_LENGZHISHI);
+            lzsApi = retrofit.create(LzsApi.class);
+        }
+        return lzsApi;
     }
 }

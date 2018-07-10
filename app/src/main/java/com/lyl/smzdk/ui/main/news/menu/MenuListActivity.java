@@ -49,7 +49,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         setContentView(R.layout.activity_menu_list);
         ButterKnife.bind(this);
 
-        getPremter();
+        getParameter();
         if (TextUtils.isEmpty(mChannelType)) {
             showToast(R.string.data_error);
             finish();
@@ -94,7 +94,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         actionbarTitle.setText(title);
     }
 
-    private void getPremter() {
+    private void getParameter() {
         Intent intent = getIntent();
         mChannelType = intent.getStringExtra(Constans.I_CHANNEL_TYPE_TYPE);
         mListItemShowType = intent.getIntExtra(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.SHOW_ITEM_CONTENT_1);
