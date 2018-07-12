@@ -19,6 +19,6 @@ public interface YdzxApi {
      * @param cstart  数据开始位置
      * @param cend    数据结束位置
      */
-    @GET("home/q/news_list_for_channel?infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian")
+    @GET("home/q/news_list_for_channel?infinite=false&refresh=1&__from__=pc&multi=5&appid=yidian")
     Call<YdzxInfo> getInfoList(@Query("channel_id") String channel, @Query("cstart") int cstart, @Query("cend") int cend);
 }

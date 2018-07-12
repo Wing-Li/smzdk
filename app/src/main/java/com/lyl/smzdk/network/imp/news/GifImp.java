@@ -11,6 +11,7 @@ import java.util.List;
 import retrofit2.Call;
 
 /**
+ * gif动态图
  * Author: lyl
  * Date Created : 2018/2/11.
  */
