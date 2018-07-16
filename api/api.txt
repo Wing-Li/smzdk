@@ -1,31 +1,3 @@
-知乎：
-
-首页：
-https://api.zhihu.com/topstory?action=down&scroll=up&resolution=1280x720&limit=10
-x-api-version: 3.0.70
-x-app-version: 5.4.1
-x-app-za: OS=Android&Release=4.4.4&Model=7+plus&VersionName=5.4.1&VersionCode=558&Width=720&Height=1280&Installer=Zhihu+Web&WebView=33.0.0.0DeviceType=AndroidPhoneBrand=iPhoneOperatorType=46000
-x-app-build: release
-x-network-type: WiFi
-X-SUGER: SU1FST04NjE1MTA5NDI3NzQ3NDI7QU5EUk9JRF9JRD01MDExMDQzNDcxMjk1ODQ0O01BQz0wODowMDoyNzoyYTpjMzplYg==
-x-udid: AADC4BsknAxLBTdq8Qh0VKkZBUUuvrGVnfk=
-Authorization: Bearer 2.1rCYvAAAAAAAAAMLgGyScDAwAAABgAlVNuXYnWgDXXJDcinzxuGXiCak4Kdv93PfpRA
-
-
-问题答案（第一次不输入个数）
-https://api.zhihu.com/questions/37248069/answers?order_by
-GET https://api.zhihu.com/questions/37248069/answers?order_by&offset=5
-id =  198955004
-
-根据答案里面的 id 获取具体答案：
-GET https://api.zhihu.com/answers/198955004?with_pagination
-
-
-根据 id 获取评论（评论第一次，不输入个数）
-获取的数据里，有 精选评论n个。然后，返回的列表前n个就是精选评论
-https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false
-https://api.zhihu.com/answers/198955004/comments?status=open&reverse_order=false&offset=10
-
 =================================================================
 一点咨询
 阅读：
@@ -95,18 +67,6 @@ https://a1.go2yd.com/Website/channel/news-list-for-channel
 HTTP/1.1
 Cookie: JSESSIONID=_lcjS6D28qn5ou7viuBKHQ
 
-=================================================================
-// 一点资讯
-// 段子
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=29&cend=39&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911373
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u12131&cstart=39&cend=49&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511243911374
-
-// 视频：
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=app_yidian
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=u13746&cstart=0&cend=10&infinite=true&refresh=1&__from__=pc&multi=5&appid=web_yidian&_=1511244170024
-
-// 搞笑
-http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=s10671&cstart=20&cend=30&infinite=false&refresh=1&__from__=pc&multi=5&appid=yidian&_=1531314043056
 =================================================================
 // 微信精选
 // 要闻
@@ -240,13 +200,43 @@ http://api.tianapi.com/txapi/godreply/?key=021f511a2895e4d23b5530cf69ec11ff&num=
 
 段子
 http://m.shenhuif.com/text_2.html
-
 趣图
 http://m.shenhuif.com/pic_2.html
-
 动图
 http://m.shenhuif.com/gif_2.html
 
 
 来福爆笑
 居然搞笑网
+
+
+====================================================================
+Gif 出处
+http://www.gifcc.com/
+
+美女GIF动态图 38
+科幻奇幻电影 47
+恐怖惊悚电影 50
+喜剧搞笑电影 48
+动作冒险电影 49
+其他 fid = 37
+
+http://www.gifcc.com/forum.php?mod=forumdisplay&fid=38&filter=&orderby=dateline&page=2&t=6084822
+http://www.gifcc.com/forum.php?mod=forumdisplay&fid=48&filter=&orderby=dateline&page=4&t=2195255
+http://www.gifcc.com/forum.php?mod=forumdisplay&fid=48&filter=&orderby=dateline&page=7&t=2625985
+
+Gif 车牌
+http://gifcp.org/
+
+Gif 出处
+http://www.gif521.com
+
+分享一些 Gif 出处
+http://www.gifkan.com/
+
+精选李毅网
+http://www.jxzhlyw.com
+======================================================================
+电影片段
+http://dyxpd.net/xjp
+（建议把视频用爬虫爬下来，存进数据库，作为找出处来做一个模块）
