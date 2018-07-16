@@ -34,10 +34,10 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         });
 
         getMultiTypeDelegate()//
-                .registerItemType(Constans.SHOW_ITEM_CONTENT_1, R.layout.item_main_content_1)//
-                .registerItemType(Constans.SHOW_ITEM_CONTENT_2, R.layout.item_main_content_2)//
-                .registerItemType(Constans.SHOW_ITEM_CONTENT_3, R.layout.item_main_content_3)//
-                .registerItemType(Constans.SHOW_ITEM_CONTENT_4, R.layout.item_main_content_4);
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_1, R.layout.item_main_news_content_1)//
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_2, R.layout.item_main_news_content_2)//
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_3, R.layout.item_main_news_content_3)//
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_4, R.layout.item_main_news_content_4);
     }
 
     @Override

@@ -212,12 +212,6 @@ public class MainFragment extends BaseFragment {
         channel.setType(Constans.NEWS_TYPE_MEINV);
         mNewChannelList.add(channel);
 
-//        channel = new NewMenu();
-//        channel.setName(getString(R.string.menu_gif));
-//        channel.setImageRes(R.drawable.duzhe_icon);
-//        channel.setType(Constans.NEWS_TYPE_GIF);
-//        mNewChannelList.add(channel);
-
         channel = new NewMenu();
         channel.setName(getString(R.string.menu_gif));
         channel.setImageRes(R.drawable.gif_icon);

@@ -36,8 +36,8 @@ public class MainContentApadter extends BaseQuickAdapter<NewInfo, BaseViewHolder
         });
 
         getMultiTypeDelegate()//
-                .registerItemType(IMAGE_3, R.layout.item_main_content_3)//
-                .registerItemType(IMAGE_1, R.layout.item_main_content_1);
+                .registerItemType(IMAGE_3, R.layout.item_main_news_content_3)//
+                .registerItemType(IMAGE_1, R.layout.item_main_news_content_1);
     }
 
     @Override
