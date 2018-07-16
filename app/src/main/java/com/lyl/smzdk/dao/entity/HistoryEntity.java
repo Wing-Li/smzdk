@@ -1,7 +1,8 @@
-package com.lyl.smzdk.greendao.gen;
+package com.lyl.smzdk.dao.entity;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
+
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 /**
  * Author: lyl
@@ -10,35 +11,54 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class HistoryEntity {
 
+    @Id
+    private long id;
+
     private String title;
     private String url;
     private String date;
-    @Generated(hash = 2010950680)
+
     public HistoryEntity(String title, String url, String date) {
         this.title = title;
         this.url = url;
         this.date = date;
     }
-    @Generated(hash = 1235354573)
-    public HistoryEntity() {
+
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
-        return this.title;
+        return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getUrl() {
-        return this.url;
+        return url;
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
+
     public String getDate() {
-        return this.date;
+        return date;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
-    
+
+    @Override
+    public String toString() {
+        return "HistoryEntity{" + "id=" + id + ", title='" + title + '\'' + ", url='" + url + '\'' + ", date='" +
+                date + '\'' + '}';
+    }
 }

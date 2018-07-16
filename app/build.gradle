@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'io.objectbox'
 
 //加载资源
 Properties properties = new Properties()
@@ -72,14 +72,6 @@ android {
     }
 }
 
-greendao {
-    schemaVersion 1//数据库版本号
-    //daoPackage 'com.com.sky.downloader.greendao'//设置DaoMaster、DaoSession、Dao包名
-    //targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
-    //targetGenDirTest：设置生成单元测试目录
-    //generateTests：设置自动生成单元测试用例
-}
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
@@ -90,7 +82,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.roughike:bottom-bar:2.3.1'
     compile 'org.jsoup:jsoup:1.10.2'
-    compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'

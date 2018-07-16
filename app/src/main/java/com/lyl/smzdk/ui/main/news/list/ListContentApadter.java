@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.greendao.imp.HistoryImp;
+import com.lyl.smzdk.dao.imp.HistoryImp;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.utils.ImgUtils;
 
@@ -52,7 +52,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         }
 
         // 如果历史记录已经已经有了，就显示灰色
-        if (HistoryImp.isHistoryExist(newInfo.getTitle(), newInfo.getUrl())) {
+        if (new HistoryImp(mContext).isHistoryExist(newInfo.getTitle(), newInfo.getUrl())) {
             holder.setTextColor(R.id.item_main_content_title, ContextCompat.getColor(mContext, R.color.black_flee_two));
 
             View view = holder.getView(R.id.item_main_content_introduce);

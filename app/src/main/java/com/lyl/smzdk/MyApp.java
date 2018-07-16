@@ -3,16 +3,15 @@ package com.lyl.smzdk;
 import android.app.Application;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.lyl.smzdk.greendao.MyHelper;
-import com.lyl.smzdk.greendao.gen.DaoMaster;
-import com.lyl.smzdk.greendao.gen.DaoSession;
+import com.lyl.smzdk.dao.entity.MyObjectBox;
 import com.lyl.smzdk.utils.MyUtils;
 import com.tencent.bugly.Bugly;
 
-import org.greenrobot.greendao.database.Database;
-
 import java.io.File;
+
+import io.objectbox.BoxStore;
 
 /**
  * Author: lyl
@@ -25,7 +24,7 @@ public class MyApp extends Application {
     private static String appPath;
     private static String appImagePath;
 
-    public static DaoSession mDaoSession;
+    private BoxStore boxStore;
 
     public static boolean isWifi;
 
@@ -34,7 +33,7 @@ public class MyApp extends Application {
         super.onCreate();
 
         initBugly();
-        getDB();
+        getBoxStore();
     }
 
     private void initBugly() {
@@ -46,14 +45,13 @@ public class MyApp extends Application {
         }
     }
 
-    public DaoSession getDB() {
-        if (mDaoSession == null) {
-            MyHelper myHelper = new MyHelper(this);
-            Database db = myHelper.getWritableDb();
-            mDaoSession = new DaoMaster(db).newSession();
+    public BoxStore getBoxStore() {
+        if (boxStore == null) {
+            boxStore = MyObjectBox.builder().androidContext(this).build();
+            Log.d("App", "Using ObjectBox " + BoxStore.getVersion() + " (" + BoxStore.getVersionNative() + ")");
         }
 
-        return mDaoSession;
+        return boxStore;
     }
 
     public static String getAppPath() {
