@@ -22,7 +22,6 @@ import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.greendao.imp.HistoryImp;
 import com.lyl.smzdk.network.imp.news.DzImp;
-import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.view.Html5WebView;
@@ -199,12 +198,6 @@ public class Html5Activity extends BaseActivity {
                         DzImp dzImp = new DzImp();
                         String detail = dzImp.getDetail(mUrl);
                         html = HTML_MODEL.DUZHE.replace(HTML_MODEL.REPLACE_DEFAULT, detail);
-                        break;
-                    }
-                    case Constans.NEWS_TYPE_XIUXIAN: {
-                        YdzxImp ydzxImp = new YdzxImp();
-                        String detail = ydzxImp.getDetail(mUrl);
-                        html = HTML_MODEL.YDZX.replace(HTML_MODEL.REPLACE_DEFAULT, detail);
                         break;
                     }
                 }

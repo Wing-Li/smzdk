@@ -28,17 +28,17 @@ public class Constans {
     // 冷知识
     public static final String NEWS_TYPE_LENGZHISHI = "10009";
 
-    // 磁力
-    public static final String BT_TYPE_1 = "zhongziso";
-    public static final String BT_TYPE_2 = "diaosisou";
-    public static final String BT_TYPE_3 = "runbt";
-    public static final String BT_TYPE_4 = "zhongzicili";
-
     // 显示布局的类型
     public static final int SHOW_ITEM_CONTENT_1 = 10001;
     public static final int SHOW_ITEM_CONTENT_2 = 10002;
     public static final int SHOW_ITEM_CONTENT_3 = 10003;
     public static final int SHOW_ITEM_CONTENT_4 = 10004;
+
+    // 磁力
+    public static final String BT_TYPE_1 = "zhongziso";
+    public static final String BT_TYPE_2 = "diaosisou";
+    public static final String BT_TYPE_3 = "runbt";
+    public static final String BT_TYPE_4 = "zhongzicili";
 
     // 内涵段子 需要的常量字段
     public static String SP_CITY = "sp_city";

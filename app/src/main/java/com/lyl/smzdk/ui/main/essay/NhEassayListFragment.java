@@ -18,22 +18,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewInfo;
-import com.lyl.smzdk.network.entity.news.YdzxInfo;
-import com.lyl.smzdk.network.imp.news.YdzxImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.news.list.ListContentApadter;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 内涵段子的页面。
@@ -60,7 +54,6 @@ public class NhEassayListFragment extends BaseFragment {
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
 
-    private YdzxImp mYdzxImp;
 
     // 页数。
     // 内涵段子，不用页数，每次都是新的
@@ -119,82 +112,81 @@ public class NhEassayListFragment extends BaseFragment {
 
 
     /**
-     * 获取一点资讯的数据
+     * 获取列表的数据
      *
      * @param isRefresh 下拉刷新
      */
     private void getYdzxList(final boolean isRefresh) {
-        setRefresh(true);
-        if (mYdzxImp == null) {
-            mYdzxImp = new YdzxImp();
-        }
-
-        Call<YdzxInfo> gaoXiaoList = mYdzxImp.getGaoXiaoList(mContentType, page);
-        Call<YdzxInfo> clone = gaoXiaoList.clone();
-        clone.enqueue(new Callback<YdzxInfo>() {
-
-            @Override
-            public void onResponse(Call<YdzxInfo> call, Response<YdzxInfo> response) {
-                setRefresh(false);
-                if (response.isSuccessful()) {
-                    YdzxInfo body = response.body();
-                    if (body == null) {
-                        showToast(R.string.data_error);
-                        return;
-                    }
-                    if ("success".equals(body.getStatus())) {
-                        List<YdzxInfo.ResultBean> result = body.getResult();
-                        if (result == null || result.size() <= 0) {
-                            return;
-                        }
-                        // 第一个是目录，删除第一个
-                        result.remove(0);
-
-                        List<NewInfo> newInfoList = new ArrayList<>();
-                        NewInfo info;
-                        for (YdzxInfo.ResultBean bean : result) {
-                            info = new NewInfo();
-                            info.setTitle(bean.getTitle());
-                            info.setImage(bean.getImage());
-                            info.setUrl(bean.getUrl());
-                            info.setIntroduce(bean.getSummary());
-                            info.setTime(bean.getDate());
-                            YdzxInfo.ResultBean.WemediaInfoBean wemedia_info = bean.getWemedia_info();
-                            if (wemedia_info != null) {
-                                info.setAuthor(wemedia_info.getName());
-                                info.setAuthorIcon(wemedia_info.getImage());
-                            }
-
-                            newInfoList.add(info);
-                        }
-
-                        if (newInfoList.size() > 0) {
-                            if (isRefresh) {
-                                mAdapter.setNewData(newInfoList);
-                            } else {
-                                mAdapter.addData(newInfoList);
-                            }
-                        }
-                        mAdapter.loadMoreComplete();
-                    }
-                    page++;
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<YdzxInfo> call, Throwable t) {
-                setRefresh(false);
-                showToast(R.string.net_error);
-                if (t != null) {
-                    CrashReport.postCatchedException(t);
-                }
-            }
-        });
+//        setRefresh(true);
+//        if (mYdzxImp == null) {
+//            mYdzxImp = new YdzxImp();
+//        }
+//
+//        Call<YdzxInfo> gaoXiaoList = mYdzxImp.getGaoXiaoList(mContentType, page);
+//        Call<YdzxInfo> clone = gaoXiaoList.clone();
+//        clone.enqueue(new Callback<YdzxInfo>() {
+//
+//            @Override
+//            public void onResponse(Call<YdzxInfo> call, Response<YdzxInfo> response) {
+//                setRefresh(false);
+//                if (response.isSuccessful()) {
+//                    YdzxInfo body = response.body();
+//                    if (body == null) {
+//                        showToast(R.string.data_error);
+//                        return;
+//                    }
+//                    if ("success".equals(body.getStatus())) {
+//                        List<YdzxInfo.ResultBean> result = body.getResult();
+//                        if (result == null || result.size() <= 0) {
+//                            return;
+//                        }
+//                        // 第一个是目录，删除第一个
+//                        result.remove(0);
+//
+//                        List<NewInfo> newInfoList = new ArrayList<>();
+//                        NewInfo info;
+//                        for (YdzxInfo.ResultBean bean : result) {
+//                            info = new NewInfo();
+//                            info.setTitle(bean.getTitle());
+//                            info.setImage(bean.getImage());
+//                            info.setUrl(bean.getUrl());
+//                            info.setIntroduce(bean.getSummary());
+//                            info.setTime(bean.getDate());
+//                            YdzxInfo.ResultBean.WemediaInfoBean wemedia_info = bean.getWemedia_info();
+//                            if (wemedia_info != null) {
+//                                info.setAuthor(wemedia_info.getName());
+//                                info.setAuthorIcon(wemedia_info.getImage());
+//                            }
+//
+//                            newInfoList.add(info);
+//                        }
+//
+//                        if (newInfoList.size() > 0) {
+//                            if (isRefresh) {
+//                                mAdapter.setNewData(newInfoList);
+//                            } else {
+//                                mAdapter.addData(newInfoList);
+//                            }
+//                        }
+//                        mAdapter.loadMoreComplete();
+//                    }
+//                    page++;
+//                } else {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<YdzxInfo> call, Throwable t) {
+//                setRefresh(false);
+//                showToast(R.string.net_error);
+//                if (t != null) {
+//                    CrashReport.postCatchedException(t);
+//                }
+//            }
+//        });
     }
 
     private void initView() {
-        // 一点咨询 - GIF
         mAdapter = new ListContentApadter(mNewInfoList, Constans.SHOW_ITEM_CONTENT_2);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

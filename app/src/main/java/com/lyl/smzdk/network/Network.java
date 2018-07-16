@@ -7,7 +7,6 @@ import com.lyl.smzdk.network.api.LzsApi;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
-import com.lyl.smzdk.network.api.YdzxApi;
 import com.lyl.smzdk.utils.LogUtils;
 
 import java.io.IOException;
@@ -33,10 +32,6 @@ public class Network {
      */
     private final static String URL_NEIHAN = "http://is.snssdk.com/";
 
-    /**
-     * 一点资讯
-     */
-    private final static String URL_YDZX = "http://www.yidianzixun.com/";
     /**
      * 视频列表
      */
@@ -67,7 +62,6 @@ public class Network {
 
     public static OkHttpClient httpClient;
     private static NeihanApi neihanApi;
-    private static YdzxApi ydzxApi;
     private static XgApi xgApi;
     private static XgApi xgConmentApi;
     private static VideoInflaterApi videoInflater;
@@ -144,16 +138,6 @@ public class Network {
             neihanApi = getRetrofit(URL_NEIHAN).create(NeihanApi.class);
         }
         return neihanApi;
-    }
-
-    /**
-     * 一点咨询
-     */
-    public static YdzxApi getYdzxApi() {
-        if (ydzxApi == null) {
-            ydzxApi = getRetrofit(URL_YDZX).create(YdzxApi.class);
-        }
-        return ydzxApi;
     }
 
     /**
