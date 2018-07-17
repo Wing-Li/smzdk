@@ -24,6 +24,7 @@ import com.lyl.smzdk.dao.imp.HistoryImp;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.LogUtils;
+import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.view.Html5WebView;
 
 import butterknife.BindView;
@@ -89,6 +90,12 @@ public class Html5Activity extends BaseActivity {
                 onBackPressed();
             }
         });
+        actionbarImgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.shareApp(mActivity, mTitle, mUrl);
+            }
+        });
 
         // 创建 WebView
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -126,6 +133,13 @@ public class Html5Activity extends BaseActivity {
     }
 
     class Html5WebClient extends Html5WebView.BaseWebViewClient {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            mUrl = url;
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);

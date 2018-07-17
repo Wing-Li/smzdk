@@ -1,10 +1,15 @@
 package com.lyl.smzdk.utils;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.lyl.smzdk.BuildConfig;
+import com.lyl.smzdk.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -118,11 +123,6 @@ public class MyUtils {
      * @return
      */
     public static String getDate(long cur) {
-//        Calendar c = Calendar.getInstance();
-//        c.setTimeInMillis(cur);
-//        return c.get(Calendar.MONTH) + 1 + "-" + c.get(Calendar.DAY_OF_MONTH) + " " + c.get(Calendar.HOUR_OF_DAY) +
-// ":" + c.get(Calendar
-// .MINUTE);
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
         return format.format(new Date(cur));
     }
@@ -131,20 +131,26 @@ public class MyUtils {
     /**
      * 分享App
      */
-//    public static void shareApp(Activity activity) {
-//        try {
-//            Intent intent = new Intent(Intent.ACTION_SEND);
-//            intent.setType("text/plain");
-//            intent.putExtra(Intent.EXTRA_SUBJECT, activity.getString(R.string.share));//主题
-//            intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_txt, MyApp.mAppShare));//文本
-//            activity.startActivity(intent);
-//        } catch (Exception e) {
-//            ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context
-// .CLIPBOARD_SERVICE);
-//            clipboardManager.setPrimaryClip(ClipData.newPlainText("text", activity.getString(R.string.share_txt,
-//                    MyApp.mAppShare)));
-//
-//            Toast.makeText(activity.getApplicationContext(), R.string.share_error_hint, Toast.LENGTH_LONG).show();
-//        }
-//    }
+    public static void shareApp(Activity activity, String title, String url) {
+        String content = "标题：" + title + //
+                "\n链接：" + url + //
+                "\n\n由“" + activity.getResources().getString(R.string.app_name) + "”App分享";
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "分享");//主题
+            intent.putExtra(Intent.EXTRA_TEXT, content);//文本
+            activity.startActivity(intent);
+
+        } catch (Exception e) {
+            ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboardManager != null) {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("text", content));
+
+                Toast.makeText(activity.getApplicationContext(), "文字已复制到粘贴板，直接去 粘贴 即可。", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
 }

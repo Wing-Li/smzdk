@@ -240,3 +240,8 @@ http://www.jxzhlyw.com
 电影片段
 http://dyxpd.net/xjp
 （建议把视频用爬虫爬下来，存进数据库，作为找出处来做一个模块）
+
+
+======================================================================
+小独
+http://api.peace-read.com/content/query?releaseDate=1531497600000

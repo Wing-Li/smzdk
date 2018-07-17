@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.R2;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.Network;
@@ -51,7 +52,7 @@ import butterknife.BindView;
 public class MainFragment extends BaseFragment {
 
 
-    @BindView(R.id.main_content_list)
+    @BindView(R2.id.main_content_list)
     RecyclerView mainContentListView;
 
     private View headerView;
@@ -194,6 +195,20 @@ public class MainFragment extends BaseFragment {
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
+        channel.setName(getString(R.string.menu_xiandu));
+        channel.setImageRes(R.drawable.xiandu_icon);
+        channel.setType(Constans.NEWS_TYPE_XIANDU);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_4);
+        mNewChannelList.add(channel);
+
+        channel = new NewMenu();
+        channel.setName(getString(R.string.menu_lengzhishi));
+        channel.setImageRes(R.drawable.lengzhishi_icon);
+        channel.setType(Constans.NEWS_TYPE_LENGZHISHI);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
+        mNewChannelList.add(channel);
+
+        channel = new NewMenu();
         channel.setName(getString(R.string.menu_duzhe));
         channel.setImageRes(R.drawable.duzhe_icon);
         channel.setType(Constans.NEWS_TYPE_DUZHE);
@@ -216,20 +231,6 @@ public class MainFragment extends BaseFragment {
         channel.setName(getString(R.string.menu_gif));
         channel.setImageRes(R.drawable.gif_icon);
         channel.setType(Constans.NEWS_TYPE_GIF_WEB);
-        mNewChannelList.add(channel);
-
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_xiandu));
-        channel.setImageRes(R.drawable.xiandu_icon);
-        channel.setType(Constans.NEWS_TYPE_XIANDU);
-        channel.setShowType(Constans.SHOW_ITEM_CONTENT_4);
-        mNewChannelList.add(channel);
-
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_lengzhishi));
-        channel.setImageRes(R.drawable.lengzhishi_icon);
-        channel.setType(Constans.NEWS_TYPE_LENGZHISHI);
-        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
     }

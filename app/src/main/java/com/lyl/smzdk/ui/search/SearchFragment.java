@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -88,8 +89,10 @@ public class SearchFragment extends BaseFragment {
         ClipData.Item item = clipData.getItemAt(0);
         if (item != null) {
             String content = item.getText().toString();
-            searchActionbarEdt.setText(content);
-            searchContent(content);
+            if (!TextUtils.isEmpty(content)){
+                searchActionbarEdt.setText(content);
+                searchContent(content);
+            }
         }
     }
 
