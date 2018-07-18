@@ -14,6 +14,8 @@ import com.lyl.smzdk.ui.main.news.list.MyBaseViewHolder;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
 
+import org.jsoup.Jsoup;
+
 /**
  * 视频评论适配器
  * by lyl on 2017/5/23.
@@ -38,7 +40,8 @@ public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.Com
 
         holder.setText(R.id.item_comment_up_num, String.valueOf(data.getDigg_count()));
 
-        holder.setText(R.id.item_comment_content, data.getText());
+        String text = Jsoup.parse(data.getText()).body().text();
+        holder.setText(R.id.item_comment_content, text);
 
 
         if (data.getReply_count() > 0) {

@@ -95,13 +95,8 @@ public class MainFragment extends BaseFragment {
         onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.home);
         initMenuData();
-        headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
-        mianBanner = headerView.findViewById(R.id.mian_banner);
-        mainMenuListView = headerView.findViewById(R.id.main_menu_list);
-        mainNewNotice = headerView.findViewById(R.id.main_new_notice);
+        
         setContentListView();
-        setBanner();
-        setMenu();
         loadMoreData(new MainLoadDataEvent(page));
     }
 
@@ -290,6 +285,15 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setContentListView() {
+        // 设置头部
+        headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
+        mianBanner = headerView.findViewById(R.id.mian_banner);
+        mainMenuListView = headerView.findViewById(R.id.main_menu_list);
+        mainNewNotice = headerView.findViewById(R.id.main_new_notice);
+        setBanner();
+        setMenu();
+
+        // 设置底部
         mMainContentApadter = new MainContentApadter(mNewInfoList);
         mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
 
@@ -318,7 +322,6 @@ public class MainFragment extends BaseFragment {
                     showToast(getString(R.string.data_error));
                     return;
                 }
-
 
                 Intent intent = new Intent(getHolder(), Html5Activity.class);
                 intent.putExtra(Constans.I_TITLE, info.getTitle());
