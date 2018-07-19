@@ -3,8 +3,8 @@ package com.lyl.smzdk.ui.main.news.menu;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.imp.news.DzImp;
-import com.lyl.smzdk.network.imp.news.JrgxwImp;
 import com.lyl.smzdk.network.imp.news.LzsImp;
+import com.lyl.smzdk.network.imp.news.ShfImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
@@ -63,8 +63,8 @@ public class MenuDataPresenter implements MenuContract.Presenter {
                         break;
                     }
                     case Constans.NEWS_TYPE_XIUXIAN:{ // 内涵精选
-                        JrgxwImp imp = new JrgxwImp();
-                        mNewMenuList = imp.getMenu();
+                        ShfImp imp = new ShfImp();
+                        mNewMenuList = imp.getShfMenu();
                         break;
                     }
                     case Constans.NEWS_TYPE_LENGZHISHI:{ // 冷知识

@@ -97,6 +97,7 @@ public class ImgUtils {
             DraweeController controller = Fresco.newDraweeControllerBuilder()//
                     .setUri(Uri.parse(url))//
                     .setControllerListener(listener)//
+                    .setAutoPlayAnimations(true)
                     .build();
             img.setController(controller);
 
@@ -131,6 +132,7 @@ public class ImgUtils {
      * 加载圆形图片。
      */
     public static void loadCircle(Context context, String url, ImageView imageView) {
+        if (imageView != null)
         Glide.with(context).load(url).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
 

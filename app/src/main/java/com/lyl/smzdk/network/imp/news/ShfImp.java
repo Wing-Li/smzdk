@@ -75,7 +75,9 @@ public class ShfImp {
                     // 图片
                     Element img = j_content.select("img").first();
                     if (img != null){
-                        info.setImage(SHENHUIFU_BASE + img.attr("src"));
+                        // 动图这里如果是 “m_” 的话，不会动
+                        String imgUrl = img.attr("src").replace("m_", "");
+                        info.setImage(SHENHUIFU_BASE + imgUrl);
                     }
                     // 内容
                     Element content_txt = j_content.select("div.content-txt").first();

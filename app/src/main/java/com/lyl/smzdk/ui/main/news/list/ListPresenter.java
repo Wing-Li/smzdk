@@ -4,8 +4,8 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.LzsInfo;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.DzImp;
-import com.lyl.smzdk.network.imp.news.JrgxwImp;
 import com.lyl.smzdk.network.imp.news.LzsImp;
+import com.lyl.smzdk.network.imp.news.ShfImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
@@ -78,8 +78,8 @@ public class ListPresenter implements ListContract.Presenter {
                     }
 
                     case Constans.NEWS_TYPE_XIUXIAN:{ // 内涵精选
-                        JrgxwImp jrgxwImp = new JrgxwImp();
-                        newInfoList = jrgxwImp.getInfo(type, page);
+                        ShfImp imp = new ShfImp();
+                        newInfoList = imp.getInfo(type, page);
                         break;
                     }
 
