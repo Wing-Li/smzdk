@@ -126,7 +126,7 @@ public class ZhImp {
                 // 如果有图片的话，获取图片
                 Element img = element.select("div.td-b div.img-box img").first();
                 if (img != null) {
-                    info.setImage(img.attr("src"));
+                    info.setImage("http:" + img.attr("src"));
                 }
 
                 newInfoList.add(info);

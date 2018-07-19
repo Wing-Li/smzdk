@@ -26,7 +26,6 @@ import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.lyl.smzdk.ui.main.essay.NhMenuActivity;
 import com.lyl.smzdk.ui.main.images.GifWebActivity;
 import com.lyl.smzdk.ui.main.images.ImagesActivity;
 import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
@@ -214,6 +213,7 @@ public class MainFragment extends BaseFragment {
         channel.setName(getString(R.string.menu_neihan));
         channel.setImageRes(R.drawable.neihan_icon);
         channel.setType(Constans.NEWS_TYPE_XIUXIAN);
+        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
         channel = new NewMenu();
@@ -254,27 +254,24 @@ public class MainFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 NewMenu newMenu = mNewChannelList.get(i);
                 Intent intent;
-                if (Constans.NEWS_TYPE_XIUXIAN.equals(newMenu.getType())) { // 内涵精选
-                    intent = new Intent(getHolder(), NhMenuActivity.class);
-                    startActivity(intent);
-
-                } else if(Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())){
+                if(Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())){ // 美图
                     intent = new Intent(getHolder(), ImagesActivity.class);
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_IMG);
                     startActivity(intent);
 
-                } else if(Constans.NEWS_TYPE_GIF.equals(newMenu.getType())){
+                } else if(Constans.NEWS_TYPE_GIF.equals(newMenu.getType())){ // 有趣动图 api 版，暂时没有用
+                    // TODO：下面这个的 api 版，暂时没有用
                     intent = new Intent(getHolder(), ImagesActivity.class);
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
                     startActivity(intent);
 
-                } else if(Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())){
+                } else if(Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())){ // 有趣动图
                     intent = new Intent(getHolder(), GifWebActivity.class);
                     intent.putExtra(Constans.I_URL, Network.URL_IMG_SOGOU_GIF);
                     intent.putExtra(Constans.I_TITLE, newMenu.getName());
                     startActivity(intent);
 
-                } else {// 微信、知乎、读者、闲读、冷知识
+                } else {// 微信、知乎、读者、闲读、冷知识、休闲娱乐
                     intent = new Intent(getHolder(), MenuListActivity.class);
                     intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, newMenu.getType());
                     intent.putExtra(Constans.I_LIST_ITEM_SHOW_TYPE, newMenu.getShowType());

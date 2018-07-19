@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
@@ -45,9 +46,9 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
 
     /**
-     * @param channelType 频道类型。 微信、知乎、读者、闲读
-     * @param menuType    频道底下的二级目录类型
-     * @return
+     * @param channelType  频道类型。 微信、知乎、读者、闲读
+     * @param menuType     频道底下的二级目录类型
+     * @param showItemType 列表样式显示的类型
      */
     public static ListFragment newInstance(String channelType, String menuType, int showItemType) {
         ListFragment listFragment = new ListFragment();
@@ -64,9 +65,11 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
-        mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
-        mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
-        mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.SHOW_ITEM_CONTENT_1);
+        if (arguments != null) {
+            mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
+            mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
+            mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.SHOW_ITEM_CONTENT_1);
+        }
     }
 
     @Override
@@ -112,28 +115,34 @@ public class ListFragment extends BaseFragment implements ListContract.View {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
+                if (info == null) return;
+
+                // 如果链接是空的，说不能跳转链接
+                if (TextUtils.isEmpty(info.getUrl())) {
+                    return;
+                }
 
                 Intent intent = new Intent(getHolder(), Html5Activity.class);
                 intent.putExtra(Constans.I_URL, info.getUrl());
                 intent.putExtra(Constans.I_TITLE, info.getTitle());
                 intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, mChannelType);
 
+                // 跳转页面时的共享元素
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     View titleView = view.findViewById(R.id.item_main_content_title);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
-                            (titleView, "content_title"));
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create(titleView,
+                            "content_title"));
                     startActivity(intent, options.toBundle());
                 } else {
                     startActivity(intent);
                 }
 
+                // 点击之后，将看过的条目设置成灰色的，代表已看过。
                 TextView titleView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_title);
                 if (titleView != null) {
                     titleView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_two));
                 }
-
-                TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id
-                        .item_main_content_introduce);
+                TextView introduceView = (TextView) baseQuickAdapter.getViewByPosition(i, R.id.item_main_content_introduce);
                 if (introduceView != null) {
                     introduceView.setTextColor(ContextCompat.getColor(getHolder(), R.color.black_flee_three));
                 }

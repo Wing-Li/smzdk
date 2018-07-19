@@ -4,6 +4,7 @@ import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.entity.news.LzsInfo;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.DzImp;
+import com.lyl.smzdk.network.imp.news.JrgxwImp;
 import com.lyl.smzdk.network.imp.news.LzsImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
@@ -51,26 +52,37 @@ public class ListPresenter implements ListContract.Presenter {
             public void subscribe(final ObservableEmitter<List<NewInfo>> ob) throws Exception {
                 List<NewInfo> newInfoList = new ArrayList<>();
                 switch (channel) {
+
                     case Constans.NEWS_TYPE_WEIXIN: { // 微信精选
                         WxImp wxImp = new WxImp();
                         newInfoList = wxImp.getWxList(type, page);
                         break;
                     }
+
                     case Constans.NEWS_TYPE_ZHIHU: { // 知乎精选
                         ZhImp zhImp = new ZhImp();
                         newInfoList = zhImp.getZhList(type, page);
                         break;
                     }
+
                     case Constans.NEWS_TYPE_DUZHE: { // 读者精选
                         DzImp dzImp = new DzImp();
                         newInfoList = dzImp.getInfo(type, page);
                         break;
                     }
+
                     case Constans.NEWS_TYPE_XIANDU: { // 闲读
                         XdImp xd = new XdImp();
                         newInfoList = xd.getInfo(type, page);
                         break;
                     }
+
+                    case Constans.NEWS_TYPE_XIUXIAN:{ // 内涵精选
+                        JrgxwImp jrgxwImp = new JrgxwImp();
+                        newInfoList = jrgxwImp.getInfo(type, page);
+                        break;
+                    }
+
                     case Constans.NEWS_TYPE_LENGZHISHI: { // 冷知识
                         LzsImp lzs = new LzsImp();
                         Call<List<LzsInfo>> infoCall = lzs.getInfo(type, page);

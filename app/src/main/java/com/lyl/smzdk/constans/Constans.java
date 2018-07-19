@@ -19,7 +19,7 @@ public class Constans {
     public static final String NEWS_TYPE_XIUXIAN = "10004";
     // 美女图片
     public static final String NEWS_TYPE_MEINV = "10005";
-    // 有趣动图
+    // 有趣动图 api 版，暂时没有用
     public static final String NEWS_TYPE_GIF = "10006";
     // 有趣动图
     public static final String NEWS_TYPE_GIF_WEB = "10007";

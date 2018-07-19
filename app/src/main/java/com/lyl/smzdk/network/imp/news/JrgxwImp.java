@@ -35,7 +35,7 @@ public class JrgxwImp {
     private static final String SHENHUIFU_BASE = "https://www.zbjuran.com/";
     private static final String SHENHUIFU_URL = SHENHUIFU_BASE + "%1$s_%2$s.html";
 
-    public List<NewMenu> getShfMenu() {
+    public List<NewMenu> getMenu() {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         NewMenu menu = new NewMenu();

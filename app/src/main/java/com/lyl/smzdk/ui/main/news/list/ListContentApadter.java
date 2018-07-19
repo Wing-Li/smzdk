@@ -42,12 +42,18 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
 
     @Override
     protected void convert(MyBaseViewHolder holder, NewInfo newInfo) {
-        // 设置 标题 和 时间，理论上任何信息应该都有这两个
+        // 设置 标题 ，理论上任何信息应该都有
         holder.setText(R.id.item_main_content_title, newInfo.getTitle());
-        holder.setText(R.id.item_main_content_time, newInfo.getTime());
+
+        // 如果日期为空，就隐藏日期
+        if (TextUtils.isEmpty(newInfo.getTime())) {
+            holder.setVisible(R.id.item_main_content_time, false);
+        } else {
+            holder.setText(R.id.item_main_content_time, newInfo.getTime());
+        }
 
         // 如果 简介 不是空，就设置简介
-        if (!TextUtils.isEmpty(newInfo.getIntroduce())){
+        if (!TextUtils.isEmpty(newInfo.getIntroduce())) {
             holder.setText(R.id.item_main_content_introduce, newInfo.getIntroduce());
         }
 
@@ -56,7 +62,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
             holder.setTextColor(R.id.item_main_content_title, ContextCompat.getColor(mContext, R.color.black_flee_two));
 
             View view = holder.getView(R.id.item_main_content_introduce);
-            if (null != view){
+            if (null != view) {
                 holder.setTextColor(R.id.item_main_content_introduce, ContextCompat.getColor(mContext, R.color.black_flee_three));
             }
         }
@@ -69,7 +75,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         }
 
         // 如果作者Icon为空，则隐藏
-        if (TextUtils.isEmpty(newInfo.getAuthorIcon())){
+        if (TextUtils.isEmpty(newInfo.getAuthorIcon())) {
             holder.setVisible(R.id.item_main_content_author_icon, false);
         } else {
             ImgUtils.loadCircle(mContext, newInfo.getAuthorIcon(), (ImageView) holder.getView(R.id.item_main_content_author_icon));
@@ -78,13 +84,12 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         // 根据图片的存在与否，显示相应的图片
         if (!TextUtils.isEmpty(newInfo.getImage())) { // 单图
             ImgUtils.load(mContext, newInfo.getImage(), (ImageView) holder.getView(R.id.item_main_content_image));
+
         } else if (newInfo.getImages() != null && newInfo.getImages().size() == 3) { // 3 张图
-            ImgUtils.load(mContext, newInfo.getImages().get(0), (ImageView) holder.getView(R.id
-                    .item_main_content_image1));
-            ImgUtils.load(mContext, newInfo.getImages().get(1), (ImageView) holder.getView(R.id
-                    .item_main_content_image2));
-            ImgUtils.load(mContext, newInfo.getImages().get(2), (ImageView) holder.getView(R.id
-                    .item_main_content_image3));
+            ImgUtils.load(mContext, newInfo.getImages().get(0), (ImageView) holder.getView(R.id.item_main_content_image1));
+            ImgUtils.load(mContext, newInfo.getImages().get(1), (ImageView) holder.getView(R.id.item_main_content_image2));
+            ImgUtils.load(mContext, newInfo.getImages().get(2), (ImageView) holder.getView(R.id.item_main_content_image3));
+
         } else {
             // 图片都是空，则隐藏图片
             holder.setVisible(R.id.item_main_content_image, false);

@@ -72,6 +72,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             }
         });
 
+        // 根据类型设置顶部标题
         int title;
         switch (mChannelType) {
             case Constans.NEWS_TYPE_WEIXIN:
@@ -89,6 +90,9 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             case Constans.NEWS_TYPE_LENGZHISHI:
                 title = R.string.menu_lengzhishi;
                 break;
+            case Constans.NEWS_TYPE_XIUXIAN:
+                title = R.string.menu_neihan;
+                break;
             default:
                 title = R.string.app_name;
                 break;
@@ -105,12 +109,14 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
 
     @Override
     public void setMenuTab(final List<NewMenu> menuList) {
+        // 如果 tab 小于4个，顶部 tabbar 充满
         if (menuList.size() <= 4) {
             menuListTablayout.setTabMode(TabLayout.MODE_FIXED);
         }else {
             menuListTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
 
+        // 设置顶部 tab 列表，设置点击 tab 显示 Fragment
         menuListViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

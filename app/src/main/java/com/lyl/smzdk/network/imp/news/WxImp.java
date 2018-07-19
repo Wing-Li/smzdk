@@ -82,7 +82,7 @@ public class WxImp {
                 // 图片
                 Element img = element.select("div[class=img-box] a img").first();
                 String imgSrc = img.attr("src");
-                info.setImage(imgSrc);
+                info.setImage("http:" + imgSrc);
 
                 Element txt_box = element.select("div[class=txt-box]").first();
                 // 标题、链接
