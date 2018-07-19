@@ -1,6 +1,7 @@
 package com.lyl.smzdk.dao.imp;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.dao.entity.HistoryEntity;
@@ -47,6 +48,9 @@ public class HistoryImp {
      * @return
      */
     public boolean isHistoryExist(String title, String url) {
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url))
+            return false;
+
         try {
             Query<HistoryEntity> build = mHistoryEntityBox.query()//
                     .equal(HistoryEntity_.title, title)//

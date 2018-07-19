@@ -33,6 +33,7 @@ public class Constans {
     public static final int SHOW_ITEM_CONTENT_2 = 10002;
     public static final int SHOW_ITEM_CONTENT_3 = 10003;
     public static final int SHOW_ITEM_CONTENT_4 = 10004;
+    public static final int SHOW_ITEM_CONTENT_5 = 10005;
 
     // 磁力
     public static final String BT_TYPE_1 = "zhongziso";
@@ -84,5 +85,6 @@ public class Constans {
     public static String I_CHANNEL_TYPE_TYPE = "i_channel_type_type";
     public static String I_MENU_LIST_TYPE = "i_menu_list_type";
     public static String I_LIST_ITEM_SHOW_TYPE = "i_item_list_type";
+    public static String I_LIST_ITEM_DECORATION = "i_list_item_decoration";
 
 }
