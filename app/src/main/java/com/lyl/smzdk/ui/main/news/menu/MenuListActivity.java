@@ -121,7 +121,21 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
             @Override
             public Fragment getItem(int i) {
                 NewMenu menu = menuList.get(i);
-                return ListFragment.newInstance(mChannelType, menu.getType(), mListItemShowType);
+
+                // 根绝 tab 的其中一项设置相应的列表页面（肯定不是每个大类里面所有的小分类内容都是一样的类型）。
+                int itemShowType = mListItemShowType;
+                // 列表间是否有分割线
+                boolean isDecoration = true;
+
+                // 内涵精选，第 2，3，4 都是以图片为主
+                if (Constans.NEWS_TYPE_XIUXIAN.equals(mChannelType)){
+                    if (i >= 1){
+                        itemShowType = Constans.SHOW_ITEM_CONTENT_5;
+                        isDecoration = false;
+                    }
+                }
+
+                return ListFragment.newInstance(mChannelType, menu.getType(), itemShowType, isDecoration);
             }
 
             @Override

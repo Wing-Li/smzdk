@@ -67,7 +67,7 @@ public class JrgxwImp {
         String url = String.format(SHENHUIFU_URL, type, p + 1);
         try {
             Connection connect = Jsoup.connect(url).validateTLSCertificates(false);
-
+            connect.header("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
             Document jsoup = connect.get();
             Elements post_list = jsoup.select("div.wrapper div.main div.item");
 

@@ -40,6 +40,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     private String mChannelType;
     private String mMenuType;
     private int mShowItemType;
+    private boolean mIsDecoration;
 
     private List<NewInfo> mNewInfos;
     private ListContentApadter mContentApadter;
@@ -49,13 +50,15 @@ public class ListFragment extends BaseFragment implements ListContract.View {
      * @param channelType  频道类型。 微信、知乎、读者、闲读
      * @param menuType     频道底下的二级目录类型
      * @param showItemType 列表样式显示的类型
+     * @param isDecoration 列表间 是否有分割线
      */
-    public static ListFragment newInstance(String channelType, String menuType, int showItemType) {
+    public static ListFragment newInstance(String channelType, String menuType, int showItemType, boolean isDecoration) {
         ListFragment listFragment = new ListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constans.I_CHANNEL_TYPE_TYPE, channelType);
         bundle.putString(Constans.I_MENU_LIST_TYPE, menuType);
         bundle.putInt(Constans.I_LIST_ITEM_SHOW_TYPE, showItemType);
+        bundle.putBoolean(Constans.I_LIST_ITEM_DECORATION, isDecoration);
         listFragment.setArguments(bundle);
 
         return listFragment;
@@ -69,6 +72,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
             mChannelType = arguments.getString(Constans.I_CHANNEL_TYPE_TYPE);
             mMenuType = arguments.getString(Constans.I_MENU_LIST_TYPE);
             mShowItemType = arguments.getInt(Constans.I_LIST_ITEM_SHOW_TYPE, Constans.SHOW_ITEM_CONTENT_1);
+            mIsDecoration = arguments.getBoolean(Constans.I_LIST_ITEM_DECORATION);
         }
     }
 
@@ -107,7 +111,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
         // 设置 RecyclerView
         recyclerview.setLayoutManager(new LinearLayoutManager(getHolder()));
-        recyclerview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
+        if (mIsDecoration) recyclerview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         recyclerview.setAdapter(mContentApadter);
 
         // 设置单击事件
