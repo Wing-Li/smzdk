@@ -14,6 +14,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -73,7 +75,7 @@ public class ImgUtils {
     }
 
     public static void load(Context context, String url, ImageView imageView) {
-        if (imageView instanceof MyImageView){
+        if (imageView instanceof MyImageView) {
             final MyImageView img = (MyImageView) imageView;
 
             ControllerListener listener = new BaseControllerListener<ImageInfo>() {
@@ -94,18 +96,24 @@ public class ImgUtils {
                 }
             };
 
+            // 设置图片的显示信息
             DraweeController controller = Fresco.newDraweeControllerBuilder()//
                     .setUri(Uri.parse(url))//
                     .setControllerListener(listener)//
-                    .setAutoPlayAnimations(true)
+                    .setAutoPlayAnimations(true).build();
+
+            // 设置加载中 的动画
+            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(context.getResources())//
+                    .setPlaceholderImage(R.drawable.loading)//
                     .build();
+            img.setHierarchy(hierarchy);
+
             img.setController(controller);
 
         } else {
             Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
         }
     }
-
 
 
     public static void load(Context context, URL url, ImageView imageView) {
@@ -132,8 +140,7 @@ public class ImgUtils {
      * 加载圆形图片。
      */
     public static void loadCircle(Context context, String url, ImageView imageView) {
-        if (imageView != null)
-        Glide.with(context).load(url).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
+        if (imageView != null) Glide.with(context).load(url).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
 
     /**
@@ -189,7 +196,7 @@ public class ImgUtils {
                     @Override
                     public void onError(Throwable throwable) {
                         downloadImage.downloadImage(null);
-                        LogUtils.d("下载图片出错："+throwable.getLocalizedMessage());
+                        LogUtils.d("下载图片出错：" + throwable.getLocalizedMessage());
                     }
 
                     @Override
