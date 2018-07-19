@@ -1,7 +1,9 @@
 package com.lyl.smzdk.utils;
 
 import android.content.Context;
+import android.graphics.drawable.Animatable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -9,7 +11,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.view.MyImageView;
 
 import java.io.File;
 import java.net.URL;
@@ -64,8 +73,39 @@ public class ImgUtils {
     }
 
     public static void load(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
+        if (imageView instanceof MyImageView){
+            final MyImageView img = (MyImageView) imageView;
+
+            ControllerListener listener = new BaseControllerListener<ImageInfo>() {
+                @Override
+                public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
+                    updateViewSize(img, imageInfo);
+                }
+
+                @Override
+                public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
+                    updateViewSize(img, imageInfo);
+                }
+
+                void updateViewSize(SimpleDraweeView draweeView, @Nullable ImageInfo imageInfo) {
+                    if (imageInfo != null) {
+                        draweeView.setAspectRatio((float) imageInfo.getWidth() / imageInfo.getHeight());
+                    }
+                }
+            };
+
+            DraweeController controller = Fresco.newDraweeControllerBuilder()//
+                    .setUri(Uri.parse(url))//
+                    .setControllerListener(listener)//
+                    .build();
+            img.setController(controller);
+
+        } else {
+            Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
+        }
     }
+
+
 
     public static void load(Context context, URL url, ImageView imageView) {
         Glide.with(context).load(url).apply(baseOptions).into(imageView);

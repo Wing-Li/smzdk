@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lyl.smzdk.dao.entity.MyObjectBox;
 import com.lyl.smzdk.utils.MyUtils;
 import com.tencent.bugly.Bugly;
@@ -34,6 +35,7 @@ public class MyApp extends Application {
 
         initBugly();
         getBoxStore();
+        Fresco.initialize(this);
     }
 
     private void initBugly() {
