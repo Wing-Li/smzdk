@@ -20,18 +20,18 @@
         android:paddingRight="16dp">
 
         <com.lyl.smzdk.view.imageview.MyImageView
-            android:id="@+id/item_eassay_icon"
+            android:id="@+id/item_moment_author_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
         <TextView
-            android:id="@+id/item_eassay_name"
+            android:id="@+id/item_moment_author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:maxLines="1"
             android:textIsSelectable="true"
-            android:textSize="14dp"/>
+            android:textSize="14sp"/>
 
         <View
             android:layout_width="0dp"
@@ -39,14 +39,14 @@
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/item_eassay_time"
+            android:id="@+id/item_moment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"/>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/item_eassay_content"
+        android:id="@+id/item_moment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -55,19 +55,20 @@
         android:textSize="16sp"/>
 
     <RelativeLayout
-        android:id="@+id/item_single_image_layout"
+        android:id="@+id/item_moment_image_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.lyl.smzdk.view.imageview.MyImageView
-            android:id="@+id/item_image_content"
+            android:id="@+id/item_moment_image_single"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@color/bg_gary"/>
+            android:background="@color/bg_gary"
+            android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/item_long_image_text"
+            android:id="@+id/item_moment_long_image_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -77,17 +78,16 @@
             android:paddingTop="8dp"
             android:textSize="14sp"
             android:visibility="gone"/>
+
+        <GridView
+            android:id="@+id/item_moment_image_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:horizontalSpacing="2dp"
+            android:padding="2dp"
+            android:verticalSpacing="2dp"
+            android:visibility="gone"/>
     </RelativeLayout>
-
-
-    <GridView
-        android:id="@+id/item_image_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:horizontalSpacing="2dp"
-        android:padding="2dp"
-        android:verticalSpacing="2dp"
-        android:visibility="gone"/>
 
 </LinearLayout>

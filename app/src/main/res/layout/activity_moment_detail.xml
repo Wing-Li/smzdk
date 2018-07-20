@@ -16,7 +16,7 @@
         android:translationZ="4dp"/>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/eassay_detail_nestedscrollview"
+        android:id="@+id/moment_detail_nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -29,7 +29,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/eassay_detail_layout"
+                android:id="@+id/moment_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -48,12 +48,12 @@
                     android:paddingTop="8dp">
 
                     <com.lyl.smzdk.view.imageview.MyImageView
-                        android:id="@+id/eassay_detail_icon"
+                        android:id="@+id/moment_detail_icon"
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>
 
                     <TextView
-                        android:id="@+id/eassay_detail_name"
+                        android:id="@+id/moment_detail_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -67,7 +67,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/eassay_detail_time"
+                        android:id="@+id/moment_detail_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -83,7 +83,7 @@
                     android:paddingRight="16dp">
 
                     <TextView
-                        android:id="@+id/eassay_detail_content"
+                        android:id="@+id/moment_detail_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elegantTextHeight="true"
@@ -94,13 +94,13 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:id="@+id/eassay_detail_image_content_layout"
+                    android:id="@+id/moment_detail_image_content_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp">
 
                     <com.lyl.smzdk.view.imageview.MyImageView
-                        android:id="@+id/eassay_detail_image_content"
+                        android:id="@+id/moment_detail_image_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -108,7 +108,7 @@
                         android:background="@color/bg_gary"/>
 
                     <TextView
-                        android:id="@+id/eassay_detail_long_image_text"
+                        android:id="@+id/moment_detail_long_image_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -121,7 +121,7 @@
                 </RelativeLayout>
 
                 <GridView
-                    android:id="@+id/eassay_detail_image_grid"
+                    android:id="@+id/moment_detail_image_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -134,13 +134,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/eassay_detail_hot_comment_layout"
+                android:id="@+id/moment_detail_hot_comment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/eassay_detail_hot_count_layout"
+                    android:id="@+id/moment_detail_hot_count_layout"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="bottom"
@@ -155,21 +155,21 @@
                         android:text="热门评论"/>
 
                     <TextView
-                        android:id="@+id/eassay_detail_hot_count"
+                        android:id="@+id/moment_detail_hot_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（5）"/>
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/eassay_detail_recycler_hot"
+                    android:id="@+id/moment_detail_recycler_hot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/eassay_detail_all_comment_layout"
+                android:id="@+id/moment_detail_all_comment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -189,14 +189,14 @@
                         android:text="全部评论"/>
 
                     <TextView
-                        android:id="@+id/eassay_detail_all_count"
+                        android:id="@+id/moment_detail_all_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（5）"/>
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/eassay_detail_recycler_all"
+                    android:id="@+id/moment_detail_recycler_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"/>

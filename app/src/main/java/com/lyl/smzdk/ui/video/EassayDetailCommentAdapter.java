@@ -45,7 +45,7 @@ public class EassayDetailCommentAdapter extends RecyclerView.Adapter<EassayDetai
 
     @Override
     public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_eassay_detail_comment, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_moments_detail_comment, parent, false);
         return new CommentViewHolder(view);
     }
 

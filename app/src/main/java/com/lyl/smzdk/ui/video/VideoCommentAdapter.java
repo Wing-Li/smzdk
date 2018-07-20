@@ -24,7 +24,7 @@ public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.Com
 
 
     public VideoCommentAdapter() {
-        super(R.layout.item_eassay_detail_comment);
+        super(R.layout.item_moments_detail_comment);
     }
 
     @Override

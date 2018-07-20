@@ -60,7 +60,7 @@ public class DetailCommentReplyActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eassay_detail_comment_reply);
+        setContentView(R.layout.activity_monment_detail_comment_reply);
         ButterKnife.bind(this);
 
         getParameter();
