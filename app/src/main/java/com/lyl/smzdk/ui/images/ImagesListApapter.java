@@ -28,23 +28,9 @@ public class ImagesListApapter extends BaseQuickAdapter<ImageInfo, BaseViewHolde
         holder.setText(R.id.item_images_title, shopInfo.getTitle());
 
         if (MyApp.isWifi) {
-            int w = shopInfo.getSthumb_width();
-            int h = shopInfo.getSthumb_height();
-
-            if (h > 2000) {
-                h = 1920;
-            }
-
-            ImgUtils.load(mContext, shopInfo.getSthumbUrl(), (ImageView) holder.getView(R.id.item_images_img), w, h);
+            ImgUtils.load(mContext, shopInfo.getSthumbUrl(), (ImageView) holder.getView(R.id.item_images_img));
         } else {
-            int w = shopInfo.getBthumb_width();
-            int h = shopInfo.getBthumb_height();
-
-            if (h > 2000) {
-                h = 1920;
-            }
-
-            ImgUtils.load(mContext, shopInfo.getBthumbUrl(), (ImageView) holder.getView(R.id.item_images_img), w, h);
+            ImgUtils.load(mContext, shopInfo.getBthumbUrl(), (ImageView) holder.getView(R.id.item_images_img));
         }
     }
 }

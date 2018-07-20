@@ -30,7 +30,7 @@ public class VideoCommentAdapter extends BaseQuickAdapter<XgComment.DataBean.Com
     @Override
     protected void convert(MyBaseViewHolder holder, final XgComment.DataBean.CommentsBean data) {
 
-        ImgUtils.loadCircle(mContext, data.getUser().getAvatar_url(), (ImageView) holder.getView(R.id.item_comment_icon));
+        ImgUtils.loadRound(mContext, data.getUser().getAvatar_url(), (ImageView) holder.getView(R.id.item_comment_icon));
 
         holder.setText(R.id.item_comment_name, data.getUser().getName());
 

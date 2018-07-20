@@ -128,7 +128,7 @@ public class DetailCommentReplyActivity extends BaseActivity {
         actionbar.setTitleColor(R.color.black);
         actionbar.mImgLeft.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
-        ImgUtils.loadCircle(mContext, mUserIcon, commentReplyIcon);
+        ImgUtils.loadRound(mContext, mUserIcon, commentReplyIcon);
 
         commentReplyName.setText(mUserName);
 

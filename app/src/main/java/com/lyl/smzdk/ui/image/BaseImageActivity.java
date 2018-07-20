@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseActivity;
-import com.lyl.smzdk.utils.FileUtils;
 import com.lyl.smzdk.utils.ImgUtils;
 
 import java.io.File;
@@ -30,33 +29,26 @@ public class BaseImageActivity extends BaseActivity {
 
     protected void download(final View view, String fileUrl, final boolean isGif) {
         Toast.makeText(mContext, R.string.download_running, Toast.LENGTH_SHORT).show();
-        if (view != null){
+        if (view != null) {
             view.setVisibility(View.GONE);
         }
 
-        ImgUtils.downloadImg(getApplicationContext(), fileUrl, new ImgUtils.DownloadImage() {
+        String imgName = "";
+        if (isGif) {
+            imgName = "smzdk_" + System.currentTimeMillis() + ".gif";
+        } else {
+            imgName = "smzdk_" + System.currentTimeMillis() + ".jpg";
+        }
+        // 目标路径
+        String destDir = MyApp.getAppImagePath() + File.separator + imgName;
+
+        ImgUtils.downloadImg(fileUrl, destDir, new ImgUtils.DownloadImage() {
             @Override
             public void downloadImage(File imgFile) {
                 if (imgFile != null) {
-                    String imgName = "";
-                    if (isGif){
-                        imgName = "smzdk_" + System.currentTimeMillis() + ".gif";
-                    } else {
-                        imgName = "smzdk_" + System.currentTimeMillis() + ".jpg";
-                    }
-                    // 目标路径
-                    File destDir = new File(MyApp.getAppImagePath() + File.separator + imgName);
-                    // 移动下载的图片到 目标路径
-                    boolean moveFile = FileUtils.moveFile(imgFile.getAbsolutePath(), destDir.getAbsolutePath());
-
-                    if (moveFile) {
-                        mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile
-                                (destDir)));
-                        Toast.makeText(getApplicationContext(), R.string.save_success, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.save_fail, Toast.LENGTH_SHORT).show();
-                    }
-                }else {
+                    mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imgFile)));
+                    Toast.makeText(getApplicationContext(), R.string.save_success, Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(getApplicationContext(), R.string.save_fail, Toast.LENGTH_SHORT).show();
                 }
             }

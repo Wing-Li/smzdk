@@ -2,6 +2,7 @@ package com.lyl.smzdk.network;
 
 
 import com.lyl.smzdk.BuildConfig;
+import com.lyl.smzdk.network.api.DownloadFile;
 import com.lyl.smzdk.network.api.ImgsApi;
 import com.lyl.smzdk.network.api.LzsApi;
 import com.lyl.smzdk.network.api.NeihanApi;
@@ -61,6 +62,7 @@ public class Network {
     private static final int DEFAULT_TIMEOUT = 15;
 
     public static OkHttpClient httpClient;
+    private static DownloadFile downloadFile;
     private static NeihanApi neihanApi;
     private static XgApi xgApi;
     private static XgApi xgConmentApi;
@@ -128,6 +130,16 @@ public class Network {
                 .baseUrl(url)//
                 .addConverterFactory(GsonConverterFactory.create())//
                 .build();
+    }
+
+    /**
+     * 下载文件
+     */
+    public static DownloadFile getDownloadFile() {
+        if (downloadFile == null) {
+            downloadFile = getRetrofit(URL_NEIHAN).create(DownloadFile.class);
+        }
+        return downloadFile;
     }
 
     /**

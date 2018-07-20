@@ -25,9 +25,9 @@ public class MainMenuListAdapter extends BaseQuickAdapter<NewMenu, BaseViewHolde
         holder.setText(R.id.item_main_menu_title, newChannel.getName());
 
         if (newChannel.getImageRes() != 0) {
-            ImgUtils.load(mContext, newChannel.getImageRes(), (ImageView) holder.getView(R.id.item_main_menu_img));
+            holder.setImageResource(R.id.item_main_menu_img, newChannel.getImageRes());
         } else {
-            ImgUtils.loadCircle(mContext, newChannel.getImage(), (ImageView) holder.getView(R.id.item_main_menu_img));
+            ImgUtils.loadRound(mContext, newChannel.getImage(), (ImageView) holder.getView(R.id.item_main_menu_img));
         }
     }
 }

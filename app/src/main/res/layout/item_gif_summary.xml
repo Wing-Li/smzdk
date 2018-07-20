@@ -10,7 +10,7 @@
              android:paddingBottom="4dp"
              android:translationZ="2dp">
 
-    <ImageView
+    <com.lyl.smzdk.view.imageview.MyImageView
         android:id="@+id/item_images_img"
         android:layout_width="100dp"
         android:layout_height="75dp"

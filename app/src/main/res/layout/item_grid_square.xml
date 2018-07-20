@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.lyl.smzdk.view.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent">
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 xmlns:fresco="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <com.lyl.smzdk.view.imageview.MyImageView
         android:id="@+id/item_square"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_gary"
-        android:scaleType="fitXY"/>
+        fresco:actualImageScaleType="fitXY"/>
 
 </com.lyl.smzdk.view.SquareLayout>

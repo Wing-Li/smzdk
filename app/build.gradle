@@ -86,8 +86,7 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.9.0'
     compile 'com.facebook.fresco:animated-gif:1.9.0'
 
-
-// 控件
+    // 控件
     implementation 'com.roughike:bottom-bar:2.3.1'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'

@@ -68,7 +68,7 @@ public class SpecialImageActivity extends BaseImageActivity {
             longImage.setVisibility(View.GONE);
             gifImage.setVisibility(View.VISIBLE);
 
-            ImgUtils.load(mContext, mUrl, gifImage, 0.2f);
+            ImgUtils.load(mContext, mUrl, gifImage);
         }
 
         imageBtn.setOnClickListener(new View.OnClickListener() {

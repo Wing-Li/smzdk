@@ -3,35 +3,37 @@ package com.lyl.smzdk.utils;
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.lyl.smzdk.R;
-import com.lyl.smzdk.view.MyImageView;
+import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.view.imageview.MyImageView;
 
 import java.io.File;
-import java.net.URL;
+import java.io.IOException;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Sink;
+import okio.Source;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -48,36 +50,11 @@ public class ImgUtils {
             .error(errorRes)//
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
-//    DiskCacheStrategy.NONE 什么都不缓存
-//    DiskCacheStrategy.DATA 仅仅只缓存原来的全分辨率的图像。
-//    DiskCacheStrategy.RESOURCE 仅仅缓存最终的图像，即，降低分辨率后的（或者是转换后的）
-//    DiskCacheStrategy.ALL 缓存所有版本的图像
-//    DiskCacheStrategy.AUTOMATIC: 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
-
-    /**
-     * @param context
-     * @param url       图片的地址
-     * @param imageView ImageView
-     * @param thumbnail 简单的缩略图:0.1f 作为参数，Glide 将会显示原始图像的10%的大小
-     */
-    public static void load(Context context, String url, ImageView imageView, float thumbnail) {
-        // 加载GIF慢
-        // https://github.com/bumptech/glide/issues/513#issuecomment-117690923、
-//        Glide glide = Glide.get(context);
-//        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(Network.httpClient);
-//
-//        glide.register(GlideUrl.class, InputStream.class, factory);
-        Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).into(imageView);
-    }
-
-    public static void load(Context context, int url, ImageView imageView) {
-        Glide.with(context).load(url).apply(baseOptions).into(imageView);
-    }
-
-    public static void load(Context context, String url, ImageView imageView) {
+    private static void load(Context context, String url, ImageView imageView, boolean isRound) {
         if (imageView instanceof MyImageView) {
             final MyImageView img = (MyImageView) imageView;
 
+            // 设置高度自适应
             ControllerListener listener = new BaseControllerListener<ImageInfo>() {
                 @Override
                 public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
@@ -97,57 +74,42 @@ public class ImgUtils {
             };
 
             // 设置图片的显示信息
-            DraweeController controller = Fresco.newDraweeControllerBuilder()//
+            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder()//
                     .setUri(Uri.parse(url))//
-                    .setControllerListener(listener)//
-                    .setAutoPlayAnimations(true).build();
+                    .setOldController(img.getController()).setControllerListener(listener)//
+                    .setAutoPlayAnimations(true);
 
             // 设置加载中 的动画
-            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(context.getResources())//
-                    .setPlaceholderImage(R.drawable.loading)//
-                    .build();
-            img.setHierarchy(hierarchy);
+            GenericDraweeHierarchyBuilder hierarchy = new GenericDraweeHierarchyBuilder(context.getResources())//
+                    .setPlaceholderImage(R.drawable.loading);
 
-            img.setController(controller);
+            // 设置圆角图片
+            if (isRound) {
+                RoundingParams roundingParams = RoundingParams.fromCornersRadius(7f);
+                // roundingParams.setOverlayColor(R.color.green);
+                hierarchy.setRoundingParams(roundingParams);
+            }
 
+            img.setHierarchy(hierarchy.build());
+            img.setController(controller.build());
         } else {
             Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
         }
     }
 
 
-    public static void load(Context context, URL url, ImageView imageView) {
-        Glide.with(context).load(url).apply(baseOptions).into(imageView);
-    }
-
-    public static void load(Context context, String url, ImageView imageView, int w, int h) {
-        Glide.with(context).load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
-    }
-
-    public static void load(Context context, String url, ImageView imageView, int w, int h, float thumbnail) {
-        Glide.with(context).load(url).apply(baseOptions).thumbnail(thumbnail).apply(new RequestOptions().override(w, h)).into(imageView);
-    }
-
-    public static void loadGif(Context context, String url, ImageView imageView) {
-        Glide.with(context).asGif().load(url).apply(baseOptions).apply(new RequestOptions()).into(imageView);
-    }
-
-    public static void loadGif(Context context, String url, ImageView imageView, int w, int h) {
-        Glide.with(context).asGif().load(url).apply(baseOptions).apply(new RequestOptions().override(w, h)).into(imageView);
+    /**
+     * 加载图片
+     */
+    public static void load(Context context, String url, ImageView imageView) {
+        if (imageView != null) load(context, url, imageView, false);
     }
 
     /**
      * 加载圆形图片。
      */
-    public static void loadCircle(Context context, String url, ImageView imageView) {
-        if (imageView != null) Glide.with(context).load(url).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
-    }
-
-    /**
-     * 加载圆形图片。加载 uri ，一般用来加载本地图片
-     */
-    public static void loadCircle(Context context, Uri uri, ImageView imageView) {
-        Glide.with(context).load(uri).apply(baseOptions).apply(RequestOptions.circleCropTransform()).into(imageView);
+    public static void loadRound(Context context, String url, ImageView imageView) {
+        if (imageView != null) load(context, url, imageView, true);
     }
 
     /**
@@ -164,45 +126,45 @@ public class ImgUtils {
     /**
      * 下载图片
      *
-     * @param context
-     * @param url
-     * @param downloadImage
+     * @param url           下载地址
+     * @param filePath      文件在本地的地址
+     * @param downloadImage 下载的回调
      */
-    public static void downloadImg(final Context context, final String url, final DownloadImage downloadImage) {
-        Observable.create(new ObservableOnSubscribe<File>() {
+    public static void downloadImg(final String url, final String filePath, final DownloadImage downloadImage) {
+        Call<ResponseBody> clone = Network.getDownloadFile().downloadFile(url).clone();
+
+        clone.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void subscribe(ObservableEmitter<File> observableEmitter) throws Exception {
-                FutureTarget<File> target = Glide.with(context)//
-                        .asFile()//
-                        .load(url)//
-                        .submit();
-                File file = target.get();
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    ResponseBody body = response.body();
+                    if (body != null) {
+                        try {
+                            Source source = Okio.source(body.byteStream());
 
-                observableEmitter.onNext(file);
+                            File file = new File(filePath);
+                            if (!file.exists()) {
+                                file.mkdirs();
+                            }
+                            Sink sink = Okio.sink(file);
+                            BufferedSink bufferedSink = Okio.buffer(sink);
+                            bufferedSink.writeAll(source);
+                            bufferedSink.close();
+
+                            downloadImage.downloadImage(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            downloadImage.downloadImage(null);
+                        }
+                    }
+                }
             }
-        })//
-                .subscribeOn(Schedulers.io())//
-                .observeOn(AndroidSchedulers.mainThread())//
-                .subscribe(new Observer<File>() {
-                    @Override
-                    public void onSubscribe(Disposable disposable) {
-                    }
 
-                    @Override
-                    public void onNext(File file) {
-                        downloadImage.downloadImage(file);
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        downloadImage.downloadImage(null);
-                        LogUtils.d("下载图片出错：" + throwable.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                downloadImage.downloadImage(null);
+            }
+        });
     }
 
     public interface DownloadImage {
@@ -210,43 +172,9 @@ public class ImgUtils {
     }
 
     /**
-     * 释放内存
+     * 删除所有缓存的图像（包括存储和内存）
      */
-    public static void clearMemory(Context context) {
-        Glide.get(context).clearMemory();
-    }
-
-    /**
-     * 取消所有正在下载或等待下载的任务。
-     */
-    public static void cancelAllTasks(Context context) {
-        Glide.with(context).pauseRequests();
-    }
-
-    /**
-     * 恢复所有任务
-     */
-    public static void resumeAllTasks(Context context) {
-        Glide.with(context).resumeRequests();
-    }
-
-    /**
-     * 清除磁盘缓存
-     */
-    public static void clearDiskCache(final Context context) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.get(context).clearDiskCache();
-            }
-        }).start();
-    }
-
-    /**
-     * 清除所有缓存
-     */
-    public static void clearAll(Context context) {
-        clearDiskCache(context);
-        clearMemory(context);
+    public static void clearCachesAll() {
+        Fresco.getImagePipeline().clearCaches();
     }
 }

@@ -36,7 +36,7 @@
 
     </LinearLayout>
 
-    <ImageView
+    <com.lyl.smzdk.view.imageview.MyImageView
         android:id="@+id/item_main_content_image"
         android:layout_width="80dp"
         android:layout_height="80dp"

@@ -33,7 +33,7 @@
             android:paddingRight="16dp"
             android:paddingTop="8dp">
 
-            <ImageView
+            <com.lyl.smzdk.view.imageview.MyImageView
                 android:id="@+id/comment_reply_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>

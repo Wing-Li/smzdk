@@ -21,7 +21,6 @@ import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.news.list.ListContentApadter;
 import com.lyl.smzdk.ui.web.Html5Activity;
-import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 
 import java.util.ArrayList;
@@ -259,6 +258,5 @@ public class NhEassayListFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImgUtils.cancelAllTasks(getHolder().getApplicationContext());
     }
 }

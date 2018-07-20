@@ -21,7 +21,6 @@ import com.lyl.smzdk.ui.main.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.user.UserFragment;
 import com.lyl.smzdk.ui.video.VideoFragment;
-import com.lyl.smzdk.utils.ImgUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -249,7 +248,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImgUtils.clearMemory(getApplicationContext());
     }
 
     private long time = 0;

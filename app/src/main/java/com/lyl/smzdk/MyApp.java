@@ -74,8 +74,8 @@ public class MyApp extends Application {
             return appImagePath;
         }
 
-        String sdFile = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DCIM";
-        File my = new File(sdFile, "Smzdk");
+        String sdFile = getAppPath() + File.separator + "Image";
+        File my = new File(sdFile);
         if (!my.exists()) {
             my.mkdirs();
         }

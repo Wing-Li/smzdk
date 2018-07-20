@@ -79,7 +79,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         if (TextUtils.isEmpty(newInfo.getAuthorIcon())) {
             holder.setVisible(R.id.item_main_content_author_icon, false);
         } else {
-            ImgUtils.loadCircle(mContext, newInfo.getAuthorIcon(), (ImageView) holder.getView(R.id.item_main_content_author_icon));
+            ImgUtils.loadRound(mContext, newInfo.getAuthorIcon(), (ImageView) holder.getView(R.id.item_main_content_author_icon));
         }
 
         // 根据图片的存在与否，显示相应的图片

@@ -53,7 +53,7 @@ public class EassayDetailCommentAdapter extends RecyclerView.Adapter<EassayDetai
     public void onBindViewHolder(CommentViewHolder holder, int position) {
         final NhComments.DataBean.CommentsBean data = mData.get(position);
 
-        ImgUtils.loadCircle(mContext, data.getAvatar_url(), holder.icon);
+        ImgUtils.loadRound(mContext, data.getAvatar_url(), holder.icon);
 
         holder.name.setText(data.getUser_name());
 

@@ -17,7 +17,6 @@ import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
-import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -202,6 +201,5 @@ public class SummaryImagesActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImgUtils.cancelAllTasks(getApplicationContext());
     }
 }

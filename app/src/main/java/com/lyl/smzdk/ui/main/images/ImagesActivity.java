@@ -14,7 +14,6 @@ import com.lyl.smzdk.network.entity.images.ImageMenu;
 import com.lyl.smzdk.network.imp.news.GifImp;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
-import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.view.ActionBar;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -160,6 +159,5 @@ public class ImagesActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImgUtils.clearMemory(getApplicationContext());
     }
 }

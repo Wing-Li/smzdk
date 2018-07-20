@@ -25,13 +25,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.lyl.smzdk.view.MyImageView
+            <com.lyl.smzdk.view.imageview.MyImageView
                 android:id="@+id/item_main_content_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gary_bg_img"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"/>
+                app:actualImageScaleType="fitXY"/>
 
             <TextView
                 android:id="@+id/item_main_content_title"

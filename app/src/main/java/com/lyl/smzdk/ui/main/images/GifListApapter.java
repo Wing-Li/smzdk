@@ -32,14 +32,14 @@ public class GifListApapter extends BaseQuickAdapter<GifInfo.ItemsBean, MyBaseVi
             holder.setText(R.id.item_images_title, title);
         }
 
-        int w = shopInfo.getWidth();
-        int h = shopInfo.getHeight();
+//        int w = shopInfo.getWidth();
+//        int h = shopInfo.getHeight();
+//
+//        if (h > 1280) {
+//            w = 1280 * w / h;
+//            h = 1280;
+//        }
 
-        if (h > 1280) {
-            w = 1280 * w / h;
-            h = 1280;
-        }
-
-        ImgUtils.loadGif(mContext, shopInfo.getPicUrl(), (ImageView) holder.getView(R.id.item_images_img), w, h);
+        ImgUtils.load(mContext, shopInfo.getPicUrl(), (ImageView) holder.getView(R.id.item_images_img));
     }
 }

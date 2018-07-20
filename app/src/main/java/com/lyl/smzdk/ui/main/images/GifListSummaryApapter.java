@@ -32,6 +32,6 @@ public class GifListSummaryApapter extends BaseQuickAdapter<GifInfo.CatesBean, M
             holder.setText(R.id.item_images_title, title);
         }
 
-        ImgUtils.loadGif(mContext, info.getIcon(), (ImageView) holder.getView(R.id.item_images_img));
+        ImgUtils.load(mContext, info.getIcon(), (ImageView) holder.getView(R.id.item_images_img));
     }
 }
