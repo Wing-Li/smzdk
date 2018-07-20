@@ -1,6 +1,7 @@
 package com.lyl.smzdk.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.facebook.common.executors.CallerThreadExecutor;
+import com.facebook.common.references.CloseableReference;
+import com.facebook.datasource.DataSource;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -18,7 +21,12 @@ import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
+import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.view.imageview.MyImageView;
@@ -92,7 +100,9 @@ public class ImgUtils {
 
             img.setHierarchy(hierarchy.build());
             img.setController(controller.build());
+
         } else {
+            // 单个可放大的大图加载时用到
             Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
         }
     }
@@ -112,16 +122,38 @@ public class ImgUtils {
         if (imageView != null) load(context, url, imageView, true);
     }
 
-    /**
-     * 获取 Bitmap 图片
-     *
-     * @param context
-     * @param url
-     * @param simpleTarget
-     */
-    public static void getBitmap(Context context, String url, SimpleTarget simpleTarget) {
-        Glide.with(context).asBitmap().load(url).into(simpleTarget);
+    // ======================================== ↓ 获取Bitmap ↓ ================================================================
+
+    public static void getBitmap(Context context, String url, final BitmapCallback bitmapCallback) {
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).setProgressiveRenderingEnabled(true).build();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, context);
+        dataSource.subscribe(new BaseBitmapDataSubscriber() {
+            @Override
+            public void onNewResultImpl(final Bitmap bitmap) {
+                if (bitmap == null) {
+                    bitmapCallback.onBitmap(null);
+                } else {
+                    bitmapCallback.onBitmap(bitmap);
+                }
+            }
+
+            @Override
+            public void onFailureImpl(DataSource dataSource) {
+                bitmapCallback.onBitmap(null);
+            }
+        }, CallerThreadExecutor.getInstance());
     }
+
+    public interface BitmapCallback {
+        /**
+         * 返回的结果在子线程中，千万注意
+         */
+        void onBitmap(Bitmap bitmap);
+    }
+    // ======================================== ↑ 获取Bitmap ↑ ================================================================
+
+    // ======================================== ↓ 下载图片 ↓ ================================================================
 
     /**
      * 下载图片
@@ -130,7 +162,7 @@ public class ImgUtils {
      * @param filePath      文件在本地的地址
      * @param downloadImage 下载的回调
      */
-    public static void downloadImg(final String url, final String filePath, final DownloadImage downloadImage) {
+    public static void downloadImg(final String url, final String filePath, final DownloadImageCallback downloadImage) {
         Call<ResponseBody> clone = Network.getDownloadFile().downloadFile(url).clone();
 
         clone.enqueue(new Callback<ResponseBody>() {
@@ -151,10 +183,10 @@ public class ImgUtils {
                             bufferedSink.writeAll(source);
                             bufferedSink.close();
 
-                            downloadImage.downloadImage(file);
+                            downloadImage.onDownloadImage(file);
                         } catch (IOException e) {
                             e.printStackTrace();
-                            downloadImage.downloadImage(null);
+                            downloadImage.onDownloadImage(null);
                         }
                     }
                 }
@@ -162,14 +194,16 @@ public class ImgUtils {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                downloadImage.downloadImage(null);
+                downloadImage.onDownloadImage(null);
             }
         });
     }
 
-    public interface DownloadImage {
-        void downloadImage(File imgFile);
+    public interface DownloadImageCallback {
+        void onDownloadImage(File imgFile);
     }
+
+    // ======================================== ↑ 下载图片 ↑ ================================================================
 
     /**
      * 删除所有缓存的图像（包括存储和内存）

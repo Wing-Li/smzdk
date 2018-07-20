@@ -42,9 +42,9 @@ public class BaseImageActivity extends BaseActivity {
         // 目标路径
         String destDir = MyApp.getAppImagePath() + File.separator + imgName;
 
-        ImgUtils.downloadImg(fileUrl, destDir, new ImgUtils.DownloadImage() {
+        ImgUtils.downloadImg(fileUrl, destDir, new ImgUtils.DownloadImageCallback() {
             @Override
-            public void downloadImage(File imgFile) {
+            public void onDownloadImage(File imgFile) {
                 if (imgFile != null) {
                     mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imgFile)));
                     Toast.makeText(getApplicationContext(), R.string.save_success, Toast.LENGTH_SHORT).show();

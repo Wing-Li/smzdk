@@ -2,15 +2,11 @@ package com.lyl.smzdk.ui.image;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -43,28 +39,32 @@ public class SpecialImageActivity extends BaseImageActivity {
         setContentView(R.layout.activity_image_special);
         ButterKnife.bind(this);
 
-        getPrameter();
+        getParameter();
         initView();
     }
 
     private void initView() {
         if (Constans.SPECIAL_IMAGE_LONG.equals(mType)) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-            longImage.setScaleAndCenter(1f, new PointF(displayMetrics.widthPixels, displayMetrics.widthPixels));
             longImage.setVisibility(View.VISIBLE);
             gifImage.setVisibility(View.GONE);
 
-            ImgUtils.getBitmap(mContext, mUrl, new SimpleTarget<Bitmap>() {
+            ImgUtils.getBitmap(mContext, mUrl, new ImgUtils.BitmapCallback() {
                 @Override
-                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                    longImage.setImage(ImageSource.bitmap(resource));
+                public void onBitmap(final Bitmap bitmap) {
+                    if (bitmap != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                longImage.setImage(ImageSource.bitmap(bitmap));
+                            }
+                        });
+                    }
                 }
             });
+
         } else {
             // 默认使用正常的图
-            // ConstantIntent.SPECIAL_IMAGE_NORMAL
             longImage.setVisibility(View.GONE);
             gifImage.setVisibility(View.VISIBLE);
 
@@ -79,7 +79,7 @@ public class SpecialImageActivity extends BaseImageActivity {
         });
     }
 
-    private void getPrameter() {
+    private void getParameter() {
         Intent intent = getIntent();
         mUrl = intent.getStringExtra(Constans.SPECIAL_IMAGE_URL);
         mType = intent.getStringExtra(Constans.SPECIAL_IMAGE_TYPE);
