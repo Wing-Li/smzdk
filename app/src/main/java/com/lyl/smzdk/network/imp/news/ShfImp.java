@@ -52,41 +52,48 @@ public class ShfImp {
 
             NewInfo info;
             for (Element element : post_list) {
-                info = new NewInfo();
+                try {
+                    info = new NewInfo();
 
-                Element u_info = element.select("div.u-info").first();
-                // 作者头像
-                String authorIcon = u_info.select("a.j-u-avatar img").attr("src");
-                info.setAuthorIcon(SHENHUIFU_BASE + authorIcon);
-                // 作者
-                String authorName = u_info.select("p.j-u-name a").first().text();
-                info.setAuthor(authorName.substring(0, authorName.indexOf("Lv")));
-
-                // 标题
-                Element title = u_info.select("p.j-u-name2 a").first();
-                info.setTitle(title.text());
-                // 链接
-                String href = title.attr("href");
-                info.setUrl(SHENHUIFU_BASE + href);
-
-
-                Element j_content = element.select("div.j-content").first();
-                if (j_content != null) {
-                    // 图片
-                    Element img = j_content.select("img").first();
-                    if (img != null){
-                        // 动图这里如果是 “m_” 的话，不会动
-                        String imgUrl = img.attr("src").replace("m_", "");
-                        info.setImage(SHENHUIFU_BASE + imgUrl);
+                    Element u_info = element.select("div.u-info").first();
+                    // 作者头像
+                    String authorIcon = u_info.select("a.j-u-avatar img").attr("src");
+                    info.setAuthorIcon(SHENHUIFU_BASE + authorIcon);
+                    // 作者
+                    Element user_name = u_info.select("p.j-u-user_name a").first();
+                    if (user_name != null) {
+                        String authorName = user_name.text();
+                        info.setAuthor(authorName.substring(0, authorName.indexOf("Lv")));
                     }
-                    // 内容
-                    Element content_txt = j_content.select("div.content-txt").first();
-                    if (content_txt != null){
-                        info.setIntroduce(content_txt.text());
+
+                    // 标题
+                    Element title = u_info.select("p.j-u-name2 a").first();
+                    info.setTitle(title.text());
+                    // 链接
+                    String href = title.attr("href");
+                    info.setUrl(SHENHUIFU_BASE + href);
+
+
+                    Element j_content = element.select("div.j-content").first();
+                    if (j_content != null) {
+                        // 图片
+                        Element img = j_content.select("img").first();
+                        if (img != null) {
+                            // 动图这里如果是 “m_” 的话，不会动
+                            String imgUrl = img.attr("src").replace("m_", "");
+                            info.setImage(SHENHUIFU_BASE + imgUrl);
+                        }
+                        // 内容
+                        Element content_txt = j_content.select("div.content-txt").first();
+                        if (content_txt != null) {
+                            info.setIntroduce(content_txt.text());
+                        }
                     }
+
+                    newInfoList.add(info);
+                } catch (Exception e){
+                    continue;
                 }
-
-                newInfoList.add(info);
             }
 
         } catch (Exception e) {
