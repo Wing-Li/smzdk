@@ -1,5 +1,3 @@
-# 什么值得看
-
 ## License
 
     GNU AGPLv3
