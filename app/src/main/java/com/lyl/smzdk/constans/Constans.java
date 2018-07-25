@@ -6,7 +6,7 @@ package com.lyl.smzdk.constans;
  */
 public class Constans {
 
-    public static String SP_THEME = "sp_theme";
+    public static String API_ENCRYPT_KEY = "";
 
     // News 类型，频道类型
     // 微信精选

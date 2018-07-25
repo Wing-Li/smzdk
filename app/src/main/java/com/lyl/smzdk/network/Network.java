@@ -8,6 +8,7 @@ import com.lyl.smzdk.network.api.LzsApi;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
+import com.lyl.smzdk.network.converter.MyGsonConverterFactory;
 import com.lyl.smzdk.utils.LogUtils;
 
 import java.io.IOException;
@@ -89,6 +90,19 @@ public class Network {
                 .client(httpClient)//
                 .baseUrl(url)//
                 .addConverterFactory(GsonConverterFactory.create())//
+                .build();
+    }
+
+    /**
+     * 请求自己的 API ，返回的数据是加密的
+     * @param url
+     * @return
+     */
+    private static Retrofit getMyRetrofit(String url) {
+        return new Retrofit.Builder()//
+                .client(httpClient)//
+                .baseUrl(url)//
+                .addConverterFactory(MyGsonConverterFactory.create())//
                 .build();
     }
 
