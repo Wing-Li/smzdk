@@ -134,12 +134,17 @@ https://www.ixigua.com/api/comment/get_reply/?comment_id=1590379640268829&dongta
 https://m.zhongziso.com/list/awl/1
 https://m.zhongziso.com/list/%1$s/2
 
-http://www.diaosisou.org/list/awl/1/rala_d
-http://www.diaosisou.org/list/awl/2/rala_d
+http://zhongzicili.xyz/zhongzi/awl/1-0-2.html
 
-http://zhongzicili.pw/zhongzi/awl/1-0-2.html
-http://zhongzicili.me/zhongzi/awl/2-0-2.html
+-------下面没集成------
+http://btfinder.com/main-search-kw-SAI-1.html
 
+这个很快，但是连接需要进入二级页面
+https://idope.se/torrent-list/SAIT-013/
+这个也很快
+http://findcl.com/list?q=sdr&page=2
+需进入二级页面
+https://www.btdalu.com/list/sadt/1/1/1
 =================================================================
 360 图片
 分类：

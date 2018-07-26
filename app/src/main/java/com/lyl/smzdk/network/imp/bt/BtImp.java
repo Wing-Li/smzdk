@@ -35,7 +35,7 @@ public class BtImp {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String url = "https://m.zhongziso.com/list/" + content + "/" + page;
+        String url = "https://m.zhongziso.com/list_ctime/" + content + "/" + page;
         try {
             LogUtils.d("BT-1:" + url);
             Connection connect = Jsoup.connect(url);
@@ -171,7 +171,7 @@ public class BtImp {
     public static List<BtInfo> getList4(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "http://zhongzicili.me/zhongzi/" + content + "/" + page + "-0-2.html";
+        String url = "http://zhongzicili.xyz/zhongzi/" + content + "/" + page + "-0-2.html";
         try {
             LogUtils.d("BT-4:" + url);
             Connection connect = Jsoup.connect(url);
