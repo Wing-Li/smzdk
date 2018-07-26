@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--使用 ScrollView 的原因是 软键盘挡住了输入框，全屏状态下不可调整-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,13 +9,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="32dp">
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginBottom="80dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/transparent_round_bg"
+            android:src="@drawable/icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
             android:background="@drawable/transparent_bg"
             android:orientation="vertical"
             android:padding="16dp">
@@ -22,8 +32,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,7 +45,10 @@
 
                 <EditText
                     android:id="@+id/register_username"
-                    style="@style/LoginItemEditText"/>
+                    style="@style/LoginItemEditText"
+                    android:maxLength="32"
+                    android:inputType="textPhonetic"
+                    android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_"/>
             </LinearLayout>
 
             <View
@@ -45,9 +59,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,7 +73,9 @@
 
                 <EditText
                     android:id="@+id/register_password"
-                    style="@style/LoginItemEditText"/>
+                    style="@style/LoginItemEditText"
+                    android:inputType="textPassword"
+                    android:maxLength="32"/>
             </LinearLayout>
 
             <View
@@ -70,9 +87,10 @@
                 android:id="@+id/register_password_again_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +101,9 @@
 
                 <EditText
                     android:id="@+id/register_password_again"
-                    style="@style/LoginItemEditText"/>
+                    style="@style/LoginItemEditText"
+                    android:inputType="textPassword"
+                    android:maxLength="32"/>
             </LinearLayout>
 
             <View
@@ -95,20 +115,80 @@
                 android:id="@+id/register_nickname_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="昵称："
+                    android:text="昵        称："
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/register_nickname"
-                    style="@style/LoginItemEditText"/>
+                    style="@style/LoginItemEditText"
+                    android:maxLength="12"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
+
+            <LinearLayout
+                android:id="@+id/register_sex_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性        别："
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp">
+
+                    <RadioGroup
+                        android:id="@+id/register_sex_rg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/register_sex_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/white"
+                            android:textColor="@color/white"
+                            android:text="男"/>
+
+                        <RadioButton
+                            android:id="@+id/register_sex_femle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:buttonTint="@color/white"
+                            android:textColor="@color/white"
+                            android:checked="true"
+                            android:text="女"/>
+                    </RadioGroup>
+                </TableRow>
             </LinearLayout>
 
             <View
@@ -124,23 +204,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/register_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:drawableLeft="@drawable/ic_arrow_back_white_24dp"
-                    android:drawableStart="@drawable/ic_arrow_back_white_24dp"
-                    android:gravity="center"
-                    android:text="登 录"
-                    android:textColor="@color/white"
-                    android:textSize="19sp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
-
                 <Button
                     android:id="@+id/register_btn"
                     android:layout_width="wrap_content"
@@ -151,6 +214,23 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/register_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableStart="@drawable/ic_arrow_back_white_24dp"
+                    android:gravity="center"
+                    android:text="登 录"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"/>
+
             </LinearLayout>
 
         </LinearLayout>

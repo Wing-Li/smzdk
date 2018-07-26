@@ -1,9 +1,11 @@
 package com.lyl.smzdk.ui.user;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.transition.Fade;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.MainActivity;
+import com.lyl.smzdk.view.AndroidBug5497Workaround;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,12 +37,25 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_btn_layout)
     LinearLayout loginBtnLayout;
 
+    // 真正的沉浸式模式
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            AndroidBug5497Workaround.assistActivity(this);
+        }
+
+        ButterKnife.bind(this);
         setupWindowAnimations();
         initView();
     }

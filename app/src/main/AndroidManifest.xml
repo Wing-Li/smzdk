@@ -41,10 +41,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.main.essay.NhMenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".ui.video.DetailCommentReplyActivity"
             android:screenOrientation="portrait">
         </activity>
