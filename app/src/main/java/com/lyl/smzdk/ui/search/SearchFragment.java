@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -89,7 +90,8 @@ public class SearchFragment extends BaseFragment {
         ClipData.Item item = clipData.getItemAt(0);
         if (item != null) {
             String content = item.getText().toString();
-            if (!TextUtils.isEmpty(content)){
+            String edtStr = searchActionbarEdt.getText().toString().trim();
+            if (!TextUtils.isEmpty(content) && !content.equals(edtStr)){
                 searchActionbarEdt.setText(content);
                 searchContent(content);
             }
@@ -168,5 +170,11 @@ public class SearchFragment extends BaseFragment {
 
     private void searchContent(String content) {
         EventBus.getDefault().post(new BtLoadDataEvent(content));
+
+        // 隐藏软键盘
+        InputMethodManager imm = (InputMethodManager) getHolder().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(searchActionbarEdt.getWindowToken(), 0);
+        }
     }
 }

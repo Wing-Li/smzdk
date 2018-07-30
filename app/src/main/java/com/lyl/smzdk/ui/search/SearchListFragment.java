@@ -20,6 +20,7 @@ import com.lyl.smzdk.event.BtLoadDataEvent;
 import com.lyl.smzdk.network.entity.bt.BtInfo;
 import com.lyl.smzdk.network.imp.bt.BtImp;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -144,6 +145,7 @@ public class SearchListFragment extends BaseFragment {
                         downloadUrl(info.getBtUrl());
                         break;
                     case R.id.item_search_share:
+                        MyUtils.shareApp(getHolder(), info.getName(), info.getBtUrl());
                         break;
                 }
             }
@@ -194,13 +196,13 @@ public class SearchListFragment extends BaseFragment {
                 List<BtInfo> btInfos = new ArrayList<>();
                 switch (mType) {
                     case Constans.BT_TYPE_1:
-                        btInfos = BtImp.getList3(mContent, page);
+                        btInfos = BtImp.getList(mContent, page);
                         break;
                     case Constans.BT_TYPE_2:
                         btInfos = BtImp.getList2(mContent, page);
                         break;
                     case Constans.BT_TYPE_3:
-                        btInfos = BtImp.getList(mContent, page);
+                        btInfos = BtImp.getList3(mContent, page);
                         break;
                     case Constans.BT_TYPE_4:
                         btInfos = BtImp.getList4(mContent, page);
@@ -230,7 +232,7 @@ public class SearchListFragment extends BaseFragment {
                             } else {
                                 // 返回的数据是 0 个：1. 空数据；2. 加载完了。
                                 if (mSearchListAdapter.getItemCount() <= 0){
-                                    mSearchListAdapter.setEmptyView(R.layout.layout_empty_view);
+                                    mSearchListAdapter.setEmptyView(R.layout.layout_empty_view, searchListview);
                                 }else {
                                     mSearchListAdapter.loadMoreEnd();
                                 }

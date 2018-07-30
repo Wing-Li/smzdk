@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class BtImp {
 
-    public static int timeout = 10000;
+    public static int timeout = 20000;
 
     /**
      * 种子搜
@@ -31,7 +31,7 @@ public class BtImp {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
         try {
-            content = URLEncoder.encode(content,"utf-8");
+            content = URLEncoder.encode(content, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -71,134 +71,142 @@ public class BtImp {
         return infoList;
     }
 
+    private static final String IDOPE_BASE = "https://idope.se";
+    private static final String IDOPE_URL = IDOPE_BASE + "/torrent-list/%1$s/?p=%2$s";
+    private static final String MAGNET_BASE = "magnet:?xt=urn:btih:";
+
+
     /**
-     * 屌丝搜
+     * idope
      */
-    public static List<BtInfo> getList2(String content, int page) {
+    public static List<BtInfo> getList2(String type, int p) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "https://www.diaosisou.org/list/" + content + "/" + page + "/rala_d";
+        String url = String.format(IDOPE_URL, type, p + 1);
         try {
-            LogUtils.d("BT-2:" + url);
             Connection connect = Jsoup.connect(url);
-            // http://www.diaosisou.org/list/%E7%BE%8E%E9%A3%9F/1/rala_d
-//            Upgrade-Insecure-Requests:1
-//            User-Agent:Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
-// Chrome/62.0.3202.94 Safari/537.36
-            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
-                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(timeout);
-            connect.ignoreContentType(true).ignoreHttpErrors(true);
+
             Document jsoup = connect.get();
-            Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
+            Elements post_list = jsoup.select("div[id=div2] div[id=div2child] div.resultdiv");
 
             BtInfo info;
-            for (Element element : list_group) {
+            for (Element element : post_list) {
                 info = new BtInfo();
                 // 标题
-                Element title = element.select("div.T1 a").first();
+                Element title = element.select("div.resultdivtop div.resultdivtopname").first();
                 info.setName(title.text());
 
-                Element dl = element.select("dl.BotInfo").first();
+                Element attr = element.select("div.resultdivbotton").first();
                 // 大小
-                Element size = dl.select("dt span").first();
+                Element size = attr.select("div.resultdivbottonlength").first();
                 info.setSize(size.text());
                 // 时间
-                Element time = dl.select("dt span").get(2);
+                Element time = attr.select("div.resultdivbottontime").first();
                 info.setTime(time.text());
 
                 // 链接
-                Element bt = element.select("div.dInfo a").first();
-                info.setBtUrl(bt.attr("href"));
+                Element btUrl = attr.select("div.hideinfohash").first();
+                info.setBtUrl(MAGNET_BASE + btUrl.text());
 
                 infoList.add(info);
             }
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return infoList;
     }
 
+    // https://www.btdalu.com/list/%E8%8B%8D%E4%BA%95%E7%A9%BA/1/2/0
+    private static final String BTDALU_BASE = "https://www.btdalu.com";
     /**
-     * runbt
+     * %1$s ：内容
+     * %2$s ：页数
+     * 第三个数字：结果排名方式：1.相关性；2.热度；3.大小；4.最近
+     * 第四个数字：1：必须包含所有关键字； 0：不必包含所有
      */
-    public static List<BtInfo> getList3(String content, int page) {
+    private static final String BTDALU_URL = BTDALU_BASE + "/list/%1$s/%2$s/2/1";
+
+    /**
+     * BT大陆
+     */
+    public static List<BtInfo> getList3(String type, int p) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "https://www.runbt.co/list/" + content + "/" + page;
+        String url = String.format(BTDALU_URL, type, p + 1);
         try {
-            LogUtils.d("BT-3:" + url);
-            Connection connect = Jsoup.connect(url);
-            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
-                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(timeout);
-            connect.ignoreContentType(true).ignoreHttpErrors(true);
+            Connection connect = Jsoup.connect(url).validateTLSCertificates(false);
+
             Document jsoup = connect.get();
-            Elements list_group = jsoup.select("div.main").select("ul.mlist").select("li");
+            Elements post_list = jsoup.select("div.list-group div.container div.panel-info");
 
             BtInfo info;
-            for (Element element : list_group) {
+            for (Element element : post_list) {
                 info = new BtInfo();
                 // 标题
-                Element title = element.select("div.T1 a").first();
+                Element title = element.select("h3.panel-title").first();
                 info.setName(title.text());
 
-                Element dl = element.select("dl.BotInfo").first();
+                Element attr = element.select("div.panel-body").first();
+                Elements bodys = attr.select("div.col-xs-12");
                 // 大小
-                Element size = dl.select("dt span").first();
+                Element size = bodys.get(0).select("span").first();
                 info.setSize(size.text());
                 // 时间
-                Element time = dl.select("dt span").get(2);
+                Element time = bodys.get(2).select("span").first();
                 info.setTime(time.text());
 
                 // 链接
-                Element bt = element.select("div.dInfo a").first();
-                info.setBtUrl(bt.attr("href"));
+                String btUrl = bodys.get(3).select("a").attr("onclick");
+                ;
+                btUrl = btUrl.substring(44, 84);
+                info.setBtUrl(MAGNET_BASE + btUrl);
 
                 infoList.add(info);
             }
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return infoList;
     }
 
+    private static final String SHABIBA_BASE = "http://findcl.com";
+    private static final String SHABIBA_URL = SHABIBA_BASE + "/list?q=%1$s&page=%1$s";
+
     /**
-     * 种子搜
+     * 傻逼吧
      */
     public static List<BtInfo> getList4(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = "http://zhongzicili.xyz/zhongzi/" + content + "/" + page + "-0-2.html";
+        String url = String.format(SHABIBA_URL, content, page + 1);
         try {
-            LogUtils.d("BT-4:" + url);
             Connection connect = Jsoup.connect(url);
-            connect.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 " +
-                    "(KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
-            connect.timeout(timeout);
             Document jsoup = connect.get();
-            Elements list_group = jsoup.select("div.content").select("div.list-area").select("dl");
+            Elements list_group = jsoup.select("div.list-main ul.list li");
 
             BtInfo info;
             for (Element element : list_group) {
                 info = new BtInfo();
                 // 标题
-                Element title = element.select("dt a").first();
-                info.setName(title.text());
+                String title = element.select("a").attr("title");
+                info.setName(title);
 
-                Element attr = element.select("dd.attr").first();
+                Elements attr = element.select("div.info div");
                 // 大小
-                Element size = attr.select("span").get(1).select("b").first();
+                Element size = attr.get(1).select("strong").first();
                 info.setSize(size.text());
                 // 时间
-                Element time = attr.select("span").first().select("b").first();
+                Element time = attr.get(2).select("strong").first();
                 info.setTime(time.text());
 
                 // 链接
-                Element bt = attr.select("span").last().select("a").first();
-                info.setBtUrl(bt.attr("href"));
+                String detailUrl = SHABIBA_BASE + element.select("a").attr("href");
+                Element btUrl = Jsoup.connect(detailUrl).get().select("code.break-word").first();
+                info.setBtUrl(btUrl.text());
 
                 infoList.add(info);
             }
