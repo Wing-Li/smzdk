@@ -1,12 +1,14 @@
 package com.lyl.smzdk.ui.main.images;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
@@ -51,6 +53,11 @@ public class ImagesActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_images);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+
         ButterKnife.bind(this);
 
         mType = getIntent().getIntExtra(IMG_TYPE, 1001);

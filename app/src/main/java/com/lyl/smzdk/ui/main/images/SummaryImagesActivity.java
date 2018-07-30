@@ -2,12 +2,14 @@ package com.lyl.smzdk.ui.main.images;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
@@ -17,6 +19,7 @@ import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
+import com.lyl.smzdk.view.AndroidBug5497Workaround;
 import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -58,6 +61,13 @@ public class SummaryImagesActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_images_list);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            AndroidBug5497Workaround.assistActivity(this);
+        }
+
         ButterKnife.bind(this);
 
         Intent intent = getIntent();

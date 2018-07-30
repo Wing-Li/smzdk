@@ -93,9 +93,10 @@ public class MainFragment extends BaseFragment {
 
         onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.home);
+
         initMenuData();
-        
         setContentListView();
+
         loadMoreData(new MainLoadDataEvent(page));
     }
 
