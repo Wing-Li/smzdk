@@ -177,3 +177,13 @@ http://dyxpd.net/xjp
 ======================================================================
 小独
 http://api.peace-read.com/content/query?releaseDate=1531497600000
+
+======================================================================
+挖吧
+
+推荐：http://www.360wa.com/nearest/1
+污段子：http://www.360wa.com/wuduanzi/latest/2
+段子：http://www.360wa.com/duanzi/latest/2
+搞笑图片：http://www.360wa.com/gaoxiaotu/latest/2
+搞笑动图：http://www.360wa.com/gaoxiaogif/latest/2
+极品图：http://www.360wa.com/jipintu/latest/2
