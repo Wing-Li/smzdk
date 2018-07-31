@@ -9,16 +9,16 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:elevation="4dp"
+        android:orientation="vertical"
         android:translationZ="4dp">
 
         <include
             layout="@layout/item_main_header"
             android:layout_width="match_parent"
             android:layout_height="450dp"
-            android:minHeight="400dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"/>
+            android:minHeight="440dp"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed|snap"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

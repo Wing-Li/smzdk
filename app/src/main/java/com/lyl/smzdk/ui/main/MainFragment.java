@@ -53,17 +53,18 @@ public class MainFragment extends BaseFragment {
     @BindView(R2.id.main_content_list)
     RecyclerView mainContentListView;
 
+    // 顶部控件
     Banner mianBanner;
     RecyclerView mainMenuListView;
     TextView mainNewNotice;
 
     private String[] images = {//
             "http://img1.imgtn.bdimg.com/it/u=1794894692,1423685501&fm=27&gp=0.jpg",//
-            "http://upload-images.jianshu.io/upload_images/632860-b921edc6f8fa62e8.png?imageMogr2/auto-orient/strip"
-                    + "%7CimageView2/2/w/1240",//
-            "http://upload-images.jianshu.io/upload_images/1835526-de24e0123e56a526.jpg?imageMogr2/auto-orient/strip"
-                    + "%7CimageView2/2/w/1240",//
-            "http://upload-images.jianshu.io/upload_images/2041831-9824e97cc023b5ac" + "" + "" + "" + "" + "" + "" +
+            "http://upload-images.jianshu.io/upload_images/632860-b921edc6f8fa62e8.png?imageMogr2/auto-orient/strip" +
+                    "%7CimageView2/2/w/1240",//
+            "http://upload-images.jianshu.io/upload_images/1835526-de24e0123e56a526.jpg?imageMogr2/auto-orient/strip" +
+                    "%7CimageView2/2/w/1240",//
+            "http://upload-images.jianshu.io/upload_images/2041831-9824e97cc023b5ac" + "" + "" + "" + "" + "" + "" + "" +
                     ".jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50"};//
     private String[] titles = {//
             "7节异性沟通课，治愈你的尬聊单身症",//
@@ -131,7 +132,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden){
+        if (!hidden) {
             setStatusBarColor(R.color.main_primary);
         }
     }
@@ -254,18 +255,18 @@ public class MainFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 NewMenu newMenu = mNewChannelList.get(i);
                 Intent intent;
-                if(Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())){ // 美图
+                if (Constans.NEWS_TYPE_MEINV.equals(newMenu.getType())) { // 美图
                     intent = new Intent(getHolder(), ImagesActivity.class);
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_IMG);
                     startActivity(intent);
 
-                } else if(Constans.NEWS_TYPE_GIF.equals(newMenu.getType())){ // 有趣动图 api 版，暂时没有用
+                } else if (Constans.NEWS_TYPE_GIF.equals(newMenu.getType())) { // 有趣动图 api 版，暂时没有用
                     // TODO：下面这个的 api 版，暂时没有用
                     intent = new Intent(getHolder(), ImagesActivity.class);
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
                     startActivity(intent);
 
-                } else if(Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())){ // 有趣动图
+                } else if (Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())) { // 有趣动图
                     intent = new Intent(getHolder(), GifWebActivity.class);
                     intent.putExtra(Constans.I_URL, Network.URL_IMG_SOGOU_GIF);
                     intent.putExtra(Constans.I_TITLE, newMenu.getName());
@@ -284,7 +285,7 @@ public class MainFragment extends BaseFragment {
     /**
      * 设置头部 Banner、目录、公告
      */
-    private void setHeader(){
+    private void setHeader() {
         mianBanner = rootView.findViewById(R.id.mian_banner);
         mainMenuListView = rootView.findViewById(R.id.main_menu_list);
         mainNewNotice = rootView.findViewById(R.id.main_new_notice);
