@@ -9,14 +9,16 @@
     tools:context="com.lyl.smzdk.ui.video.VideoFragment">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/images_appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_height="wrap_content">
 
         <com.lyl.smzdk.view.ActionBar
             android:id="@+id/actionbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:translationZ="1dp"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
         <android.support.design.widget.TabLayout

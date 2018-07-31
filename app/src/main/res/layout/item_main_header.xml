@@ -4,7 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:background="@color/white"
               tools:context="com.lyl.smzdk.ui.main.MainFragment">
+
+    <com.lyl.smzdk.view.ActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:translationZ="1dp"/>
 
     <!--轮播图-->
     <com.youth.banner.Banner
@@ -51,7 +59,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="@drawable/gary_bg_img"/>
+        android:background="@drawable/gary_bg_img"
+        android:visibility="gone"/>
 
 </LinearLayout>
 

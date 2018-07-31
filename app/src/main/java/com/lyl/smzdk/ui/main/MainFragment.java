@@ -12,7 +12,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +53,6 @@ public class MainFragment extends BaseFragment {
     @BindView(R2.id.main_content_list)
     RecyclerView mainContentListView;
 
-    private View headerView;
     Banner mianBanner;
     RecyclerView mainMenuListView;
     TextView mainNewNotice;
@@ -95,6 +93,7 @@ public class MainFragment extends BaseFragment {
         mActionBar.setModelOnlyTitle(R.string.home);
 
         initMenuData();
+        setHeader();
         setContentListView();
 
         loadMoreData(new MainLoadDataEvent(page));
@@ -282,19 +281,23 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-    private void setContentListView() {
-        // 设置头部
-        headerView = LayoutInflater.from(getHolder()).inflate(R.layout.item_main_header, null);
-        mianBanner = headerView.findViewById(R.id.mian_banner);
-        mainMenuListView = headerView.findViewById(R.id.main_menu_list);
-        mainNewNotice = headerView.findViewById(R.id.main_new_notice);
+    /**
+     * 设置头部 Banner、目录、公告
+     */
+    private void setHeader(){
+        mianBanner = rootView.findViewById(R.id.mian_banner);
+        mainMenuListView = rootView.findViewById(R.id.main_menu_list);
+        mainNewNotice = rootView.findViewById(R.id.main_new_notice);
         setBanner();
         setMenu();
+    }
 
-        // 设置底部
+    /**
+     * 设置底部 内容
+     */
+    private void setContentListView() {
         mMainContentApadter = new MainContentApadter(mNewInfoList);
         mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
-        mMainContentApadter.setHeaderView(headerView);
         // 加载更多。  注意：默认第一次加载会进入回调
         mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override

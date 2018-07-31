@@ -4,6 +4,8 @@ package com.lyl.smzdk.ui.main.images;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,10 +14,12 @@ import android.view.WindowManager;
 
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.R2;
 import com.lyl.smzdk.network.entity.images.ImageMenu;
 import com.lyl.smzdk.network.imp.news.GifImp;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
+import com.lyl.smzdk.utils.StatusBarCompat;
 import com.lyl.smzdk.view.ActionBar;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -38,11 +42,13 @@ public class ImagesActivity extends BaseActivity {
     public static final int IMG_TYPE_SOGOU_IMG = 1001;
     public static final int IMG_TYPE_SOGOU_GIF = 1002;
 
-    @BindView(R.id.images_tablayout)
+    @BindView(R2.id.images_appbarlayout)
+    AppBarLayout imagesAppBarLayout;
+    @BindView(R2.id.images_tablayout)
     TabLayout imagesTablayout;
-    @BindView(R.id.images_viewpager)
+    @BindView(R2.id.images_viewpager)
     ViewPager imagesViewpager;
-    @BindView(R.id.actionbar)
+    @BindView(R2.id.actionbar)
     ActionBar actionbar;
 
     private int mType;
@@ -67,6 +73,11 @@ public class ImagesActivity extends BaseActivity {
 
     private void initView() {
         actionbar.setModelOnlyTitle(R.string.images_title);
+
+        // 设置顶部不要 浸入 到状态栏里面
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) imagesAppBarLayout.getLayoutParams();
+        layoutParams.setMargins(layoutParams.leftMargin, StatusBarCompat.getStatusBarHeight(mContext), layoutParams.rightMargin, layoutParams.bottomMargin);
+        imagesAppBarLayout.setLayoutParams(layoutParams);
 
         if (!MyApp.isWifi) {
             showToast(R.string.no_wifi_status);
