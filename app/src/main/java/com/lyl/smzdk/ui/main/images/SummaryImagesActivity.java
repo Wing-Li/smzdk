@@ -20,7 +20,7 @@ import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.view.AndroidBug5497Workaround;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;

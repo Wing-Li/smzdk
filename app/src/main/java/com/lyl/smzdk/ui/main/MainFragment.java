@@ -32,7 +32,7 @@ import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -294,9 +294,7 @@ public class MainFragment extends BaseFragment {
         // 设置底部
         mMainContentApadter = new MainContentApadter(mNewInfoList);
         mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
-
         mMainContentApadter.setHeaderView(headerView);
-
         // 加载更多。  注意：默认第一次加载会进入回调
         mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override

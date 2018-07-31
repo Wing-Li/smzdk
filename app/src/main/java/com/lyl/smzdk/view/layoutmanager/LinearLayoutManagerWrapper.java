@@ -1,4 +1,4 @@
-package com.lyl.smzdk.view;
+package com.lyl.smzdk.view.layoutmanager;
 
 
 import android.content.Context;

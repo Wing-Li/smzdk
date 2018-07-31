@@ -21,7 +21,7 @@ import com.lyl.smzdk.network.entity.bt.BtInfo;
 import com.lyl.smzdk.network.imp.bt.BtImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.utils.MyUtils;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

@@ -23,7 +23,7 @@ import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.view.ActionBar;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.List;

@@ -18,7 +18,7 @@ import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 import com.lyl.smzdk.network.imp.video.XgImp;
-import com.lyl.smzdk.view.LinearLayoutManagerWrapper;
+import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;
