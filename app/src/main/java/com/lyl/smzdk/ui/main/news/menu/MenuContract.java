@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MenuContract {
 
-    interface View {
+    public interface View {
 
         /**
          * 将目录设置进列表
@@ -19,7 +19,7 @@ public class MenuContract {
         void setMenuTab(List<NewMenu> menuList);
     }
 
-    interface Presenter {
+    public interface Presenter {
 
         /**
          * 获取目录数据

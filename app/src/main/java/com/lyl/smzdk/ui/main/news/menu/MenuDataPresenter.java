@@ -5,6 +5,7 @@ import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.LzsImp;
 import com.lyl.smzdk.network.imp.news.ShfImp;
+import com.lyl.smzdk.network.imp.news.WabaImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
@@ -70,6 +71,11 @@ public class MenuDataPresenter implements MenuContract.Presenter {
                     case Constans.NEWS_TYPE_LENGZHISHI:{ // 冷知识
                         LzsImp lzs = new LzsImp();
                         mNewMenuList = lzs.getLzsMenu();
+                        break;
+                    }
+                    case Constans.NEWS_TYPE_WABA:{ // 挖吧
+                        WabaImp imp = new WabaImp();
+                        mNewMenuList = imp.getMenu();
                         break;
                     }
                 }

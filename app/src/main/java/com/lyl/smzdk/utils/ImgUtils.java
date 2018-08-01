@@ -60,10 +60,11 @@ public class ImgUtils {
 
     private static void load(Context context, String url, ImageView imageView, boolean isRound) {
         if (imageView instanceof MyImageView) {
+            LogUtils.d("Fresco: " + url);
             final MyImageView img = (MyImageView) imageView;
 
             // 设置高度自适应
-            ControllerListener listener = new BaseControllerListener<ImageInfo>() {
+            ControllerListener<ImageInfo> listener = new BaseControllerListener<ImageInfo>() {
                 @Override
                 public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
                     updateViewSize(img, imageInfo);
@@ -102,6 +103,7 @@ public class ImgUtils {
             img.setController(controller.build());
 
         } else {
+            LogUtils.d("Glide: " + url);
             // 单个可放大的大图加载时用到
             Glide.with(context).load(url.trim()).apply(baseOptions).into(imageView);
         }

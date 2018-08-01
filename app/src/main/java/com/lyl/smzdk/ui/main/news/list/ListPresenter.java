@@ -6,6 +6,7 @@ import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.network.imp.news.LzsImp;
 import com.lyl.smzdk.network.imp.news.ShfImp;
+import com.lyl.smzdk.network.imp.news.WabaImp;
 import com.lyl.smzdk.network.imp.news.WxImp;
 import com.lyl.smzdk.network.imp.news.XdImp;
 import com.lyl.smzdk.network.imp.news.ZhImp;
@@ -122,6 +123,12 @@ public class ListPresenter implements ListContract.Presenter {
                             }
                         });
                         return;
+                    }
+
+                    case Constans.NEWS_TYPE_WABA:{ // 挖吧
+                        WabaImp imp = new WabaImp();
+                        newInfoList = imp.getInfo(type, page);
+                        break;
                     }
                     default:
                         return;

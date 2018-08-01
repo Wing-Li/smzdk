@@ -16,6 +16,7 @@ import java.util.List;
  * Author: lyl
  * Date Created : 2017/11/15.
  */
+@Deprecated
 public class GifListApapter extends BaseQuickAdapter<GifInfo.ItemsBean, MyBaseViewHolder> {
 
 

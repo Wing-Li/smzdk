@@ -27,6 +27,8 @@ public class Constans {
     public static final String NEWS_TYPE_XIANDU = "10008";
     // 冷知识
     public static final String NEWS_TYPE_LENGZHISHI = "10009";
+    // 挖吧，目前用来显示在主页
+    public static final String NEWS_TYPE_WABA = "10010";
 
     // 显示布局的类型
     public static final int SHOW_ITEM_CONTENT_1 = 10001;
@@ -34,6 +36,7 @@ public class Constans {
     public static final int SHOW_ITEM_CONTENT_3 = 10003;
     public static final int SHOW_ITEM_CONTENT_4 = 10004;
     public static final int SHOW_ITEM_CONTENT_5 = 10005;
+    public static final int SHOW_ITEM_CONTENT_6 = 10006;
 
     // 磁力
     public static final String BT_TYPE_1 = "zhongziso";

@@ -38,23 +38,34 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
                 .registerItemType(Constans.SHOW_ITEM_CONTENT_2, R.layout.item_main_news_content_2)//
                 .registerItemType(Constans.SHOW_ITEM_CONTENT_3, R.layout.item_main_news_content_3)//
                 .registerItemType(Constans.SHOW_ITEM_CONTENT_4, R.layout.item_main_news_content_4)//
-                .registerItemType(Constans.SHOW_ITEM_CONTENT_5, R.layout.item_main_news_content_5);
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_5, R.layout.item_main_news_content_5)//
+                .registerItemType(Constans.SHOW_ITEM_CONTENT_6, R.layout.item_main_news_content_6)//
+        ;
     }
 
     @Override
     protected void convert(MyBaseViewHolder holder, NewInfo newInfo) {
-        // 设置 标题 ，理论上任何信息应该都有
-        holder.setText(R.id.item_main_content_title, newInfo.getTitle());
+        // 设置 标题，为空就隐藏
+        if (TextUtils.isEmpty(newInfo.getTitle())){
+            holder.setVisible(R.id.item_main_content_title, false);
+        } else {
+            holder.setVisible(R.id.item_main_content_title, true);
+            holder.setText(R.id.item_main_content_title, newInfo.getTitle());
+        }
 
         // 如果日期为空，就隐藏日期
         if (TextUtils.isEmpty(newInfo.getTime())) {
             holder.setVisible(R.id.item_main_content_time, false);
         } else {
+            holder.setVisible(R.id.item_main_content_time, true);
             holder.setText(R.id.item_main_content_time, newInfo.getTime());
         }
 
-        // 如果 简介 不是空，就设置简介
-        if (!TextUtils.isEmpty(newInfo.getIntroduce())) {
+        // 设置简介 不是空，就设置简介
+        if (TextUtils.isEmpty(newInfo.getIntroduce())) {
+            holder.setVisible(R.id.item_main_content_introduce, false);
+        } else {
+            holder.setVisible(R.id.item_main_content_introduce, true);
             holder.setText(R.id.item_main_content_introduce, newInfo.getIntroduce());
         }
 
@@ -72,6 +83,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         if (TextUtils.isEmpty(newInfo.getAuthor())) {
             holder.setVisible(R.id.item_main_content_author, false);
         } else {
+            holder.setVisible(R.id.item_main_content_author, true);
             holder.setText(R.id.item_main_content_author, newInfo.getAuthor());
         }
 
@@ -79,6 +91,7 @@ public class ListContentApadter extends BaseQuickAdapter<NewInfo, MyBaseViewHold
         if (TextUtils.isEmpty(newInfo.getAuthorIcon())) {
             holder.setVisible(R.id.item_main_content_author_icon, false);
         } else {
+            holder.setVisible(R.id.item_main_content_author_icon, true);
             ImgUtils.loadRound(mContext, newInfo.getAuthorIcon(), (ImageView) holder.getView(R.id.item_main_content_author_icon));
         }
 

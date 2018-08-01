@@ -32,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Deprecated
 public class GifSummarysActivity extends BaseActivity {
 
     public static final String IMAGE_LIST_TYPE = "image_list_type";

@@ -1,17 +1,18 @@
 package com.lyl.smzdk.ui.main;
 
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,16 +23,16 @@ import com.lyl.smzdk.R2;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.Network;
-import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.images.GifWebActivity;
 import com.lyl.smzdk.ui.main.images.ImagesActivity;
+import com.lyl.smzdk.ui.main.news.list.ListFragment;
+import com.lyl.smzdk.ui.main.news.menu.MenuContract;
+import com.lyl.smzdk.ui.main.news.menu.MenuDataPresenter;
 import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
-import com.lyl.smzdk.ui.web.Html5Activity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
-import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -47,11 +48,13 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements MenuContract.View {
 
 
-    @BindView(R2.id.main_content_list)
-    RecyclerView mainContentListView;
+    @BindView(R2.id.main_tablayout)
+    TabLayout mainTablayout;
+    @BindView(R2.id.main_viewpager)
+    ViewPager mainViewpager;
 
     // 顶部控件
     Banner mianBanner;
@@ -73,13 +76,16 @@ public class MainFragment extends BaseFragment {
             "365挑战营与世间事联合征文 /简书那么大，我在哪里？"};//
 
 
+    // 中部目录的列表 和 适配器
     private List<NewMenu> mNewChannelList = new ArrayList<>();
     private MainMenuListAdapter mMenuListAdapter;
 
-    private List<NewInfo> mNewInfoList = new ArrayList<>();
-    private MainContentApadter mMainContentApadter;
-
-    private int page = 1;
+    // 底部内容列表 的 tab
+    private MenuContract.Presenter mDataPresenter;
+    // 底部内容的类型
+    private String mChannelType = Constans.NEWS_TYPE_WABA;
+    // 底部内容的显示类型
+    private int mListItemShowType = Constans.SHOW_ITEM_CONTENT_6;
 
     @Override
     protected int getLayoutResource() {
@@ -97,30 +103,12 @@ public class MainFragment extends BaseFragment {
         setHeader();
         setContentListView();
 
-        loadMoreData(new MainLoadDataEvent(page));
+        loadMoreData(new MainLoadDataEvent(1));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void loadMoreData(MainLoadDataEvent event) {
-        NewInfo newInfo;
-        for (int i = 0; i < 10; i++) {
-            newInfo = new NewInfo();
-            newInfo.setTitle(event.page + "." + i + "BRVAH是一个强大的RecyclerAdapter框架");
-            if (mMainContentApadter.getLoadMoreViewPosition() % 3 == 0) {
-                String[] images = {"http://s.go2yd.com/b/ilulgedc_7g00d1d1.jpg", //
-                        "https://s.go2yd.com/b/j9dslc00_8a19b6b6.png", //
-                        "https://s.go2yd.com/b/j7juj0ba_8708b6b6.jpg"};
-                newInfo.setImages(Arrays.asList(images));
-            } else {
-                newInfo.setImage("http://s.go2yd.com/b/icms7905_7i00d1d1.jpg");
-            }
-            newInfo.setIntroduce("An Amazon Kinesis 应用程序是读取和处理来自 Amazon Kinesis 数据流数据" +//
-                    "的数据使用器。您可以使用 Kinesis API 或 客户端库(KCL) 构建 Amazon Kinesis 应用程序。");
-            newInfo.setUrl("http://www.jianshu.com/p/a43daa1e3d6e");
-            mMainContentApadter.addData(newInfo);
-        }
-        mMainContentApadter.loadMoreComplete();
-        page = ++event.page;
+
     }
 
     @Override
@@ -260,13 +248,14 @@ public class MainFragment extends BaseFragment {
                     intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_IMG);
                     startActivity(intent);
 
-                } else if (Constans.NEWS_TYPE_GIF.equals(newMenu.getType())) { // 有趣动图 api 版，暂时没有用
-                    // TODO：下面这个的 api 版，暂时没有用
-                    intent = new Intent(getHolder(), ImagesActivity.class);
-                    intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
-                    startActivity(intent);
-
-                } else if (Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())) { // 有趣动图
+                }
+//                else if (Constans.NEWS_TYPE_GIF.equals(newMenu.getType())) { // 有趣动图 api 版，暂时没有用
+//                    // TODO：下面这个的 api 版，暂时没有用
+//                    intent = new Intent(getHolder(), ImagesActivity.class);
+//                    intent.putExtra(ImagesActivity.IMG_TYPE, ImagesActivity.IMG_TYPE_SOGOU_GIF);
+//                    startActivity(intent);
+//                }
+                else if (Constans.NEWS_TYPE_GIF_WEB.equals(newMenu.getType())) { // 有趣动图
                     intent = new Intent(getHolder(), GifWebActivity.class);
                     intent.putExtra(Constans.I_URL, Network.URL_IMG_SOGOU_GIF);
                     intent.putExtra(Constans.I_TITLE, newMenu.getName());
@@ -297,47 +286,35 @@ public class MainFragment extends BaseFragment {
      * 设置底部 内容
      */
     private void setContentListView() {
-        mMainContentApadter = new MainContentApadter(mNewInfoList);
-        mMainContentApadter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
-        // 加载更多。  注意：默认第一次加载会进入回调
-        mMainContentApadter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadMoreData(new MainLoadDataEvent(page));
-            }
-        }, mainContentListView);
-        // 当列表滑动到倒数第N个Item的时候(默认是1)回调onLoadMoreRequested方法
-//        mMainContentApadter.setPreLoadNumber(3);
-
-        mainContentListView.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
-        mainContentListView.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
-        mainContentListView.setAdapter(mMainContentApadter);
-        mainContentListView.addOnScrollListener(mOnScrollHideBottombarListener);
-
-        mMainContentApadter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                NewInfo info = (NewInfo) baseQuickAdapter.getItem(i);
-                if (info == null) {
-                    showToast(getString(R.string.data_error));
-                    return;
-                }
-
-                Intent intent = new Intent(getHolder(), Html5Activity.class);
-                intent.putExtra(Constans.I_TITLE, info.getTitle());
-                intent.putExtra(Constans.I_URL, info.getUrl());
-                intent.putExtra(Constans.I_CHANNEL_TYPE_TYPE, Constans.NEWS_TYPE_WEIXIN);
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    View titleView = view.findViewById(R.id.item_main_content_title);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), Pair.create
-                            (titleView, "content_title"));
-                    startActivity(intent, options.toBundle());
-                } else {
-                    startActivity(intent);
-                }
-            }
-        });
+        // 初始化目录数据
+        mDataPresenter = new MenuDataPresenter(this);
+        mDataPresenter.initMenuData(mChannelType);
     }
 
+    /**
+     * 底部内容页，tab 的设置
+     */
+    @Override
+    public void setMenuTab(final List<NewMenu> menuList) {
+        // 设置顶部 tab 列表，设置点击 tab 显示 Fragment
+        mainViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                NewMenu menu = menuList.get(i);
+
+                return ListFragment.newInstance(mChannelType, menu.getType(), mListItemShowType, false);
+            }
+
+            @Override
+            public int getCount() {
+                return menuList.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return menuList.get(position).getName();
+            }
+        });
+        mainTablayout.setupWithViewPager(mainViewpager);
+    }
 }
