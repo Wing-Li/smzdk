@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.ui.image.BaseImageActivity;
+import com.lyl.smzdk.utils.StatusBarCompat;
 import com.lyl.smzdk.view.Html5WebView;
 
 import butterknife.BindView;
@@ -46,6 +47,8 @@ public class GifWebActivity extends BaseImageActivity {
         setContentView(R.layout.activity_web_gif);
         ButterKnife.bind(this);
 
+        translucentNavigation();
+
         Intent intent = getIntent();
         mUrl = intent.getStringExtra(Constans.I_URL);
         mTitle = intent.getStringExtra(Constans.I_TITLE);
@@ -61,8 +64,9 @@ public class GifWebActivity extends BaseImageActivity {
 
     private void initView() {
         // 创建 WebView
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                .MATCH_PARENT);
+        params.setMargins(0, StatusBarCompat.getStatusBarHeight(mContext), 0, 0);
         mWebView = new Html5WebView(getApplicationContext());
         mWebView.setLayoutParams(params);
         mLayout.addView(mWebView);
@@ -87,7 +91,7 @@ public class GifWebActivity extends BaseImageActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url.contains("cdn.sogou.com/")){
+            if (url.contains("cdn.sogou.com/")) {
                 download(null, url, true);
                 return false;
             }

@@ -17,6 +17,9 @@ import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.view.ActionBar;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +137,8 @@ public class DetailCommentReplyActivity extends BaseActivity {
 
         commentReplyTime.setText(MyUtils.getDate(Long.parseLong(mTime)));
 
+        Document parse = Jsoup.parse(mContent);
+        if (parse != null) mContent = parse.text();
         commentReplyContent.setText(mContent);
 
         commentReplyRecycler.setLayoutManager(new LinearLayoutManager(mContext));

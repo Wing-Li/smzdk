@@ -39,13 +39,13 @@ public class SpecialImageActivity extends BaseImageActivity {
         setContentView(R.layout.activity_image_special);
         ButterKnife.bind(this);
 
+        translucentNavigation();
         getParameter();
         initView();
     }
 
     private void initView() {
         if (Constans.SPECIAL_IMAGE_LONG.equals(mType)) {
-
             longImage.setVisibility(View.VISIBLE);
             gifImage.setVisibility(View.GONE);
 

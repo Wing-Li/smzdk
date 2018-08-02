@@ -37,13 +37,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_btn_layout)
     LinearLayout loginBtnLayout;
 
-    // 真正的沉浸式模式
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

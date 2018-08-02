@@ -11,6 +11,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lyl.smzdk.MyApp;
@@ -79,8 +80,8 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * 显示加载圈
      */
-    protected void showDialog(){
-        if (mLoadingDialog == null){
+    protected void showDialog() {
+        if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(mContext);
         }
         mLoadingDialog.show();
@@ -89,9 +90,28 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏加载进度圈
      */
-    protected void hideDialog(){
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()){
+    protected void hideDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
+        }
+    }
+
+    /**
+     * 透明状态栏 和 底部按键透明
+     */
+    protected void translucentStatusAndNavigation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
+    /**
+     * 底部按键透明
+     */
+    protected void translucentNavigation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 

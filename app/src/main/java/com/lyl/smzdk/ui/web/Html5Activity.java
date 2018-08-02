@@ -2,6 +2,7 @@ package com.lyl.smzdk.ui.web;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -136,6 +137,17 @@ public class Html5Activity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // 不是 http 网页，就跳转
+            if (!url.startsWith("http")){
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+                view.goBack();
+                return true;
+            }
+
             mUrl = url;
             return super.shouldOverrideUrlLoading(view, url);
         }

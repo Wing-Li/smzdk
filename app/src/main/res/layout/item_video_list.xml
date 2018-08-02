@@ -28,6 +28,7 @@
             android:id="@+id/item_video_thm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/gary_bg_img"
             android:transitionName="video_play"/>
 
         <ImageView

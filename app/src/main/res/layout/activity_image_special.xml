@@ -8,33 +8,32 @@
     android:background="@color/black"
     tools:context=".ui.image.SpecialImageActivity">
 
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-        android:id="@+id/long_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:transitionName="image"/>
-
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/gif_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:transitionName="image"/>
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/long_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:transitionName="image"
-        android:visibility="gone"
-        android:adjustViewBounds="true"/>
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/image_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="48dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/btn_transparent_bg"
         android:gravity="center"
-        android:textStyle="bold"
+        android:text="@string/save"
         android:textColor="@color/white"
-        android:text="@string/save"/>
+        android:textStyle="bold"/>
 </RelativeLayout>

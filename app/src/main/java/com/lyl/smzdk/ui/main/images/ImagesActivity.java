@@ -72,7 +72,7 @@ public class ImagesActivity extends BaseActivity {
     }
 
     private void initView() {
-        actionbar.setModelOnlyTitle(R.string.images_title);
+        actionbar.setModelBack(R.string.images_title, mActivity);
 
         // 设置顶部不要 浸入 到状态栏里面
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) imagesAppBarLayout.getLayoutParams();

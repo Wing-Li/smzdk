@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#888888</color>
-    <color name="colorPrimaryDark">#888888</color>
+    <color name="colorPrimary">#3d3d3b</color>
+    <color name="colorPrimaryDark">#3d3d3b</color>
     <color name="colorAccent">#333333</color>
 
-    <color name="mian_accent">#1AB0FF</color>
-    <color name="main_primary">#1EA1E5</color>
+    <color name="mian_accent">#26C4FD</color>
+    <color name="main_primary">#3AAAFD</color>
     <color name="video_accent">#fcbe32</color>
-    <color name="video_primary">#DEA82E</color>
+    <color name="video_primary">#FFAC1F</color>
     <color name="search_actionbar">#65FFFFFF</color>
     <color name="search_accent">#00ABC1</color>
     <color name="search_primary">#008c9e</color>

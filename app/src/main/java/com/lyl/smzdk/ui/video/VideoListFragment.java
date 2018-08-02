@@ -84,7 +84,7 @@ public class VideoListFragment extends NoPreloadFragment {
 
     private void setListView() {
         mVideoListAdapter = new VideoListAdapter(R.layout.item_video_list, mInfoList);
-        mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        mVideoListAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mVideoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -102,7 +102,7 @@ public class VideoListFragment extends NoPreloadFragment {
         });
 
         videoListview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
-        videoListview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        videoListview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         videoListview.setAdapter(mVideoListAdapter);
         videoListview.addOnScrollListener(mOnScrollHideBottombarListener);
 
