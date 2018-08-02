@@ -1,11 +1,11 @@
-package com.lyl.smzdk.dao.imp;
+package com.lyl.smzdk.dao.db.imp;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.lyl.smzdk.MyApp;
-import com.lyl.smzdk.dao.entity.HistoryEntity;
-import com.lyl.smzdk.dao.entity.HistoryEntity_;
+import com.lyl.smzdk.dao.db.entity.HistoryEntity;
+import com.lyl.smzdk.dao.db.entity.HistoryEntity_;
 import com.lyl.smzdk.utils.LogUtils;
 
 import java.util.List;

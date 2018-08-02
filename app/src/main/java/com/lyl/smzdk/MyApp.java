@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.lyl.smzdk.dao.entity.MyObjectBox;
+import com.lyl.smzdk.dao.db.entity.MyObjectBox;
 import com.lyl.smzdk.utils.MyUtils;
 import com.tencent.bugly.Bugly;
 
@@ -38,6 +38,9 @@ public class MyApp extends Application {
         Fresco.initialize(this);
     }
 
+    /**
+     * 初始化 bugly
+     */
     private void initBugly() {
         String key = BuildConfig.BuglyKey;
         if (MyUtils.isDev()) {
@@ -47,6 +50,9 @@ public class MyApp extends Application {
         }
     }
 
+    /**
+     * 获取数据库管理
+     */
     public BoxStore getBoxStore() {
         if (boxStore == null) {
             boxStore = MyObjectBox.builder().androidContext(this).build();
@@ -56,6 +62,9 @@ public class MyApp extends Application {
         return boxStore;
     }
 
+    /**
+     * 得到存放文件的路径
+     */
     public static String getAppPath() {
         if (!TextUtils.isEmpty(appPath)) {
             return appPath;
@@ -69,6 +78,9 @@ public class MyApp extends Application {
         return appPath = my.getAbsolutePath();
     }
 
+    /**
+     * 得到存放图片的路径
+     */
     public static String getAppImagePath() {
         if (!TextUtils.isEmpty(appImagePath)) {
             return appImagePath;

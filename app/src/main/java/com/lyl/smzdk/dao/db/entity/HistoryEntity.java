@@ -1,4 +1,4 @@
-package com.lyl.smzdk.dao.entity;
+package com.lyl.smzdk.dao.db.entity;
 
 
 import io.objectbox.annotation.Entity;

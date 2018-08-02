@@ -20,7 +20,7 @@ import android.widget.ViewSwitcher;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.dao.imp.HistoryImp;
+import com.lyl.smzdk.dao.db.imp.HistoryImp;
 import com.lyl.smzdk.network.imp.news.DzImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.LogUtils;

@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.dao.imp.HistoryImp;
+import com.lyl.smzdk.dao.db.imp.HistoryImp;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.utils.ImgUtils;
 
