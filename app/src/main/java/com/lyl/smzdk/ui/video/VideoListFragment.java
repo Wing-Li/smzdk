@@ -14,14 +14,11 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.video.VideoInfo;
 import com.lyl.smzdk.network.entity.video.XgInfo;
 import com.lyl.smzdk.network.imp.video.XgImp;
 import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,17 +104,7 @@ public class VideoListFragment extends NoPreloadFragment {
         videoListview.setLayoutManager(new LinearLayoutManagerWrapper(getHolder()));
         videoListview.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         videoListview.setAdapter(mVideoListAdapter);
-        videoListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy >= 10) {// 手指向上滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(true));
-                } else if (dy <= -10) {// 手指向下滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(false));
-                }
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        videoListview.addOnScrollListener(mOnScrollHideBottombarListener);
 
         videoSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

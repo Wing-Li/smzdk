@@ -113,6 +113,8 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         recyclerview.setLayoutManager(new LinearLayoutManager(getHolder()));
         if (mIsDecoration) recyclerview.addItemDecoration(new DividerItemDecoration(getHolder(), DividerItemDecoration.VERTICAL));
         recyclerview.setAdapter(mContentApadter);
+        // 主页的列表隐藏底部 bar
+        if (Constans.NEWS_TYPE_WABA.equals(mChannelType)) recyclerview.addOnScrollListener(mOnScrollHideBottombarListener);
 
         // 设置单击事件
         mContentApadter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

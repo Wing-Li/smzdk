@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -51,6 +52,8 @@ import butterknife.BindView;
 public class MainFragment extends BaseFragment implements MenuContract.View {
 
 
+    @BindView(R2.id.main_root_layout)
+    CoordinatorLayout mainRootLayout;
     @BindView(R2.id.main_tablayout)
     TabLayout mainTablayout;
     @BindView(R2.id.main_viewpager)
@@ -67,8 +70,7 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
                     "%7CimageView2/2/w/1240",//
             "http://upload-images.jianshu.io/upload_images/1835526-de24e0123e56a526.jpg?imageMogr2/auto-orient/strip" +
                     "%7CimageView2/2/w/1240",//
-            "http://upload-images.jianshu.io/upload_images/2041831-9824e97cc023b5ac" + "" + "" + "" + "" + "" + "" + "" +
-                    ".jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50"};//
+            "http://upload-images.jianshu.io/upload_images/2041831-9824e97cc023b5ac.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50"};//
     private String[] titles = {//
             "7节异性沟通课，治愈你的尬聊单身症",//
             "问答老司机投稿须知",//
@@ -231,7 +233,7 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
                 if (parent.getChildLayoutPosition(view) < 4) {
                     outRect.top = 0;
                 } else {
-                    outRect.top = DisplayUtil.dip2px(getHolder(), 8);
+                    outRect.top = DisplayUtil.dip2px(getHolder(), 4);
                 }
             }
         });

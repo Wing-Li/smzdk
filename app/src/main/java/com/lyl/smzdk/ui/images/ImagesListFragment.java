@@ -14,16 +14,12 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.network.entity.images.ImgsCall;
 import com.lyl.smzdk.network.imp.images.ImgsImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
-import com.lyl.smzdk.utils.NetUtil;
 import com.tencent.bugly.crashreport.CrashReport;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,17 +120,7 @@ public class ImagesListFragment extends BaseFragment {
 
         imageListview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         imageListview.setAdapter(mImagesListApapter);
-        imageListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy >= 5) {// 手指向上滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(true));
-                } else if (dy <= -5) {// 手指向下滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(false));
-                }
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        imageListview.addOnScrollListener(mOnScrollHideBottombarListener);
 
         imageSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
