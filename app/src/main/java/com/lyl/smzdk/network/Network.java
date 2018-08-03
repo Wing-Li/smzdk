@@ -5,6 +5,7 @@ import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.network.api.DownloadFile;
 import com.lyl.smzdk.network.api.ImgsApi;
 import com.lyl.smzdk.network.api.LzsApi;
+import com.lyl.smzdk.network.api.MyApi;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
@@ -58,6 +59,10 @@ public class Network {
      * 百度百科 - 冷知识
      */
     public final static String URL_LENGZHISHI = "https://wapbaike.baidu.com/api/";
+    /**
+     * MyApi
+     */
+    public final static String URL_MYAPI = "https://54.250.237.20:8010/api/";
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -70,6 +75,7 @@ public class Network {
     private static VideoInflaterApi videoInflater;
     private static ImgsApi imgsApi;
     private static LzsApi lzsApi;
+    private static MyApi myApi;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -90,19 +96,6 @@ public class Network {
                 .client(httpClient)//
                 .baseUrl(url)//
                 .addConverterFactory(GsonConverterFactory.create())//
-                .build();
-    }
-
-    /**
-     * 请求自己的 API ，返回的数据是加密的
-     * @param url
-     * @return
-     */
-    private static Retrofit getMyRetrofit(String url) {
-        return new Retrofit.Builder()//
-                .client(httpClient)//
-                .baseUrl(url)//
-                .addConverterFactory(MyGsonConverterFactory.create())//
                 .build();
     }
 
@@ -216,5 +209,20 @@ public class Network {
             lzsApi = retrofit.create(LzsApi.class);
         }
         return lzsApi;
+    }
+
+    /**
+     * MyApi
+     */
+    public static MyApi getMyApi() {
+        if (myApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()//
+                    .client(httpClient)//
+                    .baseUrl(URL_MYAPI)//
+                    .addConverterFactory(MyGsonConverterFactory.create())//
+                    .build();
+            myApi = retrofit.create(MyApi.class);
+        }
+        return myApi;
     }
 }
