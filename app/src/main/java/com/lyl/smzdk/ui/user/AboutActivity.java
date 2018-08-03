@@ -34,7 +34,7 @@ public class AboutActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         actionbar.setBackgroundResource(R.color.colorPrimaryDark);
-        actionbar.setModelBack(R.string.acout, mActivity);
+        actionbar.setModelBack(R.string.about, mActivity);
 
         String versionName = "1.0.0";
         try {

@@ -56,7 +56,7 @@ public class UserFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
-        if (!hidden){
+        if (!hidden) {
             setStatusBarColor(R.color.user_primary);
         }
     }
@@ -90,11 +90,15 @@ public class UserFragment extends BaseFragment {
             textIntent.putExtra(Intent.EXTRA_TEXT, shareText);
             startActivity(Intent.createChooser(textIntent, "share"));
         } catch (Exception e) {
-            ClipboardManager clipboardManager = (ClipboardManager) getHolder().getSystemService(Context
-                    .CLIPBOARD_SERVICE);
+            ClipboardManager clipboardManager = (ClipboardManager) getHolder().getSystemService(Context.CLIPBOARD_SERVICE);
             clipboardManager.setPrimaryClip(ClipData.newPlainText("text", shareText));
             showToast(getString(R.string.share_app_fail));
         }
+    }
+
+    @OnClick(R.id.user_suggestion)
+    void feedback() {
+        startActivity(new Intent(getHolder(), FeedbackActivity.class));
     }
 
     @OnClick(R.id.user_update)
@@ -107,7 +111,7 @@ public class UserFragment extends BaseFragment {
     }
 
     @OnClick(R.id.user_about)
-    void aboutMe(){
+    void aboutMe() {
         startActivity(new Intent(getHolder(), AboutActivity.class));
     }
 }

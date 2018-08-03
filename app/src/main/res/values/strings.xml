@@ -11,6 +11,8 @@
     <string name="search_title">搜索</string>
     <string name="images_title">图集</string>
     <string name="user_title">个人</string>
+    <string name="about">关于</string>
+    <string name="feedback">建议反馈</string>
 
     <string name="search_text">搜 索</string>
 
@@ -55,7 +57,9 @@
     <string name="shop_salesvolume">已抢%1$s件</string>
     <string name="text_show_num_comment">查看%1$d条回复</string>
     <string name="share_text">给你推荐个APP(什么值得看)。 这里有热点新闻，好玩的知识，有趣的视频，搞笑的段子，逗逼的图片等等各种内容，以及强大的磁力搜索。 快来下载，一览究竟吧：%1$s</string>
-    <string name="acout">关于</string>
+
+    <string name="dialog_title_hint">提示</string>
+    <string name="dialog_content_put_ask">确认提交？</string>
 
 
 </resources>
