@@ -115,6 +115,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void t(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * 防止 String 为 null
      *

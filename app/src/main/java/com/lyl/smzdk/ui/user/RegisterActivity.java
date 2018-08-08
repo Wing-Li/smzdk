@@ -3,21 +3,27 @@ package com.lyl.smzdk.ui.user;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.transition.Fade;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.entity.myapi.User;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseActivity;
-import com.lyl.smzdk.ui.MainActivity;
 import com.lyl.smzdk.view.AndroidBug5497Workaround;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -27,18 +33,22 @@ public class RegisterActivity extends BaseActivity {
     EditText registerPassword;
     @BindView(R.id.register_password_again)
     EditText registerPasswordAgain;
-    @BindView(R.id.register_password_again_layout)
-    LinearLayout registerPasswordAgainLayout;
     @BindView(R.id.register_nickname)
     EditText registerNickname;
-    @BindView(R.id.register_nickname_layout)
-    LinearLayout registerNicknameLayout;
     @BindView(R.id.register_btn)
     Button registerBtn;
-    @BindView(R.id.register_btn_layout)
-    LinearLayout registerBtnLayout;
-    @BindView(R.id.register_back)
-    TextView registerBack;
+    @BindView(R.id.register_sex_male)
+    RadioButton registerSexMale;
+    @BindView(R.id.register_sex_femle)
+    RadioButton registerSexFemle;
+    @BindView(R.id.register_sex_rg)
+    RadioGroup registerSexRg;
+    @BindView(R.id.register_go_login)
+    TextView registerGoLogin;
+
+    // 默认性别 为女
+    private int mSex = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +63,31 @@ public class RegisterActivity extends BaseActivity {
 
         ButterKnife.bind(this);
         setupWindowAnimations();
+
+        initView();
+    }
+
+    private void initView() {
+        // 选择性别的监听
+        registerSexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.register_sex_male: // 男
+                        mSex = 1;
+                        break;
+
+                    case R.id.register_sex_femle: //女
+                        mSex = 0;
+                        break;
+
+                }
+            }
+        });
     }
 
     private void setupWindowAnimations() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Fade slide = new Fade();
             slide.setDuration(1300);
 
@@ -65,16 +96,52 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.register_back)
+    /**
+     * 跳转到登录页面
+     */
+    @OnClick(R.id.register_go_login)
     void skipLogin() {
         Intent intent = new Intent(mContext, LoginActivity.class);
         skipActivity(intent, false);
     }
 
+    /**
+     * 点击注册按钮
+     */
     @OnClick(R.id.register_btn)
     void login() {
-        Intent intent = new Intent(mContext, MainActivity.class);
-        startActivity(intent);
+        String number = registerUsername.getText().toString().trim();
+        String password = registerPassword.getText().toString().trim();
+        String passWordAgain = registerPasswordAgain.getText().toString().trim();
+        String nickname = registerNickname.getText().toString().trim();
+
+        // 检查 用户名、密码、昵称、性别 是否符合规范
+        if (TextUtils.isEmpty(number) || number.length() > 32 || number.length() < 2) {
+            t("用户名必须在2到32位字符之间");
+            return;
+        }
+        if (TextUtils.isEmpty(password) || password.length() > 32 || password.length() < 8) {
+            t("密码必须在8到32位字符之间");
+            return;
+        }
+        if (TextUtils.isEmpty(nickname) || nickname.length() > 16) {
+            t("昵称不能超过16个字符");
+            return;
+        }
+
+        // 将数据发送给服务器
+        Observable<BaseCallBack<User>> userObservable = Network.getMyApi().createUser(number, password, nickname, mSex);
+        new MyApiImp<User>().request(userObservable, new MyApiImp.NetWorkCallBack<User>() {
+            @Override
+            public void onSuccess(User obj) {
+
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+
+            }
+        });
     }
 
 }
