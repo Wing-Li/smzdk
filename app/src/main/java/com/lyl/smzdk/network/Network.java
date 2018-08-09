@@ -22,6 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -62,7 +63,7 @@ public class Network {
     /**
      * MyApi
      */
-    public final static String URL_MYAPI = "https://54.250.237.20:8010/api/";
+    public final static String URL_MYAPI = "http://54.250.237.20:8010/api/";
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -219,6 +220,7 @@ public class Network {
             Retrofit retrofit = new Retrofit.Builder()//
                     .client(httpClient)//
                     .baseUrl(URL_MYAPI)//
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(MyGsonConverterFactory.create())//
                     .build();
             myApi = retrofit.create(MyApi.class);

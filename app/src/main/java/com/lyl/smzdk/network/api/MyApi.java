@@ -30,7 +30,7 @@ public interface MyApi {
      */
     @POST("createUser")
     Observable<BaseCallBack<User>> createUser(@Query("number") String number, @Query("password") String password, @Query("name") String name,
-                                              @Query("sex") Integer sex);
+                                              @Query("sex") int sex);
 
     /**
      * 更新用户

@@ -21,6 +21,7 @@ import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.MainActivity;
 import com.lyl.smzdk.utils.DialogUtils;
+import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.view.AndroidBug5497Workaround;
 
 import butterknife.BindView;
@@ -119,7 +120,7 @@ public class RegisterActivity extends BaseActivity {
         String nickname = registerNickname.getText().toString().trim();
 
         // 检查 用户名、密码、昵称、性别 是否符合规范
-        if (TextUtils.isEmpty(number) || number.length() > 32 || number.length() < 2) {
+        if (TextUtils.isEmpty(number) || number.length() > 32 || number.length() < 4) {
             t(getString(R.string.toast_username_length));
             return;
         }
@@ -145,6 +146,8 @@ public class RegisterActivity extends BaseActivity {
                 new UserInfoModel(getApplicationContext()).save(obj);
 
                 startActivity(new Intent(mContext, MainActivity.class));
+
+                LogUtils.d(obj.getName() + "注册成功");
             }
 
             @Override
