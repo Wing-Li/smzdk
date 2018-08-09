@@ -58,8 +58,16 @@
     <string name="text_show_num_comment">查看%1$d条回复</string>
     <string name="share_text">给你推荐个APP(什么值得看)。 这里有热点新闻，好玩的知识，有趣的视频，搞笑的段子，逗逼的图片等等各种内容，以及强大的磁力搜索。 快来下载，一览究竟吧：%1$s</string>
 
+    <!--对话框-->
     <string name="dialog_title_hint">提示</string>
+    <string name="dialog_error">错误</string>
     <string name="dialog_content_put_ask">确认提交？</string>
+
+    <!--吐司提示-->
+    <string name="toast_username_length">用户名必须在2到32位字符之间</string>
+    <string name="toast_password_length">密码必须在8到32位字符之间</string>
+    <string name="toast_password_notdif">两次输入的密码不一致</string>
+    <string name="toast_nickname_length">昵称不能超过16个字符</string>
 
 
 </resources>

@@ -13,11 +13,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
 import com.lyl.smzdk.network.entity.myapi.User;
 import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseActivity;
+import com.lyl.smzdk.ui.MainActivity;
+import com.lyl.smzdk.utils.DialogUtils;
 import com.lyl.smzdk.view.AndroidBug5497Workaround;
 
 import butterknife.BindView;
@@ -117,15 +120,19 @@ public class RegisterActivity extends BaseActivity {
 
         // 检查 用户名、密码、昵称、性别 是否符合规范
         if (TextUtils.isEmpty(number) || number.length() > 32 || number.length() < 2) {
-            t("用户名必须在2到32位字符之间");
+            t(getString(R.string.toast_username_length));
             return;
         }
         if (TextUtils.isEmpty(password) || password.length() > 32 || password.length() < 8) {
-            t("密码必须在8到32位字符之间");
+            t(getString(R.string.toast_password_length));
+            return;
+        }
+        if (!password.equals(passWordAgain)){
+            t(getString(R.string.toast_password_notdif));
             return;
         }
         if (TextUtils.isEmpty(nickname) || nickname.length() > 16) {
-            t("昵称不能超过16个字符");
+            t(getString(R.string.toast_nickname_length));
             return;
         }
 
@@ -134,12 +141,15 @@ public class RegisterActivity extends BaseActivity {
         new MyApiImp<User>().request(userObservable, new MyApiImp.NetWorkCallBack<User>() {
             @Override
             public void onSuccess(User obj) {
+                // 保存用户信息到配置文件
+                new UserInfoModel(getApplicationContext()).save(obj);
 
+                startActivity(new Intent(mContext, MainActivity.class));
             }
 
             @Override
             public void onFail(int code, String msg) {
-
+                DialogUtils.showErrorDialog(mContext, msg);
             }
         });
     }
