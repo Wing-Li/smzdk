@@ -1,7 +1,5 @@
 package com.lyl.smzdk.network.entity.myapi
 
-import java.util.*
-
 /**
  * Author: lyl
  * Date Created : 2018/8/3.
@@ -32,11 +30,11 @@ data class User(
         var province: String,
         var city: String,
         var vipGrade: Int = 0,
-        var vipLimitDate: Date,// 会员过期时间,
+        var vipLimitDate: String,// 会员过期时间,
         var integral: Long = 0L,
         var closeDays: Int = 0,
-        var createTime: Date,
-        var updateTime: Date
+        var createTime: String,
+        var updateTime: String
 )
 
 /**
@@ -46,10 +44,10 @@ data class VipRecharge(
         var id: Long,
         var user_id: Long,
         var money: Double,
-        private var vipGrade: Int = 1,
-        private var duration: Int = 1,
-        private var fromRecharge: Int = 0,
-        var createTime: Date
+        var vipGrade: Int = 1,
+        var duration: Int = 1,
+        var fromRecharge: Int = 0,
+        var createTime: String
 )
 
 /**
@@ -60,7 +58,7 @@ data class BtSearch(
         var userId: Long,
         var uuid: String,
         var content: String,
-        var createTime: Date
+        var createTime: String
 )
 
 /**
@@ -72,7 +70,7 @@ data class Announcement(
         var title: String,
         var content: String,
         var authorName: String,
-        var createTime: Date
+        var createTime: String
 )
 
 /**
@@ -85,5 +83,5 @@ data class Feedback(
         var content: String,
         var userName: String,
         var adminReply: String,
-        var createTime: Date
+        var createTime: String
 )
