@@ -68,6 +68,9 @@
     <string name="toast_password_length">密码必须在8到32位字符之间</string>
     <string name="toast_password_notdif">两次输入的密码不一致</string>
     <string name="toast_nickname_length">昵称不能超过16个字符</string>
+    <string name="toast_number_pwd_not_empty">用户名密码不能为空</string>
+    <string name="toast_register_success">注册成功</string>
+    <string name="toast_login_success">，欢迎您回来</string>
 
 
 </resources>

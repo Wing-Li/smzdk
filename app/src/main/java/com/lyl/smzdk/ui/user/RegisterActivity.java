@@ -106,6 +106,7 @@ public class RegisterActivity extends BaseActivity {
     void skipLogin() {
         Intent intent = new Intent(mContext, LoginActivity.class);
         skipActivity(intent, false);
+        finish();
     }
 
     /**
@@ -145,8 +146,9 @@ public class RegisterActivity extends BaseActivity {
                 new UserInfoModel(getApplicationContext()).save(obj);
 
                 startActivity(new Intent(mContext, MainActivity.class));
+                finish();
 
-                t(obj.getName() + "注册成功");
+                t(obj.getName() + getString(R.string.toast_register_success));
             }
 
             @Override
