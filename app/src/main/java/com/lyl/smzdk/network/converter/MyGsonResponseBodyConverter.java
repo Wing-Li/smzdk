@@ -28,7 +28,8 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
     public T convert(@NonNull ResponseBody value) throws IOException {
         try {
             String result = value.string();
-            String decrypt = DESHelper.decrypt(result);
+            // 这里返回来的数据 前后都多了个双引号
+            String decrypt = DESHelper.decrypt(result.substring(1, result.length() - 1));
 
             return adapter.fromJson(decrypt);
         } catch (Exception e) {

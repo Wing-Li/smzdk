@@ -220,8 +220,8 @@ public class Network {
             Retrofit retrofit = new Retrofit.Builder()//
                     .client(httpClient)//
                     .baseUrl(URL_MYAPI)//
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(MyGsonConverterFactory.create())//
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
             myApi = retrofit.create(MyApi.class);
         }

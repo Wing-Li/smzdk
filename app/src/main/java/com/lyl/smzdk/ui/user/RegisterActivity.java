@@ -21,7 +21,6 @@ import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.MainActivity;
 import com.lyl.smzdk.utils.DialogUtils;
-import com.lyl.smzdk.utils.LogUtils;
 import com.lyl.smzdk.view.AndroidBug5497Workaround;
 
 import butterknife.BindView;
@@ -147,7 +146,7 @@ public class RegisterActivity extends BaseActivity {
 
                 startActivity(new Intent(mContext, MainActivity.class));
 
-                LogUtils.d(obj.getName() + "注册成功");
+                t(obj.getName() + "注册成功");
             }
 
             @Override
