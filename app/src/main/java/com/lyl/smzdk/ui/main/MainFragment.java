@@ -23,7 +23,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.R2;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
@@ -40,10 +39,6 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,18 +107,6 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
         setHeaderView();
 
         setContentListView();
-        loadMoreData(new MainLoadDataEvent(1));
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void loadMoreData(MainLoadDataEvent event) {
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -132,12 +115,6 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
         if (!hidden) {
             setStatusBarColor(R.color.main_primary);
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     /**

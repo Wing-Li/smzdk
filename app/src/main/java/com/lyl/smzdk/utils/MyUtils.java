@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +36,37 @@ public class MyUtils {
      * 用户是否登录
      */
     public static boolean isLogin(Context mContext) {
+        long id = new UserInfoModel(mContext).getId();
+        return id != 0;
+    }
+
+    /**
+     * 普通会员，只注册了，没充钱
+     */
+    public static boolean isVipNormal(Context mContext){
+        UserInfoModel userInfoModel = new UserInfoModel(mContext);
+        long id = userInfoModel.getId();
+        if (id != 0){
+            if (userInfoModel.getVipGrade() == 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 高级会员，冲过钱的
+     */
+    public static boolean isVipRecharge (Context mContext){
+        UserInfoModel userInfoModel = new UserInfoModel(mContext);
+        long id = userInfoModel.getId();
+        if (id != 0){
+            if (userInfoModel.getVipGrade() > 1){
+                return true;
+            }
+        }
+
         return false;
     }
 

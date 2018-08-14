@@ -17,10 +17,15 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.entity.news.NewInfo;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.ui.web.Html5Activity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +102,22 @@ public class ListFragment extends BaseFragment implements ListContract.View {
     public void setData(List<NewInfo> newInfos) {
         mContentApadter.addData(newInfos);
         mContentApadter.loadMoreComplete();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void loadMoreData(MainLoadDataEvent event) {
+        recyclerview.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initAdapter() {

@@ -17,6 +17,7 @@ import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
+import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -59,7 +60,7 @@ public class SummaryImagesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_images_list);
 
-       translucentStatusAndNavigation();
+        translucentStatusAndNavigation();
 
         ButterKnife.bind(this);
 
@@ -99,8 +100,7 @@ public class SummaryImagesActivity extends BaseActivity {
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     View imagePlayView = view.findViewById(R.id.item_images_img);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, Pair.create
-                            (imagePlayView, "image"));
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, Pair.create(imagePlayView, "image"));
                     startActivity(intent, options.toBundle());
                 } else {
                     startActivity(intent);
@@ -123,13 +123,7 @@ public class SummaryImagesActivity extends BaseActivity {
         });
 
         imageSwiperefresh.clearFocus();
-//        imageSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                isRefresh = true;
-//                loadData();
-//            }
-//        });
+        imageSwiperefresh.setEnabled(false);
     }
 
     private void loadData() {
@@ -157,6 +151,21 @@ public class SummaryImagesActivity extends BaseActivity {
                     @Override
                     public void onNext(List<ImageInfo> imageInfos) {
                         if (imageInfos != null && imageInfos.size() > 0) {
+
+                            // 没有登录
+                            if (!MyUtils.isLogin(mContext)) {
+                                removeFrom(imageInfos, 3);
+
+                            } else if (MyUtils.isVipNormal(mContext)) {// 普通会员
+                                removeFrom(imageInfos, 7);
+
+                            } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
+                                // 全部显示
+                            } else {
+                                removeFrom(imageInfos, 3);
+                            }
+
+
                             if (isRefresh) {
                                 mImagesListApapter.setNewData(imageInfos);
                                 isRefresh = false;
@@ -164,8 +173,7 @@ public class SummaryImagesActivity extends BaseActivity {
                                 mImagesListApapter.addData(imageInfos);
                             }
                             mImagesListApapter.loadMoreEnd();
-                        }
-                        closeRefresh();
+                        } closeRefresh();
                     }
 
                     @Override
@@ -187,6 +195,14 @@ public class SummaryImagesActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    /**
+     * 从 pos 之后全部删除
+     */
+    private void removeFrom(List<ImageInfo> list, int pos) {
+        List<ImageInfo> sublist = list.subList(pos, list.size());
+        list.removeAll(sublist);
     }
 
     private void closeRefresh() {

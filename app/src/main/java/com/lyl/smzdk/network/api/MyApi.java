@@ -15,6 +15,7 @@ import retrofit2.http.Query;
 
 /**
  * Author: lyl
+ *
  * Date Created : 2018/8/3.
  */
 public interface MyApi {
