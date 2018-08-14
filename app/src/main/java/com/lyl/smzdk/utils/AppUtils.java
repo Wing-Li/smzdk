@@ -31,7 +31,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.telephony.TelephonyManager;
+import android.provider.Settings;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,6 +44,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -433,19 +434,22 @@ public final class AppUtils {
      * @param context
      * @return
      */
-    @SuppressLint("MissingPermission")
+    @SuppressLint("HardwareIds")
     public static String getUUID(Context context) {
-        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        if ("9774d56d682e549c".equals(androidId)) {
+            Random random = new Random();
+            androidId = Integer.toHexString(random.nextInt())//
+                    + Integer.toHexString(random.nextInt())//
+                    + Integer.toHexString(random.nextInt());
+        }
 
-        final String tmDevice, tmSerial, tmPhone, androidId;
-        tmDevice = "" + tm.getDeviceId();
-        tmSerial = "" + tm.getSimSerialNumber();
-        androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        return new UUID(androidId.hashCode(), getBuildInfo().hashCode()).toString();
+    }
 
-        UUID deviceUuid = new UUID(androidId.hashCode(), ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        String uniqueId = deviceUuid.toString();
-
-        return uniqueId;
+    private static String getBuildInfo() {
+        //这里选用了几个不会随系统更新而改变的值
+        return Build.BRAND + "/" + Build.PRODUCT + "/" + Build.DEVICE + "/" + Build.ID + "/" + Build.VERSION.INCREMENTAL;
     }
 
     /**

@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lyl.smzdk.MyApp;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.utils.NetUtil;
 import com.lyl.smzdk.view.TransitionHelper;
 import com.lyl.smzdk.view.loading.LoadingDialog;
@@ -28,12 +29,14 @@ public class BaseActivity extends AppCompatActivity {
     public Activity mActivity;
     public Context mContext;
     protected LoadingDialog mLoadingDialog;
+    protected UserInfoModel mUserInfoModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
         mActivity = this;
+        mUserInfoModel = new UserInfoModel(mContext);
     }
 
     @Override
