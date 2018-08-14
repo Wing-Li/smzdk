@@ -83,6 +83,7 @@ public class BtImp {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
         String url = String.format(IDOPE_URL, type, p + 1);
+        LogUtils.d("BT-2:" + url);
         try {
             Connection connect = Jsoup.connect(url);
 
@@ -135,6 +136,7 @@ public class BtImp {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
         String url = String.format(BTDALU_URL, type, p + 1);
+        LogUtils.d("BT-3:" + url);
         try {
             Connection connect = Jsoup.connect(url).validateTLSCertificates(false);
 
@@ -183,6 +185,7 @@ public class BtImp {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
         String url = String.format(SHABIBA_URL, content, page + 1);
+        LogUtils.d("BT-4:" + url);
         try {
             Connection connect = Jsoup.connect(url);
             Document jsoup = connect.get();

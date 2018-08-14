@@ -70,6 +70,13 @@ public class MyUtils {
         return false;
     }
 
+    /**
+     * 成为会员
+     */
+    public static void goRechargeVip(Context context) {
+        showT(context, "成为会员才可以哦");
+    }
+
     public static void showT(Context context, int r) {
         Toast.makeText(context, r, Toast.LENGTH_SHORT).show();
     }

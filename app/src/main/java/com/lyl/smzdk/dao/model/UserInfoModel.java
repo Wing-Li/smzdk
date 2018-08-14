@@ -1,6 +1,7 @@
 package com.lyl.smzdk.dao.model;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.lyl.smzdk.network.entity.myapi.User;
@@ -37,7 +38,7 @@ public class UserInfoModel {
      * 保存用户信息
      */
     public void save(User infoModel) {
-        if (infoModel != null){
+        if (infoModel != null) {
             String infoJson = new Gson().toJson(infoModel);
             SPUtil.put(mContext, USER_INFO_MODEL, infoJson);
 
@@ -59,7 +60,7 @@ public class UserInfoModel {
         return new Gson().fromJson(infoJson, User.class);
     }
 
-    public void clear(){
+    public void clear() {
         SPUtil.remove(mContext, USER_INFO_MODEL);
     }
 
@@ -121,11 +122,16 @@ public class UserInfoModel {
     }
 
     public String getUUID() {
-        return (String) SPUtil.get(mContext, UUID, "");
+        String uuid = (String) SPUtil.get(mContext, UUID, "");
+        if (TextUtils.isEmpty(uuid)) {
+            uuid = setUUID();
+        }
+        return uuid;
     }
 
-    public void setUUID(){
+    private String setUUID() {
         String uuid = AppUtils.getUUID(mContext);
         SPUtil.put(mContext, UUID, uuid);
+        return uuid;
     }
 }

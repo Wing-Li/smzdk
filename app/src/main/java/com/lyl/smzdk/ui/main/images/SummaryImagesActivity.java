@@ -162,9 +162,9 @@ public class SummaryImagesActivity extends BaseActivity {
                             } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
                                 // 全部显示
                             } else {
-                                removeFrom(imageInfos, 3);
+                                t("错误状态");
+                                return;
                             }
-
 
                             if (isRefresh) {
                                 mImagesListApapter.setNewData(imageInfos);

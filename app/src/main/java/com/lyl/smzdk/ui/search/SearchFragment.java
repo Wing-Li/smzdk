@@ -24,12 +24,19 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.event.BtLoadDataEvent;
+import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.utils.DialogUtils;
+import com.lyl.smzdk.utils.MyUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 
 public class SearchFragment extends BaseFragment {
 
@@ -75,7 +82,7 @@ public class SearchFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
-        if (!hidden){
+        if (!hidden) {
             setStatusBarColor(R.color.search_primary);
         }
     }
@@ -91,9 +98,8 @@ public class SearchFragment extends BaseFragment {
         if (item != null) {
             String content = item.getText().toString();
             String edtStr = searchActionbarEdt.getText().toString().trim();
-            if (!TextUtils.isEmpty(content) && !content.equals(edtStr)){
+            if (!TextUtils.isEmpty(content) && !content.equals(edtStr)) {
                 searchActionbarEdt.setText(content);
-                searchContent(content);
             }
         }
     }
@@ -124,7 +130,7 @@ public class SearchFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 String content = searchActionbarEdt.getText().toString().trim();
-                searchContent(content);
+                requestSearchCount(content);
             }
         });
 
@@ -133,7 +139,7 @@ public class SearchFragment extends BaseFragment {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     String content = searchActionbarEdt.getText().toString().trim();
-                    searchContent(content);
+                    requestSearchCount(content);
                     return true;
                 }
                 return false;
@@ -168,6 +174,44 @@ public class SearchFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 请求今日请求的次数，看是否还能搜索
+     */
+    private void requestSearchCount(final String content) {
+        UserInfoModel userInfoModel = new UserInfoModel(getHolder());
+        Observable<BaseCallBack<Integer>> btSearch = Network.getMyApi().btSearch(userInfoModel.getId(), userInfoModel.getUUID(), content);
+
+        new MyApiImp<Integer>().request(btSearch, new MyApiImp.NetWorkCallBack<Integer>() {
+            @Override
+            public void onSuccess(Integer obj) {
+
+                // 没有登录
+                if (!MyUtils.isLogin(getHolder()) && obj <= 3) {
+                    searchContent(content);
+
+                } else if (MyUtils.isVipNormal(getHolder()) && obj < 7) {// 普通会员
+                    searchContent(content);
+
+                } else if (MyUtils.isVipRecharge(getHolder()) || obj == -1) {//充值会员
+                    searchContent(content);
+
+                } else {
+                    // 成为会员
+                    MyUtils.goRechargeVip(getHolder());
+                    return;
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                DialogUtils.showErrorDialog(getHolder(), msg);
+            }
+        });
+    }
+
+    /**
+     * 搜索内容
+     */
     private void searchContent(String content) {
         EventBus.getDefault().post(new BtLoadDataEvent(content));
 
