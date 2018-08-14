@@ -3,8 +3,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
               android:background="@color/white"
+              android:orientation="vertical"
               tools:context="com.lyl.smzdk.ui.main.MainFragment">
 
     <com.lyl.smzdk.view.ActionBar
@@ -43,8 +43,7 @@
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@drawable/ic_volume_up_black_24dp"
-            />
+            android:src="@drawable/ic_volume_up_black_24dp"/>
 
         <TextView
             android:id="@+id/main_new_notice"
