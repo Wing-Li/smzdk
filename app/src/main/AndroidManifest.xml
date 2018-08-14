@@ -85,6 +85,9 @@
             android:name=".ui.user.FeedbackActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.announce.AnnounceDetailsActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

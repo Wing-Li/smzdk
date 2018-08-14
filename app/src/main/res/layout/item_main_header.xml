@@ -29,6 +29,7 @@
 
     <!--最新公告-->
     <LinearLayout
+        android:id="@+id/main_new_notice_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

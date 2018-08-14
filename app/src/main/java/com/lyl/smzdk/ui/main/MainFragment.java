@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,6 +27,7 @@ import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.news.NewMenu;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.ui.main.announce.AnnounceDetailsActivity;
 import com.lyl.smzdk.ui.main.images.GifWebActivity;
 import com.lyl.smzdk.ui.main.images.ImagesActivity;
 import com.lyl.smzdk.ui.main.news.list.ListFragment;
@@ -60,9 +62,14 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     ViewPager mainViewpager;
 
     // 顶部控件
+    @BindView(R2.id.mian_banner)
     Banner mianBanner;
+    @BindView(R2.id.main_menu_list)
     RecyclerView mainMenuListView;
+    @BindView(R2.id.main_new_notice)
     TextView mainNewNotice;
+    @BindView(R2.id.main_new_notice_layout)
+    LinearLayout mainNewNoticeLayout;
 
     private String[] images = {//
             "http://img1.imgtn.bdimg.com/it/u=1794894692,1423685501&fm=27&gp=0.jpg",//
@@ -102,9 +109,9 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
         mActionBar.setModelOnlyTitle(R.string.home);
 
         initMenuData();
-        setHeader();
-        setContentListView();
+        setHeaderView();
 
+        setContentListView();
         loadMoreData(new MainLoadDataEvent(1));
     }
 
@@ -131,32 +138,6 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
-    }
-
-    /**
-     * 设置轮播图
-     */
-    private void setBanner() {
-        //设置banner样式
-        mianBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        mianBanner.setIndicatorGravity(BannerConfig.RIGHT);
-        mianBanner.setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object o, ImageView imageView) {
-                ImgUtils.load(context, (String) o, imageView);
-            }
-        });
-        mianBanner.setImages(Arrays.asList(images));
-        mianBanner.setBannerTitles(Arrays.asList(titles));
-        mianBanner.setDelayTime(4000);
-        mianBanner.start();
-
-        mianBanner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int i) {
-                showToast("点击了第 " + (i + 1) + " 张图");
-            }
-        });
     }
 
     /**
@@ -274,14 +255,50 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     }
 
     /**
+     * 设置轮播图
+     */
+    private void setBanner() {
+        //设置banner样式
+        mianBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        mianBanner.setIndicatorGravity(BannerConfig.RIGHT);
+        mianBanner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object o, ImageView imageView) {
+                ImgUtils.load(context, (String) o, imageView);
+            }
+        });
+        mianBanner.setImages(Arrays.asList(images));
+        mianBanner.setBannerTitles(Arrays.asList(titles));
+        mianBanner.setDelayTime(4000);
+        mianBanner.start();
+
+        mianBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int i) {
+                showToast("点击了第 " + (i + 1) + " 张图");
+            }
+        });
+    }
+
+    /**
+     * 设置公告
+     */
+    private void setAnnounce() {
+        mainNewNoticeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getHolder(), AnnounceDetailsActivity.class));
+            }
+        });
+    }
+
+    /**
      * 设置头部 Banner、目录、公告
      */
-    private void setHeader() {
-        mianBanner = rootView.findViewById(R.id.mian_banner);
-        mainMenuListView = rootView.findViewById(R.id.main_menu_list);
-        mainNewNotice = rootView.findViewById(R.id.main_new_notice);
+    private void setHeaderView() {
         setBanner();
         setMenu();
+        setAnnounce();
     }
 
     /**
