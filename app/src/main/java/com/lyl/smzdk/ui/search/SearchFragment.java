@@ -204,7 +204,11 @@ public class SearchFragment extends BaseFragment {
 
             @Override
             public void onFail(int code, String msg) {
-                DialogUtils.showErrorDialog(getHolder(), msg);
+                if (16001 == code) {
+                    searchContent("");
+                } else {
+                    DialogUtils.showErrorDialog(getHolder(), msg);
+                }
             }
         });
     }
