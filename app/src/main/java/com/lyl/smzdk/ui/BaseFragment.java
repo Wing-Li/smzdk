@@ -128,23 +128,4 @@ public abstract class BaseFragment extends Fragment {
         }
     };
 
-    /**
-     * 显示加载圈
-     */
-    protected void showDialog(){
-        if (mLoadingDialog == null){
-            mLoadingDialog = new LoadingDialog(getHolder());
-        }
-        mLoadingDialog.show();
-    }
-
-    /**
-     * 隐藏加载进度圈
-     */
-    protected void hideDialog(){
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()){
-            mLoadingDialog.dismiss();
-        }
-    }
-
 }
