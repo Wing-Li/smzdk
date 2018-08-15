@@ -50,6 +50,74 @@
                     android:src="@drawable/ic_chevron_right_black_24dp"/>
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/user_info"
+                style="@style/UserLinearLayout"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:id="@+id/user_info_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/aabbcc"/>
+
+                <TextView
+                    android:id="@+id/user_info_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_toEndOf="@+id/user_info_icon"
+                    android:text="匿名用户"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/user_info_sex"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignBottom="@+id/user_info_name"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@+id/user_info_name"
+                    android:src="@drawable/ic_file_download_black_24dp"/>
+
+                <ImageView
+                    android:id="@+id/user_info_integral"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignBottom="@+id/user_info_name"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@+id/user_info_sex"
+                    android:src="@drawable/ic_file_download_black_24dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/user_info_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_info_name"
+                    android:layout_marginTop="8dp"
+                    android:layout_toEndOf="@+id/user_info_icon"
+                    android:text="查看或编辑个人信息"/>
+
+                <Button
+                    android:id="@+id/user_info_openvip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/user_info_icon"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_gary_round"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:text="开通VIP获取特权"/>
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/user_vip"
                 style="@style/UserLinearLayout"
