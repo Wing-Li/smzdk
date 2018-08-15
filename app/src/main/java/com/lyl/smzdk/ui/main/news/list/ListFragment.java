@@ -1,6 +1,7 @@
 package com.lyl.smzdk.ui.main.news.list;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -95,11 +96,13 @@ public class ListFragment extends BaseFragment implements ListContract.View {
 
         mNewInfos = new ArrayList<>();
         mPresenter = new ListPresenter(this);
+        showDialog();
         mPresenter.reLoadData(mChannelType, mMenuType);
     }
 
     @Override
     public void setData(List<NewInfo> newInfos) {
+        hideDialog();
         mContentApadter.addData(newInfos);
         mContentApadter.loadMoreComplete();
     }
@@ -114,6 +117,7 @@ public class ListFragment extends BaseFragment implements ListContract.View {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -192,5 +196,42 @@ public class ListFragment extends BaseFragment implements ListContract.View {
                 }
             }
         });
+    }
+
+    /**
+     * 判断当前Fragment是否可见
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mIsVisibleToUser = isVisibleToUser;
+    }
+
+    private ProgressDialog mProgressDialog;
+    private boolean mIsVisibleToUser;
+
+    /**
+     * 显示加载圈
+     */
+    protected void showDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getHolder());
+            mProgressDialog.setMessage("可爱的手机在努力加载......");
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        }
+
+        if (mProgressDialog != null && mIsVisibleToUser) {
+            mProgressDialog.show();
+        }
+    }
+
+    /**
+     * 隐藏加载进度圈
+     */
+    protected void hideDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 }
