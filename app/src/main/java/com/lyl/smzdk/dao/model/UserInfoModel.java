@@ -24,7 +24,11 @@ public class UserInfoModel {
     private final String USERINFO_SEX = "USERINFO_SEX";
     private final String USERINFO_VIPGRADE = "USERINFO_VIPGRADE";
 
-    // 当没有用户的时候，搜索时，使用这个
+
+    /**
+     * 当没有用户的时候，搜索时，使用这个。
+     * 这个不能被清理
+     */
     private final String UUID = "UUID";
 
     private Context mContext;

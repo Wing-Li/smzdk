@@ -8,11 +8,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.utils.ImgUtils;
+import com.lyl.smzdk.utils.MyUtils;
+import com.lyl.smzdk.view.imageview.MyImageView;
 import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
@@ -23,10 +33,10 @@ public class UserFragment extends BaseFragment {
 
     @BindView(R.id.user_login)
     LinearLayout userLogin;
-    @BindView(R.id.user_vip)
-    LinearLayout userVip;
-    @BindView(R.id.user_help)
-    LinearLayout userHelp;
+    @BindView(R.id.user_software)
+    LinearLayout userSoftware;
+    @BindView(R.id.user_announce)
+    LinearLayout userAnnounce;
     @BindView(R.id.user_qq_group)
     LinearLayout userQqGroup;
     @BindView(R.id.user_share)
@@ -37,6 +47,20 @@ public class UserFragment extends BaseFragment {
     LinearLayout userUpdate;
     @BindView(R.id.user_about)
     LinearLayout userAbout;
+
+    @BindView(R.id.user_info_icon)
+    MyImageView userInfoIcon;
+    @BindView(R.id.user_info_name)
+    TextView userInfoName;
+    @BindView(R.id.user_info_sex)
+    ImageView userInfoSex;
+    @BindView(R.id.user_info_integral)
+    ImageView userInfoIntegral;
+    @BindView(R.id.user_info_openvip)
+    Button userInfoOpenvip;
+    @BindView(R.id.user_info_layout)
+    RelativeLayout userInfoLayout;
+
 
     @Override
     protected int getLayoutResource() {
@@ -49,8 +73,49 @@ public class UserFragment extends BaseFragment {
 
         onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.user_title);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        initView();
+    }
+
+    /**
+     * 初始化布局参数
+     */
+    private void initView() {
+        if (MyUtils.isLogin(getHolder())) {
+            // 用户已经登录
+            UserInfoModel user = new UserInfoModel(getHolder());
+
+            userLogin.setVisibility(View.GONE);
+            userInfoLayout.setVisibility(View.VISIBLE);
+
+            userInfoName.setText(user.getName());
+            // 头像如果是空，根据性别显示不同的默认头像
+            if (TextUtils.isEmpty(user.getIcon())){
+                if (user.getSex() == 0) {
+                    userInfoIcon.setImageResource(R.drawable.ic_sex_girl_default);
+                } else {
+                    userInfoIcon.setImageResource(R.drawable.ic_sex_boy_default);
+                }
+            } else {
+                ImgUtils.load(getHolder(), user.getIcon(), userInfoIcon);
+            }
+            // 根据性别设置性别图标
+            if (user.getSex() == 0) {
+                userInfoSex.setImageResource(R.drawable.ic_sex_girl);
+            } else {
+                userInfoSex.setImageResource(R.drawable.ic_sex_boy);
+            }
+
+        } else {
+            // 用户没有登录，隐藏用户信息布局
+            userLogin.setVisibility(View.VISIBLE);
+            userInfoLayout.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -72,6 +137,22 @@ public class UserFragment extends BaseFragment {
     void skipLogin() {
         Intent intent = new Intent(getHolder(), LoginActivity.class);
         skipActivity(intent, false);
+    }
+
+    /**
+     * 跳转到 用户信息 页面
+     */
+    @OnClick(R.id.user_info_layout)
+    void skipUserInfo() {
+        startActivity(new Intent(getHolder(), UserInfoActivity.class));
+    }
+
+    /**
+     * 跳转到 开通会员页面
+     */
+    @OnClick(R.id.user_info_openvip)
+    void skipOpenVip() {
+
     }
 
     /**

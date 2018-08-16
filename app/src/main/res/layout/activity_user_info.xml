@@ -9,10 +9,16 @@
     android:orientation="vertical"
     tools:context="com.lyl.smzdk.ui.user.UserInfoActivity">
 
+    <com.lyl.smzdk.view.ActionBar
+        android:id="@+id/userinfo_actionbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"/>
+
     <LinearLayout
         android:id="@+id/userinfo_icon_layout"
         style="@style/UserLinearLayout"
-        android:layout_height="58dp"
+        android:layout_height="72dp"
         android:layout_marginTop="16dp">
 
         <TextView

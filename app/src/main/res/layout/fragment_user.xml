@@ -112,48 +112,19 @@
                 <Button
                     android:id="@+id/user_info_openvip"
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="26dp"
                     android:layout_below="@+id/user_info_icon"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/selector_round_transparent"
+                    android:gravity="center"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:text="开通VIP获取特权"
-                    android:textColor="@color/colorPrimary"/>
+                    android:text="开通VIP获取意外惊喜特权"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
 
             </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/user_vip"
-                style="@style/UserLinearLayout"
-                android:layout_marginTop="8dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_vip_24dp"/>
-
-                <TextView
-                    style="@style/UserItemTitle"
-                    android:text="成为会员"/>
-
-                <TextView
-                    style="@style/UserItemTitle"
-                    android:text="(会有意外发现)"
-                    android:textStyle="bold"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_chevron_right_black_24dp"/>
-            </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/user_software"
@@ -229,7 +200,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/user_help"
+                android:id="@+id/user_announce"
                 style="@style/UserLinearLayout"
                 android:layout_marginTop="16dp">
 
@@ -240,7 +211,7 @@
 
                 <TextView
                     style="@style/UserItemTitle"
-                    android:text="公告与帮助"/>
+                    android:text="公告"/>
 
                 <View
                     android:layout_width="0dp"

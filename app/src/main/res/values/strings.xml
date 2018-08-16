@@ -11,6 +11,7 @@
     <string name="search_title">搜索</string>
     <string name="images_title">图集</string>
     <string name="user_title">个人</string>
+    <string name="user_info">我的信息</string>
     <string name="about">关于</string>
     <string name="feedback">建议反馈</string>
 
