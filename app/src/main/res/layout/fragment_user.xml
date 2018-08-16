@@ -111,7 +111,9 @@
                     android:layout_height="32dp"
                     android:layout_below="@+id/user_info_icon"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_gary_round"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/selector_round_transparent"
+                    android:textColor="@color/colorPrimary"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
                     android:text="开通VIP获取特权"/>

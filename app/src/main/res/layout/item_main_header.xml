@@ -35,7 +35,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:background="@drawable/bg_gary_circular"
+        android:background="@drawable/selector_circular_bead_gary"
         android:gravity="center"
         android:paddingBottom="4dp"
         android:paddingTop="4dp">

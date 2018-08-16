@@ -31,7 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="48dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/btn_transparent_bg"
+        android:background="@drawable/bg_line_gary_fleet_transparent"
         android:gravity="center"
         android:text="@string/save"
         android:textColor="@color/white"
