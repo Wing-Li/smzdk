@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -51,19 +52,21 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/user_info"
+                android:id="@+id/user_info_layout"
                 style="@style/UserLinearLayout"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
-                <ImageView
+                <com.lyl.smzdk.view.imageview.MyImageView
                     android:id="@+id/user_info_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/aabbcc"/>
+                    android:src="@drawable/aabbcc"
+                    fresco:actualImageScaleType="centerInside"
+                    fresco:roundAsCircle="true"/>
 
                 <TextView
                     android:id="@+id/user_info_name"
@@ -72,6 +75,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_toEndOf="@+id/user_info_icon"
                     android:text="匿名用户"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -113,10 +117,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/selector_round_transparent"
-                    android:textColor="@color/colorPrimary"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:text="开通VIP获取特权"/>
+                    android:text="开通VIP获取特权"
+                    android:textColor="@color/colorPrimary"/>
 
             </RelativeLayout>
 

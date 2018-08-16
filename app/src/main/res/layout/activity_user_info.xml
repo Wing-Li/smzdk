@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gary"
+    android:orientation="vertical"
+    tools:context="com.lyl.smzdk.ui.user.UserInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/userinfo_icon_layout"
+        style="@style/UserLinearLayout"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="头像"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.lyl.smzdk.view.imageview.MyImageView
+            android:id="@+id/userinfo_icon_img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            fresco:actualImageScaleType="centerInside"
+            fresco:roundAsCircle="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_id_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="1px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/userinfo_id_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textIsSelectable="true"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_number_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="1px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/userinfo_number_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user123"
+            android:textIsSelectable="true"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_nickname_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="1px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/userinfo_nickname_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="匿名用户"
+            android:textIsSelectable="true"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_sex_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="1px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/userinfo_sex_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            android:textIsSelectable="true"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_createtime_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="1px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册时间"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/userinfo_createtime_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018-8-15"
+            android:textIsSelectable="true"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_change_pwd_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改密码"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_exit_layout"
+        style="@style/UserLinearLayout"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</LinearLayout>

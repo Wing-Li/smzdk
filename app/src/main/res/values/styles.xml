@@ -35,6 +35,10 @@
         <item name="android:paddingRight">16dp</item>
     </style>
 
+    <style name="UserLinearLayout.UserInfoLayout" parent="UserLinearLayout">
+        <item name="android:layout_height">52dp</item>
+    </style>
+
     <style name="UserItemTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

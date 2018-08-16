@@ -16,6 +16,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -29,7 +30,6 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransNav">
         </activity>
@@ -88,6 +88,10 @@
         <activity
             android:name=".ui.main.announce.AnnounceDetailsActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.user.UserInfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -98,6 +102,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+
 
     </application>
 

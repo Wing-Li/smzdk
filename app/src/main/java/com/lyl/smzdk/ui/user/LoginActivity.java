@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity {
         String number = loginUsername.getText().toString().trim();
         String pwd = loginPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(number) || TextUtils.isEmpty(pwd)){
+        if (TextUtils.isEmpty(number) || TextUtils.isEmpty(pwd)) {
             t(getString(R.string.toast_number_pwd_not_empty));
             return;
         }
@@ -93,7 +93,10 @@ public class LoginActivity extends BaseActivity {
                 // 保存用户信息到配置文件
                 new UserInfoModel(getApplicationContext()).save(obj);
 
-                startActivity(new Intent(mContext, MainActivity.class));
+                // 跳转到主页面，清空之前所有栈
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
 
                 t(obj.getName() + getString(R.string.toast_login_success));

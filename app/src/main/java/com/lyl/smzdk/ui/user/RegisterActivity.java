@@ -145,7 +145,10 @@ public class RegisterActivity extends BaseActivity {
                 // 保存用户信息到配置文件
                 new UserInfoModel(getApplicationContext()).save(obj);
 
-                startActivity(new Intent(mContext, MainActivity.class));
+                // 跳转到主页面，清空之前所有栈
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
 
                 t(obj.getName() + getString(R.string.toast_register_success));

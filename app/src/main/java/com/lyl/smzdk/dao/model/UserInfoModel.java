@@ -60,8 +60,20 @@ public class UserInfoModel {
         return new Gson().fromJson(infoJson, User.class);
     }
 
+    /**
+     * 退出登录
+     * 清理记录的用户信息
+     */
     public void clear() {
         SPUtil.remove(mContext, USER_INFO_MODEL);
+
+        SPUtil.remove(mContext, USERINFO_ID);
+        SPUtil.remove(mContext, USERINFO_NUMBER);
+        SPUtil.remove(mContext, USERINFO_NAME);
+        SPUtil.remove(mContext, USERINFO_ICON);
+        SPUtil.remove(mContext, USERINFO_SIGNATURE);
+        SPUtil.remove(mContext, USERINFO_SEX);
+        SPUtil.remove(mContext, USERINFO_VIPGRADE);
     }
 
 

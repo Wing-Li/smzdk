@@ -43,15 +43,19 @@ public class UserFragment extends BaseFragment {
         return R.layout.fragment_user;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.user_title);
+
+
     }
 
+    /**
+     * 此 Fragemnt 用户可见
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -61,12 +65,18 @@ public class UserFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 跳转到登录页面
+     */
     @OnClick(R.id.user_login)
     void skipLogin() {
         Intent intent = new Intent(getHolder(), LoginActivity.class);
         skipActivity(intent, false);
     }
 
+    /**
+     * 加入 QQ 群
+     */
     @OnClick(R.id.user_qq_group)
     void joinQQGroup() {
         // 发起添加群流程。群号：什么值得看(530224801)
@@ -81,6 +91,9 @@ public class UserFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 分享 App
+     */
     @OnClick(R.id.user_share)
     void shareApp() {
         String shareText = getString(R.string.share_text, MyApp.appDownloadUrl);
@@ -96,11 +109,17 @@ public class UserFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 跳转到建议反馈
+     */
     @OnClick(R.id.user_suggestion)
     void feedback() {
         startActivity(new Intent(getHolder(), FeedbackActivity.class));
     }
 
+    /**
+     * 手动更新 App
+     */
     @OnClick(R.id.user_update)
     void updateApp() {
         /**
@@ -110,6 +129,9 @@ public class UserFragment extends BaseFragment {
         Beta.checkUpgrade(true, false);
     }
 
+    /**
+     * 跳转到 关于 页面
+     */
     @OnClick(R.id.user_about)
     void aboutMe() {
         startActivity(new Intent(getHolder(), AboutActivity.class));
