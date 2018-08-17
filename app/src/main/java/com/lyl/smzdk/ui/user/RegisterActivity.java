@@ -47,6 +47,8 @@ public class RegisterActivity extends BaseActivity {
     RadioGroup registerSexRg;
     @BindView(R.id.register_go_login)
     TextView registerGoLogin;
+    @BindView(R.id.register_go_main)
+    TextView registerGoMain;
 
     // 默认性别 为女
     private int mSex = 0;
@@ -94,7 +96,18 @@ public class RegisterActivity extends BaseActivity {
     void skipLogin() {
         Intent intent = new Intent(mContext, LoginActivity.class);
         skipActivity(intent, false);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
+    }
+
+    /**
+     * 跳转到登录页面
+     */
+    @OnClick(R.id.register_go_main)
+    void skipMainActivity() {
+        Intent intent = new Intent(mContext, MainActivity.class);
+        skipActivity(intent, false);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
 
@@ -117,7 +130,7 @@ public class RegisterActivity extends BaseActivity {
             t(getString(R.string.toast_password_length));
             return;
         }
-        if (!password.equals(passWordAgain)){
+        if (!password.equals(passWordAgain)) {
             t(getString(R.string.toast_password_notdif));
             return;
         }

@@ -14,8 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
+import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.entity.myapi.User;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.images.ImagesFragment;
 import com.lyl.smzdk.ui.main.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
@@ -32,6 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
+import io.reactivex.Observable;
 
 /**
  * Author: lyl
@@ -66,6 +72,7 @@ public class MainActivity extends BaseActivity {
 
         initMainContent();
         initBottombar();
+        updateUserInfo();
     }
 
     @Override
@@ -80,6 +87,9 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);//解除订阅
     }
 
+    /**
+     * 设置主页面的布局
+     */
     private void initMainContent() {
         // 设置空过状态栏
         int result = 0;
@@ -238,16 +248,35 @@ public class MainActivity extends BaseActivity {
 
     //  —————————————————— ↑底部 Bar 处理↑ —————————————————————————
 
+    //  —————————————————— ↓每次登陆更新用户信息↓ —————————————————————————
+
+    private void updateUserInfo() {
+        long id = new UserInfoModel(mContext).getId();
+        if (0 != id){
+            Observable<BaseCallBack<User>> user = Network.getMyApi().getUser(id);
+            new MyApiImp<User>().request(user, new MyApiImp.NetWorkCallBack<User>() {
+                @Override
+                public void onSuccess(User obj) {
+                    // 保存用户信息到配置文件
+                    UserInfoModel userInfoModel = new UserInfoModel(getApplicationContext());
+                    userInfoModel.clear();
+                    userInfoModel.save(obj);
+                }
+
+                @Override
+                public void onFail(int code, String msg) {
+                }
+            });
+        }
+    }
+
+    //  —————————————————— ↑每次登陆更新用户信息↑ —————————————————————————
+
     @Override
     protected void onPause() {
         super.onPause();
         // 屏幕关闭时，停止所有正在播放的视频
         JZVideoPlayer.releaseAllVideos();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private long time = 0;

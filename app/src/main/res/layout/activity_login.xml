@@ -99,7 +99,7 @@
                 android:id="@+id/login_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/bg_line_gary_fleet_transparent"
                 android:paddingBottom="8dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="42dp"
