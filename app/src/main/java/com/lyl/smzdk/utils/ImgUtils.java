@@ -115,7 +115,18 @@ public class ImgUtils {
      * 加载图片
      */
     public static void load(Context context, String url, ImageView imageView) {
-        if (imageView != null && !TextUtils.isEmpty(url)) load(context, url, imageView, false);
+        if (imageView != null && !TextUtils.isEmpty(url)) {
+            load(context, url, imageView, false);
+        }
+    }
+
+    /**
+     * 加载图片
+     */
+    public static void load(Context context, int res, ImageView imageView) {
+        if (imageView != null && 0 != res) {
+            Glide.with(context).load(res).apply(baseOptions).into(imageView);
+        }
     }
 
     /**

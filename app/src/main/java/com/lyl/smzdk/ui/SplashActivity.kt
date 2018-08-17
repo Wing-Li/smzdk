@@ -7,13 +7,13 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
 import com.lyl.smzdk.R
+import com.lyl.smzdk.ui.user.RegisterActivity
 import com.lyl.smzdk.utils.ImgUtils
 import com.lyl.smzdk.utils.MyUtils
 import com.lyl.smzdk.utils.SPUtil
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.activity_splash.*
-import java.util.*
 
 
 class SplashActivity : BaseActivity() {
@@ -49,8 +49,9 @@ class SplashActivity : BaseActivity() {
     /**
      * App 第一次启动时，初始化滑动页面
      */
-    private fun firstRunningInit(){
+    private fun firstRunningInit() {
         setContentView(R.layout.activity_splash)
+        translucentStatusAndNavigation()
 
         // 四张图
         val imageList = arrayOf<Int>(R.drawable.guide01, R.drawable.guide02, R.drawable.guide03, R.drawable.guide04)
@@ -60,10 +61,10 @@ class SplashActivity : BaseActivity() {
         splash_guide.setIndicatorGravity(BannerConfig.CENTER)
         splash_guide.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, o: Any?, imageView: ImageView?) {
-                ImgUtils.load(context, o.toString(), imageView)
+                ImgUtils.load(context, o as Int, imageView)
             }
         })
-        splash_guide.setImages(Arrays.asList(imageList))
+        splash_guide.setImages(imageList.asList())
         splash_guide.isAutoPlay(false)
         splash_guide.start()
 
@@ -78,14 +79,29 @@ class SplashActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 if (position == imageList.size - 1) {
                     splash_enter.visibility = View.VISIBLE
+                } else {
+                    splash_enter.visibility = View.GONE
                 }
             }
         })
 
         // 进入主页
-        splash_enter.setOnClickListener({
-            goMainActivity()
-        })
+        splash_enter.setOnClickListener {
+            goRegisterActivity()
+        }
+
+        // 跳过，直接进入主页
+        splash_skip.setOnClickListener {
+            goRegisterActivity()
+        }
+    }
+
+    /**
+     * 跳转到注册页面
+     */
+    private fun goRegisterActivity() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+        finish()
     }
 
     /**

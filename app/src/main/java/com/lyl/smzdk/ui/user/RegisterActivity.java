@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.transition.Fade;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,7 +64,6 @@ public class RegisterActivity extends BaseActivity {
         }
 
         ButterKnife.bind(this);
-        setupWindowAnimations();
 
         initView();
     }
@@ -89,16 +87,6 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    private void setupWindowAnimations() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Fade slide = new Fade();
-            slide.setDuration(1300);
-
-            getWindow().setEnterTransition(slide);
-            getWindow().setExitTransition(slide);
-        }
-    }
-
     /**
      * 跳转到登录页面
      */
@@ -106,6 +94,7 @@ public class RegisterActivity extends BaseActivity {
     void skipLogin() {
         Intent intent = new Intent(mContext, LoginActivity.class);
         skipActivity(intent, false);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         finish();
     }
 

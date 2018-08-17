@@ -29,4 +29,17 @@
         android:textStyle="bold"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/splash_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="2dp"
+        android:text="跳过>>"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
 </RelativeLayout>

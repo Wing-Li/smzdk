@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.transition.Fade;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,22 +56,13 @@ public class LoginActivity extends BaseActivity {
         }
 
         ButterKnife.bind(this);
-        setupWindowAnimations();
-    }
-
-    private void setupWindowAnimations() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Fade slide = new Fade();
-            slide.setDuration(1300);
-            getWindow().setEnterTransition(slide);
-            getWindow().setExitTransition(slide);
-        }
     }
 
     @OnClick(R.id.register_skip)
     void skipRegister() {
         Intent intent = new Intent(mContext, RegisterActivity.class);
         skipActivity(intent, false);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         finish();
     }
 

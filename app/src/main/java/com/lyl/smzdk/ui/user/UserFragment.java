@@ -137,6 +137,7 @@ public class UserFragment extends BaseFragment {
     void skipLogin() {
         Intent intent = new Intent(getHolder(), LoginActivity.class);
         skipActivity(intent, false);
+        getHolder().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     /**
