@@ -259,7 +259,6 @@ public class MainActivity extends BaseActivity {
                 public void onSuccess(User obj) {
                     // 保存用户信息到配置文件
                     UserInfoModel userInfoModel = new UserInfoModel(getApplicationContext());
-                    userInfoModel.clear();
                     userInfoModel.save(obj);
                 }
 

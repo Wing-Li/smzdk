@@ -11,6 +11,8 @@ import com.lyl.smzdk.ui.user.RegisterActivity
 import com.lyl.smzdk.utils.ImgUtils
 import com.lyl.smzdk.utils.MyUtils
 import com.lyl.smzdk.utils.SPUtil
+import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.Permission
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -26,6 +28,21 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.Group.STORAGE)
+                .onGranted({ permissions ->
+                    init()
+                })
+                .onDenied({ permissions ->
+                    init()
+                })
+                .start()
+
+
+    }
+
+    private fun init() {
         // 判断 App 是否是第一次启动
         val isAppFirstRunning = SPUtil.get(applicationContext, isAppFirstRunning, true) as Boolean
         if (isAppFirstRunning) {

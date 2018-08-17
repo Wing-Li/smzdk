@@ -10,17 +10,19 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
  * Author: lyl
- *
+ * <p>
  * Date Created : 2018/8/3.
  */
 public interface MyApi {
 
 //    // method Url, headers, body参数都可以动态外部传入
+//    @FormUrlEncoded
 //    @POST("{url}")
 //    Observable<ResponseBody> executePost(@Path("url") String url, @FieldMap Map<String, String> maps);
 
@@ -49,8 +51,9 @@ public interface MyApi {
      * @param city      城市
      * @return
      */
+    @FormUrlEncoded
     @POST("updateUser")
-    Observable<BaseCallBack<User>> updateUser(@Query("userId") Long userId, @FieldMap Map<String, String> maps);
+    Observable<BaseCallBack<User>> updateUser(@Query("userId") Long userId, @Query("sex") int sex, @FieldMap Map<String, String> maps);
 
     /**
      * 登陆

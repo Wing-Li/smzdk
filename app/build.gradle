@@ -80,6 +80,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
 
     // 框架
+    implementation 'com.yanzhenjie:permission:2.0.0-rc11'
     implementation 'org.jsoup:jsoup:1.10.2'
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'

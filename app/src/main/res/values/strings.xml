@@ -34,6 +34,12 @@
     <string name="details">详情</string>
     <string name="comment">评论</string>
 
+    <string name="boy">男</string>
+    <string name="girl">女</string>
+
+    <string name="change_name">修改名称</string>
+
+
     <!--提示性信息-->
     <string name="exit_app">再次点击退出</string>
     <string name="data_error">数据异常，请稍后再试</string>
@@ -64,6 +70,8 @@
     <string name="dialog_error">错误</string>
     <string name="dialog_content_put_ask">确认提交？</string>
     <string name="dialog_input_empty">请检查您是否输入内容了！</string>
+    <string name="dialog_exit_title">退出用户</string>
+    <string name="dialog_exit_msg">您确定要退出当前用户吗？</string>
 
     <!--吐司提示-->
     <string name="toast_username_length">用户名必须在2到32位字符之间</string>
@@ -76,4 +84,9 @@
     <string name="toast_feedback_success">感谢您的反馈，我们一定认真考虑</string>
 
 
+
+    <string-array name="sex_array">
+        <item>女</item>
+        <item>男</item>
+    </string-array>
 </resources>

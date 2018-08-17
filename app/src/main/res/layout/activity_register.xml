@@ -48,7 +48,8 @@
                     style="@style/LoginItemEditText"
                     android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_"
                     android:inputType="textPhonetic"
-                    android:maxLength="32"/>
+                    android:maxLength="32"
+                    android:maxLines="1"/>
             </LinearLayout>
 
             <View
@@ -75,7 +76,8 @@
                     android:id="@+id/register_password"
                     style="@style/LoginItemEditText"
                     android:inputType="textPassword"
-                    android:maxLength="32"/>
+                    android:maxLength="32"
+                    android:maxLines="1"/>
             </LinearLayout>
 
             <View
@@ -102,7 +104,8 @@
                     android:id="@+id/register_password_again"
                     style="@style/LoginItemEditText"
                     android:inputType="textPassword"
-                    android:maxLength="32"/>
+                    android:maxLength="32"
+                    android:maxLines="1"/>
             </LinearLayout>
 
             <View
@@ -128,7 +131,8 @@
                 <EditText
                     android:id="@+id/register_nickname"
                     style="@style/LoginItemEditText"
-                    android:maxLength="12"/>
+                    android:maxLength="12"
+                    android:maxLines="1"/>
             </LinearLayout>
 
             <View
