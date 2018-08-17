@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_gary"
     android:orientation="vertical">
 
@@ -36,7 +35,8 @@
             <com.lyl.smzdk.view.imageview.MyImageView
                 android:id="@+id/comment_reply_icon"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                fresco:roundAsCircle="true"/>
 
             <TextView
                 android:id="@+id/comment_reply_name"

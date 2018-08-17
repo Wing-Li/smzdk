@@ -2,7 +2,9 @@ package com.lyl.smzdk.ui.user
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.InputFilter
@@ -17,6 +19,8 @@ import com.lyl.smzdk.network.imp.MyApiImp
 import com.lyl.smzdk.ui.BaseActivity
 import com.lyl.smzdk.utils.DialogUtils
 import com.lyl.smzdk.utils.ImgUtils
+import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_user_info.*
 
 
@@ -49,7 +53,7 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
         if (TextUtils.isEmpty(mUser.icon)) {
             userinfo_icon_img.setActualImageResource(if (mUser.sex == 0) R.drawable.ic_sex_girl_default else R.drawable.ic_sex_boy_default)
         } else {
-            ImgUtils.load(mContext, mUser.icon, userinfo_icon_img)
+            ImgUtils.loadRound(mContext, mUser.icon, userinfo_icon_img)
         }
         userinfo_id_txt.text = mUser.id.toString()
         userinfo_number_txt.text = mUser.number
@@ -79,9 +83,20 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
 
             R.id.userinfo_icon_layout -> { // 头像
-                //调用相册
-                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, IMAGE)
+                // 如果没有访问文件的权限，去请求去权限
+                AndPermission.with(this)
+                        .runtime()
+                        .permission(Permission.Group.STORAGE)
+                        .onGranted({ permissions ->
+                            //调用相册
+                            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                            startActivityForResult(intent, IMAGE)
+                        })
+                        .onDenied({ permissions ->
+                            showPermissionSettingDialog()
+                        })
+                        .start()
+
             }
 
             R.id.userinfo_nickname_txt, R.id.userinfo_nickname_layout -> { // 昵称
@@ -101,6 +116,9 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * 设置头像，获取头像的返回数据
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //获取图片路径
@@ -113,7 +131,7 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
             // 图片地址
             val imagePath = c.getString(columnIndex)
             c.close()
-            ImgUtils.load(mContext, "file://$imagePath", userinfo_icon_img)
+
         }
     }
 
@@ -201,7 +219,25 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
                 .setNegativeButton(R.string.cancel, null)//
                 .create()//
                 .show()
+    }
 
+    /**
+     * 权限设置的对话框
+     */
+    private fun showPermissionSettingDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.dialog_title_hint)
+        alertDialogBuilder.setMessage(R.string.dialog_permission_file)
 
+        alertDialogBuilder.setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, which ->
+            val intent = Intent()
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
+            intent.data = Uri.fromParts("package", packageName, null)
+            startActivity(intent)
+        })
+        alertDialogBuilder.setCancelable(true)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 }

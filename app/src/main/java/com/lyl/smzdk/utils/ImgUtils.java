@@ -20,7 +20,6 @@ import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
@@ -84,24 +83,20 @@ public class ImgUtils {
             };
 
             // 设置图片的显示信息
-            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder()//
-                    .setUri(Uri.parse(url))//
-                    .setOldController(img.getController()).setControllerListener(listener)//
-                    .setAutoPlayAnimations(true);
+            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
+            controller.setOldController(img.getController()).setControllerListener(listener);
+            controller.setAutoPlayAnimations(true);
+            img.setController(controller.build());
 
-            // 设置加载中 的动画
-            GenericDraweeHierarchyBuilder hierarchy = new GenericDraweeHierarchyBuilder(context.getResources())//
-                    .setPlaceholderImage(R.drawable.loading);
-
-            // 设置圆角图片
-            if (isRound) {
-                RoundingParams roundingParams = RoundingParams.fromCornersRadius(7f);
-                // roundingParams.setOverlayColor(R.color.green);
-                hierarchy.setRoundingParams(roundingParams);
+            // 圆形图片如果设置占位图，图片就成方的了
+            if (!isRound) {
+                // 设置加载中 的动画
+                GenericDraweeHierarchyBuilder hierarchy = new GenericDraweeHierarchyBuilder(context.getResources());
+                hierarchy.setPlaceholderImage(R.drawable.loading);
+                img.setHierarchy(hierarchy.build());
             }
 
-            img.setHierarchy(hierarchy.build());
-            img.setController(controller.build());
+            img.setImageURI(Uri.parse(url));
 
         } else {
             LogUtils.d("Glide: " + url);

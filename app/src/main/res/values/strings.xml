@@ -72,6 +72,7 @@
     <string name="dialog_input_empty">请检查您是否输入内容了！</string>
     <string name="dialog_exit_title">退出用户</string>
     <string name="dialog_exit_msg">您确定要退出当前用户吗？</string>
+    <string name="dialog_permission_file">该操作需要获取访问您的文件，请给于相应的权限。</string>
 
     <!--吐司提示-->
     <string name="toast_username_length">用户名必须在2到32位字符之间</string>

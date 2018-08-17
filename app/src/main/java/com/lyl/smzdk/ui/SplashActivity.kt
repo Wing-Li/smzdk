@@ -38,8 +38,6 @@ class SplashActivity : BaseActivity() {
                     init()
                 })
                 .start()
-
-
     }
 
     private fun init() {
