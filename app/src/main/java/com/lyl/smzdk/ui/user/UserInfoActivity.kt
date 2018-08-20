@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,6 +12,7 @@ import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
+import com.lyl.smzdk.MyApp
 import com.lyl.smzdk.R
 import com.lyl.smzdk.dao.model.UserInfoModel
 import com.lyl.smzdk.network.Network
@@ -19,9 +21,11 @@ import com.lyl.smzdk.network.imp.MyApiImp
 import com.lyl.smzdk.ui.BaseActivity
 import com.lyl.smzdk.utils.DialogUtils
 import com.lyl.smzdk.utils.ImgUtils
+import com.yalantis.ucrop.UCrop
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_user_info.*
+import java.io.File
 
 
 class UserInfoActivity : BaseActivity(), View.OnClickListener {
@@ -121,17 +125,39 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        var fileName = ""
+
         //获取图片路径
         if (requestCode == IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImage = data.data
-            val filePathColumns = arrayOf(MediaStore.Images.Media.DATA)
-            val c = contentResolver.query(selectedImage!!, filePathColumns, null, null, null)
-            c!!.moveToFirst()
-            val columnIndex = c.getColumnIndex(filePathColumns[0])
-            // 图片地址
-            val imagePath = c.getString(columnIndex)
-            c.close()
 
+            // 选择的图片的位置
+            val imagePath = selectedImage.toString()
+
+            // 剪切后图片的位置
+            fileName = MyApp.getAppImagePath() + File.separator + "ICON_" + System.currentTimeMillis() + ".jpg"
+
+            val options = UCrop.Options()
+            options.setCircleDimmedLayer(true)
+            options.setShowCropFrame(false)
+            options.setCropGridColumnCount(0)
+            options.setCropGridRowCount(0)
+            options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+
+            // 去剪切图片
+            UCrop.of(selectedImage, Uri.fromFile(File(fileName)))
+                    .withAspectRatio(1F, 1F)
+                    .withMaxResultSize(300, 300)
+                    .withOptions(options)
+                    .start(mActivity);
+
+        } else if (resultCode == Activity.RESULT_OK && requestCode == UCrop.REQUEST_CROP && data != null) {
+            val resultUri = UCrop.getOutput(data)
+            ImgUtils.loadRound(mContext, resultUri.toString(), userinfo_icon_img);
+            resultUri.toString()
+
+        } else if (resultCode == UCrop.RESULT_ERROR) {
         }
     }
 

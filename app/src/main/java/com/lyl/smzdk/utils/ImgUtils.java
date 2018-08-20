@@ -82,12 +82,6 @@ public class ImgUtils {
                 }
             };
 
-            // 设置图片的显示信息
-            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
-            controller.setOldController(img.getController()).setControllerListener(listener);
-            controller.setAutoPlayAnimations(true);
-            img.setController(controller.build());
-
             // 圆形图片如果设置占位图，图片就成方的了
             if (!isRound) {
                 // 设置加载中 的动画
@@ -96,7 +90,12 @@ public class ImgUtils {
                 img.setHierarchy(hierarchy.build());
             }
 
-            img.setImageURI(Uri.parse(url));
+            // 设置图片的显示信息
+            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
+            controller.setUri(Uri.parse(url));
+            controller.setOldController(img.getController()).setControllerListener(listener);
+            controller.setAutoPlayAnimations(true);
+            img.setController(controller.build());
 
         } else {
             LogUtils.d("Glide: " + url);

@@ -1,7 +1,7 @@
 package com.lyl.smzdk;
 
-import android.app.Application;
 import android.os.Environment;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,7 +18,7 @@ import io.objectbox.BoxStore;
  * Author: lyl
  * Date Created : 2017/10/30.
  */
-public class MyApp extends Application {
+public class MyApp extends MultiDexApplication {
 
     public static String appDownloadUrl = "https://www.coolapk.com/apk/com.lyl.smzdk";
 
@@ -86,7 +86,7 @@ public class MyApp extends Application {
             return appImagePath;
         }
 
-        String sdFile = getAppPath() + File.separator + "Image";
+        String sdFile = getAppPath() + File.separator + "Image" + File.separator;
         File my = new File(sdFile);
         if (!my.exists()) {
             my.mkdirs();
