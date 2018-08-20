@@ -49,10 +49,12 @@ android {
             minSdkVersion 21
 
             buildConfigField("String", "BuglyKey", properties.getProperty('BuglyKey'))
+            buildConfigField("String", "QiniuToken", properties.getProperty('QiniuToken'))
         }
         Smzdk {
             dimension "100"
             buildConfigField("String", "BuglyKey", properties.getProperty('BuglyKey'))
+            buildConfigField("String", "QiniuToken", properties.getProperty('QiniuToken'))
         }
     }
 
