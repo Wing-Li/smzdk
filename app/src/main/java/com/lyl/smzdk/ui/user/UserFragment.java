@@ -102,7 +102,7 @@ public class UserFragment extends BaseFragment {
                     userInfoIcon.setImageResource(R.drawable.ic_sex_boy_default);
                 }
             } else {
-                ImgUtils.load(getHolder(), user.getIcon(), userInfoIcon);
+                ImgUtils.loadRound(getHolder(), user.getIcon(), userInfoIcon);
             }
             // 根据性别设置性别图标
             if (user.getSex() == 0) {
