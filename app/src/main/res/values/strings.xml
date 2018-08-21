@@ -83,7 +83,8 @@
     <string name="toast_register_success">注册成功</string>
     <string name="toast_login_success">，欢迎您回来</string>
     <string name="toast_feedback_success">感谢您的反馈，我们一定认真考虑</string>
-
+    <string name="dialog_recharge_vip">成为会员可以获得更多的权益(*^▽^*)</string>
+    <string name="dialog_register_user">注册之后可以获得更多的权益哦(*^▽^*)</string>
 
 
     <string-array name="sex_array">

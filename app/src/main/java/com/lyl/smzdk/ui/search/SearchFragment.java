@@ -197,8 +197,7 @@ public class SearchFragment extends BaseFragment {
 
                 } else {
                     // 成为会员
-                    MyUtils.goRechargeVip(getHolder());
-                    return;
+                    DialogUtils.showRechargeVipDialog(getHolder());
                 }
             }
 

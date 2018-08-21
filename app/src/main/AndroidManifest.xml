@@ -16,7 +16,6 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -93,7 +92,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <!--剪切图片的库里面需要的-->
+        <!-- 剪切图片的库里面需要的 -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -109,7 +108,8 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-
+        <activity android:name=".ui.user.RechargeVipActivity">
+        </activity>
     </application>
 
 </manifest>

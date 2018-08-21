@@ -12,16 +12,14 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
-import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.utils.MyUtils;
+import com.lyl.smzdk.utils.SnackbarUtils;
 import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
 import com.tencent.bugly.crashreport.CrashReport;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +111,15 @@ public class SummaryImagesActivity extends BaseActivity {
         imageListview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy >= 5) {// 手指向上滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(true));
-                } else if (dy <= -5) {// 手指向下滚动
-                    EventBus.getDefault().post(new HideBottombarEvent(false));
+                // 滚动到底部
+                if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView
+                        .computeVerticalScrollRange()) {
+
+                    // 如果没登陆 或者 当前是普通会员
+                    if (!MyUtils.isLogin(mContext) || MyUtils.isVipNormal(mContext)){
+                        SnackbarUtils.showRechargeVipDialog(mContext, recyclerView);
+                    }
+
                 }
                 super.onScrolled(recyclerView, dx, dy);
             }
@@ -162,7 +165,7 @@ public class SummaryImagesActivity extends BaseActivity {
                             } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
                                 // 全部显示
                             } else {
-                                t("错误状态");
+
                                 return;
                             }
 
@@ -173,7 +176,8 @@ public class SummaryImagesActivity extends BaseActivity {
                                 mImagesListApapter.addData(imageInfos);
                             }
                             mImagesListApapter.loadMoreEnd();
-                        } closeRefresh();
+                        }
+                        closeRefresh();
                     }
 
                     @Override
