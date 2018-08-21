@@ -13,11 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.event.HideBottombarEvent;
 import com.lyl.smzdk.event.MainLoadDataEvent;
 import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.UploadFileUtils;
 import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
 import com.lyl.smzdk.network.entity.myapi.User;
 import com.lyl.smzdk.network.imp.MyApiImp;
@@ -33,11 +35,17 @@ import com.roughike.bottombar.OnTabSelectListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Author: lyl
@@ -73,6 +81,7 @@ public class MainActivity extends BaseActivity {
         initMainContent();
         initBottombar();
         updateUserInfo();
+        uploadToken();
     }
 
     @Override
@@ -252,7 +261,7 @@ public class MainActivity extends BaseActivity {
 
     private void updateUserInfo() {
         long id = new UserInfoModel(mContext).getId();
-        if (0 != id){
+        if (0 != id) {
             Observable<BaseCallBack<User>> user = Network.getMyApi().getUser(id);
             new MyApiImp<User>().request(user, new MyApiImp.NetWorkCallBack<User>() {
                 @Override
@@ -270,6 +279,42 @@ public class MainActivity extends BaseActivity {
     }
 
     //  —————————————————— ↑每次登陆更新用户信息↑ —————————————————————————
+
+    private void uploadToken() {
+        Observable<String> token = Network.getMyApi().token(BuildConfig.QiniuAK, BuildConfig.QiniuSK, BuildConfig.QiniuBucket);
+        token.subscribeOn(Schedulers.io())//
+                .observeOn(AndroidSchedulers.mainThread())//
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            int status = jsonObject.getInt("status");
+                            if (200 == status) {
+                                String token = jsonObject.getString("token");
+                                UploadFileUtils.getInstants().setToken(token);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     @Override
     protected void onPause() {

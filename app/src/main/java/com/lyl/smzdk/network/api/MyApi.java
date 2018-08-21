@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -111,7 +112,7 @@ public interface MyApi {
     Observable<BaseCallBack<List<Announcement>>> getAllAnnouncement();
 
 
-    // ========================================================↓建议反馈↓========================================================================
+    // ========================================================↓建议反馈↓====================================================================
 
     /**
      * 建议反馈
@@ -139,4 +140,9 @@ public interface MyApi {
      */
     @POST("getAllFeedback")
     Observable<BaseCallBack<List<Feedback>>> getAllFeedback();
+
+    // ========================================================↓七牛云的Token↓===========================================================
+
+    @POST("token")
+    Observable<String> token(@Query("accessKey") String accessKey, @Query("secretKey") String secretKey, @Query("bucket") String bucket);
 }

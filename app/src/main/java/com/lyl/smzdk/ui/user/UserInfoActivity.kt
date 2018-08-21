@@ -16,6 +16,7 @@ import com.lyl.smzdk.MyApp
 import com.lyl.smzdk.R
 import com.lyl.smzdk.dao.model.UserInfoModel
 import com.lyl.smzdk.network.Network
+import com.lyl.smzdk.network.UploadFileUtils
 import com.lyl.smzdk.network.entity.myapi.User
 import com.lyl.smzdk.network.imp.MyApiImp
 import com.lyl.smzdk.ui.BaseActivity
@@ -126,17 +127,12 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        var fileName = ""
-
-        //获取图片路径
         if (requestCode == IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            // 获取从系统图库里面选择的图片路径
             val selectedImage = data.data
 
-            // 选择的图片的位置
-            val imagePath = selectedImage.toString()
-
             // 剪切后图片的位置
-            fileName = MyApp.getAppImagePath() + File.separator + "ICON_" + System.currentTimeMillis() + ".jpg"
+            val fileName = File(MyApp.getAppImagePath(), "SMZDK_ICON_" + mUserInfoModel.id + "_" + System.currentTimeMillis() + ".jpg")
 
             val options = UCrop.Options()
             options.setCircleDimmedLayer(true)
@@ -146,16 +142,32 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
             options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
 
             // 去剪切图片
-            UCrop.of(selectedImage, Uri.fromFile(File(fileName)))
+            UCrop.of(selectedImage, Uri.fromFile(fileName))
                     .withAspectRatio(1F, 1F)
                     .withMaxResultSize(300, 300)
                     .withOptions(options)
                     .start(mActivity);
 
         } else if (resultCode == Activity.RESULT_OK && requestCode == UCrop.REQUEST_CROP && data != null) {
+            // 剪切之后的数据返回
             val resultUri = UCrop.getOutput(data)
             ImgUtils.loadRound(mContext, resultUri.toString(), userinfo_icon_img);
-            resultUri.toString()
+            val iconFile = File(resultUri!!.path)
+            val iconPath = iconFile.absolutePath
+            val fileName = iconFile.absolutePath.subSequence(iconPath.lastIndexOf("/") + 1, iconPath.length) as String
+
+            UploadFileUtils.getInstants().uploadFile(iconFile, fileName, object : UploadFileUtils.UploadFileCallBack {
+                override fun onSuccess(path: String?) {
+                    mIcon = path!!
+                    updateUserInfo()
+                }
+
+                override fun onFail() {
+                }
+
+                override fun onProgress(progress: Double) {
+                }
+            })
 
         } else if (resultCode == UCrop.RESULT_ERROR) {
         }

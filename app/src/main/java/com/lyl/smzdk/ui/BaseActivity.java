@@ -26,8 +26,8 @@ import com.lyl.smzdk.view.loading.LoadingDialog;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    public Activity mActivity;
-    public Context mContext;
+    protected Activity mActivity;
+    protected Context mContext;
     protected LoadingDialog mLoadingDialog;
     protected UserInfoModel mUserInfoModel;
 
