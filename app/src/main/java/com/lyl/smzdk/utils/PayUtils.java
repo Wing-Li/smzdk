@@ -19,30 +19,37 @@ import java.io.FileOutputStream;
  * Created by lyl on 2017/8/31.
  */
 
-public class PlayUtils {
+public class PayUtils {
+
 
     /**
-     * 先检查是否安装了支付宝，如果没有安装，直接跳转到微信扫一扫，保存微信支付二维码到本地。
-     * 如果安装了支付宝，跳转到个人转账页面。
-     * 如果跳转失败了，则跳转到支付宝的扫一扫，保存支付宝的二维码到本地
+     * 微信支付
      */
-    public static void play(Context context) {
-        if (!hasInstalledAlipayClient(context.getApplicationContext())) {
-            // 跳转到微信扫描页面，选择微信的二维码
-            qrPlayAlipay(context, false);
-            return;
-        }
+    public static void payWeixin(Context context, String note) {
+        // 跳转到微信扫描页面，选择微信的二维码
+        qrPlayAlipay(context, note, false);
+    }
 
+    /**
+     * 支付宝支付
+     */
+    public static void payAlipay(Context context, String note) {
         String play = "FKX09669ZJGDKLVHTD2VB9";
-        String intentFullUrl = "intent://platformapi/startapp?saId=10000007&" +
-                "clientVersion=3.7.0.0718&qrcode=https%3A%2F%2Fqr.alipay.com%2F" + play + "%3F_s" +
-                "%3Dweb-other&_t=1472443966571#Intent;" + "scheme=alipayqr;package=com.eg.android.AlipayGphone;end";
+        String intentFullUrl = "intent://platformapi/startapp?saId=10000007&" + "clientVersion=3.7.0.0718&qrcode=https%3A%2F%2Fqr.alipay" + "" +
+                ".com%2F" + play + "%3F_s" + "%3Dweb-other&_t=1472443966571#Intent;" + "scheme=alipayqr;package=com.eg.android.AlipayGphone;end";
         try {
             Intent intent = Intent.parseUri(intentFullUrl, Intent.URI_INTENT_SCHEME);
             context.startActivity(intent);
+
+            boolean copyText = MyUtils.copyText(context, "值得看充值账号：" + note);
+            if (copyText){
+                Toast.makeText(context.getApplicationContext(), "用户名已复制，请添加备注", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(context.getApplicationContext(), "用户名复制失败，请手动复制", Toast.LENGTH_LONG).show();
+            }
         } catch (Exception e) {
             // 如果跳转转账页面失败，就显示扫描页面，让用户扫描二维码
-            qrPlayAlipay(context, true);
+            qrPlayAlipay(context, note, true);
         }
     }
 
@@ -51,12 +58,12 @@ public class PlayUtils {
      *
      * @param isAlipay 是不是支付宝
      */
-    private static void qrPlayAlipay(Context context, boolean isAlipay) {
+    private static void qrPlayAlipay(Context context, String note, boolean isAlipay) {
         FileOutputStream fos = null;
         String filePath = MyApp.getAppImagePath() + File.separator + "play.jpg";
         try {
             File file = new File(filePath);
-            if (file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
 
@@ -85,7 +92,14 @@ public class PlayUtils {
                         action.putExtra("LauncherUI.From.Scaner.Shortcut", true);
                     }
                     context.startActivity(action);
-                    Toast.makeText(context.getApplicationContext(), "点击右上角在 本地相册 中，选择作者二维码支付", Toast.LENGTH_LONG).show();
+
+                    boolean copyText = MyUtils.copyText(context, "值得看充值账号：" + note);
+                    if (copyText){
+                        Toast.makeText(context.getApplicationContext(), "用户名已复制，选择相册，选择二维码，添加备注", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context.getApplicationContext(), "用户名复制失败，请手动复制", Toast.LENGTH_LONG).show();
+                    }
+
                 } catch (Exception e) {
                 }
             }

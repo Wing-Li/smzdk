@@ -26,4 +26,5 @@
     <color name="bg_gary">#F1F2F3</color>
     <color name="bg_gary_fleet_tran">#33FDFDFD</color>
     <color name="sky_blue">#4ABEE2</color>
+    <color name="red">#FF0000</color>
 </resources>

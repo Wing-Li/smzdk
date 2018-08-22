@@ -153,7 +153,7 @@ public class UserFragment extends BaseFragment {
      */
     @OnClick(R.id.user_info_openvip)
     void skipOpenVip() {
-
+        startActivity(new Intent(getHolder(), RechargeVipActivity.class));
     }
 
     /**

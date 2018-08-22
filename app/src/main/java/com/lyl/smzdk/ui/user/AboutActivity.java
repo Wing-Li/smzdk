@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.ui.BaseActivity;
-import com.lyl.smzdk.utils.PlayUtils;
+import com.lyl.smzdk.utils.PayUtils;
 import com.lyl.smzdk.view.ActionBar;
 
 import butterknife.BindView;
@@ -49,7 +49,7 @@ public class AboutActivity extends BaseActivity {
 
     @OnClick(R.id.about_zhichi)
     void ZhiChi() {
-        PlayUtils.play(mContext);
+        PayUtils.payWeixin(mContext, mUserInfoModel.getNumber());
     }
 
     @OnClick(R.id.about_join_qq)
