@@ -20,6 +20,7 @@ import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.dao.model.UserInfoModel;
 import com.lyl.smzdk.ui.BaseFragment;
+import com.lyl.smzdk.ui.main.announce.AnnounceDetailsActivity;
 import com.lyl.smzdk.utils.ImgUtils;
 import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.view.imageview.MyImageView;
@@ -33,10 +34,10 @@ public class UserFragment extends BaseFragment {
 
     @BindView(R.id.user_login)
     LinearLayout userLogin;
-    @BindView(R.id.user_software)
-    LinearLayout userSoftware;
     @BindView(R.id.user_announce)
     LinearLayout userAnnounce;
+    @BindView(R.id.user_vip_content)
+    LinearLayout userVipContent;
     @BindView(R.id.user_qq_group)
     LinearLayout userQqGroup;
     @BindView(R.id.user_share)
@@ -56,6 +57,8 @@ public class UserFragment extends BaseFragment {
     ImageView userInfoSex;
     @BindView(R.id.user_info_integral)
     ImageView userInfoIntegral;
+    @BindView(R.id.user_info_vip)
+    ImageView userInfoVip;
     @BindView(R.id.user_info_openvip)
     Button userInfoOpenvip;
     @BindView(R.id.user_info_layout)
@@ -111,6 +114,14 @@ public class UserFragment extends BaseFragment {
                 userInfoSex.setImageResource(R.drawable.ic_sex_boy);
             }
 
+            // 是否 是会员
+            if (user.getVipGrade() >= 2) {
+                userInfoVip.setVisibility(View.VISIBLE);
+                userInfoOpenvip.setVisibility(View.GONE);
+            } else {
+                userInfoVip.setVisibility(View.GONE);
+            }
+
         } else {
             // 用户没有登录，隐藏用户信息布局
             userLogin.setVisibility(View.VISIBLE);
@@ -154,6 +165,22 @@ public class UserFragment extends BaseFragment {
     @OnClick(R.id.user_info_openvip)
     void skipOpenVip() {
         startActivity(new Intent(getHolder(), RechargeVipActivity.class));
+    }
+
+    /**
+     * 跳转到 公告页面
+     */
+    @OnClick(R.id.user_announce)
+    void skipAnnounce() {
+        startActivity(new Intent(getHolder(), AnnounceDetailsActivity.class));
+    }
+
+    /**
+     * 跳转到 会员专属内容页面
+     */
+    @OnClick(R.id.user_vip_content)
+    void skipVipContent() {
+        MyUtils.showT(getHolder(), "尽请期待，请相信您的期待是值得的。");
     }
 
     /**

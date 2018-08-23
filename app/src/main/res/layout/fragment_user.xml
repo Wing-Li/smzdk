@@ -87,7 +87,7 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/user_info_name"
-                    android:src="@drawable/ic_file_download_black_24dp"/>
+                    android:src="@drawable/ic_sex_girl"/>
 
                 <ImageView
                     android:id="@+id/user_info_integral"
@@ -98,6 +98,18 @@
                     android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/user_info_sex"
                     android:src="@drawable/ic_file_download_black_24dp"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/user_info_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_alignBottom="@+id/user_info_name"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_toEndOf="@+id/user_info_sex"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_vip"
                     android:visibility="gone"/>
 
                 <TextView
@@ -127,18 +139,18 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/user_software"
+                android:id="@+id/user_vip_content"
                 style="@style/UserLinearLayout"
                 android:layout_marginTop="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_software"/>
+                    android:src="@drawable/ic_vip_24dp"/>
 
                 <TextView
                     style="@style/UserItemTitle"
-                    android:text="开发者的其他应用"/>
+                    android:text="会员专享内容"/>
 
                 <View
                     android:layout_width="0dp"
@@ -153,7 +165,8 @@
 
             <LinearLayout
                 android:id="@+id/user_qq_group"
-                style="@style/UserLinearLayout">
+                style="@style/UserLinearLayout"
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
