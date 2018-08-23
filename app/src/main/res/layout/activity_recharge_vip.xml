@@ -112,8 +112,21 @@
             android:layout_margin="12dp"
             android:textColor="@color/red"
             android:text="@string/recharge_vip_msg_zhuyi"/>
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/black_flee"
+            android:text="@string/recharge_vip_money_way"/>
+    </LinearLayout>
 
 </LinearLayout>

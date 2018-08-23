@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.lyl.smzdk.R
 import com.lyl.smzdk.ui.user.RegisterActivity
@@ -69,7 +70,7 @@ class SplashActivity : BaseActivity() {
         translucentStatusAndNavigation()
 
         // 四张图
-        val imageList = arrayOf<Int>(R.drawable.guide01, R.drawable.guide02, R.drawable.guide03, R.drawable.guide04)
+        val imageList = arrayOf<Int>(R.drawable.guide02, R.drawable.guide03, R.drawable.guide04)
 
         // 设置图片滚动
         splash_guide.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
@@ -77,6 +78,9 @@ class SplashActivity : BaseActivity() {
         splash_guide.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, o: Any?, imageView: ImageView?) {
                 ImgUtils.load(context, o as Int, imageView)
+
+                val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                imageView!!.layoutParams = params
             }
         })
         splash_guide.setImages(imageList.asList())

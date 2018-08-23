@@ -39,19 +39,19 @@ public class Network {
     /**
      * 视频列表
      */
-    public final static String URL_XG = "https://m.ixigua.com/";
+    private final static String URL_XG = "https://m.ixigua.com/";
     /**
      * 视频评论
      */
-    public final static String URL_XG_COMMENT = "https://www.ixigua.com/";
+    private final static String URL_XG_COMMENT = "https://www.ixigua.com/";
     /**
      * 视频解析
      */
-    public final static String URL_XG_INFLATER = "http://v.ranks.xin/";
+    private final static String URL_XG_INFLATER = "http://v.ranks.xin/";
     /**
      * SOGOU图片列表
      */
-    public final static String URL_IMG_SOGOU = "http://pic.sogou.com";
+    private final static String URL_IMG_SOGOU = "http://pic.sogou.com";
     /**
      * SOGOU动态图
      */
@@ -59,16 +59,16 @@ public class Network {
     /**
      * 百度百科 - 冷知识
      */
-    public final static String URL_LENGZHISHI = "https://wapbaike.baidu.com/api/";
+    private final static String URL_LENGZHISHI = "https://wapbaike.baidu.com/api/";
     /**
      * MyApi
      */
-    public final static String URL_MYAPI = "http://54.250.237.20:8010/api/";
+    private final static String URL_MYAPI = BuildConfig.URL_MYAPI;
 
 
     private static final int DEFAULT_TIMEOUT = 15;
 
-    public static OkHttpClient httpClient;
+    private static OkHttpClient httpClient;
     private static DownloadFile downloadFile;
     private static NeihanApi neihanApi;
     private static XgApi xgApi;

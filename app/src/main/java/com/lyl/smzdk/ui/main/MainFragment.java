@@ -23,8 +23,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.R2;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.dao.db.imp.AnnounceImp;
 import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.entity.myapi.Announcement;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
 import com.lyl.smzdk.network.entity.news.NewMenu;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseFragment;
 import com.lyl.smzdk.ui.main.announce.AnnounceDetailsActivity;
 import com.lyl.smzdk.ui.main.images.GifWebActivity;
@@ -45,6 +49,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 
 public class MainFragment extends BaseFragment implements MenuContract.View {
 
@@ -66,18 +71,8 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     @BindView(R2.id.main_new_notice_layout)
     LinearLayout mainNewNoticeLayout;
 
-    private String[] images = {//
-            "http://img1.imgtn.bdimg.com/it/u=1794894692,1423685501&fm=27&gp=0.jpg",//
-            "http://upload-images.jianshu.io/upload_images/632860-b921edc6f8fa62e8.png?imageMogr2/auto-orient/strip" +
-                    "%7CimageView2/2/w/1240",//
-            "http://upload-images.jianshu.io/upload_images/1835526-de24e0123e56a526.jpg?imageMogr2/auto-orient/strip" +
-                    "%7CimageView2/2/w/1240",//
-            "http://upload-images.jianshu.io/upload_images/2041831-9824e97cc023b5ac.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50"};//
-    private String[] titles = {//
-            "7节异性沟通课，治愈你的尬聊单身症",//
-            "问答老司机投稿须知",//
-            "全职妈妈，你想成为下一个作家吗？",//
-            "365挑战营与世间事联合征文 /简书那么大，我在哪里？"};//
+    private Integer[] images = {R.drawable.banner1};
+    private String[] titles = {"欢迎您的到来"};
 
 
     // 中部目录的列表 和 适配器
@@ -99,14 +94,11 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         onHiddenChanged(false);
         mActionBar.setModelOnlyTitle(R.string.home);
 
         initMenuData();
-        setHeaderView();
-
-        setContentListView();
+        initView();
     }
 
     @Override
@@ -180,6 +172,45 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     }
 
     /**
+     * 初始化布局
+     */
+    private void initView() {
+        // 设置头部 Banner、目录、公告
+        setBanner();
+        setMenu();
+        setAnnounce();
+
+        // 设置底部 内容，初始化目录数据
+        mDataPresenter = new MenuDataPresenter(this);
+        mDataPresenter.initMenuData(mChannelType);
+    }
+
+    /**
+     * 设置轮播图
+     */
+    private void setBanner() {
+        //设置banner样式
+        mianBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        mianBanner.setIndicatorGravity(BannerConfig.RIGHT);
+        mianBanner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object o, ImageView imageView) {
+                ImgUtils.load(context, (int) o, imageView);
+            }
+        });
+        mianBanner.setImages(Arrays.asList(images));
+        mianBanner.setBannerTitles(Arrays.asList(titles));
+        mianBanner.setDelayTime(4000);
+        mianBanner.start();
+
+        mianBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int i) {
+            }
+        });
+    }
+
+    /**
      * 设置目录的显示
      */
     private void setMenu() {
@@ -232,59 +263,34 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
     }
 
     /**
-     * 设置轮播图
-     */
-    private void setBanner() {
-        //设置banner样式
-        mianBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        mianBanner.setIndicatorGravity(BannerConfig.RIGHT);
-        mianBanner.setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object o, ImageView imageView) {
-                ImgUtils.load(context, (String) o, imageView);
-            }
-        });
-        mianBanner.setImages(Arrays.asList(images));
-        mianBanner.setBannerTitles(Arrays.asList(titles));
-        mianBanner.setDelayTime(4000);
-        mianBanner.start();
-
-        mianBanner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int i) {
-                showToast("点击了第 " + (i + 1) + " 张图");
-            }
-        });
-    }
-
-    /**
      * 设置公告
      */
     private void setAnnounce() {
-        mainNewNoticeLayout.setOnClickListener(new View.OnClickListener() {
+        Observable<BaseCallBack<Announcement>> lastAnnouncementObservable = Network.getMyApi().getLastAnnouncement();
+        new MyApiImp<Announcement>().request(lastAnnouncementObservable, new MyApiImp.NetWorkCallBack<Announcement>() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getHolder(), AnnounceDetailsActivity.class));
+            public void onSuccess(Announcement entiry) {
+                // 检查最新的公告是否已经读过，设置公告是否显示
+                AnnounceImp announceImp = new AnnounceImp(getHolder());
+                if (announceImp.isExits(entiry.getId())){
+                    mainNewNoticeLayout.setVisibility(View.GONE);
+                } else {
+                    mainNewNoticeLayout.setVisibility(View.VISIBLE);
+
+                    // 设置点击事件
+                    mainNewNoticeLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getHolder(), AnnounceDetailsActivity.class));
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
             }
         });
-    }
-
-    /**
-     * 设置头部 Banner、目录、公告
-     */
-    private void setHeaderView() {
-        setBanner();
-        setMenu();
-        setAnnounce();
-    }
-
-    /**
-     * 设置底部 内容
-     */
-    private void setContentListView() {
-        // 初始化目录数据
-        mDataPresenter = new MenuDataPresenter(this);
-        mDataPresenter.initMenuData(mChannelType);
     }
 
     /**

@@ -13,6 +13,7 @@
     <string name="user_title">个人</string>
     <string name="user_info">我的信息</string>
     <string name="about">关于</string>
+    <string name="announce">公告</string>
     <string name="feedback">建议反馈</string>
     <string name="recharge_vip">成为会员</string>
 
@@ -75,6 +76,13 @@
         3. 支付完成，等待管理员开通。
     </string>
     <string name="recharge_vip_msg_zhuyi">注意：完成支付后并不会立即生效，管理员将在收到您的付款后尽快为您开通（管理员反映很快的哦(*^▽^*)）</string>
+    <string name="recharge_vip_money_way">
+        充值类型：\n\n
+        0.9&#160;&#160;&#160;&#160;元 ： 一天\n
+        7.9&#160;&#160;&#160;&#160;元 ： 一个月\n
+        13.9 元 ： 三个月\n
+        25&#160;&#160;&#160;&#160;&#160;元 ： 永久
+    </string>
 
     <!--对话框-->
     <string name="dialog_title_hint">提示</string>

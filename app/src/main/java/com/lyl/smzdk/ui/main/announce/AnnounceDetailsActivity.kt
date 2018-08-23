@@ -2,6 +2,7 @@ package com.lyl.smzdk.ui.main.announce
 
 import android.os.Bundle
 import com.lyl.smzdk.R
+import com.lyl.smzdk.dao.db.imp.AnnounceImp
 import com.lyl.smzdk.network.Network
 import com.lyl.smzdk.network.entity.myapi.Announcement
 import com.lyl.smzdk.network.imp.MyApiImp
@@ -19,7 +20,7 @@ class AnnounceDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_announce_details)
 
-        actionbar.setModelBack(R.string.feedback, mActivity)
+        actionbar.setModelBack(R.string.announce, mActivity)
 
         initData();
     }
@@ -33,10 +34,17 @@ class AnnounceDetailsActivity : BaseActivity() {
         val lastAnnouncement = Network.getMyApi().lastAnnouncement
         MyApiImp<Announcement>().request(lastAnnouncement, object : MyApiImp.NetWorkCallBack<Announcement> {
 
-            override fun onSuccess(obj: Announcement) {
+            override fun onSuccess(entiry: Announcement) {
                 hideDialog()
+
                 // 设置布局
-                initView(obj)
+                initView(entiry)
+
+                // 如果公告没有读过，将公告存进数据库
+                val announceImp = AnnounceImp(mContext)
+                if (!announceImp.isExits(entiry.id)) {
+                    announceImp.save(entiry.id, entiry.title)
+                }
             }
 
             override fun onFail(code: Int, msg: String?) {

@@ -40,21 +40,41 @@ android {
         multiDexEnabled true
 
         buildConfigField("String", "BuglyKey", properties.getProperty('BuglyKey'))
-        buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
-        buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
-        buildConfigField("String", "QiniuBucket", properties.getProperty('QiniuBucket'))
     }
 
     // 多渠道打包
     productFlavors {
-        dev {
+        Smzdk_Dev {
             dimension "100"
             // Enable pre-dexing to produce an APK that can be tested on
             // Android 5.0+ without the time-consuming DEX build processes.
             minSdkVersion 21
+
+            buildConfigField("String", "URL_MYAPI", '"http://127.0.0.1:8080/api/"')
+
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
+        }
+        Smzdk_Stage {
+            dimension "100"
+            minSdkVersion 21
+
+            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8010/api/"')
+
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
         }
         Smzdk {
             dimension "100"
+            minSdkVersion 19
+
+            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn/api/"')
+
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk"')
         }
     }
 
