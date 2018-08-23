@@ -29,7 +29,7 @@
             <LinearLayout
                 android:id="@+id/user_login"
                 style="@style/UserLinearLayout"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:id="@+id/user_info_layout"
                 style="@style/UserLinearLayout"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp">
 
                 <com.lyl.smzdk.view.imageview.MyImageView
                     android:id="@+id/user_info_icon"
@@ -76,7 +76,7 @@
                     android:layout_toEndOf="@+id/user_info_icon"
                     android:text="匿名用户"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"/>
 
                 <ImageView
@@ -141,7 +141,7 @@
             <LinearLayout
                 android:id="@+id/user_vip_content"
                 style="@style/UserLinearLayout"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
             <LinearLayout
                 android:id="@+id/user_qq_group"
                 style="@style/UserLinearLayout"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
             <LinearLayout
                 android:id="@+id/user_announce"
                 style="@style/UserLinearLayout"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
