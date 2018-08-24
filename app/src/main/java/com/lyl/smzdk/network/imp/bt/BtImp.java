@@ -143,7 +143,7 @@ public class BtImp {
                 Element itemInfo = element.select("div.item-meta-info").first();
                 // 链接
                 String href = itemInfo.select("a").attr("href");
-                info.setBtUrl(href);
+                info.setBtUrl(href.split("&")[0]);
 
                 Elements spans = itemInfo.select("span");
                 Element size = spans.get(0);

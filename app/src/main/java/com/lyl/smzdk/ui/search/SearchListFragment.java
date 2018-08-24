@@ -132,7 +132,7 @@ public class SearchListFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 BtInfo info = (BtInfo) baseQuickAdapter.getItem(i);
-                if (info == null){
+                if (info == null) {
                     showToast(R.string.data_error);
                     return;
                 }
@@ -151,8 +151,7 @@ public class SearchListFragment extends BaseFragment {
             }
 
             private void copyUrl(String url) {
-                ClipboardManager clipboardManager = (ClipboardManager) getHolder().getSystemService(Context
-                        .CLIPBOARD_SERVICE);
+                ClipboardManager clipboardManager = (ClipboardManager) getHolder().getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboardManager != null) {
                     ClipData clipData = ClipData.newPlainText("test", url);
                     clipboardManager.setPrimaryClip(clipData);
@@ -163,10 +162,15 @@ public class SearchListFragment extends BaseFragment {
                 }
             }
 
-            private void downloadUrl(String url){
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
+            private void downloadUrl(String url) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    MyUtils.copyText(getHolder(), url);
+                    showToast("没有程序能提供下载功能，已为您将链接复制到剪切板");
+                }
             }
         });
     }
@@ -174,7 +178,7 @@ public class SearchListFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void searchContent(BtLoadDataEvent dataEvent) {
         // 数据换了，先把以前的从页面清除掉
-        if (!mContent.equals(dataEvent.content)){
+        if (!mContent.equals(dataEvent.content)) {
             clearData();
         }
 
@@ -231,9 +235,9 @@ public class SearchListFragment extends BaseFragment {
                                 mSearchListAdapter.loadMoreComplete();
                             } else {
                                 // 返回的数据是 0 个：1. 空数据；2. 加载完了。
-                                if (mSearchListAdapter.getItemCount() <= 0){
+                                if (mSearchListAdapter.getItemCount() <= 0) {
                                     mSearchListAdapter.setEmptyView(R.layout.layout_empty_view, searchListview);
-                                }else {
+                                } else {
                                     mSearchListAdapter.loadMoreEnd();
                                 }
                             }
