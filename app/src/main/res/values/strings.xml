@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">什么值得看</string>
 
     <!--按钮显示-->
     <string name="cancel">取消</string>

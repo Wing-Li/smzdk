@@ -6,3 +6,5 @@
 /captures
 .externalNativeBuild
 .idea
+/app/keystore/
+/app/signingConfigs.gradle

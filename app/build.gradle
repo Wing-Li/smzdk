@@ -19,16 +19,6 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
-    // 签名文件
-    signingConfigs {
-        config {
-            keyAlias 'zmzdk'
-            keyPassword properties.getProperty('keyPassword')
-            storeFile file('../lyl.jks')
-            storePassword properties.getProperty('keyPassword')
-        }
-    }
-
     defaultConfig {
         applicationId "com.lyl.smzdk"
         minSdkVersion 19
@@ -42,64 +32,66 @@ android {
         buildConfigField("String", "BuglyKey", properties.getProperty('BuglyKey'))
     }
 
-    // 多渠道打包
-    productFlavors {
-        Smzdk_Dev {
-            dimension "100"
-            // Enable pre-dexing to produce an APK that can be tested on
-            // Android 5.0+ without the time-consuming DEX build processes.
-            minSdkVersion 21
-
-            buildConfigField("String", "URL_MYAPI", '"http://127.0.0.1:8080/api/"')
-
-            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
-            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
-            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
-        }
-        Smzdk_Stage {
-            dimension "100"
-            minSdkVersion 21
-
-            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8010/api/"')
-
-            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
-            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
-            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
-        }
-        Smzdk {
-            dimension "100"
-            minSdkVersion 19
-
-            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn/api/"')
-
-            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
-            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
-            buildConfigField("String", "QiniuBucket", '"lyl-smzdk"')
-        }
-    }
+    apply from: 'signingConfigs.gradle', to: android
 
     buildTypes {
         debug {
+            applicationIdSuffix = '.debug'
+
+            resValue("string", "app_name", "值得看-DEV")
+
+            buildConfigField("String", "URL_MYAPI", '"http://127.0.0.1:8080/api/"')
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
+
             buildConfigField "String", "Environment", '"dev"'
+
+            signingConfig signingConfigs.stage
         }
+
+        stage {
+            applicationIdSuffix = '.stage'
+
+            resValue("string", "app_name", "值得看-STAGE")
+
+            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8010/api/"')
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
+
+            buildConfigField "String", "Environment", '"dev"'
+
+            signingConfig signingConfigs.stage
+        }
+
         release {
+            resValue("string", "app_name", "什么值得看")
+
+            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn/api/"')
+            buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
+            buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
+            buildConfigField("String", "QiniuBucket", '"lyl-smzdk"')
+
             buildConfigField "String", "Environment", '"prod"'
 
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             // 批量打包
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                    //outputFileName = "${variant.productFlavors[0].name}_v${signingConfigs.versionName}_${releaseTime()}.apk"
+                    outputFileName = "smzdk_v${defaultConfig.versionName}_${releaseTime()}.apk"
                 }
             }
         }
     }
 
     dexOptions {
-        jumboMode=true
-        javaMaxHeapSize="4g"
+        jumboMode = true
+        javaMaxHeapSize = "4g"
     }
 }
 
