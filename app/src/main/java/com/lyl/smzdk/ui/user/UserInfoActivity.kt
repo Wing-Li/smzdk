@@ -273,6 +273,8 @@ class UserInfoActivity : BaseActivity(), View.OnClickListener {
             intent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
             intent.data = Uri.fromParts("package", packageName, null)
             startActivity(intent)
+
+            dialog.dismiss()
         })
         alertDialogBuilder.setCancelable(true)
         val alertDialog = alertDialogBuilder.create()

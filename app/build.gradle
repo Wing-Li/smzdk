@@ -78,7 +78,7 @@ android {
             buildConfigField "String", "Environment", '"prod"'
 
             signingConfig signingConfigs.release
-            minifyEnabled true
+            minifyEnabled false // 混淆打包
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             // 批量打包
