@@ -70,7 +70,7 @@ android {
         release {
             resValue("string", "app_name", "什么值得看")
 
-            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn/api/"')
+            buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8015/api/"')
             buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
             buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
             buildConfigField("String", "QiniuBucket", '"lyl-smzdk"')
