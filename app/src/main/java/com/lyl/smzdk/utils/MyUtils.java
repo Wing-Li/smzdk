@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class MyUtils {
 
     public static boolean isDev() {
-        if ("dev".equals(BuildConfig.Environment)) {
+        if (!"prod".equals(BuildConfig.Environment)) {
             return true;
         } else {
             return false;

@@ -117,7 +117,7 @@ public class SummaryImagesActivity extends BaseActivity {
 
                     // 如果没登陆 或者 当前是普通会员
                     if (!MyUtils.isLogin(mContext) || MyUtils.isVipNormal(mContext)){
-                        SnackbarUtils.showRechargeVipDialog(mContext, recyclerView);
+                        SnackbarUtils.INSTANCE.showRechargeVipDialog(mContext, recyclerView);
                     }
 
                 }
@@ -140,6 +140,18 @@ public class SummaryImagesActivity extends BaseActivity {
             public void subscribe(ObservableEmitter<List<ImageInfo>> observableEmitter) throws Exception {
 
                 List<ImageInfo> details = mImgsImp.getDetails(mType);
+
+                // 没有登录
+                if (!MyUtils.isLogin(mContext)) {
+                    details = details.subList(0, 3);
+
+                } else if (MyUtils.isVipNormal(mContext)) {// 普通会员
+                    details = details.subList(0, 7);
+
+                } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
+                    // 全部显示
+                }
+
                 observableEmitter.onNext(details);
             }
         })//
@@ -154,20 +166,6 @@ public class SummaryImagesActivity extends BaseActivity {
                     @Override
                     public void onNext(List<ImageInfo> imageInfos) {
                         if (imageInfos != null && imageInfos.size() > 0) {
-
-                            // 没有登录
-                            if (!MyUtils.isLogin(mContext)) {
-                                removeFrom(imageInfos, 3);
-
-                            } else if (MyUtils.isVipNormal(mContext)) {// 普通会员
-                                removeFrom(imageInfos, 7);
-
-                            } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
-                                // 全部显示
-                            } else {
-
-                                return;
-                            }
 
                             if (isRefresh) {
                                 mImagesListApapter.setNewData(imageInfos);
@@ -199,14 +197,6 @@ public class SummaryImagesActivity extends BaseActivity {
 
                     }
                 });
-    }
-
-    /**
-     * 从 pos 之后全部删除
-     */
-    private void removeFrom(List<ImageInfo> list, int pos) {
-        List<ImageInfo> sublist = list.subList(pos, list.size());
-        list.removeAll(sublist);
     }
 
     private void closeRefresh() {

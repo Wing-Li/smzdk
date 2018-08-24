@@ -85,6 +85,9 @@ public class ImagesActivity extends BaseActivity {
     }
 
     private void initMenuData() {
+        // 显示加载进度
+        showDialog();
+
         Observable.create(new ObservableOnSubscribe<List<ImageMenu>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ImageMenu>> observableEmitter) throws Exception {
@@ -119,6 +122,9 @@ public class ImagesActivity extends BaseActivity {
 
                         // 绑定 Tablayout 和 Viewpager
                         imagesTablayout.setupWithViewPager(imagesViewpager);
+
+                        // 隐藏加载进度
+                        hideDialog();
                     }
 
                     @Override
@@ -126,6 +132,9 @@ public class ImagesActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                // 隐藏加载进度
+                                hideDialog();
+
                                 showToast(R.string.net_error);
                                 if (throwable != null) {
                                     CrashReport.postCatchedException(throwable);

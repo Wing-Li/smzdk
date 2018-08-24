@@ -49,4 +49,9 @@ public class ImagesListApapter extends BaseQuickAdapter<ImageInfo, MyBaseViewHol
 //        }
 
     }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }
