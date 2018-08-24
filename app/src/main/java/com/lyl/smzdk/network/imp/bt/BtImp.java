@@ -22,7 +22,8 @@ import java.util.List;
  */
 public class BtImp {
 
-    public static int timeout = 20000;
+    private static int timeout = 20000;
+    private static final String MAGNET_BASE = "magnet:?xt=urn:btih:";
 
     /**
      * 种子搜
@@ -71,43 +72,86 @@ public class BtImp {
         return infoList;
     }
 
-    private static final String IDOPE_BASE = "https://idope.se";
-    private static final String IDOPE_URL = IDOPE_BASE + "/torrent-list/%1$s/?p=%2$s";
-    private static final String MAGNET_BASE = "magnet:?xt=urn:btih:";
+//    private static final String IDOPE_BASE = "https://idope.se";
+//    private static final String IDOPE_URL = IDOPE_BASE + "/torrent-list/%1$s/?p=%2$s";
 
+//
+//    /**
+//     * idope
+//     */
+//    public static List<BtInfo> getList2(String type, int p) {
+//        List<BtInfo> infoList = new ArrayList<BtInfo>();
+//
+//        String url = String.format(IDOPE_URL, type, p + 1);
+//        LogUtils.d("BT-2:" + url);
+//        try {
+//            Connection connect = Jsoup.connect(url);
+//
+//            Document jsoup = connect.get();
+//            Elements post_list = jsoup.select("div[id=div2] div[id=div2child] div.resultdiv");
+//
+//            BtInfo info;
+//            for (Element element : post_list) {
+//                info = new BtInfo();
+//                // 标题
+//                Element title = element.select("div.resultdivtop div.resultdivtopname").first();
+//                info.setName(title.text());
+//
+//                Element attr = element.select("div.resultdivbotton").first();
+//                // 大小
+//                Element size = attr.select("div.resultdivbottonlength").first();
+//                info.setSize(size.text());
+//                // 时间
+//                Element time = attr.select("div.resultdivbottontime").first();
+//                info.setTime(time.text());
+//
+//                // 链接
+//                Element btUrl = attr.select("div.hideinfohash").first();
+//                info.setBtUrl(MAGNET_BASE + btUrl.text());
+//
+//                infoList.add(info);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return infoList;
+//    }
 
     /**
-     * idope
+     * BTDB
      */
     public static List<BtInfo> getList2(String type, int p) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = String.format(IDOPE_URL, type, p + 1);
+        String url = String.format("https://btdb.to/q/%1$s/%2$s", type, p + 1);
         LogUtils.d("BT-2:" + url);
         try {
             Connection connect = Jsoup.connect(url);
 
             Document jsoup = connect.get();
-            Elements post_list = jsoup.select("div[id=div2] div[id=div2child] div.resultdiv");
+            Elements post_list = jsoup.select("div.content div.left-content div.search-ret ul.search-ret-list li");
 
             BtInfo info;
             for (Element element : post_list) {
                 info = new BtInfo();
                 // 标题
-                Element title = element.select("div.resultdivtop div.resultdivtopname").first();
-                info.setName(title.text());
+                String title = element.select("h2.item-title a").attr("title");
+                info.setName(title);
 
-                Element attr = element.select("div.resultdivbotton").first();
+                Element itemInfo = element.select("div.item-meta-info").first();
+                // 链接
+                String href = itemInfo.select("a").attr("href");
+                info.setBtUrl(href);
+
+                Elements spans = itemInfo.select("span");
+                Element size = spans.get(0);
                 // 大小
-                Element size = attr.select("div.resultdivbottonlength").first();
                 info.setSize(size.text());
                 // 时间
-                Element time = attr.select("div.resultdivbottontime").first();
+                Element time = spans.get(2);
                 info.setTime(time.text());
-
-                // 链接
-                Element btUrl = attr.select("div.hideinfohash").first();
-                info.setBtUrl(MAGNET_BASE + btUrl.text());
 
                 infoList.add(info);
             }

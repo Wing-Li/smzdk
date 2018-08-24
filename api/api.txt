@@ -65,8 +65,10 @@ https://www.ixigua.com/api/comment/get_reply/?comment_id=1590379640268829&dongta
 https://m.zhongziso.com/list/awl/1
 https://m.zhongziso.com/list/%1$s/2
 
-这个很快，不用进二级页面，拼数据
-https://idope.se/torrent-list/SAIT-013/
+// 这个很快，不用进二级页面，拼数据(坏了)
+// https://idope.se/torrent-list/SAIT-013/
+BTDB
+https://btdb.to/q/%E8%8B%8D%E4%BA%95%E7%A9%BA/3
 这个也 不用进二级页面，拼数据
 https://www.btdalu.com/list/sadt/1/1/1
 这个也很快
