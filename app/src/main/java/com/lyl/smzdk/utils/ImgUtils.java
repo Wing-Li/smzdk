@@ -127,7 +127,7 @@ public class ImgUtils {
      * 加载圆形图片。
      */
     public static void loadRound(Context context, String url, ImageView imageView) {
-        if (imageView != null) load(context, url, imageView, true);
+        if (imageView != null && !TextUtils.isEmpty(url)) load(context, url, imageView, true);
     }
 
     // ======================================== ↓ 获取Bitmap ↓ ================================================================

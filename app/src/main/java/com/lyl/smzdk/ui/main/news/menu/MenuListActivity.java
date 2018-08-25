@@ -53,6 +53,7 @@ public class MenuListActivity extends BaseActivity implements MenuContract.View 
         if (TextUtils.isEmpty(mChannelType)) {
             showToast(R.string.data_error);
             finish();
+            return;
         }
 
         // 显示加载进度

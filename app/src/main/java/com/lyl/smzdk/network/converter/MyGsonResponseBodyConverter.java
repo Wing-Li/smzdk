@@ -41,9 +41,9 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
             return adapter.fromJson(decrypt);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             value.close();
         }
-        return null;
     }
 }
