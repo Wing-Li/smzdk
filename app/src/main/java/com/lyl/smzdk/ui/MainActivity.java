@@ -2,10 +2,10 @@ package com.lyl.smzdk.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,9 +28,6 @@ import com.lyl.smzdk.ui.main.MainFragment;
 import com.lyl.smzdk.ui.search.SearchFragment;
 import com.lyl.smzdk.ui.user.UserFragment;
 import com.lyl.smzdk.ui.video.VideoFragment;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabReselectListener;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,6 +43,10 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import me.majiajie.pagerbottomtabstrip.MaterialMode;
+import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
+import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 /**
  * Author: lyl
@@ -56,21 +57,16 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.main_content)
     FrameLayout mainContent;
     @BindView(R.id.main_bottombar)
-    BottomBar mainBottombar;
+    PageNavigationView mainBottombar;
 
     private MainFragment mainFragment;
     private VideoFragment videoFragment;
     private SearchFragment searchFragment;
-    private ImagesFragment shopFragment;
+    private ImagesFragment imageFragment;
     private UserFragment userFragment;
 
     private Fragment oldFragment;
 
-    /**
-     * 是否第一次进入页面。
-     * 因为，Bottombar.setOnTabSelectListener 第一次就会被执行。
-     */
-    private boolean isFristInPage = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,67 +113,74 @@ public class MainActivity extends BaseActivity {
 
     //  —————————————————— ↓底部 Bar 处理↓ —————————————————————————
 
+    private PageNavigationView.MaterialBuilder addBottombarItem(PageNavigationView.MaterialBuilder materialBuilder,//
+                                                                int icon, int title, int color) {
+        return materialBuilder.addItem(icon, getString(title), ContextCompat.getColor(mContext, color));
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private void initBottombar() {
-        mainBottombar.setOnTabSelectListener(new OnTabSelectListener() {
+        PageNavigationView.MaterialBuilder material = mainBottombar.material();
+
+        addBottombarItem(material, R.drawable.ic_description_black_24dp, R.string.news_title, R.color.main_primary);
+        addBottombarItem(material, R.drawable.ic_video_library_black_24dp, R.string.video_title, R.color.video_primary);
+        addBottombarItem(material, R.drawable.ic_link_black_24dp, R.string.search_title, R.color.search_primary);
+        addBottombarItem(material, R.drawable.ic_shopping_cart_black_24dp, R.string.images_title, R.color.images_accent);
+        addBottombarItem(material, R.drawable.ic_account_box_black_24dp, R.string.user_title, R.color.user_accent);
+
+        NavigationController mNavigationController = material.setMode(MaterialMode.CHANGE_BACKGROUND_COLOR)
+                //这里可以设置样式模式，总共可以组合出4种效果
+                .build();
+
+        mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if (isFristInPage) {
-                    isFristInPage = false;
-                    return;
-                }
-                switch (tabId) {
-                    case R.id.tab_news: { // 资讯
+            public void onSelected(int index, int old) {
+                switch (index) {
+                    case 0: // 咨询
                         if (mainFragment == null) {
                             mainFragment = new MainFragment();
                         }
                         toFragment(mainFragment);
                         break;
-                    }
-                    case R.id.tab_video: { // 视频
+                    case 1: // 视频
                         if (videoFragment == null) {
                             videoFragment = new VideoFragment();
                         }
                         toFragment(videoFragment);
                         break;
-                    }
-                    case R.id.tab_search: { // 搜索
+                    case 2: // 搜索
                         if (searchFragment == null) {
                             searchFragment = new SearchFragment();
                         }
                         toFragment(searchFragment);
                         break;
-                    }
-                    case R.id.tab_shop: { // 好物
-                        if (shopFragment == null) {
-                            shopFragment = new ImagesFragment();
+                    case 3: // 图集
+                        if (imageFragment == null) {
+                            imageFragment = new ImagesFragment();
                         }
-                        toFragment(shopFragment);
+                        toFragment(imageFragment);
                         break;
-                    }
-                    case R.id.tab_user: { // 个人
+                    case 4: // 个人
                         if (userFragment == null) {
                             userFragment = new UserFragment();
                         }
                         toFragment(userFragment);
                         break;
-                    }
                 }
             }
-        });
 
-        mainBottombar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
-            public void onTabReSelected(@IdRes int tabId) {
-                switch (tabId) {
-                    case R.id.tab_news: {
+            public void onRepeat(int index) {
+                switch (index){
+                    case 0: // 咨询，连续点击两下
                         // 在 MainFragment 中 刷新数据
                         EventBus.getDefault().post(new MainLoadDataEvent(1));
                         break;
-                    }
                 }
+
             }
         });
+
     }
 
     /**
