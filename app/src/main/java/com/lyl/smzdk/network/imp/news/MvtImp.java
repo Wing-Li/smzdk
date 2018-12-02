@@ -21,17 +21,18 @@ import java.util.List;
 
 public class MvtImp {
 
-    private static String url = "http://m.xxxiao.com/";
+    private static String url = "http://m.xxxiao.com/new";
 
     public List<ImageMenu> getMenu() {
         List<ImageMenu> imageMenuList = new ArrayList<>();
         try {
             Connection connect = Jsoup.connect(url);
             Document jsoup = connect.get();
-            Elements elements = jsoup.select("div.row ul.sub-menu li a");
+            Elements elements = jsoup.select("div[id=main] div[id=content] div.menu-cmw-container ul[id=menu-cmw] li");
 
             ImageMenu menu;
             for (Element item : elements) {
+                item = item.select("a").first();
                 menu = new ImageMenu();
                 // 名称
                 menu.setName(item.text());
@@ -53,24 +54,32 @@ public class MvtImp {
         try {
             Connection connect = Jsoup.connect(url);
             Document jsoup = connect.get();
-            Elements elements = jsoup.select("div.row main article div.entry-thumb");
+            Elements elements = jsoup.select("div[id=main] div[id=content] article");
 
             ImageInfo imageInfo;
             for (Element item : elements) {
                 imageInfo = new ImageInfo();
 
+                Element titleElement = item.select("header h2 a").first();
                 // 标题
-                imageInfo.setTitle(item.select("a").first().attr("title"));
+                imageInfo.setTitle(titleElement.text());
                 // 链接详情
-                imageInfo.setDetial_url(item.select("a").first().attr("href"));
+                imageInfo.setDetial_url(titleElement.attr("href"));
 
-                Element img = item.select("img").first();
+                Element img = item.select("div.entry-thumbnail a img").first();
                 // 原图 宽
                 imageInfo.setWidth(Integer.parseInt(img.attr("width")));
                 // 原图 高
                 imageInfo.setHeight(Integer.parseInt(img.attr("height")));
                 // 原图 链接
-                imageInfo.setPic_url(img.attr("src"));
+                String imgUrl = img.attr("data-src");
+                String endType = imgUrl.substring(imgUrl.lastIndexOf("."));// 后缀名
+                String imgStartUrl = imgUrl.substring(0, imgUrl.lastIndexOf("-"));// 原图前缀
+                imageInfo.setPic_url("http:" + imgStartUrl + endType);
+
+                Element imgMsg = item.select("div.entry-excerpt p").first();
+                // 图集简介
+                imageInfo.setImgMsg(imgMsg.text());
 
                 imageInfoList.add(imageInfo);
             }
@@ -87,7 +96,7 @@ public class MvtImp {
         try {
             Connection connect = Jsoup.connect(detailUrl);
             Document jsoup = connect.get();
-            Elements elements = jsoup.select("div.row main div.single-content div.gallery a");
+            Elements elements = jsoup.select("div[id=main] div[id=content] article div.entry-content div.rgg-imagegrid a");
 
             ImageInfo imageInfo;
             for (Element item : elements) {
@@ -103,16 +112,16 @@ public class MvtImp {
                     String wh = thumb_url.substring(start + 1, end);
                     String[] split = wh.split("x");
 
-                    // 原图 宽
+                    // 缩略图 宽
                     imageInfo.setThumb_width(Integer.parseInt(split[0]));
-                    // 原图 高
+                    // 缩略图 高
                     imageInfo.setThumb_height(Integer.parseInt(split[1]));
                     // 缩略图地址
-                    imageInfo.setThumbUrl(thumb_url);
+                    imageInfo.setThumbUrl("http:" + thumb_url);
 
                     // 原图地址是 去掉缩略图 后面的尺寸
                     String pic_url = thumb_url.replace(thumb_url.substring(start, end), "");
-                    imageInfo.setPic_url(pic_url);
+                    imageInfo.setPic_url("http:" + pic_url);
 
                     imageInfoList.add(imageInfo);
                 } catch (Exception e) {

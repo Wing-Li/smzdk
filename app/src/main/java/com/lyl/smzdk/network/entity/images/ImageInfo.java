@@ -36,9 +36,18 @@ public class ImageInfo implements Serializable {
     private int height;
     private int size;
 
+    private String imgMsg;
     private String publish_time;
 
     private List<String> tags;
+
+    public String getImgMsg() {
+        return imgMsg;
+    }
+
+    public void setImgMsg(String imgMsg) {
+        this.imgMsg = imgMsg;
+    }
 
     public String getDetial_url() {
         return detial_url;
