@@ -75,7 +75,7 @@ public class MvtImp {
                 String imgUrl = img.attr("data-src");
                 String endType = imgUrl.substring(imgUrl.lastIndexOf("."));// 后缀名
                 String imgStartUrl = imgUrl.substring(0, imgUrl.lastIndexOf("-"));// 原图前缀
-                imageInfo.setPic_url("http:" + imgStartUrl + endType);
+                imageInfo.setPic_url(imgStartUrl + endType);
 
                 Element imgMsg = item.select("div.entry-excerpt p").first();
                 // 图集简介
@@ -96,15 +96,21 @@ public class MvtImp {
         try {
             Connection connect = Jsoup.connect(detailUrl);
             Document jsoup = connect.get();
-            Elements elements = jsoup.select("div[id=main] div[id=content] article div.entry-content div.rgg-imagegrid a");
+            Elements elements = jsoup.select("div[id=main] div[id=content] article div.entry-content figure");
 
             ImageInfo imageInfo;
             for (Element item : elements) {
                 try {
                     imageInfo = new ImageInfo();
 
+                    item = item.select("a").first();
+                    // 原图地址是 去掉缩略图 后面的尺寸
+                    String pic_url = item.attr("href");
+                    imageInfo.setPic_url(pic_url);
+
+                    item = item.select("img").first();
                     // 缩略图 链接
-                    String thumb_url = item.attr("data-src");
+                    String thumb_url = item.attr("src");
 
                     // 通过链接中的数值计算 宽高
                     int start = thumb_url.lastIndexOf("-");
@@ -117,11 +123,7 @@ public class MvtImp {
                     // 缩略图 高
                     imageInfo.setThumb_height(Integer.parseInt(split[1]));
                     // 缩略图地址
-                    imageInfo.setThumbUrl("http:" + thumb_url);
-
-                    // 原图地址是 去掉缩略图 后面的尺寸
-                    String pic_url = thumb_url.replace(thumb_url.substring(start, end), "");
-                    imageInfo.setPic_url("http:" + pic_url);
+                    imageInfo.setThumbUrl(thumb_url);
 
                     imageInfoList.add(imageInfo);
                 } catch (Exception e) {
