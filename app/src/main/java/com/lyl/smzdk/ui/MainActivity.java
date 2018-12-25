@@ -121,6 +121,7 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initBottombar() {
         PageNavigationView.MaterialBuilder material = mainBottombar.material();
+        material.setDefaultColor(ContextCompat.getColor(mContext, R.color.gary));
 
         addBottombarItem(material, R.drawable.ic_description_black_24dp, R.string.news_title, R.color.main_primary);
         addBottombarItem(material, R.drawable.ic_video_library_black_24dp, R.string.video_title, R.color.video_primary);
@@ -171,7 +172,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onRepeat(int index) {
-                switch (index){
+                switch (index) {
                     case 0: // 咨询，连续点击两下
                         // 在 MainFragment 中 刷新数据
                         EventBus.getDefault().post(new MainLoadDataEvent(1));

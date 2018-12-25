@@ -124,7 +124,7 @@ public class VideoPlayerActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<VideoInflaterInfo> call, Throwable t) {
-
+                t.getMessage();
             }
         });
 

@@ -39,6 +39,7 @@ import com.lyl.smzdk.ui.main.news.menu.MenuDataPresenter;
 import com.lyl.smzdk.ui.main.news.menu.MenuListActivity;
 import com.lyl.smzdk.utils.DisplayUtil;
 import com.lyl.smzdk.utils.ImgUtils;
+import com.lyl.smzdk.utils.MyUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -143,32 +144,35 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
         channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
         mNewChannelList.add(channel);
 
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_duzhe));
-        channel.setImageRes(R.drawable.duzhe_icon);
-        channel.setType(Constans.NEWS_TYPE_DUZHE);
-        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
-        mNewChannelList.add(channel);
+        // 注册过之后才能看第二行的内容
+        if (MyUtils.isVipNormal(getHolder())) {
 
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_neihan));
-        channel.setImageRes(R.drawable.neihan_icon);
-        channel.setType(Constans.NEWS_TYPE_XIUXIAN);
-        channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
-        mNewChannelList.add(channel);
+            channel = new NewMenu();
+            channel.setName(getString(R.string.menu_duzhe));
+            channel.setImageRes(R.drawable.duzhe_icon);
+            channel.setType(Constans.NEWS_TYPE_DUZHE);
+            channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
+            mNewChannelList.add(channel);
 
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_meinv));
-        channel.setImageRes(R.drawable.girl_icon);
-        channel.setType(Constans.NEWS_TYPE_MEINV);
-        mNewChannelList.add(channel);
+            channel = new NewMenu();
+            channel.setName(getString(R.string.menu_neihan));
+            channel.setImageRes(R.drawable.neihan_icon);
+            channel.setType(Constans.NEWS_TYPE_XIUXIAN);
+            channel.setShowType(Constans.SHOW_ITEM_CONTENT_2);
+            mNewChannelList.add(channel);
 
-        channel = new NewMenu();
-        channel.setName(getString(R.string.menu_gif));
-        channel.setImageRes(R.drawable.gif_icon);
-        channel.setType(Constans.NEWS_TYPE_GIF_WEB);
-        mNewChannelList.add(channel);
+            channel = new NewMenu();
+            channel.setName(getString(R.string.menu_meinv));
+            channel.setImageRes(R.drawable.girl_icon);
+            channel.setType(Constans.NEWS_TYPE_MEINV);
+            mNewChannelList.add(channel);
 
+            channel = new NewMenu();
+            channel.setName(getString(R.string.menu_gif));
+            channel.setImageRes(R.drawable.gif_icon);
+            channel.setType(Constans.NEWS_TYPE_GIF_WEB);
+            mNewChannelList.add(channel);
+        }
     }
 
     /**
@@ -272,7 +276,7 @@ public class MainFragment extends BaseFragment implements MenuContract.View {
             public void onSuccess(Announcement entiry) {
                 // 检查最新的公告是否已经读过，设置公告是否显示
                 AnnounceImp announceImp = new AnnounceImp(getHolder());
-                if (announceImp.isExits(entiry.getId())){
+                if (announceImp.isExits(entiry.getId())) {
                     mainNewNoticeLayout.setVisibility(View.GONE);
                 } else {
                     mainNewNoticeLayout.setVisibility(View.VISIBLE);

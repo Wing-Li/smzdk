@@ -27,9 +27,9 @@ public class DzImp {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         NewMenu menu = new NewMenu();
-        menu.setName("文章");
-        menu.setType("39");
-        newMenuList.add(menu);
+//        menu.setName("文章");
+//        menu.setType("39");
+//        newMenuList.add(menu);
 
         menu = new NewMenu();
         menu.setName("图书");

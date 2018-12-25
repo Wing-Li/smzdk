@@ -26,14 +26,9 @@ public class WabaImp {
         List<NewMenu> newMenuList = new ArrayList<>();
 
         NewMenu menu = new NewMenu();
-        menu.setName("推荐");
-        menu.setType("nearest");
-        newMenuList.add(menu);
-
-        menu = new NewMenu();
-        menu.setName("内涵");
-        menu.setType("wuduanzi/latest");
-        newMenuList.add(menu);
+//        menu.setName("推荐");
+//        menu.setType("nearest");
+//        newMenuList.add(menu);
 
         menu = new NewMenu();
         menu.setName("段子");
@@ -43,6 +38,11 @@ public class WabaImp {
         menu = new NewMenu();
         menu.setName("搞笑");
         menu.setType("gaoxiaotu/latest");
+        newMenuList.add(menu);
+
+        menu = new NewMenu();
+        menu.setName("内涵");
+        menu.setType("wuduanzi/latest");
         newMenuList.add(menu);
 
         menu = new NewMenu();
