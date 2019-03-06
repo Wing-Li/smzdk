@@ -118,6 +118,12 @@ public class BtImp {
     public static List<BtInfo> getList3(String type, int p) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
+        try {
+            type = URLEncoder.encode(type,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         // http://sosocili.org/soso/%1$s/%2$s-0-0.html
         String url = String.format("http://sosocili.org/soso/%1$s/%2$s-0-0.html", type, p);
         LogUtils.d("BT-2:" + url);
@@ -125,7 +131,8 @@ public class BtImp {
             Connection connect = Jsoup.connect(url);
 
             Document jsoup = connect.get();
-            Elements post_list = jsoup.select("div.wrap div.am-container div.search_list dl.item");
+            LogUtils.d(jsoup.html());
+            Elements post_list = jsoup.select("div.search_list dl");
 
             BtInfo info;
             for (Element element : post_list) {
@@ -153,8 +160,8 @@ public class BtImp {
         return infoList;
     }
 
-    private static final String SHABIBA_BASE = "http://findcl.com";
-    private static final String SHABIBA_URL = SHABIBA_BASE + "/list?q=%1$s&page=%1$s";
+    private static final String SHABIBA_BASE = "https://www.findcl.co";
+    private static final String SHABIBA_URL = SHABIBA_BASE + "/list?q=%1$s&page=%2$s";
 
     /**
      * 傻逼吧
@@ -162,12 +169,13 @@ public class BtImp {
     public static List<BtInfo> getList4(String content, int page) {
         List<BtInfo> infoList = new ArrayList<BtInfo>();
 
-        String url = String.format(SHABIBA_URL, content, page + 1);
+        String url = String.format(SHABIBA_URL, content, page);
         LogUtils.d("BT-4:" + url);
         try {
             Connection connect = Jsoup.connect(url);
             Document jsoup = connect.get();
-            Elements list_group = jsoup.select("div.list-container ul.list li");
+            // div.list-container
+            Elements list_group = jsoup.select("ul.list li");
 
             BtInfo info;
             for (Element element : list_group) {
