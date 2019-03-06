@@ -11,22 +11,18 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
+import com.lyl.smzdk.network.Network;
+import com.lyl.smzdk.network.entity.images.Album;
 import com.lyl.smzdk.network.entity.images.ImageInfo;
-import com.lyl.smzdk.network.imp.news.MvtImp;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseFragment;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ImagesListFragment extends BaseFragment {
 
@@ -38,7 +34,6 @@ public class ImagesListFragment extends BaseFragment {
     @BindView(R.id.image_swiperefresh)
     SwipeRefreshLayout imageSwiperefresh;
 
-    private MvtImp mImgsImp;
     private String mTitle;
     private String mType;
 
@@ -100,7 +95,7 @@ public class ImagesListFragment extends BaseFragment {
                 }
 
                 Intent intent = new Intent(getHolder(), SummaryImagesActivity.class);
-                intent.putExtra(SummaryImagesActivity.IMAGE_LIST_TYPE, imageInfo.getDetial_url());
+                intent.putExtra(SummaryImagesActivity.IMAGE_LIST_ALBUM_ID, imageInfo.getAlbumId());
                 intent.putExtra(SummaryImagesActivity.IMAGE_LIST_TITLE, imageInfo.getTitle());
                 startActivity(intent);
             }
@@ -120,61 +115,48 @@ public class ImagesListFragment extends BaseFragment {
     }
 
     private void loadData() {
-        if (mImgsImp == null) {
-            mImgsImp = new MvtImp();
-        }
-
         showRefresh();
 
-        Observable.create(new ObservableOnSubscribe<List<ImageInfo>>() {
+        Observable<BaseCallBack<List<Album>>> albumRandomList = Network.getMyMnApi().getAlbumRandomList(Long.parseLong(mType));
+        new MyApiImp<List<Album>>().request(albumRandomList, new MyApiImp.NetWorkCallBack<List<Album>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<ImageInfo>> observableEmitter) throws Exception {
-                List<ImageInfo> summary = mImgsImp.getSummary(mType, page);
-                observableEmitter.onNext(summary);
-            }
-        })//
-                .subscribeOn(Schedulers.io())//
-                .observeOn(AndroidSchedulers.mainThread())//
-                .subscribe(new Observer<List<ImageInfo>>() {
-                    @Override
-                    public void onSubscribe(Disposable disposable) {
+            public void onSuccess(List<Album> albumList) {
+                if (albumList != null && albumList.size() > 0) {
 
+                    List<ImageInfo> data = new ArrayList<>();
+                    ImageInfo imageInfo;
+                    for (Album album : albumList) {
+                        imageInfo = new ImageInfo();
+                        imageInfo.setAlbumId(album.getId());
+                        imageInfo.setTitle(album.getName());
+                        imageInfo.setPic_url(album.getImageUrl());
+                        data.add(imageInfo);
                     }
 
+                    if (isRefresh) {
+                        mImagesListApapter.setNewData(data);
+                        isRefresh = false;
+                    } else {
+                        mImagesListApapter.addData(data);
+                    }
+                    page ++;
+                    mImagesListApapter.loadMoreComplete();
+                }
+                closeRefresh();
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                getHolder().runOnUiThread(new Runnable() {
                     @Override
-                    public void onNext(List<ImageInfo> imageInfos) {
-                        if (imageInfos != null && imageInfos.size() > 0) {
-                            if (isRefresh) {
-                                mImagesListApapter.setNewData(imageInfos);
-                                isRefresh = false;
-                            } else {
-                                mImagesListApapter.addData(imageInfos);
-                            }
-                            page ++;
-                            mImagesListApapter.loadMoreComplete();
-                        }
+                    public void run() {
+                        showToast(R.string.net_error);
                         closeRefresh();
                     }
-
-                    @Override
-                    public void onError(final Throwable throwable) {
-                        getHolder().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showToast(R.string.net_error);
-                                if (throwable != null) {
-                                    CrashReport.postCatchedException(throwable);
-                                }
-                                closeRefresh();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
+            }
+        });
+
     }
 
     private void closeRefresh() {

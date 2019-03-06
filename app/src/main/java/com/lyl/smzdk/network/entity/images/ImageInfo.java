@@ -1,6 +1,7 @@
 package com.lyl.smzdk.network.entity.images;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,54 @@ public class ImageInfo implements Serializable {
     private String publish_time;
 
     private List<String> tags;
+
+    // MyMnApi 获取图片信息
+    private long userId = 0L;
+    private long albumId = 0L;
+    private String imageUrl = "";
+    private Date createTime;
+    private Date updateTime;
+
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(long albumId) {
+        this.albumId = albumId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public String getImgMsg() {
         return imgMsg;

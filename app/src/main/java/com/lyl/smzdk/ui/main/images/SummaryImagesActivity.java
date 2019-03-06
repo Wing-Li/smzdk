@@ -12,14 +12,15 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
+import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.images.ImageInfo;
-import com.lyl.smzdk.network.imp.news.MvtImp;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.ui.image.SpecialImageActivity;
 import com.lyl.smzdk.utils.MyUtils;
 import com.lyl.smzdk.utils.SnackbarUtils;
 import com.lyl.smzdk.view.layoutmanager.LinearLayoutManagerWrapper;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +28,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class SummaryImagesActivity extends BaseActivity {
 
+    public static final String IMAGE_LIST_ALBUM_ID = "image_list_album_id";
     public static final String IMAGE_LIST_TYPE = "image_list_type";
     public static final String IMAGE_LIST_TITLE = "image_list_title";
 
@@ -44,9 +40,8 @@ public class SummaryImagesActivity extends BaseActivity {
     @BindView(R.id.image_swiperefresh)
     SwipeRefreshLayout imageSwiperefresh;
 
-    private MvtImp mImgsImp;
     private String mTitle;
-    private String mType;
+    private long mAlbumId;
 
     private List<ImageInfo> mInfoList;
     private ImagesListApapter mImagesListApapter;
@@ -63,7 +58,7 @@ public class SummaryImagesActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mType = intent.getStringExtra(IMAGE_LIST_TYPE);
+        mAlbumId = intent.getLongExtra(IMAGE_LIST_ALBUM_ID, 0);
         mTitle = intent.getStringExtra(IMAGE_LIST_TITLE);
 
         setListView();
@@ -130,73 +125,40 @@ public class SummaryImagesActivity extends BaseActivity {
     }
 
     private void loadData() {
-        if (mImgsImp == null) {
-            mImgsImp = new MvtImp();
-        }
-
         showRefresh();
-        Observable.create(new ObservableOnSubscribe<List<ImageInfo>>() {
+
+        Observable<BaseCallBack<List<ImageInfo>>> albumImageList = Network.getMyMnApi().getAlbumImageList(mAlbumId);
+        new MyApiImp<List<ImageInfo>>().request(albumImageList, new MyApiImp.NetWorkCallBack<List<ImageInfo>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<ImageInfo>> observableEmitter) throws Exception {
-
-                List<ImageInfo> details = mImgsImp.getDetails(mType);
-
+            public void onSuccess(List<ImageInfo> imageInfos) {
                 // 没有登录
                 if (!MyUtils.isLogin(mContext)) {
-                    details = details.subList(0, 3);
-
+                    imageInfos = imageInfos.subList(0, 3);
                 } else if (MyUtils.isVipNormal(mContext)) {// 普通会员
-                    details = details.subList(0, 7);
-
+                    imageInfos = imageInfos.subList(0, 7);
                 } else if (MyUtils.isVipRecharge(mContext)) {//充值会员
                     // 全部显示
                 }
 
-                observableEmitter.onNext(details);
+                if (imageInfos != null && imageInfos.size() > 0) {
+
+                    if (isRefresh) {
+                        mImagesListApapter.setNewData(imageInfos);
+                        isRefresh = false;
+                    } else {
+                        mImagesListApapter.addData(imageInfos);
+                    }
+                    mImagesListApapter.loadMoreEnd();
+                }
+                closeRefresh();
             }
-        })//
-                .subscribeOn(Schedulers.io())//
-                .observeOn(AndroidSchedulers.mainThread())//
-                .subscribe(new Observer<List<ImageInfo>>() {
-                    @Override
-                    public void onSubscribe(Disposable disposable) {
 
-                    }
-
-                    @Override
-                    public void onNext(List<ImageInfo> imageInfos) {
-                        if (imageInfos != null && imageInfos.size() > 0) {
-
-                            if (isRefresh) {
-                                mImagesListApapter.setNewData(imageInfos);
-                                isRefresh = false;
-                            } else {
-                                mImagesListApapter.addData(imageInfos);
-                            }
-                            mImagesListApapter.loadMoreEnd();
-                        }
-                        closeRefresh();
-                    }
-
-                    @Override
-                    public void onError(final Throwable throwable) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showToast(R.string.net_error);
-                                if (throwable != null) {
-                                    CrashReport.postCatchedException(throwable);
-                                }
-                                closeRefresh();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+            @Override
+            public void onFail(int code, String msg) {
+                showToast(R.string.net_error);
+                closeRefresh();
+            }
+        });
     }
 
     private void closeRefresh() {

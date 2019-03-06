@@ -15,9 +15,11 @@ import android.view.WindowManager;
 import com.lyl.smzdk.MyApp;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.R2;
+import com.lyl.smzdk.network.Network;
 import com.lyl.smzdk.network.entity.images.ImageMenu;
+import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
+import com.lyl.smzdk.network.imp.MyApiImp;
 import com.lyl.smzdk.network.imp.news.GifImp;
-import com.lyl.smzdk.network.imp.news.MvtImp;
 import com.lyl.smzdk.ui.BaseActivity;
 import com.lyl.smzdk.utils.StatusBarCompat;
 import com.lyl.smzdk.view.ActionBar;
@@ -90,20 +92,30 @@ public class ImagesActivity extends BaseActivity {
 
         Observable.create(new ObservableOnSubscribe<List<ImageMenu>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<ImageMenu>> observableEmitter) throws Exception {
+            public void subscribe(final ObservableEmitter<List<ImageMenu>> observableEmitter) throws Exception {
                 List<ImageMenu> menu = new ArrayList<>();
                 switch (mType) {
+
                     case IMG_TYPE_SOGOU_IMG:
-                        MvtImp mvtImp = new MvtImp();
-                        menu = mvtImp.getMenu();
+                        Observable<BaseCallBack<List<ImageMenu>>> rankType = Network.getMyMnApi().getRankType();
+                        new MyApiImp<List<ImageMenu>>().request(rankType, new MyApiImp.NetWorkCallBack<List<ImageMenu>>() {
+                            @Override
+                            public void onSuccess(List<ImageMenu> menu) {
+                                observableEmitter.onNext(menu);
+                            }
+
+                            @Override
+                            public void onFail(int code, String msg) {
+                            }
+                        });
                         break;
+
                     case IMG_TYPE_SOGOU_GIF:
                         GifImp gifImp = new GifImp();
                         menu = gifImp.getMenu();
+                        observableEmitter.onNext(menu);
                         break;
                 }
-
-                observableEmitter.onNext(menu);
             }
         })//
                 .subscribeOn(Schedulers.io())//

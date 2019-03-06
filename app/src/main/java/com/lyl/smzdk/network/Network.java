@@ -6,6 +6,7 @@ import com.lyl.smzdk.network.api.DownloadFile;
 import com.lyl.smzdk.network.api.ImgsApi;
 import com.lyl.smzdk.network.api.LzsApi;
 import com.lyl.smzdk.network.api.MyApi;
+import com.lyl.smzdk.network.api.MyMnApi;
 import com.lyl.smzdk.network.api.NeihanApi;
 import com.lyl.smzdk.network.api.VideoInflaterApi;
 import com.lyl.smzdk.network.api.XgApi;
@@ -64,6 +65,10 @@ public class Network {
      * MyApi
      */
     private final static String URL_MYAPI = BuildConfig.URL_MYAPI;
+    /**
+     * MyApi 我的图片
+     */
+    private final static String MYAPI_MN = BuildConfig.MYAPI_MN;
 
 
     private static final int DEFAULT_TIMEOUT = 15;
@@ -77,6 +82,7 @@ public class Network {
     private static ImgsApi imgsApi;
     private static LzsApi lzsApi;
     private static MyApi myApi;
+    private static MyMnApi myMnApi;
 
     static {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -226,5 +232,21 @@ public class Network {
             myApi = retrofit.create(MyApi.class);
         }
         return myApi;
+    }
+
+    /**
+     * MyApi 图片
+     */
+    public static MyMnApi getMyMnApi() {
+        if (myMnApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()//
+                    .client(httpClient)//
+                    .baseUrl(MYAPI_MN)//
+                    .addConverterFactory(MyGsonConverterFactory.create())//
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+            myMnApi = retrofit.create(MyMnApi.class);
+        }
+        return myMnApi;
     }
 }
