@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.constans.Constans;
 import com.lyl.smzdk.network.Network;
@@ -86,7 +88,9 @@ public class SummaryImagesActivity extends BaseActivity {
                 }
 
                 Intent intent = new Intent(mContext, SpecialImageActivity.class);
-                intent.putExtra(Constans.SPECIAL_IMAGE_URL, imageInfo.getPic_url());
+                String pic_url = imageInfo.getPic_url();
+                if (TextUtils.isEmpty(pic_url)) pic_url = imageInfo.getImageUrl();
+                intent.putExtra(Constans.SPECIAL_IMAGE_URL, BuildConfig.IMAGE_BASE_URL + pic_url);
                 if (imageInfo.getHeight() > 2500) {
                     intent.putExtra(Constans.SPECIAL_IMAGE_TYPE, Constans.SPECIAL_IMAGE_LONG);
                 }

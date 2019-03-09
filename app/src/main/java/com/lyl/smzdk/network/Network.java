@@ -90,7 +90,7 @@ public class Network {
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         // compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
         // compile 'com.squareup.okhttp3:okhttp:3.8.0'
-        if ("dev".equals(BuildConfig.Environment)) {
+        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             httpClientBuilder.addInterceptor(logging);
@@ -242,7 +242,7 @@ public class Network {
             Retrofit retrofit = new Retrofit.Builder()//
                     .client(httpClient)//
                     .baseUrl(MYAPI_MN)//
-                    .addConverterFactory(MyGsonConverterFactory.create())//
+                    .addConverterFactory(GsonConverterFactory.create())//
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
             myMnApi = retrofit.create(MyMnApi.class);

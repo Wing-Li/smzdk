@@ -8,6 +8,7 @@ import com.lyl.smzdk.network.entity.myapi.BaseCallBack;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -28,7 +29,7 @@ public interface MyMnApi {
     /**
      * 获取排行榜的类型
      */
-    @POST("ranktype/getAll")
+    @GET("ranktype/getAll")
     Observable<BaseCallBack<List<ImageMenu>>> getRankType();
 
     /**

@@ -41,6 +41,8 @@ android {
             resValue("string", "app_name", "值得看-DEV")
 
             buildConfigField("String", "URL_MYAPI", '"http://127.0.0.1:8080/api/"')
+            buildConfigField("String", "MYAPI_MN", '"http://mvimg.lylyl.cn:8089/api/"')
+            buildConfigField("String", "IMAGE_BASE_URL", '"http://qnimg.lylyl.cn/"')
             buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
             buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
             buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
@@ -57,6 +59,8 @@ android {
             resValue("string", "app_name", "值得看-STAGE")
 
             buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8010/api/"')
+            buildConfigField("String", "MYAPI_MN", '"http://mvimg.lylyl.cn:8089/api/"')
+            buildConfigField("String", "IMAGE_BASE_URL", '"http://qnimg.lylyl.cn/"')
             buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
             buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
             buildConfigField("String", "QiniuBucket", '"lyl-smzdk-stage"')
@@ -71,6 +75,8 @@ android {
             resValue("string", "app_name", "值得看")
 
             buildConfigField("String", "URL_MYAPI", '"http://smzdk.lylyl.cn:8015/api/"')
+            buildConfigField("String", "MYAPI_MN", '"http://mvimg.lylyl.cn:8089/api/"')
+            buildConfigField("String", "IMAGE_BASE_URL", '"http://qnimg.lylyl.cn/"')
             buildConfigField("String", "QiniuAK", properties.getProperty('QiniuAK'))
             buildConfigField("String", "QiniuSK", properties.getProperty('QiniuSK'))
             buildConfigField("String", "QiniuBucket", '"lyl-smzdk"')

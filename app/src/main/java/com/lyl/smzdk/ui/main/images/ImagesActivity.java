@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.lyl.smzdk.MyApp;
@@ -26,6 +27,7 @@ import com.lyl.smzdk.view.ActionBar;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,7 +103,9 @@ public class ImagesActivity extends BaseActivity {
                         new MyApiImp<List<ImageMenu>>().request(rankType, new MyApiImp.NetWorkCallBack<List<ImageMenu>>() {
                             @Override
                             public void onSuccess(List<ImageMenu> menu) {
-                                observableEmitter.onNext(menu);
+                                Collections.reverse(menu);
+                                List<ImageMenu> imageMenus = menu.subList(0, 1);
+                                observableEmitter.onNext(imageMenus);
                             }
 
                             @Override
@@ -131,9 +135,9 @@ public class ImagesActivity extends BaseActivity {
                         mImageMenuList = imageMenus;
                         // 设置每个目录的页面
                         imagesViewpager.setAdapter(mFragmentPagerAdapter);
-
                         // 绑定 Tablayout 和 Viewpager
                         imagesTablayout.setupWithViewPager(imagesViewpager);
+                        imagesTablayout.setVisibility(View.GONE);
 
                         // 隐藏加载进度
                         hideDialog();
@@ -178,7 +182,7 @@ public class ImagesActivity extends BaseActivity {
 
             switch (mType) {
                 case IMG_TYPE_SOGOU_IMG:
-                    fragment = ImagesListFragment.newInstance(menuInfo.getType(), menuInfo.getName());
+                    fragment = ImagesListFragment.newInstance(String.valueOf(menuInfo.getId()), menuInfo.getName());
                     break;
 
                 case IMG_TYPE_SOGOU_GIF:

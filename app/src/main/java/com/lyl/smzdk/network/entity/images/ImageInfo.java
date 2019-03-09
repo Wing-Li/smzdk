@@ -1,7 +1,6 @@
 package com.lyl.smzdk.network.entity.images;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,8 +45,8 @@ public class ImageInfo implements Serializable {
     private long userId = 0L;
     private long albumId = 0L;
     private String imageUrl = "";
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
 
 
     public long getUserId() {
@@ -74,19 +73,19 @@ public class ImageInfo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

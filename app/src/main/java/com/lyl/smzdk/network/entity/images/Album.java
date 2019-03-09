@@ -1,7 +1,5 @@
 package com.lyl.smzdk.network.entity.images;
 
-import java.util.Date;
-
 /**
  * Author: startiasoft
  * Date Created : 2019/3/6.
@@ -15,8 +13,8 @@ public class Album {
     private String name = "";
     private String imageUrl = "";
     private String tags = "";
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
 
     public long getRankId() {
         return rankId;
@@ -66,19 +64,19 @@ public class Album {
         this.tags = tags;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 }

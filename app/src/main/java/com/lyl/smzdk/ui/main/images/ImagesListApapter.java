@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lyl.smzdk.BuildConfig;
 import com.lyl.smzdk.R;
 import com.lyl.smzdk.network.entity.images.ImageInfo;
 import com.lyl.smzdk.ui.main.news.list.MyBaseViewHolder;
@@ -31,8 +32,9 @@ public class ImagesListApapter extends BaseQuickAdapter<ImageInfo, MyBaseViewHol
         } else {
             holder.setText(R.id.item_images_title, title);
         }
-
-        ImgUtils.load(mContext, shopInfo.getPic_url(), (ImageView) holder.getView(R.id.item_images_img));
+        String pic_url = shopInfo.getPic_url();
+        if (TextUtils.isEmpty(pic_url)) pic_url = shopInfo.getImageUrl();
+        ImgUtils.load(mContext, BuildConfig.IMAGE_BASE_URL + pic_url, (ImageView) holder.getView(R.id.item_images_img));
 
 //        int w = shopInfo.getWidth();
 //        int h = shopInfo.getHeight();
